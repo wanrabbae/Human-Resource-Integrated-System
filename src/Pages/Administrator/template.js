@@ -288,7 +288,7 @@ function Template() {
               <ListItemButton
                 style={{ color: "#00000080" }}
                 className="mt-2"
-                onClick={() => {}}
+                onClick={() => {window.location.href='/administration/recruitment'}}
               >
                 <ListItemIcon>
                   <svg

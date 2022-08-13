@@ -1,18 +1,7 @@
 
 import { useState } from "react";
-import { Plus,Eye,FileText,DotsThreeOutline } from "phosphor-react";
+import { Plus,Eye,FileText,DotsThreeOutline,MagnifyingGlass } from "phosphor-react";
 import { Button, Modal,Table } from "react-bootstrap";
-
-// const textFocus = {
-//     input:onfocu {
-
-//     },
-//     wrapper: {
-//       textAlign: "center",
-//       margin: "0 auto",
-//       marginTop: "50px"
-//     }
-//   }
 
 function Recruitment() {
     const [modal, setModal] = useState(false);
@@ -25,9 +14,14 @@ function Recruitment() {
                     <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>list of recruitment form </span>
                 </div>
                 <div className="d-flex">
-                    <input style={{borderRadius:'10px',border:'1.5px solid #CACACA',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} onChange={(val)=>{}} className="me-3" type="text" placeholder=" Search Demand Letter"/>
-                    <button style={{border:'1.5px solid #CACACA',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href='/administration/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
-                    <button style={{backgroundColor:"#0E5073",fontSize:"14px",fontWeight:'500'}} className="btn d-flex align-items-center text-white" onClick={() => setModal(true)} type=""><Plus size={15} className="me-2" weight="bold" />Create Recruitment</button>
+                    <div className="input-group me-3 align-items-center w-auto" style={{borderRadius:'10px',border:'1.5px solid #CACACA',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}}>
+                            <div class="input-group-prepend">
+                                <span class="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
+                            </div>
+                            <input style={{border:'0',outline:'none',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 focus:outline-0"  type="search" placeholder=" Search Demand Letter"/>
+                        </div>
+                    <button style={{borderRadius:'10px',border:'1.5px solid #CACACA',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href='/administration/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
+                    <button style={{borderRadius:'10px',backgroundColor:"#0E5073",fontSize:"14px",fontWeight:'500'}} className="btn d-flex align-items-center text-white" onClick={() => setModal(true)} type=""><Plus size={15} className="me-2" weight="bold" />Create Recruitment</button>
                 </div>
             </div>
             <div className="container-fluid">

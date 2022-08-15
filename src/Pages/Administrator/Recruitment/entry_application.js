@@ -2,7 +2,7 @@ import * as React from 'react';
 import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Plus,Eye,FileText,DotsThreeOutline,MagnifyingGlass } from "phosphor-react";
-import Dropdown from 'react-bootstrap/Dropdown';
+import {Dropdown} from 'react-bootstrap';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';

@@ -9,11 +9,13 @@ import Recruitment from './Pages/Administrator/Recruitment/recruitment';
 import EntryApplication from './Pages/Administrator/Recruitment/entry_application';
 import Users from './Pages/Administrator/Admin/Users';
 import CustomField from './Pages/Employee/Configuration/CustomField';
-import Users from './Pages/Administrator/Admin/UserManagement/Users';
+// import Users from './Pages/Administrator/Admin/UserManagement/Users';
 import JobTitle from './Pages/Administrator/Admin/Job/JobTitle';
 import JobGrade from './Pages/Administrator/Admin/Job/JobGrade';
 import EmployeeStatus from './Pages/Administrator/Admin/Job/EmployeeStatus';
 import JobCategories from './Pages/Administrator/Admin/Job/JobCategories';
+import ProfileTemplate from './Pages/Administrator/Profile/profile_template';
+import PersonalDetail from './Pages/Administrator/Profile/personal_detail';
 
 function App() {
   return (

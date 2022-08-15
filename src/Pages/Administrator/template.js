@@ -288,7 +288,7 @@ function Template() {
             <ListItemButton
               style={{ color: "#00000080" }}
               className="mt-2"
-              onClick={() => { window.location.href = '/administration/recruitment' }}
+              onClick={() => { window.location.href = '/admin/recruitment' }}
             >
               <ListItemIcon>
                 <svg
@@ -311,7 +311,7 @@ function Template() {
             <ListItemButton
               style={{ color: "#00000080" }}
               className="mt-2"
-              onClick={() => { }}
+              onClick={() => { window.location.href = '/admin/profile' }}
             >
               <ListItemIcon>
                 <svg
@@ -352,7 +352,7 @@ function Template() {
             </ListItemButton>
           </div>
         </aside>
-        <div className="ml-auto h-screen w-9/12 p-5 space-y-5 p-5">
+        <div className="ml-auto w-9/12 p-5 space-y-5 p-5">
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <h6>
@@ -375,6 +375,7 @@ function Template() {
                 <Notifications />
               </IconButton>
               <Button
+                onClick={() => { window.location.href = '/admin/profile' }}
                 variant="contained"
                 style={{
                   backgroundColor: "#C1121F20",

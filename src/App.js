@@ -7,7 +7,11 @@ import Home from './Pages/Administrator/Admin/Home';
 import Optionals from './Pages/Employee/Configuration/Optionals';
 import Recruitment from './Pages/Administrator/Recruitment/recruitment';
 import EntryApplication from './Pages/Administrator/Recruitment/entry_application';
-import Users from './Pages/Administrator/Admin/Users';
+import Users from './Pages/Administrator/Admin/UserManagement/Users';
+import JobTitle from './Pages/Administrator/Admin/Job/JobTitle';
+import JobGrade from './Pages/Administrator/Admin/Job/JobGrade';
+import EmployeeStatus from './Pages/Administrator/Admin/Job/EmployeeStatus';
+import JobCategories from './Pages/Administrator/Admin/Job/JobCategories';
 
 function App() {
   return (

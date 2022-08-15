@@ -4,11 +4,13 @@ import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, Ed
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
 import { useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
-import TextFieldSearch from "../../../Components/TextField";
+import TextFieldSearch from "../../../../Components/TextField";
+
 
 function Users() {
     const [dialogUser, setUser] = useState(false);
     const [dialogEditUser, setEditUser] = useState(false);
+    const [dialogFilter, setFilter] = useState(false);
     const [changePassword, setPassword] = useState(false);
     return (
         <>
@@ -18,7 +20,7 @@ function Users() {
                 <br></br>
                 <div className="d-flex justify-content-between">
                     <div>
-                        <Button style={{ color: "#003049", border: "1px solid #00000040", borderRadius: "7px", backgroundColor: "transparent", }} variant="contained" startIcon={<FilterList />}>Filter</Button>
+                        <Button onClick={() => setFilter(!dialogFilter)} style={{ color: "#003049", border: "1px solid #00000040", borderRadius: "7px", backgroundColor: "transparent", }} variant="contained" startIcon={<FilterList />}>Filter</Button>
                     </div>
                     <div className="d-flex">
                         <TextFieldSearch />
@@ -234,9 +236,62 @@ function Users() {
                     </button>
                 </Modal.Footer>
             </Modal>
+
+            <Modal size="lg" show={dialogFilter} onHide={() => setFilter(!dialogFilter)}>
+                <Modal.Header
+                    closeButton
+                    className="m-4"
+                    style={{ borderBottomColor: "transparent", }}>
+                    <Modal.Title>Users Filter</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body className="mx-4">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <label>User Role</label>
+                                <select className="form-control">
+                                    <option>Select user role</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <label>Status</label>
+                                <select className="form-control">
+                                    <option>Select status</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer className="m-4">
+                    <button
+                        className="btn"
+                        style={{
+                            backgroundColor: "#737373",
+                            border: "1px solid transparent",
+                            color: "#FFFFFF",
+                            width: "100px",
+                        }}
+                        onClick={() => setFilter(!dialogFilter)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className="btn"
+                        style={{
+                            backgroundColor: "#0E5073",
+                            border: "1px solid transparent",
+                            color: "#FFFFFF",
+                            width: "100px",
+                        }}
+                    >
+                        Submit
+                    </button>
+                </Modal.Footer>
+            </Modal>
         </>
-
-
     );
 }
 

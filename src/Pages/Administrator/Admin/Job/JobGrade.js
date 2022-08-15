@@ -1,0 +1,198 @@
+import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
+import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
+import { useState } from "react";
+import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
+
+function JobGrade() {
+    const [dialogTitle, setTitle] = useState(false);
+    const [dialogEditTitle, setEditTitle] = useState(false);
+    return (
+        <>
+            <div className="w-100 bg-light p-4" style={{ borderRadius: "10px" }}>
+                <h5><b>Job Grade</b></h5>
+                <p><small>list of job grade</small></p>
+                <br></br>
+                <div className="d-flex justify-content-between">
+                    <div>
+                        <Button style={{ color: "#003049", border: "1px solid #00000040", borderRadius: "7px", backgroundColor: "transparent", }} variant="contained" startIcon={<DeleteOutline />}>Delete</Button>
+                    </div>
+                    <div>
+                        <Button onClick={() => {
+                            setTitle(!dialogTitle);
+                        }} style={{ color: "#FFFFFF", borderRadius: "7px", backgroundColor: "#0E5073", }} variant="contained" startIcon={<Add />}>Add Job Grade</Button>
+                    </div>
+                </div>
+                <br></br>
+                <Table borderless responsive>
+                    <thead>
+                        <tr style={{ backgroundColor: "#EBF7FF" }}>
+                            <th width="10px"><input type="checkbox" style={{ borderRadius: "2px", }} /></th>
+                            <th onClick={() => { }}>Grade Name <ImportExport fontSize="2px" /></th>
+                            <th onClick={() => { }}>Currency</th>
+                            <th onClick={() => { }}>Minimum salary</th>
+                            <th onClick={() => { }}>Maximum salary</th>
+                            <th onClick={() => { }}>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                            <td className="align-middle" style={{ minWidth: "200px", }}>Grade 1</td>
+                            <td className="align-middle">IDR (Indonesia Rupiah)</td>
+                            <td className="align-middle">1.800.000,00</td>
+                            <td className="align-middle">3.800.000,00</td>
+                            <td className="align-middle" style={{ minWidth: "100px", }}>
+                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                                <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
+
+            <Modal show={dialogTitle} size="lg" onHide={() => setTitle(!dialogTitle)}>
+                <Modal.Header
+
+                    closeButton
+                    className="m-4"
+                    style={{ borderBottomColor: "transparent", }}
+                >
+                    <Modal.Title>Add Job Grade</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="mx-4">
+                    <div className="row">
+                        <div className="col-md-12 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Job Grade <span className="text-danger">*</span></label>
+                                <input className="form-control" placeholder="Jobl grade..." />
+                            </div>
+                        </div>
+                        <div className="col-12 mb-3">
+                            <h2>Currency</h2>
+                        </div>
+                        <div className="col-md-12 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Currency type</label>
+                                <select className="form-control">
+                                    <option>Select currency</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-md-6 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Minimum salary <span className="text-danger">*</span></label>
+                                <input className="form-control" />
+                            </div>
+                        </div>
+                        <div className="col-md-6 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Maximum salary <span className="text-danger">*</span></label>
+                                <input className="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                </Modal.Body>
+                <Modal.Footer className="m-4">
+                    <button
+                        className="btn"
+                        style={{
+                            backgroundColor: "#00000010",
+                            border: "1px solid transparent",
+                            color: "#0E5073",
+                            width: "100px",
+                        }}
+                        onClick={() => setTitle(!dialogTitle)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className="btn"
+                        style={{
+                            backgroundColor: "#0E5073",
+                            border: "1px solid transparent",
+                            color: "#FFFFFF",
+                            width: "100px",
+                        }}
+                    >
+                        Add
+                    </button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={dialogEditTitle} size="lg" onHide={() => setEditTitle(!dialogEditTitle)}>
+                <Modal.Header
+
+                    closeButton
+                    className="m-4"
+                    style={{ borderBottomColor: "transparent", }}
+                >
+                    <Modal.Title>Edit Job Grade</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="mx-4">
+                    <div className="row">
+                        <div className="col-md-12 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Job Grade <span className="text-danger">*</span></label>
+                                <input className="form-control" placeholder="Jobl grade..." />
+                            </div>
+                        </div>
+                        <div className="col-12 mb-3">
+                            <h2>Currency</h2>
+                        </div>
+                        <div className="col-md-12 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Currency type</label>
+                                <select className="form-control">
+                                    <option>Select currency</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-md-6 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Minimum salary <span className="text-danger">*</span></label>
+                                <input className="form-control" />
+                            </div>
+                        </div>
+                        <div className="col-md-6 mb-3">
+                            <div className="form-group">
+                                <label className="mb-1">Maximum salary <span className="text-danger">*</span></label>
+                                <input className="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer className="m-4">
+                    <button
+                        className="btn"
+                        style={{
+                            backgroundColor: "#00000010",
+                            border: "1px solid transparent",
+                            color: "#0E5073",
+                            width: "100px",
+                        }}
+                        onClick={() => setEditTitle(!dialogEditTitle)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className="btn"
+                        style={{
+                            backgroundColor: "#0E5073",
+                            border: "1px solid transparent",
+                            color: "#FFFFFF",
+                            width: "100px",
+                        }}
+                    >
+                        Add
+                    </button>
+                </Modal.Footer>
+            </Modal>
+
+        </>
+    );
+}
+
+export default JobGrade;

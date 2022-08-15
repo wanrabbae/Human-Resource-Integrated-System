@@ -20,7 +20,7 @@ function Recruitment() {
                             </div>
                             <input style={{border:'0',outline:'none',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 focus:outline-0"  type="search" placeholder=" Search Demand Letter"/>
                         </div>
-                    <button style={{borderRadius:'10px',border:'1.5px solid #CACACA',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href='/administration/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
+                    <button style={{borderRadius:'10px',border:'1.5px solid #CACACA',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href='/admin/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
                     <button style={{borderRadius:'10px',backgroundColor:"#0E5073",fontSize:"14px",fontWeight:'500'}} className="btn d-flex align-items-center text-white" onClick={() => setModal(true)} type=""><Plus size={15} className="me-2" weight="bold" />Create Recruitment</button>
                 </div>
             </div>

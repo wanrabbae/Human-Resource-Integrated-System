@@ -7,11 +7,7 @@ import Home from './Pages/Administrator/Admin/Home';
 import Optionals from './Pages/Employee/Configuration/Optionals';
 import Recruitment from './Pages/Administrator/Recruitment/recruitment';
 import EntryApplication from './Pages/Administrator/Recruitment/entry_application';
-import Users from './Pages/Administrator/Admin/UserManagement/Users';
-import JobTitle from './Pages/Administrator/Admin/Job/JobTitle';
-import JobGrade from './Pages/Administrator/Admin/Job/JobGrade';
-import EmployeeStatus from './Pages/Administrator/Admin/Job/EmployeeStatus';
-import JobCategories from './Pages/Administrator/Admin/Job/JobCategories';
+import Users from './Pages/Administrator/Admin/Users';
 
 function App() {
   return (
@@ -29,6 +25,9 @@ function App() {
         <Route path="/admin/job/jobCategories" element={<JobCategories />} />
         <Route path='/admin/recruitment' element={<Recruitment />} />
         <Route path='/admin/recruitment/entry-application' element={<EntryApplication />} />
+        <Route path='/admin/profile' element={<ProfileTemplate />}>
+          <Route index element={<PersonalDetail />} />
+        </Route>
       </Route>
       <Route path="/employee/configuration" element={<Template />}>
         <Route index element={<Optionals />} />

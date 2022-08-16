@@ -17,6 +17,7 @@ import JobCategories from './Pages/Administrator/Admin/Job/JobCategories';
 import ProfileTemplate from './Pages/Administrator/Profile/profile_template';
 import DataImport from './Pages/Administrator/Employee/Configuration/DataImport';
 import ReportingMethods from './Pages/Administrator/Employee/Configuration/ReportingMethods';
+import TerminationReasons from './Pages/Administrator/Employee/Configuration/TerminationReasons';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route  path="/employee/custom" index element={<CustomField />} />
         <Route  path="/employee/data-import" index element={<DataImport />} />
         <Route  path="/employee/reporting-methods" index element={<ReportingMethods />} />
+        <Route  path="/employee/termination-reasons" index element={<TerminationReasons />} />
       </Route>
     </Routes>
   );

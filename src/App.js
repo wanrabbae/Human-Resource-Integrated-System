@@ -16,6 +16,7 @@ import EmployeeStatus from './Pages/Administrator/Admin/Job/EmployeeStatus';
 import JobCategories from './Pages/Administrator/Admin/Job/JobCategories';
 import ProfileTemplate from './Pages/Administrator/Profile/profile_template';
 import DataImport from './Pages/Administrator/Employee/Configuration/DataImport';
+import ReportingMethods from './Pages/Administrator/Employee/Configuration/ReportingMethods';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route  path="/employee/configuration" index element={<Optionals />} />
         <Route  path="/employee/custom" index element={<CustomField />} />
         <Route  path="/employee/data-import" index element={<DataImport />} />
+        <Route  path="/employee/reporting-methods" index element={<ReportingMethods />} />
       </Route>
     </Routes>
   );

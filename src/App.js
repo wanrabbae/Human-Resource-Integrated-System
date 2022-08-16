@@ -15,7 +15,6 @@ import JobGrade from './Pages/Administrator/Admin/Job/JobGrade';
 import EmployeeStatus from './Pages/Administrator/Admin/Job/EmployeeStatus';
 import JobCategories from './Pages/Administrator/Admin/Job/JobCategories';
 import ProfileTemplate from './Pages/Administrator/Profile/profile_template';
-import PersonalDetail from './Pages/Administrator/Profile/personal_detail';
 import DataImport from './Pages/Administrator/Employee/Configuration/DataImport';
 
 function App() {
@@ -34,9 +33,7 @@ function App() {
         <Route path="/admin/job/jobCategories" element={<JobCategories />} />
         <Route path='/admin/recruitment' element={<Recruitment />} />
         <Route path='/admin/recruitment/entry-application' element={<EntryApplication />} />
-        <Route path='/admin/profile' element={<ProfileTemplate />}>
-          <Route index element={<PersonalDetail />} />
-        </Route>
+        <Route path='/admin/profile' element={<ProfileTemplate />}/>
       </Route>
       <Route path="/employee" element={<Template />}>
         <Route  path="/employee/configuration" index element={<Optionals />} />

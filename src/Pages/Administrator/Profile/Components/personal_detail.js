@@ -15,7 +15,7 @@ function PersonalDetail() {
                 <form>    
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm mb-2" for="username">
-                            Employee Full Name *
+                            Employee Full Name <span style={{color:"#780000"}}>*</span>
                         </label>
                         <div className="row">
                             <div className="col">

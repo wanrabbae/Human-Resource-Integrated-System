@@ -1,0 +1,96 @@
+import { Button } from "react-bootstrap";
+import Select from 'react-select'
+
+function ContactDetail() {
+    return (
+        <>
+            <div >
+                <div  className="mb-4">
+                    <span style={{fontWeight:'600'}}>Contact Detail</span>
+                </div>
+                <form>    
+                    <div className="row mb-4">
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Street <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input value="Karangklesem, Puri Hijau, No. 18" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            City <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input value="Purwokerto" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text"/>
+                        </div>
+                    </div>
+                    <hr style={{backgroundColor:'#CACACA'}} className="mb-4"></hr>
+                    <div className="row mb-4">
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Province
+                            </label>
+                            <input value="Central Java" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                        </div>
+                        <div className='col-3'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Zip/ Postal Code
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text"/>
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Country
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr style={{backgroundColor:'#CACACA'}} className="mb-4"></hr>
+                    <div className="row mb-4">
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Telephone
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="ex: (123) 445566"/>
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Mobile
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" placeholder="ex : 0812xxxxxxxx" id="username" type="text"/>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Email
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="email" type="text" placeholder="ex : vinahaha@gmail.com"/>
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Other Email
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" placeholder="another email" id="username" type="text"/>
+                        </div>
+                    </div>
+                    <div className="d-flex justify-content-end mt-4">
+                        <Button
+                            style={{
+                                border:'none',
+                                fontSize:'14px',
+                                backgroundColor: "#0E5073",
+                                color: "#FFFFFF",
+                            }}
+                            className="px-4"
+                        >
+                            Save
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </>
+    )
+}
+export default ContactDetail;

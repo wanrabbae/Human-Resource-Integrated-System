@@ -38,8 +38,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Route, Routes, Outlet } from "react-router-dom";
+import PersonalDetail from "./Components/personal_detail";
+import ContactDetail from "./Components/contact_detail";
+import EmergencyContact from "./Components/emergency_contact";
 
 function ProfileTemplate() {
+    const [index, setIndex] = useState(0);
     return(
         <>
             <div className="mb-5" style={{backgroundColor:'white',borderRadius:'15px'}}>
@@ -57,7 +61,7 @@ function ProfileTemplate() {
             <div className="" >
                 <div className="d-flex flex-nowrap" style={{backgroundColor:'white',borderRadius:'15px'}}>
                     <aside
-                    className="p-4 flex-shrink-0 w-3/12 h-screen z-10"
+                    className="p-4 flex-shrink-0 w-3/12 z-10"
                     style={{
                         backgroundColor: "#FFFFFF",
                         borderTopLeftRadius: "15px",
@@ -69,92 +73,103 @@ function ProfileTemplate() {
                         <ListItemButton
                         style={{ 
                             borderRadius: "7px",
-                            backgroundColor: "#EFF9FF",
-                            borderRight:'7px solid #219EBC',
-                            color: "#454545",
+                            backgroundColor: index == 0 ? "#EFF9FF" : 'white',
+                            borderRight: index == 0 ? '7px solid #219EBC' : 'none',
+                            color: index == 0 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(0)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Personal Detail</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 
-                            color: "#00000080",
                             borderRadius: "7px",
+                            backgroundColor: index == 1 ? "#EFF9FF" : 'white',
+                            borderRight: index == 1 ? '7px solid #219EBC' : 'none',
+                            color: index == 1 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(1)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Contact Detail</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 
-                            color: "#00000080",
                             borderRadius: "7px",
+                            backgroundColor: index == 2 ? "#EFF9FF" : 'white',
+                            borderRight: index == 2 ? '7px solid #219EBC' : 'none',
+                            color: index == 2 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(2)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Emergency Contact</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 
-                            color: "#00000080",
                             borderRadius: "7px",
+                            backgroundColor: index == 3 ? "#EFF9FF" : 'white',
+                            borderRight: index == 3 ? '7px solid #219EBC' : 'none',
+                            color: index == 3 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(3)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Depedents</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 
-                            color: "#00000080",
                             borderRadius: "7px",
+                            backgroundColor: index == 4 ? "#EFF9FF" : 'white',
+                            borderRight: index == 4 ? '7px solid #219EBC' : 'none',
+                            color: index == 4 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(4)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Imigration</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 
-                            color: "#00000080",
                             borderRadius: "7px",
-
+                            backgroundColor: index == 5 ? "#EFF9FF" : 'white',
+                            borderRight: index == 5 ? '7px solid #219EBC' : 'none',
+                            color: index == 5 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(5)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Job</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 
-                            color: "#00000080",
                             borderRadius: "7px",
-
+                            backgroundColor: index == 6 ? "#EFF9FF" : 'white',
+                            borderRight: index == 6 ? '7px solid #219EBC' : 'none',
+                            color: index == 6 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(6)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Report-to</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 
-                            color: "#00000080",
                             borderRadius: "7px",
-
+                            backgroundColor: index == 7 ? "#EFF9FF" : 'white',
+                            borderRight: index == 7 ? '7px solid #219EBC' : 'none',
+                            color: index == 7 ? "#454545" :  "#00000080",
                         }}
                         className="mt-2"
-                        onClick={() => { }}
+                        onClick={() => setIndex(7)}
                         >
                         <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Qualification</Typography>} />
                         </ListItemButton>
                     </div>
                     </aside>
                     <div className="ml-auto w-9/12 p-5 space-y-5">
-                        <Outlet />
+                        {index == 0 ? <PersonalDetail /> : index == 1 ? <ContactDetail /> : index == 2 ? <EmergencyContact /> : index == 3 ? <ContactDetail /> : index == 4 ? <ContactDetail /> : index == 5 ? <ContactDetail /> : index == 6 ? <ContactDetail /> : index == 7 ? <ContactDetail /> :""}
                     </div>
                 </div>
             </div>

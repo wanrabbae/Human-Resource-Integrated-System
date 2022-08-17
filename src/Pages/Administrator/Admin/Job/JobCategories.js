@@ -25,7 +25,7 @@ function JobCategories() {
                     </div>
                 </div>
                 <br></br>
-                <Table borderless responsive>
+                <Table borderless responsive style={{ color: "#00000070" }}>
                     <thead>
                         <tr style={{ backgroundColor: "#EBF7FF" }}>
                             <th width="10px"><input type="checkbox" style={{ borderRadius: "2px", }} /></th>

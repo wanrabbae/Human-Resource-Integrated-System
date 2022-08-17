@@ -19,6 +19,7 @@ import DataImport from './Pages/Administrator/Employee/Configuration/DataImport'
 import ReportingMethods from './Pages/Administrator/Employee/Configuration/ReportingMethods';
 import TerminationReasons from './Pages/Administrator/Employee/Configuration/TerminationReasons';
 import EmployeeList from './Pages/Administrator/Employee/Configuration/EmployeeList';
+import WorkShift from './Pages/Administrator/Admin/Job/WorkShift';
 
 function App() {
   return (
@@ -34,17 +35,18 @@ function App() {
         <Route path="/admin/job/jobGrade" element={<JobGrade />} />
         <Route path="/admin/job/employeeStatus" element={<EmployeeStatus />} />
         <Route path="/admin/job/jobCategories" element={<JobCategories />} />
+        <Route path="/admin/job/workShift" element={<WorkShift />} />
         <Route path='/admin/recruitment' element={<Recruitment />} />
         <Route path='/admin/recruitment/entry-application' element={<EntryApplication />} />
-        <Route path='/admin/profile' element={<ProfileTemplate />}/>
+        <Route path='/admin/profile' element={<ProfileTemplate />} />
       </Route>
       <Route path="/employee" element={<Template />}>
-        <Route  path="/employee/configuration" index element={<Optionals />} />
-        <Route  path="/employee/custom" index element={<CustomField />} />
-        <Route  path="/employee/data-import" index element={<DataImport />} />
-        <Route  path="/employee/reporting-methods" index element={<ReportingMethods />} />
-        <Route  path="/employee/termination-reasons" index element={<TerminationReasons />} />
-        <Route  path="/employee/employee-list" index element={<EmployeeList />} />
+        <Route path="/employee/configuration" index element={<Optionals />} />
+        <Route path="/employee/custom" index element={<CustomField />} />
+        <Route path="/employee/data-import" index element={<DataImport />} />
+        <Route path="/employee/reporting-methods" index element={<ReportingMethods />} />
+        <Route path="/employee/termination-reasons" index element={<TerminationReasons />} />
+        <Route path="/employee/employee-list" index element={<EmployeeList />} />
       </Route>
     </Routes>
   );

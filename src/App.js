@@ -20,6 +20,7 @@ import ReportingMethods from './Pages/Administrator/Employee/Configuration/Repor
 import TerminationReasons from './Pages/Administrator/Employee/Configuration/TerminationReasons';
 import EmployeeList from './Pages/Administrator/Employee/Configuration/EmployeeList';
 import WorkShift from './Pages/Administrator/Admin/Job/WorkShift';
+import Report from './Pages/Administrator/Employee/Configuration/Report';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path="/employee/reporting-methods" index element={<ReportingMethods />} />
         <Route path="/employee/termination-reasons" index element={<TerminationReasons />} />
         <Route path="/employee/employee-list" index element={<EmployeeList />} />
+        <Route path="/employee/report" index element={<Report />} />
       </Route>
     </Routes>
   );

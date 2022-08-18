@@ -10,7 +10,7 @@ function JobGrade() {
     const [dialogEditTitle, setEditTitle] = useState(false);
     return (
         <>
-            <div className="w-100 bg-light p-4" style={{ borderRadius: "10px" }}>
+            <div className="w-100 p-4" style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}>
                 <h5><b>Job Grade</b></h5>
                 <p><small>list of job grade</small></p>
                 <br></br>

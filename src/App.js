@@ -20,6 +20,10 @@ import ReportingMethods from './Pages/Administrator/Employee/Configuration/Repor
 import TerminationReasons from './Pages/Administrator/Employee/Configuration/TerminationReasons';
 import EmployeeList from './Pages/Administrator/Employee/Configuration/EmployeeList';
 import WorkShift from './Pages/Administrator/Admin/Job/WorkShift';
+import GeneralInformation from './Pages/Administrator/Admin/Organization/General';
+import Locations from './Pages/Administrator/Admin/Organization/Locations';
+import CostProfit from './Pages/Administrator/Admin/Organization/CostProfit';
+import StructureOrganization from './Pages/Administrator/Admin/Organization/StructureOrganization';
 
 function App() {
   return (
@@ -39,6 +43,10 @@ function App() {
         <Route path='/admin/recruitment' element={<Recruitment />} />
         <Route path='/admin/recruitment/entry-application' element={<EntryApplication />} />
         <Route path='/admin/profile' element={<ProfileTemplate />} />
+        <Route path='/admin/organization/generalInformation' element={<GeneralInformation />} />
+        <Route path='/admin/organization/locations' element={<Locations />} />
+        <Route path='/admin/organization/costProfit' element={<CostProfit />} />
+        <Route path='/admin/organization/structureOrganization' element={<StructureOrganization />} />
       </Route>
       <Route path="/employee" element={<Template />}>
         <Route path="/employee/configuration" index element={<Optionals />} />

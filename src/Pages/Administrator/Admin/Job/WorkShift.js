@@ -11,7 +11,7 @@ function WorkShift() {
     const [selected, setSelected] = useState([]);
     return (
         <>
-            <div className="w-100 bg-light p-4" style={{ borderRadius: "10px" }}>
+            <div className="w-100 p-4" style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}>
                 <h5><b>Work Shift</b></h5>
                 <p><small>list of Work Shift</small></p>
                 <br></br>
@@ -145,7 +145,7 @@ function WorkShift() {
                     className="m-4"
                     style={{ borderBottomColor: "transparent", }}
                 >
-                    <Modal.Title>Edit Job Categories</Modal.Title>
+                    <Modal.Title>Edit Work Shift</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="mx-4">
                     <div className="row">

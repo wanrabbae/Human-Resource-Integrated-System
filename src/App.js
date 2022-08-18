@@ -24,6 +24,7 @@ import GeneralInformation from './Pages/Administrator/Admin/Organization/General
 import Locations from './Pages/Administrator/Admin/Organization/Locations';
 import CostProfit from './Pages/Administrator/Admin/Organization/CostProfit';
 import StructureOrganization from './Pages/Administrator/Admin/Organization/StructureOrganization';
+import Report from './Pages/Administrator/Employee/Configuration/Report';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path="/employee/reporting-methods" index element={<ReportingMethods />} />
         <Route path="/employee/termination-reasons" index element={<TerminationReasons />} />
         <Route path="/employee/employee-list" index element={<EmployeeList />} />
+        <Route path="/employee/report" index element={<Report />} />
       </Route>
     </Routes>
   );

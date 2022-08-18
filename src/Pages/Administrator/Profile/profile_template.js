@@ -42,6 +42,7 @@ import PersonalDetail from "./Components/personal_detail";
 import ContactDetail from "./Components/contact_detail";
 import EmergencyContact from "./Components/emergency_contact";
 import Dependents from "./Components/dependents";
+import Imigration from "./Components/imigration";
 
 function ProfileTemplate() {
     const [index, setIndex] = useState(0);
@@ -170,7 +171,7 @@ function ProfileTemplate() {
                     </div>
                     </aside>
                     <div className="ml-auto w-9/12 p-5 space-y-5">
-                        {index == 0 ? <PersonalDetail /> : index == 1 ? <ContactDetail /> : index == 2 ? <EmergencyContact /> : index == 3 ? <Dependents /> : index == 4 ? <ContactDetail /> : index == 5 ? <ContactDetail /> : index == 6 ? <ContactDetail /> : index == 7 ? <ContactDetail /> :""}
+                        {index == 0 ? <PersonalDetail /> : index == 1 ? <ContactDetail /> : index == 2 ? <EmergencyContact /> : index == 3 ? <Dependents /> : index == 4 ? <Imigration /> : index == 5 ? <ContactDetail /> : index == 6 ? <ContactDetail /> : index == 7 ? <ContactDetail /> :""}
                     </div>
                 </div>
             </div>

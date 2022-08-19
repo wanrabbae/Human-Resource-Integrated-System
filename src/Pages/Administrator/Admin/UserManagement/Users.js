@@ -4,7 +4,7 @@ import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, Ed
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
 import { useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
-import TextFieldSearch from "../../../../Components/TextField";
+import { TextFieldSearch } from "../../../../Components/TextField";
 
 
 function Users() {

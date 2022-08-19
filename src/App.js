@@ -26,6 +26,12 @@ import CostProfit from './Pages/Administrator/Admin/Organization/CostProfit';
 import StructureOrganization from './Pages/Administrator/Admin/Organization/StructureOrganization';
 import Report from './Pages/Administrator/Employee/Configuration/Report';
 import DetailReport from './Pages/Administrator/Employee/Configuration/DetailReport';
+import Skills from './Pages/Administrator/Admin/Qualification/Skills';
+import Educations from './Pages/Administrator/Admin/Qualification/Educations';
+import License from './Pages/Administrator/Admin/Qualification/License';
+import Languages from './Pages/Administrator/Admin/Qualification/Languages';
+import Membership from './Pages/Administrator/Admin/Qualification/Membership';
+import Nationalities from './Pages/Administrator/Admin/Nationalities';
 
 function App() {
   return (
@@ -49,6 +55,12 @@ function App() {
         <Route path='/admin/organization/locations' element={<Locations />} />
         <Route path='/admin/organization/costProfit' element={<CostProfit />} />
         <Route path='/admin/organization/structureOrganization' element={<StructureOrganization />} />
+        <Route path='/admin/qualifications/skills' element={<Skills />} />
+        <Route path='/admin/qualifications/educations' element={<Educations />} />
+        <Route path='/admin/qualifications/license' element={<License />} />
+        <Route path='/admin/qualifications/languages' element={<Languages />} />
+        <Route path='/admin/qualifications/membership' element={<Membership />} />
+        <Route path='/admin/nationalities' element={<Nationalities />} />
       </Route>
       <Route path="/employee" element={<Template />}>
         <Route path="/employee/configuration" index element={<Optionals />} />

@@ -61,7 +61,7 @@ function Template() {
       },
       {
         nama: "Nationalities",
-        click: "nationalities",
+        click: "/admin/nationalities",
       },
     ],
     [
@@ -162,7 +162,7 @@ function Template() {
             {isOpen[0] == true ? (
               list[0].map((val, index) => {
                 return (
-                  <ListItemButton>
+                  <ListItemButton onClick={() => window.location.href = val.click}>
                     <ListItemIcon></ListItemIcon>
                     <ListItemText primary={val.nama} />
                     <ChevronRight />

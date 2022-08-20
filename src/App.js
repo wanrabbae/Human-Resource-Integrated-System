@@ -32,6 +32,7 @@ import License from './Pages/Administrator/Admin/Qualification/License';
 import Languages from './Pages/Administrator/Admin/Qualification/Languages';
 import Membership from './Pages/Administrator/Admin/Qualification/Membership';
 import Nationalities from './Pages/Administrator/Admin/Nationalities';
+import DocumentManagement from './Pages/Administrator/Document/document_management';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route path='/admin/recruitment' element={<Recruitment />} />
         <Route path='/admin/recruitment/entry-application' element={<EntryApplication />} />
         <Route path='/admin/profile' element={<ProfileTemplate />} />
+        <Route path='/admin/document-management' element={<DocumentManagement />} />
         <Route path='/admin/organization/generalInformation' element={<GeneralInformation />} />
         <Route path='/admin/organization/locations' element={<Locations />} />
         <Route path='/admin/organization/costProfit' element={<CostProfit />} />

@@ -221,7 +221,7 @@ function Template() {
             <ListItemButton
               style={{ color: "#00000080" }}
               className="mt-2"
-              onClick={() => { }}
+              onClick={() => { window.location.href = '/admin/document-management' }}
             >
               <ListItemIcon>
                 <svg

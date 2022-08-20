@@ -8,6 +8,10 @@ import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, Filter, Filter1, 
 
 function Qualification() {
     const [modalAddWExperience, setModalAddWExperience] = useState(false);
+    const [modalAddSkill, setModalAddSkill] = useState(false);
+    const [modalAddLanguage, setModalAddLanguage] = useState(false);
+    const [modalAddEducation, setModalAddEducation] = useState(false);
+    const [modalAddLisence, setModalAddLisence] = useState(false);
     return(
         <>
             <div>
@@ -63,7 +67,7 @@ function Qualification() {
                             <h3 style={{fontSize:"20px",fontWeight:'600'}}>Skills</h3>
                             <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>List of  employee skills</span>
                         </div>
-                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={{}} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
+                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setModalAddSkill(true)}  type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
                     </div>
                     <hr style={{backgroundColor:'#CACACA'}} className=""></hr>
                     <div className="w-100">
@@ -93,7 +97,7 @@ function Qualification() {
                             <h3 style={{fontSize:"20px",fontWeight:'600'}}>Educations</h3>
                             <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>List of  employee educations</span>
                         </div>
-                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={{}} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
+                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setModalAddEducation(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
                     </div>
                     <hr style={{backgroundColor:'#CACACA'}} className=""></hr>
                     <div className="w-100">
@@ -126,7 +130,7 @@ function Qualification() {
                             <h3 style={{fontSize:"20px",fontWeight:'600'}}>Languages</h3>
                             <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>List of  employee languages</span>
                         </div>
-                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={{}} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
+                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setModalAddLanguage(true)}type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
                     </div>
                     <hr style={{backgroundColor:'#CACACA'}} className=""></hr>
                     <div className="w-100">
@@ -162,7 +166,7 @@ function Qualification() {
                             <h3 style={{fontSize:"20px",fontWeight:'600'}}>License</h3>
                             <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>List of  employee educations</span>
                         </div>
-                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={{}} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
+                        <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setModalAddLisence(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
                     </div>
                     <hr style={{backgroundColor:'#CACACA'}} className=""></hr>
                     <div className="w-100">
@@ -221,7 +225,7 @@ function Qualification() {
                         </div>
                         <div className='col'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
-                            Start Date <span style={{color:"#780000"}}>*</span>
+                            End Date <span style={{color:"#780000"}}>*</span>
                             </label>
                             <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" placeholder="Username"/>
                         </div>
@@ -245,6 +249,294 @@ function Qualification() {
                         }}
                         className="px-3"
                         onClick={() => setModalAddWExperience(false)}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#0E5073",
+                            color: "#FFFFFF",
+                        }}
+                        className="px-4"
+                    >
+                        Add
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={modalAddSkill} size="lg"  onHide={() => setModalAddSkill(false)}>
+                <Modal.Header  closeButton className="mx-4 mt-4"
+                    style={{ borderBottomColor: "transparent", }}>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                    Add Skill
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="mx-4">
+                    <div className="mb-4">
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Skill <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                            </select>
+                        </div>
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Year of Experience
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Year of Experience"/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Comment
+                            </label>
+                            <textarea rows="4" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer className="m-4" style={{ borderTopColor: "transparent", }}>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#ECECEC",
+                            color: "#003049",
+                        }}
+                        className="px-3"
+                        onClick={() => setModalAddSkill(false)}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#0E5073",
+                            color: "#FFFFFF",
+                        }}
+                        className="px-4"
+                    >
+                        Add
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={modalAddEducation} size="lg"  onHide={() => setModalAddEducation(false)}>
+                <Modal.Header  closeButton className="mx-4 mt-4"
+                    style={{ borderBottomColor: "transparent", }}>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                    Add Educations
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="mx-4">
+                    <div className="mb-4">
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Level <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                            </select>
+                        </div>
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Institute
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Institute name..."/>
+                        </div>
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Major/Specialization
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Specialization in Education...."/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className='col mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Year <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Type for hints..."/>
+                        </div>
+                        <div className='col mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            GAP <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                            </select>
+                        </div>
+                        <div className="w-100">
+
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Start Date <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" placeholder="Username"/>
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            End Date <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" placeholder="Username"/>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer className="m-4" style={{ borderTopColor: "transparent", }}>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#ECECEC",
+                            color: "#003049",
+                        }}
+                        className="px-3"
+                        onClick={() => setModalAddEducation(false)}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#0E5073",
+                            color: "#FFFFFF",
+                        }}
+                        className="px-4"
+                    >
+                        Add
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={modalAddLanguage} size="lg"  onHide={() => setModalAddLanguage(false)}>
+                <Modal.Header  closeButton className="mx-4 mt-4"
+                    style={{ borderBottomColor: "transparent", }}>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                    Add Language
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="mx-4">
+                    <div className="mb-4">
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Skill <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                            </select>
+                        </div>
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Fluency <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                                <option className="py-3">Writting</option>
+                                <option className="py-3">Speaking</option>
+                                <option className="py-3">Reading</option>
+                            </select>
+                        </div>
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Competency <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                                <option className="py-3">Poor</option>
+                                <option className="py-3">Basic</option>
+                                <option className="py-3">Good</option>
+                                <option className="py-3">Mother Tongue</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Comment
+                            </label>
+                            <textarea rows="4" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer className="m-4" style={{ borderTopColor: "transparent", }}>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#ECECEC",
+                            color: "#003049",
+                        }}
+                        className="px-3"
+                        onClick={() => setModalAddLanguage(false)}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#0E5073",
+                            color: "#FFFFFF",
+                        }}
+                        className="px-4"
+                    >
+                        Add
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={modalAddLisence} size="lg"  onHide={() => setModalAddLisence(false)}>
+                <Modal.Header  closeButton className="mx-4 mt-4"
+                    style={{ borderBottomColor: "transparent", }}>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                    Add Lisence
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="mx-4">
+                    <div className="mb-4">
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Lisency Type <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Select</option>
+                            </select>
+                        </div>
+                        <div className='mb-4'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Lisency Number <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Institute name..."/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Start Date <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" placeholder="Username"/>
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            End Date <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" placeholder="Username"/>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer className="m-4" style={{ borderTopColor: "transparent", }}>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#ECECEC",
+                            color: "#003049",
+                        }}
+                        className="px-3"
+                        onClick={() => setModalAddLisence(false)}
                     >
                         Cancel
                     </Button>

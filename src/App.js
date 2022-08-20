@@ -34,12 +34,14 @@ import Membership from './Pages/Administrator/Admin/Qualification/Membership';
 import Nationalities from './Pages/Administrator/Admin/Nationalities';
 import Feature from './Pages/LandingPages/Feature';
 import DocumentManagement from './Pages/Administrator/Document/document_management';
+import Pricing from './Pages/LandingPages/Pricing';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPages />}></Route>
       <Route path="/feature" element={<Feature />}></Route>
+      <Route path="/pricing" element={<Pricing />}></Route>
       <Route path="/dashboard" element={<Template />}>
         <Route index element={<Dashboard />} />
       </Route>

@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes } from "react-router-dom";
-import LandingPages from './Pages/LandingPages';
+import LandingPages from './Pages/LandingPages/Home';
 import Dashboard from './Pages/Administrator/Dashboard';
 import Template from './Pages/Administrator/template';
 import Home from './Pages/Administrator/Admin/Home';
@@ -32,11 +32,13 @@ import License from './Pages/Administrator/Admin/Qualification/License';
 import Languages from './Pages/Administrator/Admin/Qualification/Languages';
 import Membership from './Pages/Administrator/Admin/Qualification/Membership';
 import Nationalities from './Pages/Administrator/Admin/Nationalities';
+import Feature from './Pages/LandingPages/Feature';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPages />}></Route>
+      <Route path="/feature" element={<Feature />}></Route>
       <Route path="/dashboard" element={<Template />}>
         <Route index element={<Dashboard />} />
       </Route>

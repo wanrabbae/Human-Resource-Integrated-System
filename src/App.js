@@ -46,9 +46,11 @@ function App() {
       <Route path="/" element={<LandingPages />}></Route>
       <Route path="/feature" element={<Feature />}></Route>
       <Route path="/pricing" element={<Pricing />}></Route>
+      <Route path="/dashboard" element={<Template />}>
+        <Route index element={<Dashboard />} />
+      </Route>
       <Route path="/admin" element={<Template />}>
         <Route index element={<Home />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/userManagement/users" element={<Users />} />
         <Route path="/admin/job/jobTitle" element={<JobTitle />} />
         <Route path="/admin/job/jobGrade" element={<JobGrade />} />

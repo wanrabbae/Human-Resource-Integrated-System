@@ -12,7 +12,9 @@ import {
     Legend,
   } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import ReactSelect from "react-select";
 // import faker from 'faker';
+import { components } from "react-select";
   
   
 
@@ -61,6 +63,32 @@ function DocumentManagement() {
           },
         ],
       };
+    const Option = (props) => {
+        return (
+          <div>
+            <components.Option {...props}>
+                <Form.Check 
+                    type="checkbox"
+                    checked={props.isSelected}
+                    onChange={() => null}
+                    id="default-checkbox"
+                    label={props.label}
+                /> 
+            </components.Option>
+          </div>
+        );
+    };
+    const showTo = [
+        { value: "1", label: "Manager" },
+        { value: "2", label: "Human Resources" },
+        { value: "3", label: "Sales Acquisition" },
+        { value: "4", label: "Sales External" },
+        { value: "5", label: "Sales Research and Media Social" },
+        { value: "6", label: "Advertiser" },
+        { value: "7", label: "Finance" },
+        { value: "8", label: "Support and Analyst" },
+        { value: "9", label: "Information and Technology Development" },
+      ];
       
     return(
         <>
@@ -224,40 +252,44 @@ function DocumentManagement() {
                         <div className="col-5">
                             <input onChange={(val)=>{}} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" type="text" placeholder="Position"/>
                         </div>
-                        <div className="col">
+                        <div className="col-3">
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
+                                <option className="py-3">Field Type</option>
+                                <option className="py-3">Short Answer</option>
+                                <option className="py-3">Paragraph</option>
+                                <option className="py-3">Multiple Choice</option>
+                                <option className="py-3">Check Box</option>
+                                <option className="py-3">Dropdown</option>
+                                <option className="py-3">Upload File</option>
+                                <option className="py-3">Date</option>
+                                <option className="py-3">Time</option>
                             </select>
                         </div>
-                        <div className="col">
+                        <div className="col-3">
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
+                                <option className="py-3">Data Type</option>
                                 <option className="py-3">String</option>
                                 <option className="py-3">Interger</option>
                                 <option className="py-3">File</option>
                             </select>
                         </div>
-                        <div className="col-1">
-                            <button type="submit" className="rounded leading-tight p-2 btn bg-[#669BBC]"><Plus size={20} weight="bold" color="white" /></button>
+                        <div className="col">
+                            <button type="submit" className="rounded leading-tight p-2 btn bg-[#669BBC]"><Plus size={18} weight="bold" color="white" /></button>
                         </div>
                     </div>
                         <div className=''>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Show To
                             </label>
-                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select Role</option>
-                                <option className="py-3">
-                                    <Form.Check 
-                                        type="checkbox"
-                                        id="default-checkbox"
-                                    />
-                                    {/* <label for="one">
-                                        <input type="checkbox" id="one" />First checkbox
-                                    </label>     */}
-                                </option>
-                                
-                            </select>
+                                <ReactSelect
+                                options={showTo}
+                                isMulti
+                                closeMenuOnSelect={false}
+                                hideSelectedOptions={false}
+                                components={{
+                                    Option
+                                }}
+                                />
                         </div>
                 </Modal.Body>
                 <Modal.Footer className="m-4" style={{borderTop:'0'}}>

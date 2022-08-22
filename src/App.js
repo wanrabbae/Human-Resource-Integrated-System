@@ -68,14 +68,6 @@ function App() {
         <Route path='/admin/qualifications/languages' element={<Languages />} />
         <Route path='/admin/qualifications/membership' element={<Membership />} />
         <Route path='/admin/nationalities' element={<Nationalities />} />
-        <Route path="/admin/employee/configuration" index element={<Optionals />} />
-        <Route path="/admin/employee/custom" index element={<CustomField />} />
-        <Route path="/admin/employee/data-import" index element={<DataImport />} />
-        <Route path="/admin/employee/reporting-methods" index element={<ReportingMethods />} />
-        <Route path="/admin/employee/termination-reasons" index element={<TerminationReasons />} />
-        <Route path="/admin/employee/employee-list" index element={<EmployeeList />} />
-        <Route path="/admin/employee/report" index element={<Report />} />
-        <Route path="/admin/employee/detail-report" index element={<DetailReport />} />
       </Route>
       <Route path="/recruitment" element={<Template />}>
         <Route path="/recruitment" element={<Recruitment />} />
@@ -93,8 +85,8 @@ function App() {
         <Route path="/timeManagement/schedule" element={<Schedule />} />
       </Route>
       <Route path="/employee" element={<Template />}>
-        <Route path="/employee/configuration" index element={<Optionals />} />
-        <Route path="/employee/custom" index element={<CustomField />} />
+        <Route path="/employee/optional-field" index element={<Optionals />} />
+        <Route path="/employee/custom-field" index element={<CustomField />} />
         <Route path="/employee/data-import" index element={<DataImport />} />
         <Route path="/employee/reporting-methods" index element={<ReportingMethods />} />
         <Route path="/employee/termination-reasons" index element={<TerminationReasons />} />

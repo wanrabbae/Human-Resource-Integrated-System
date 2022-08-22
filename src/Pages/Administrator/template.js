@@ -71,11 +71,11 @@ function Template() {
       },
       {
         nama: "Employee List",
-        click: "employee list",
+        click: "/employee/employee-list",
       },
       {
         nama: "Report",
-        click: "report",
+        click: "/employee/report",
       },
     ],
     [
@@ -180,7 +180,7 @@ function Template() {
                 color: isOpen[1] == true ? "#780000" : "#00000080",
               }}
               className="mt-2"
-              onClick={() =>
+              onClick={() => 
                 isOpen[1] == false
                   ? setOpen([false, true, false])
                   : setOpen([false, false, false])
@@ -208,7 +208,7 @@ function Template() {
             {isOpen[1] == true ? (
               list[1].map((val, index) => {
                 return (
-                  <ListItemButton>
+                  <ListItemButton onClick={() => { window.location.href = val.click }} >
                     <ListItemIcon></ListItemIcon>
                     <ListItemText primary={val.nama} />
                     <ChevronRight />

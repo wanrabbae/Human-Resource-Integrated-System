@@ -35,6 +35,9 @@ import Nationalities from './Pages/Administrator/Admin/Nationalities';
 import Feature from './Pages/LandingPages/Feature';
 import DocumentManagement from './Pages/Administrator/Document/document_management';
 import Pricing from './Pages/LandingPages/Pricing';
+import MyAttendance from './Pages/Administrator/TimeManagement/MyAttendance';
+import EmployeeRecord from './Pages/Administrator/TimeManagement/EmployeeRecord';
+import Schedule from './Pages/Administrator/TimeManagement/Schedule';
 
 function App() {
   return (
@@ -67,6 +70,13 @@ function App() {
         <Route path='/admin/qualifications/languages' element={<Languages />} />
         <Route path='/admin/qualifications/membership' element={<Membership />} />
         <Route path='/admin/nationalities' element={<Nationalities />} />
+      </Route>
+
+      <Route path="/timeManagement" element={<Template />}>
+        <Route path="/timeManagement/attendance/myAttendance" element={<MyAttendance />} />
+        <Route path="/timeManagement/attendance/employeeRecord" element={<EmployeeRecord />} />
+
+        <Route path="/timeManagement/schedule" element={<Schedule />} />
       </Route>
       <Route path="/employee" element={<Template />}>
         <Route path="/employee/configuration" index element={<Optionals />} />

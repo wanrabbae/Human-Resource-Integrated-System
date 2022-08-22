@@ -53,7 +53,7 @@ function ProfileTemplate() {
         <>
             <div className="mb-5" style={{backgroundColor:'white',borderRadius:'15px'}}>
                 <img style={{width:'100%'}} src="https://cdn.discordapp.com/attachments/990841636386897971/1008574993103331358/Rectangle_213.png" alt=""/>
-                <div className="d-flex ps-5 pt-2 pb-5">
+                <div className="d-flex ps-5 pt-2 pb-4">
                     <div className="me-3">
                         <img style={{marginTop:'-40px'}} src="https://cdn.discordapp.com/attachments/990841636386897971/1008594420695830568/Ellipse_3123.png" alt=""/>
                     </div>

@@ -39,17 +39,16 @@ import MyAttendance from './Pages/Administrator/TimeManagement/MyAttendance';
 import EmployeeRecord from './Pages/Administrator/TimeManagement/EmployeeRecord';
 import Schedule from './Pages/Administrator/TimeManagement/Schedule';
 
+
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPages />}></Route>
       <Route path="/feature" element={<Feature />}></Route>
       <Route path="/pricing" element={<Pricing />}></Route>
-      <Route path="/dashboard" element={<Template />}>
-        <Route index element={<Dashboard />} />
-      </Route>
       <Route path="/admin" element={<Template />}>
         <Route index element={<Home />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/userManagement/users" element={<Users />} />
         <Route path="/admin/job/jobTitle" element={<JobTitle />} />
         <Route path="/admin/job/jobGrade" element={<JobGrade />} />
@@ -70,12 +69,18 @@ function App() {
         <Route path='/admin/qualifications/languages' element={<Languages />} />
         <Route path='/admin/qualifications/membership' element={<Membership />} />
         <Route path='/admin/nationalities' element={<Nationalities />} />
+        <Route path="/admin/employee/configuration" index element={<Optionals />} />
+        <Route path="/admin/employee/custom" index element={<CustomField />} />
+        <Route path="/admin/employee/data-import" index element={<DataImport />} />
+        <Route path="/admin/employee/reporting-methods" index element={<ReportingMethods />} />
+        <Route path="/admin/employee/termination-reasons" index element={<TerminationReasons />} />
+        <Route path="/admin/employee/employee-list" index element={<EmployeeList />} />
+        <Route path="/admin/employee/report" index element={<Report />} />
+        <Route path="/admin/employee/detail-report" index element={<DetailReport />} />
       </Route>
-
       <Route path="/timeManagement" element={<Template />}>
         <Route path="/timeManagement/attendance/myAttendance" element={<MyAttendance />} />
         <Route path="/timeManagement/attendance/employeeRecord" element={<EmployeeRecord />} />
-
         <Route path="/timeManagement/schedule" element={<Schedule />} />
       </Route>
       <Route path="/employee" element={<Template />}>

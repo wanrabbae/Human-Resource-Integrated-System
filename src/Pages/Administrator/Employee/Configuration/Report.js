@@ -96,7 +96,7 @@ function Report() {
                       <PencilIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                     <a
-                      href="#"
+                      href="/admin/employee/detail-report"
                       className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                     >
                       <DocumentIcon className="h-5 w-5" aria-hidden="true" />

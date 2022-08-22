@@ -25,7 +25,7 @@ function Recruitment() {
                 </div>
             </div>
             <div className="container-fluid">
-                <div className="mt-5 p-4 row justify-content-around flex-wrap" style={{backgroundColor:'#F3F6FF',borderRadius:'10px'}}>
+                <div className="mt-5 px-4 pt-4 pb-56 row justify-content-around flex-wrap" style={{backgroundColor:'#F3F6FF',borderRadius:'10px'}}>
                     <div className="p-3 me-3 mb-4 col d-flex align-items-center" style={{boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)',backgroundColor:'white',color:'#003049',borderRadius:'10px'}}>
                         <FileText className="me-3" size={35} weight="fill" />
                         <div className="row">

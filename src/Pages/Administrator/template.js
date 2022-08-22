@@ -221,7 +221,7 @@ function Template() {
             <ListItemButton
               style={{ color: "#00000080" }}
               className="mt-2"
-              onClick={() => { window.location.href = '/admin/document-management' }}
+              onClick={() => { window.location.href = '/document-management' }}
             >
               <ListItemIcon>
                 <svg
@@ -288,7 +288,7 @@ function Template() {
             <ListItemButton
               style={{ color: "#00000080" }}
               className="mt-2"
-              onClick={() => { window.location.href = '/admin/recruitment' }}
+              onClick={() => { window.location.href = '/recruitment' }}
             >
               <ListItemIcon>
                 <svg
@@ -311,7 +311,7 @@ function Template() {
             <ListItemButton
               style={{ color: "#00000080" }}
               className="mt-2"
-              onClick={() => { window.location.href = '/admin/profile' }}
+              onClick={() => { window.location.href = '/profile' }}
             >
               <ListItemIcon>
                 <svg
@@ -375,7 +375,7 @@ function Template() {
                 <Notifications />
               </IconButton>
               <Button
-                onClick={() => { window.location.href = '/admin/profile' }}
+                onClick={() => { window.location.href = '/profile' }}
                 variant="contained"
                 style={{
                   backgroundColor: "#C1121F20",

@@ -55,9 +55,6 @@ function App() {
         <Route path="/admin/job/employeeStatus" element={<EmployeeStatus />} />
         <Route path="/admin/job/jobCategories" element={<JobCategories />} />
         <Route path="/admin/job/workShift" element={<WorkShift />} />
-        <Route path='/admin/recruitment' element={<Recruitment />} />
-        <Route path='/admin/recruitment/entry-application' element={<EntryApplication />} />
-        <Route path='/admin/profile' element={<ProfileTemplate />} />
         <Route path='/admin/document-management' element={<DocumentManagement />} />
         <Route path='/admin/organization/generalInformation' element={<GeneralInformation />} />
         <Route path='/admin/organization/locations' element={<Locations />} />
@@ -77,6 +74,16 @@ function App() {
         <Route path="/admin/employee/employee-list" index element={<EmployeeList />} />
         <Route path="/admin/employee/report" index element={<Report />} />
         <Route path="/admin/employee/detail-report" index element={<DetailReport />} />
+      </Route>
+      <Route path="/recruitment" element={<Template />}>
+        <Route path="/recruitment" element={<Recruitment />} />
+        <Route path="/recruitment/entry-application" element={<EntryApplication />} />
+      </Route>
+      <Route path="/profile" element={<Template />}>
+        <Route path="/profile" element={<ProfileTemplate/>} />
+      </Route>
+      <Route path="/document-management" element={<Template />}>
+        <Route path="/document-management" element={<DocumentManagement/>} />
       </Route>
       <Route path="/timeManagement" element={<Template />}>
         <Route path="/timeManagement/attendance/myAttendance" element={<MyAttendance />} />

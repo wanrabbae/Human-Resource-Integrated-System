@@ -42,11 +42,9 @@ function App() {
       <Route path="/" element={<LandingPages />}></Route>
       <Route path="/feature" element={<Feature />}></Route>
       <Route path="/pricing" element={<Pricing />}></Route>
-      <Route path="/dashboard" element={<Template />}>
-        <Route index element={<Dashboard />} />
-      </Route>
       <Route path="/admin" element={<Template />}>
         <Route index element={<Home />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/userManagement/users" element={<Users />} />
         <Route path="/admin/job/jobTitle" element={<JobTitle />} />
         <Route path="/admin/job/jobGrade" element={<JobGrade />} />
@@ -67,16 +65,14 @@ function App() {
         <Route path='/admin/qualifications/languages' element={<Languages />} />
         <Route path='/admin/qualifications/membership' element={<Membership />} />
         <Route path='/admin/nationalities' element={<Nationalities />} />
-      </Route>
-      <Route path="/employee" element={<Template />}>
-        <Route path="/employee/configuration" index element={<Optionals />} />
-        <Route path="/employee/custom" index element={<CustomField />} />
-        <Route path="/employee/data-import" index element={<DataImport />} />
-        <Route path="/employee/reporting-methods" index element={<ReportingMethods />} />
-        <Route path="/employee/termination-reasons" index element={<TerminationReasons />} />
-        <Route path="/employee/employee-list" index element={<EmployeeList />} />
-        <Route path="/employee/report" index element={<Report />} />
-        <Route path="/employee/detail-report" index element={<DetailReport />} />
+        <Route path="/admin/employee/configuration" index element={<Optionals />} />
+        <Route path="/admin/employee/custom" index element={<CustomField />} />
+        <Route path="/admin/employee/data-import" index element={<DataImport />} />
+        <Route path="/admin/employee/reporting-methods" index element={<ReportingMethods />} />
+        <Route path="/admin/employee/termination-reasons" index element={<TerminationReasons />} />
+        <Route path="/admin/employee/employee-list" index element={<EmployeeList />} />
+        <Route path="/admin/employee/report" index element={<Report />} />
+        <Route path="/admin/employee/detail-report" index element={<DetailReport />} />
       </Route>
     </Routes>
   );

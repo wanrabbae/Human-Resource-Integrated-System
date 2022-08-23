@@ -25,12 +25,12 @@ function Feature() {
         <Navbar />
       </div>
       <div className="mx-5 pt-28 space-y-20">
-        <div className="flex flex-row">
-          <div className="w-1/2">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-1/2">
             <img src={lp5} />
           </div>
-          <div className="w-1/2 flex flex-col gap-2 justify-center">
-            <p className="text-[#780000] text-5xl font-bold leading-relaxed">
+          <div className="w-full md:w-1/2 flex flex-col gap-2 justify-center">
+            <p className="text-[#780000] text-xl md:text-5xl font-bold leading-relaxed">
               We provide many features that help and make it easier for you
             </p>
             <p className="text-sm text-gray-400">
@@ -45,7 +45,7 @@ function Feature() {
       </div>
 
       <div className="bg-white p-5 mt-5 space-y-5">
-        <div className="text-center mx-72">
+        <div className="text-center mx-0 md:mx-72">
           <p className="text-3xl text-[#003049] font-bold">
             Why should you choose HRIS as software that will lighten your work?
           </p>
@@ -54,7 +54,7 @@ function Feature() {
             accusantium doloremque laudantium, totam rem aperiam.
           </p>
         </div>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div class="bg-[#D0DFEA] w-full rounded-lg overflow-hidden shadow-md border">
             <div class="px-6 py-4 flex flex-row justify-around gap-3">
               <p>Employee</p>
@@ -176,8 +176,8 @@ function Feature() {
       </div>
 
       <div className="mx-5 mt-5 space-y-20">
-        <div className="flex flex-row items-center">
-          <div className="w-1/2 flex flex-col gap-4 justify-center">
+        <div className="flex flex-col-reverse md:flex-row items-center">
+          <div className="w-full md:w-1/2 flex flex-col gap-4 justify-center">
             <div className="mb-2">
               <p className="text-[#003049] text-4xl font-bold leading-relaxed">
                 Employee System
@@ -259,17 +259,17 @@ function Feature() {
               </div>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <img src={lp6} />
           </div>
         </div>
       </div>
       <div className="bg-white p-5 mt-5 space-y-5">
-        <div className="flex flex-row gap-20 items-center">
-          <div className="w-1/2">
+        <div className="flex flex-col md:flex-row gap-20 items-center">
+          <div className="w-full md:w-1/2">
             <img src={lp7} />
           </div>
-          <div className="w-1/2 flex flex-col gap-4 justify-center">
+          <div className="w-full md:w-1/2 flex flex-col gap-4 justify-center">
             <div className="mb-2">
               <p className="text-[#003049] text-4xl font-bold leading-relaxed">
                 Time management
@@ -354,8 +354,8 @@ function Feature() {
         </div>
       </div>
       <div className=" bg-white px-5 mt-5 space-y-20">
-        <div className="flex flex-row items-center">
-          <div className="w-1/2 flex flex-col gap-4 justify-center">
+        <div className="flex flex-col-reverse md:flex-row items-center">
+          <div className="w-full md:w-1/2 flex flex-col gap-4 justify-center">
             <div className="mb-2">
               <p className="text-[#003049] text-4xl font-bold leading-relaxed">
                 Document Management System
@@ -437,17 +437,17 @@ function Feature() {
               </div>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <img src={lp6} />
           </div>
         </div>
       </div>
       <div className="bg-white p-5 mt-5 space-y-5">
-        <div className="flex flex-row gap-20 items-center">
-          <div className="w-1/2">
+        <div className="flex flex-col md:flex-row gap-20 items-center">
+          <div className="w-full md:w-1/2">
             <img src={lp7} />
           </div>
-          <div className="w-1/2 flex flex-col gap-4 justify-center">
+          <div className="w-full md:w-1/2 flex flex-col gap-4 justify-center">
             <div className="mb-2">
               <p className="text-[#003049] text-4xl font-bold leading-relaxed">
                 Recruitment
@@ -532,8 +532,8 @@ function Feature() {
         </div>
       </div>
       <div className="bg-[#ECEEF6] space-y-5 py-28">
-        <div className="flex flex-row items-center px-5 bg-[#E9DCE5]">
-          <div className="w-1/2 space-y-5">
+        <div className="flex flex-col-reverse md:flex-row items-center px-5 bg-[#E9DCE5]">
+          <div className="w-full md:w-1/2 space-y-5">
             <h1 className="text-[#780000] text-4xl font-bold">
               Get Started Now
             </h1>
@@ -550,7 +550,7 @@ function Feature() {
               </a>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <img src={lp8} />
           </div>
         </div>

@@ -24,29 +24,29 @@ function Home() {
         <Navbar />
       </div>
       <div className="mx-5 mt-28 space-y-20">
-        <div className="flex flex-row">
-          <div className="w-1/2 flex flex-col gap-2 justify-center">
-            <p className="text-[#780000] text-5xl font-bold leading-relaxed">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-5 md:gap-0">
+          <div className="w-full md:w-1/2 flex flex-col gap-3 md:gap-2">
+            <p className="text-[#780000] text-xl md:text-5xl font-bold leading-relaxed">
               HR software for more effective business operations
             </p>
-            <p>
+            <p className="tex-xs md:text-normal">
               Lorem ipsum is placeholder text commonly used in the graphic,
               print, and publishing industries for previewing layouts and visual
               mockups.
             </p>
           </div>
-          <div className="w-1/2">
+          <div className="w-full w-1/2">
             <img src={lp1} />
           </div>
         </div>
-        <div className="flex flex-row">
-          <div className="w-1/2 flex flex-col gap-2 justify-center">
-            <p className="text-[#003049] text-3xl font-bold leading-relaxed">
+        <div className="flex md:flex-row flex-col-reverse">
+          <div className="w-full md:w-1/2 flex flex-col gap-2 justify-center">
+            <p className="text-[#003049] text-xl md:text-3xl font-bold leading-relaxed">
               Manage all needs with the
               <br />
               features we provide
             </p>
-            <div className="flex flex-row items-start gap-3 w-96 mt-10">
+            <div className="flex flex-row items-start gap-3 w-fit md:w-96 mt-10">
               <div>
                 <CheckCircleIcon className="h-8 w-8" />
               </div>
@@ -57,7 +57,7 @@ function Home() {
                 visual mockups.
               </p>
             </div>
-            <div className="flex flex-row gap-3 items-start w-96 ml-10 mt-10">
+            <div className="flex flex-row gap-3 items-start w-fit md:w-96 ml-0 md:ml-10 mt-10">
               <div>
                 <CheckCircleIcon className="h-8 w-8" />
               </div>
@@ -68,7 +68,7 @@ function Home() {
                 visual mockups.
               </p>
             </div>
-            <div className="flex flex-row gap-3 items-start w-96 ml-20 mt-10">
+            <div className="flex flex-row gap-3 items-start w-fit md:w-96 ml-0 md:ml-20 mt-10">
               <div>
                 <CheckCircleIcon className="h-8 w-8" />
               </div>
@@ -80,17 +80,17 @@ function Home() {
               </p>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <img src={lp2} />
           </div>
         </div>
       </div>
 
       <div className="bg-[#ECEEF6] p-5 mt-5 space-y-5">
-        <p className="text-3xl text-[#003049] text-center font-bold">
+        <p className=" text-xl md:text-3xl text-[#003049] text-center font-bold">
           Many Companies Use HRIS Software
         </p>
-        <div className="flex flex-wrap justify-between gap-5">
+        <div className="flex flex-wrap justify-center md:justify-between gap-5">
           <img src={c1} />
           <img src={c1} />
           <img src={c1} />
@@ -105,12 +105,12 @@ function Home() {
       </div>
 
       <div className="mx-5 mt-5 space-y-20">
-        <div className="flex flex-row items-center">
-          <div className="w-1/2">
+        <div className="flex md:flex-row flex-col items-center">
+          <div className="w-full md:w-1/2">
             <img src={lp3} />
           </div>
-          <div className="w-1/2 flex flex-col gap-2 justify-center">
-            <p className="text-[#003049] text-4xl font-bold leading-relaxed">
+          <div className="w-full md:w-1/2 flex flex-col gap-2 justify-center">
+            <p className="text-[#003049] text-xl md:text-4xl font-bold leading-relaxed">
               Manage payroll & HR administration so much easier
             </p>
             <div className="flex flex-row items-start gap-3">
@@ -253,8 +253,8 @@ function Home() {
         </div>
       </div>
       <div className="bg-[#ECEEF6] space-y-5 py-28">
-        <div className="flex flex-row items-center px-5 bg-[#E9DCE5]">
-          <div className="w-1/2 space-y-5">
+        <div className="flex flex-col-reverse md:flex-row items-center px-5 bg-[#E9DCE5]">
+          <div className="w-full md:w-1/2 space-y-5">
             <h1 className="text-[#780000] text-4xl font-bold">
               Get Started Now
             </h1>
@@ -271,7 +271,7 @@ function Home() {
               </a>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <img src={lp4} />
           </div>
         </div>

@@ -21,20 +21,20 @@ function Pricing() {
         <Navbar />
       </div>
       <div className="mx-5 pt-28 space-y-20">
-        <div className="flex flex-row">
-          <div className="w-1/2">
-            <p className="text-[#780000] text-5xl font-bold leading-relaxed">
+        <div className="flex flex-col-reverse md:flex-row items-center">
+          <div className="w-full md:w-1/2">
+            <p className="text-[#780000] text-xl md:text-5xl font-bold leading-relaxed">
               We provide many features that help and make it easier for you
             </p>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <img src={lp2} />
           </div>
         </div>
       </div>
 
       <div className="bg-[#ECEEF6] p-5 mt-5 space-y-5">
-        <div className="mb-5 mx-72">
+        <div className="mb-5 mx-0 md:mx-72">
           <div className="text-center">
             <p className="text-3xl text-[#003049] font-bold">Plan & Pricing</p>
             <p className="text-sm text-gray-400">
@@ -43,8 +43,8 @@ function Pricing() {
             </p>
           </div>
         </div>
-        <div className="flex flex-row gap-3 justify-center">
-          <div class="bg-white w-1/4 h-screen rounded-lg overflow-hidden shadow-md border">
+        <div className="flex flex-col md:flex-row gap-3 justify-center">
+          <div class="bg-white w-full md:w-1/4 h-screen rounded-lg overflow-hidden shadow-md border">
             <div class="px-6 py-4 space-y-5">
               <h1 className="font-bold text-lg">Starter</h1>
               <p className="text-sm">Subscribtion for 6 months</p>
@@ -134,7 +134,7 @@ function Pricing() {
               </div>
             </div>
           </div>
-          <div class="bg-[#CADAE8] w-1/4 h-screen rounded-lg overflow-hidden shadow-md border">
+          <div class="bg-[#CADAE8] w-full md:w-1/4 h-screen rounded-lg overflow-hidden shadow-md border">
             <div class="px-6 py-4 space-y-5">
               <h1 className="font-bold text-lg">Premium</h1>
               <p className="text-sm">Subscribtion for 6 months</p>
@@ -233,8 +233,8 @@ function Pricing() {
           <br />
           Contact Us Now
         </p>
-        <div className="flex flex-row">
-          <div className="w-1/2 space-y-5">
+        <div className="flex flex-col-reverse md:flex-row gap-5">
+          <div className="w-full md:w-1/2 space-y-5">
             <h5 className="font-bold">Get in Touch</h5>
             <div class="flex flex-row">
               <div class="basis-1/12 p-1">
@@ -292,7 +292,7 @@ function Pricing() {
               </div>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <form>
               <div class="mb-6">
                 <label

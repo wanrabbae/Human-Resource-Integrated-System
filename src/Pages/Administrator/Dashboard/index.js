@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import d1 from "../../../Resourse/img/d1.png";
+import d2 from "../../../Resourse/img/d2.png";
+import d3 from "../../../Resourse/img/d3.png";
+import d4 from "../../../Resourse/img/d4.png";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,35 +43,47 @@ function Dashboard() {
         <p className="text-sm">it’s Monday, 21 Februari 2022</p>
       </div>
       <div className="flex flex-row gap-2">
-        <div className="w-2/3">
+        <div className="w-1/2">
           <div className="grid grid-cols-2 gap-2">
-            <div className="flex flex-col gap-2 bg-[#669BBC] p-4 rounded-lg">
-              <h1 className="text-gray-200 font-semibold uppercase">
-                total employees
-              </h1>
-              <h1 className="text-white">7,482,120</h1>
+            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+              <div className="flex flex-col gap-2 p-4 text-sm">
+                <h1 className="text-gray-200 font-semibold uppercase">
+                  Total employees
+                </h1>
+                <h1 className="text-white">7,482,120</h1>
+              </div>
+              <img className="rounded-lg" src={d1} />
             </div>
-            <div className="flex flex-col gap-2 bg-[#669BBC] p-4 rounded-lg">
-              <h1 className="text-gray-200 font-semibold uppercase">
-                new employees
-              </h1>
-              <h1 className="text-white">7,482,120</h1>
+            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+              <div className="flex flex-col gap-2 p-4 text-sm">
+                <h1 className="text-gray-200 font-semibold uppercase">
+                  New employees
+                </h1>
+                <h1 className="text-white">7,482,120</h1>
+              </div>
+              <img className="rounded-lg" src={d4} />
             </div>
-            <div className="flex flex-col gap-2 bg-[#669BBC] p-4 rounded-lg">
-              <h1 className="text-gray-200 font-semibold uppercase">
-                applied employees
-              </h1>
-              <h1 className="text-white">7,482,120</h1>
+            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+              <div className="flex flex-col gap-2 p-4 text-sm">
+                <h1 className="text-gray-200 font-semibold uppercase">
+                  Applied employees
+                </h1>
+                <h1 className="text-white">7,482,120</h1>
+              </div>
+              <img className="rounded-lg" src={d2} />
             </div>
-            <div className="flex flex-col gap-2 bg-[#669BBC] p-4 rounded-lg">
-              <h1 className="text-gray-200 font-semibold uppercase">
-                resigned employees
-              </h1>
-              <h1 className="text-white">7,482,120</h1>
+            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+              <div className="flex flex-col gap-2 p-4 text-sm">
+                <h1 className="text-gray-200 font-semibold uppercase">
+                  Resigned employees
+                </h1>
+                <h1 className="text-white">7,482,120</h1>
+              </div>
+              <img className="rounded-lg" src={d3} />
             </div>
           </div>
         </div>
-        <div className="bg-[#F3F6FF]  w-2/3">
+        <div className="bg-[#F3F6FF]  w-1/2">
           <div className="flex flex-col gap-2 p-4 rounded-lg">
             <h1 className="text-gray-700 font-semibold">Employee status</h1>
             <div className="flex">

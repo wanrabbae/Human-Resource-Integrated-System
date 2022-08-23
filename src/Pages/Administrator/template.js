@@ -352,7 +352,7 @@ function Template() {
             </ListItemButton>
           </div>
         </aside>
-        <div className="ml-auto h-full w-9/12 p-5 space-y-5 p-5">
+        <div className="ml-auto min-h-screen h-full w-9/12 p-5 space-y-5 p-5">
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <h6>
@@ -399,7 +399,7 @@ function Template() {
               </Button>
             </div>
           </div>
-          <div style={{ height: "70px" }}></div>
+          <div style={{ height: "30px" }}></div>
           <Outlet />
         </div>
       </div>

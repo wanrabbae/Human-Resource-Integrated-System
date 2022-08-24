@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useState,useEffect, } from 'react';
 import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Plus,Eye,FileText,DotsThreeOutline,Export ,MagnifyingGlass } from "phosphor-react";
 import {Dropdown, Modal, Button} from 'react-bootstrap';
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
+import { GetApplicant } from '../../../Repository/RecruitmentRepository';
 
 function  EntryApplication() {
     const [modal, setModal] = useState(false);
+    const [applicant, setApplicant] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetApplicant();
+        setApplicant(rec);
+        console.log(rec);
+      }
+    useEffect(() => {
+        inAwait();
+    }, []);
     return (
         <>
             <div className="bg-light p-4" style={{ borderRadius: "10px" }}>
@@ -45,71 +55,29 @@ function  EntryApplication() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style={{fontSize:'14px'}}>
-                                <td className="align-middle px-3"><input type="checkbox" /></td>
-                                <td className="align-middle">UI UX Designer</td>
-                                <td className="align-middle">Instagram Loker</td>
-                                <td className="align-middle">26/02/2022</td>
-                                <td className="align-middle">Puspa Wahyuningtias</td>
-                                <td className="align-middle">081234567890</td>
-                                <td className="align-middle">
-                                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg" onClick={() => setModal(true)}>
-                                        <Eye color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
-                                    </button>  
+                            {
+                                applicant.length > 0 ?
+                                    applicant.map((val) => {
+                                    return (
+                                        <tr style={{fontSize:'14px'}}>
+                                            <td className="align-middle px-3"><input type="checkbox" /></td>
+                                            <td className="align-middle">{val['source']}</td>
+                                            <td className="align-middle">{val['source']}</td>
+                                            <td className="align-middle">{val['date']}</td>
+                                            <td className="align-middle">{val['name']}</td>
+                                            <td className="align-middle">{val['phone']}</td>
+                                            <td className="align-middle">
+                                                <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg" onClick={() => setModal(true)}>
+                                                    <Eye color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
+                                                </button>  
+                                            </td>
+                                        </tr>
+                                    )
+                                }) :
+                                <td >
+                                    <div className='d-flex justify-content-center align-middle text-center' >No Data</div>
                                 </td>
-                            </tr>
-                            <tr style={{fontSize:'14px'}}>
-                                <td className="align-middle px-3"><input type="checkbox" /></td>
-                                <td className="align-middle">Developer</td>
-                                <td className="align-middle">Linkedin</td>
-                                <td className="align-middle">26/02/2022</td>
-                                <td className="align-middle">Muh Faizal</td>
-                                <td className="align-middle">081234567890</td>
-                                <td className="align-middle">
-                                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg" onClick={() => setModal(true)}>
-                                        <Eye color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
-                                    </button>  
-                                </td>
-                            </tr>
-                            <tr style={{fontSize:'14px'}}>
-                                <td className="align-middle px-3"><input type="checkbox" /></td>
-                                <td className="align-middle">Sales & Marketing</td>
-                                <td className="align-middle">Sponsor Instagram/Facebook</td>
-                                <td className="align-middle">26/02/2022</td>
-                                <td className="align-middle">Faris Hasyim</td>
-                                <td className="align-middle">081234567890</td>
-                                <td className="align-middle">
-                                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg" onClick={() => setModal(true)}>
-                                        <Eye color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
-                                    </button>  
-                                </td>
-                            </tr>
-                            <tr style={{fontSize:'14px'}}>
-                                <td className="align-middle px-3"><input type="checkbox" /></td>
-                                <td className="align-middle">Manager</td>
-                                <td className="align-middle">Website</td>
-                                <td className="align-middle">26/02/2022</td>
-                                <td className="align-middle">Alvin Nivla</td>
-                                <td className="align-middle">088543676556</td>
-                                <td className="align-middle">
-                                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"onClick={() => setModal(true)}>
-                                        <Eye color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
-                                    </button>  
-                                </td>
-                            </tr>
-                            <tr style={{fontSize:'14px'}}>
-                                <td className="align-middle px-3"><input type="checkbox" /></td>
-                                <td className="align-middle">Support</td>
-                                <td className="align-middle">Jobstreet</td>
-                                <td className="align-middle">26/02/2022</td>
-                                <td className="align-middle">Sabiq Nashrullah</td>
-                                <td className="align-middle">089876543280</td>
-                                <td className="align-middle">
-                                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"onClick={() => setModal(true)}>
-                                        <Eye color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
-                                    </button>  
-                                </td>
-                            </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

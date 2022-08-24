@@ -13,5 +13,11 @@ var GetRecruitment = async () => {
         return res.data;
     }
 }
+var GetApplicant = async () => {
+    var res = await axios.get("https://hris.afkaaruna.sch.id/getApplicant");
+    if (res.status == 200) {
+        return res.data;
+    }
+}
 
-export { AddRecruitment, GetRecruitment }
+export { AddRecruitment, GetRecruitment, GetApplicant }

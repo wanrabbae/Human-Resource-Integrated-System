@@ -47,52 +47,160 @@ function Template() {
       {
         nama: "User Management",
         click: null,
+        show: true,
         body: [
           {
             nama: "Users",
-            link: null,
+            link: "/admin/userManagement/users",
           },
         ],
       },
       {
         nama: "Job",
         click: null,
+        show: true,
+        body: [
+          {
+            nama: "Job Title",
+            link: "/admin/job/jobTitle",
+          },
+          {
+            nama: "Job Grade",
+            link: "/admin/job/jobGrade",
+          },
+          {
+            nama: "Employee Status",
+            link: "/admin/job/employeeStatus",
+          },
+          {
+            nama: "Job Categories",
+            link: "/admin/job/jobCategories",
+          },
+          {
+            nama: "Work Shift",
+            link: "/admin/job/workShift",
+          },
+        ],
       },
       {
         nama: "Organization",
         click: null,
+        show: true,
+        body: [
+          {
+            nama: "General Information",
+            link: "/admin/organization/generalInformation",
+          },
+          {
+            nama: "Locations",
+            link: "/admin/organization/locations",
+          },
+          {
+            nama: "Structure",
+            link: "/admin/organization/structureOrganization",
+          },
+          {
+            nama: "Cost and Profit",
+            link: "/admin/organization/costProfit",
+          },
+        ],
       },
       {
         nama: "Qualifications",
         click: null,
+        show: true,
+        body: [
+          {
+            nama: "Skills",
+            link: "/admin/qualifications/skills",
+          },
+          {
+            nama: "Education",
+            link: "/admin/qualifications/educations",
+          },
+          {
+            nama: "Licenses",
+            link: "/admin/qualifications/license",
+          },
+          {
+            nama: "languages",
+            link: "/admin/qualifications/languages",
+          },
+          {
+            nama: "Memberships",
+            link: "/admin/qualifications/membership",
+          },
+        ],
       },
       {
         nama: "Nationalities",
         click: "/admin/nationalities",
+        show: true,
+        body: [],
       },
     ],
     [
       {
         nama: "Configuration",
-        click: "#",
+        click: null,
+        show: true,
+        body: [
+          {
+            nama: "Optional Fields",
+            link: "/employee/optional-field",
+          },
+          {
+            nama: "Custom Fields",
+            link: "/employee/custom-field",
+          },
+          {
+            nama: "Data Import",
+            link: "/employee/data-import",
+          },
+          {
+            nama: "Reporting Methods",
+            link: "/employee/reporting-methods",
+          },
+          {
+            nama: "Termination Reasons",
+            link: "/employee/termination-reasons",
+          },
+        ],
       },
       {
         nama: "Employee List",
         click: "/employee/employee-list",
+        show: true,
+        body: [],
       },
       {
         nama: "Report",
         click: "/employee/report",
+        show: true,
+        body: [],
       },
     ],
     [
       {
         nama: "Attendance",
-        click: "attendance",
+        click: null,
+        show: true,
+        body: [
+          {
+            nama: "My Attendance",
+            link: "/timeManagement/attendance/myAttendance",
+          },
+          {
+            nama: "Employee Records",
+            link: "/timeManagement/attendance/employeeRecord",
+          },
+        ],
       },
       {
         nama: "Schedule",
-        click: "schedule",
+        click: "/timeManagement/schedule",
+        show: true,
+        body: [],
       },
     ],
   ]);
@@ -108,26 +216,26 @@ function Template() {
           }}
         >
           <a href="/dashboard">
-          <div className="d-flex px-5 align-items-center">
-            <div className="">
-              <div
-                style={{
-                  borderRadius: "5px",
-                  backgroundColor: "#780000",
-                  height: "50px",
-                  width: "50px",
-                }}
-              ></div>
+            <div className="d-flex px-5 align-items-center">
+              <div className="">
+                <div
+                  style={{
+                    borderRadius: "5px",
+                    backgroundColor: "#780000",
+                    height: "50px",
+                    width: "50px",
+                  }}
+                ></div>
+              </div>
+              <div className="ms-2">
+                <h5>
+                  <b>HRIS</b>
+                </h5>
+                <p>
+                  <small>HR Integrated System</small>
+                </p>
+              </div>
             </div>
-            <div className="ms-2">
-              <h5>
-                <b>HRIS</b>
-              </h5>
-              <p>
-                <small>HR Integrated System</small>
-              </p>
-            </div>
-          </div>
           </a>
 
           <div className="py-5 px-4">
@@ -172,24 +280,37 @@ function Template() {
               list[0].map((val, index) => {
                 return (
                   <>
+                    <div hidden={val.show} className="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" style={{ position: "absolute", left: "23em", }}>
+                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
+                        {
+                          val.body.map((e, i) => {
+                            return (
+                              <li>
+                                <a key={i} href={e.link} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{e.nama}</a>
+                              </li>
+                            );
+                          })
+                        }
+                      </ul>
+                    </div>
                     <ListItemButton key={index} onClick={() => {
                       if (val.click != null) {
                         window.location.href = val.click;
                       } else {
-                        document.getElementById(`dropdownRight${index}`).classList.remove("hidden");
+                        if (val.show == false) {
+                          setList(e => [...e, e[0][index].show = true]);
+                        } else {
+                          list[0].map((e, i) => {
+                            setList(e => [...e, e[0][i].show = true]);
+                          })
+                          setList(e => [...e, e[0][index].show = false]);
+                        }
                       }
                     }}>
                       <ListItemIcon></ListItemIcon>
                       <ListItemText primary={val.nama} />
                       <ChevronRight />
                     </ListItemButton>
-                    <div id={`dropdownRight${index}`} className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" style={{ position: "absolute", left: "23em", }}>
-                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
-                        <li>
-                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                      </ul>
-                    </div>
                   </>
                 );
               })
@@ -232,11 +353,36 @@ function Template() {
             {isOpen[1] == true ? (
               list[1].map((val, index) => {
                 return (
-                  <ListItemButton onClick={() => { window.location.href = val.click }} >
-                    <ListItemIcon></ListItemIcon>
-                    <ListItemText primary={val.nama} />
-                    <ChevronRight />
-                  </ListItemButton>
+                  <>
+                    <div id={`drop${index}`} className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" style={{ position: "absolute", left: "23em", }}>
+                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
+                        {
+                          val.body.map((e, i) => {
+                            return (
+                              <li>
+                                <a key={i} href={e.link} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{e.nama}</a>
+                              </li>
+                            );
+                          })
+                        }
+                      </ul>
+                    </div>
+                    <ListItemButton onClick={() => {
+                      if (val.click != null) {
+                        window.location.href = val.click;
+                      } else {
+                        if (document.getElementById(`drop${index}`).classList.contains("hidden")) {
+                          document.getElementById(`drop${index}`).classList.remove("hidden");
+                        } else {
+                          document.getElementById(`drop${index}`).classList.add("hidden");
+                        }
+                      }
+                    }} >
+                      <ListItemIcon></ListItemIcon>
+                      <ListItemText primary={val.nama} />
+                      <ChevronRight />
+                    </ListItemButton>
+                  </>
                 );
               })
             ) : (
@@ -299,11 +445,38 @@ function Template() {
             {isOpen[2] == true ? (
               list[2].map((val, index) => {
                 return (
-                  <ListItemButton>
-                    <ListItemIcon></ListItemIcon>
-                    <ListItemText primary={val.nama} />
-                    <ChevronRight />
-                  </ListItemButton>
+                  <>
+                    <div id={`timeManagement${index}`} className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" style={{ position: "absolute", left: "23em", }}>
+                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
+                        {
+                          val.body.map((e, i) => {
+                            return (
+                              <li>
+                                <a key={i} href={e.link} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{e.nama}</a>
+                              </li>
+                            );
+                          })
+                        }
+                      </ul>
+                    </div>
+                    <ListItemButton
+                      onClick={() => {
+                        if (val.click != null) {
+                          window.location.href = val.click;
+                        } else {
+                          if (document.getElementById(`timeManagement${index}`).classList.contains("hidden")) {
+                            document.getElementById(`timeManagement${index}`).classList.remove("hidden");
+                          } else {
+                            document.getElementById(`timeManagement${index}`).classList.add("hidden");
+                          }
+                        }
+                      }}
+                    >
+                      <ListItemIcon></ListItemIcon>
+                      <ListItemText primary={val.nama} />
+                      <ChevronRight />
+                    </ListItemButton>
+                  </>
                 );
               })
             ) : (

@@ -38,6 +38,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Route, Routes, Outlet } from "react-router-dom";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 
 function Template() {
   const [isOpen, setOpen] = useState([false, false, false]);
@@ -45,19 +46,25 @@ function Template() {
     [
       {
         nama: "User Management",
-        click: "user",
+        click: null,
+        body: [
+          {
+            nama: "Users",
+            link: null,
+          },
+        ],
       },
       {
         nama: "Job",
-        click: "job",
+        click: null,
       },
       {
         nama: "Organization",
-        click: "organization",
+        click: null,
       },
       {
         nama: "Qualifications",
-        click: "qualification",
+        click: null,
       },
       {
         nama: "Nationalities",
@@ -162,11 +169,26 @@ function Template() {
             {isOpen[0] == true ? (
               list[0].map((val, index) => {
                 return (
-                  <ListItemButton onClick={() => window.location.href = val.click}>
-                    <ListItemIcon></ListItemIcon>
-                    <ListItemText primary={val.nama} />
-                    <ChevronRight />
-                  </ListItemButton>
+                  <>
+                    <ListItemButton key={index} onClick={() => {
+                      if (val.click != null) {
+                        window.location.href = val.click;
+                      } else {
+                        document.getElementById(`dropdownRight${index}`).classList.remove("hidden");
+                      }
+                    }}>
+                      <ListItemIcon></ListItemIcon>
+                      <ListItemText primary={val.nama} />
+                      <ChevronRight />
+                    </ListItemButton>
+                    <div id={`dropdownRight${index}`} className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" style={{ position: "absolute", left: "23em", }}>
+                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
+                        <li>
+                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
                 );
               })
             ) : (
@@ -180,7 +202,7 @@ function Template() {
                 color: isOpen[1] == true ? "#780000" : "#00000080",
               }}
               className="mt-2"
-              onClick={() => 
+              onClick={() =>
                 isOpen[1] == false
                   ? setOpen([false, true, false])
                   : setOpen([false, false, false])

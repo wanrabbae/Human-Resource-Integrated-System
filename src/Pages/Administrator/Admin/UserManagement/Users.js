@@ -1,6 +1,6 @@
 import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
+import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, LineAxisOutlined, Search } from "@mui/icons-material";
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
 import { useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
@@ -72,15 +72,17 @@ function Users() {
                         <div className="col-md-6 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">User Role <span className="text-danger">*</span></label>
-                                <select className="form-control">
+                                <select className="form-control" id="role">
                                     <option>Select User Role</option>
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-6 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Employee Name <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Employee Name..." />
+                                <input className="form-control" id="name" placeholder="Employee Name..." />
                             </div>
                         </div>
                         <div className="col-md-6 mb-3">
@@ -94,19 +96,19 @@ function Users() {
                         <div className="col-md-6 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Username <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Your Username..." />
+                                <input className="form-control" id="usename" placeholder="Your Username..." />
                             </div>
                         </div>
                         <div className="col-md-6 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Password <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Your Password..." />
+                                <input className="form-control" id="password" placeholder="Your Password..." />
                             </div>
                         </div>
                         <div className="col-md-6 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Confirm Password <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Confirm Password..." />
+                                <input className="form-control" id="password"  placeholder="Confirm Password..." />
                             </div>
                         </div>
                     </div>
@@ -133,6 +135,15 @@ function Users() {
                             color: "#FFFFFF",
                             width: "100px",
                         }}
+                        // onClick={async ()=> {
+                        //     var requestBody ={
+                        //         role: document.getElementById("role").value,
+                        //         name: document.getElementById("name").value,
+                        //         username: document.getElementById("username").value,
+                        //         password: document.getElementById("password").value,
+                        //     };
+                        //     var res = await axios.post
+                        // }}
                     >
                         Add
                     </button>

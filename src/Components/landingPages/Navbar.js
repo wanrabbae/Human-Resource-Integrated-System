@@ -2,9 +2,11 @@ import { Button } from "flowbite-react";
 import { React, useState } from "react";
 import { Modal, Table } from "react-bootstrap";
 import logo from "../../Resourse/img/logo.png";
+import pw from "../../Resourse/img/pw.png";
 
 function Navbar() {
   const [modalLogin, setModalLogin] = useState(false);
+  const [modalPW, setModalPW] = useState(false);
   return (
     <>
       <nav className="bg-white shadow-md px-2 sm:px-4 py-1 rounded dark:bg-gray-900">
@@ -94,6 +96,8 @@ function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* start:modal login */}
       <Modal show={modalLogin} size="md" onHide={() => setModalLogin(false)}>
         <Modal.Body className="flex flex-col gap-3 m-4">
           <div className="self-center">
@@ -102,17 +106,18 @@ function Navbar() {
           <h1 className="text-xl text-center">Welcome Back!!</h1>
           <input
             type="text"
-            className="w-full rounded-full border-[#780000] focus:ring-[#780000] focus:border-[#780000] text-sm"
+            className="w-full rounded-lg border-[#780000] focus:ring-[#780000] focus:border-[#780000] text-sm"
             placeholder="Username"
           ></input>
           <input
             type="password"
-            className="w-full rounded-full border-[#780000] focus:ring-[#780000] focus:border-[#780000] text-sm"
+            className="w-full rounded-lg border-[#780000] focus:ring-[#780000] focus:border-[#780000] text-sm"
             placeholder="Password"
           ></input>
           <a
             href="#"
             className="self-end text-[#33596D] hover:text-[#2D4D5F] text-sm"
+            onClick={() => setModalPW(true)}
           >
             Forgot Password?
           </a>
@@ -122,9 +127,54 @@ function Navbar() {
           >
             Login
           </a>
-          <p className="text-xs text-gray-400">Don’t have an account? <a href="#" className="text-[#003049] hover:text-[#001A27] font-semibold">Sign Up</a></p>
+          <p className="text-xs text-gray-400">
+            Don’t have an account?{" "}
+            <a
+              href="#"
+              className="text-[#003049] hover:text-[#001A27] font-semibold"
+            >
+              Sign Up
+            </a>
+          </p>
         </Modal.Body>
       </Modal>
+      {/* end:modal login */}
+      {/* start:modal forgot password */}
+      <Modal show={modalPW} size="md" onHide={() => setModalPW(false)}>
+        <Modal.Body className="flex flex-col gap-3 m-4">
+          <div className="self-center">
+            <img src={pw} className="" />
+          </div>
+          <div>
+            <h1 className="text-xl text-center">Forgot Password?</h1>
+            <p className="text-sm text-center text-gray-400">
+              No worries, we’ll send you reset instructions
+            </p>
+          </div>
+          <div className="space-y-2">
+            <label>Email</label>
+            <input
+              type="text"
+              className="w-full rounded-lg border-[#780000] focus:ring-[#780000] focus:border-[#780000] text-sm"
+              placeholder="Username"
+            ></input>
+          </div>
+          <a
+            href="#"
+            className="bg-[#0E5073] block py-2 px-3 text-center text-white rounded-full hover:bg-[#003049] md:border-0 md:hover:text-white md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+          >
+            Send
+          </a>
+          <a
+            href="#"
+            className="self-center text-[#33596D] hover:text-[#2D4D5F] text-sm"
+            onClick={() => setModalPW(false)}
+          >
+            Back to login
+          </a>
+        </Modal.Body>
+      </Modal>
+      {/* end:modal forgot password */}
     </>
   );
 }

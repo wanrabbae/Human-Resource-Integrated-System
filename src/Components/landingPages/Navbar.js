@@ -122,7 +122,7 @@ function Navbar() {
             Forgot Password?
           </a>
           <a
-            href="#"
+            href="/dashboard"
             className="bg-[#0E5073] block py-2 px-3 text-center text-white rounded-full hover:bg-[#003049] md:border-0 md:hover:text-white md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
           >
             Login

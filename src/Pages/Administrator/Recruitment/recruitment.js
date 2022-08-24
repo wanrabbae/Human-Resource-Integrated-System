@@ -1,12 +1,21 @@
 
-import { useState } from "react";
+import { useState,useEffect, } from "react";
 import { Plus, Eye, FileText, DotsThreeOutline, MagnifyingGlass } from "phosphor-react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { AddRecruitment } from "../../../Repository/RecruitmentRepository";
+import { AddRecruitment, GetRecruitment } from "../../../Repository/RecruitmentRepository";
+import axios from "axios";
 
 function Recruitment() {
     const [modal, setModal] = useState(false);
-
+    const [recruit, setRecruit] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetRecruitment();
+        setRecruit(rec['result']);
+        console.log(rec);
+      }
+    useEffect(() => {
+        inAwait();
+    }, []);
     return (
         <>
             <div className="d-flex justify-content-between">
@@ -21,106 +30,32 @@ function Recruitment() {
                         </div>
                         <input style={{ border: '0', outline: 'none', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 focus:outline-0" type="search" placeholder=" Search Demand Letter" />
                     </div>
-                    <button style={{ borderRadius: '10px', border: '1.5px solid #CACACA', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href = '/admin/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
+                    <button style={{ borderRadius: '10px', border: '1.5px solid #CACACA', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href = '/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
                     <button style={{ borderRadius: '10px', backgroundColor: "#0E5073", fontSize: "14px", fontWeight: '500' }} className="btn d-flex align-items-center text-white" onClick={() => setModal(true)} type=""><Plus size={15} className="me-2" weight="bold" />Create Recruitment</button>
                 </div>
             </div>
             <div className="container-fluid">
-                <div className="mt-5 px-4 pt-4 pb-56 row justify-content-around flex-wrap" style={{ backgroundColor: '#F3F6FF', borderRadius: '10px' }}>
-                    <div className="p-3 me-3 mb-4 col d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="p-3 me-3  mb-4 col d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="p-3 col  mb-4 d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="w-100">
-                    </div>
-                    <div className="p-3 me-3 mb-4 col d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="p-3 me-3  mb-4 col d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="p-3 col  mb-4 d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="w-100">
-                    </div>
-                    <div className="p-3 me-3 col d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="p-3 me-3  col d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
-                    <div className="p-3 col  d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
-                        <FileText className="me-3" size={35} weight="fill" />
-                        <div className="row">
-                            <h2 style={{ fontWeight: '600' }}>UI UX Designer</h2>
-                            <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>Create on 11 July 2022</span>
-                        </div>
-                        <a href="" className="ms-auto">
-                            <DotsThreeOutline size={20} weight="fill" />
-                        </a>
-                    </div>
+                <div className="grid grid-cols-3 gap-4 mt-5 px-4 pt-4 pb-56" style={{ backgroundColor: '#F3F6FF', borderRadius: '10px' }}>
+                    {
+                        recruit.length > 0 ?
+                            recruit.map((val) => {
+                                return (
+                                        <div className="p-3 d-flex align-items-center" style={{ boxShadow: '0px 0px 3px 0px rgba(179,179,179,1)', backgroundColor: 'white', color: '#003049', borderRadius: '10px' }}>
+                                            <FileText className="me-3" size={35} weight="fill" />
+                                            <div className="row">
+                                                <h2 style={{ fontWeight: '600' }}>{val['title']}</h2>
+                                                <span style={{ fontSize: '10px', color: '#A8A8A8', fontWeight: '400' }}>{val['publishDate']}</span>
+                                            </div>
+                                            <a href="" className="ms-auto">
+                                                <DotsThreeOutline size={20} weight="fill" />
+                                            </a>
+                                        </div>
+                                );
+                            }) :
+                            <div className="text-center grid-cols-1"> 
+                                No Data
+                            </div>
+                    }
                 </div>
             </div>
             <Modal show={modal} size="lg" onHide={() => setModal(false)}>
@@ -178,7 +113,7 @@ function Recruitment() {
                             };
                             var res = await AddRecruitment(requestBody);
                             setModal(false);
-
+                            inAwait();
                         }}
                     >
                         Create

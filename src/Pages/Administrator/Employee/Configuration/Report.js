@@ -5,13 +5,15 @@ import {
   PencilIcon,
   TrashIcon,
   DocumentIcon,
+  XIcon,
+  XCircleIcon,
 } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import profile from "../../../../Resourse/img/default-profile.png";
 
 function Report() {
   const [modalAdd, setModalAdd] = useState(false);
-  const [modaldEdit, setModalEdit] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
 
   return (
     <>
@@ -48,7 +50,7 @@ function Report() {
               className="bg-[#0E5073] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
               onClick={() => setModalAdd(true)}
             >
-              <PlusIcon className="text-white 5 w-5" aria-hidden="true" /> Add
+              <PlusIcon className="text-white h-5 w-5" aria-hidden="true" /> Add
               Report
             </button>
           </div>
@@ -92,11 +94,14 @@ function Report() {
                     <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
                       <TrashIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
-                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg" onClick={() => setModalEdit(true)}>
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => setModalEdit(true)}
+                    >
                       <PencilIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                     <a
-                      href="/admin/employee/detail-report"
+                      href="/employee/detail-report"
                       className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                     >
                       <DocumentIcon className="h-5 w-5" aria-hidden="true" />
@@ -119,7 +124,7 @@ function Report() {
             Add Report
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
+        <Modal.Body className="mx-4 space-y-4">
           <div className="w-full">
             <label className="text-xs">Report Name</label>
             <input
@@ -129,8 +134,8 @@ function Report() {
               placeholder="Type here"
             />
           </div>
-          <label className="text-xs mt-3 font-bold">Selection Criteria</label>
-          <div className="grid grid-cols-2 gap-3 mt-3">
+          <label className="text-xsfont-bold">Selection Criteria</label>
+          <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Criteria</label>
               <div className="flex flex-row gap-3">
@@ -139,7 +144,7 @@ function Report() {
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon
-                    className="text-[#669BBC] 5 w-5"
+                    className="text-[#669BBC] h-5 w-5"
                     aria-hidden="true"
                   />
                 </button>
@@ -152,8 +157,8 @@ function Report() {
               </select>
             </div>
           </div>
-          <label className="text-xs mt-4 font-bold">Display Fields</label>
-          <div className="grid grid-cols-2 gap-3 mt-3">
+          <label className="text-xs font-bold">Display Fields</label>
+          <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Display Field Group</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -168,11 +173,70 @@ function Report() {
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon
-                    className="text-[#669BBC] 5 w-5"
+                    className="text-[#669BBC] h-5 w-5"
                     aria-hidden="true"
                   />
                 </button>
               </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-6 gap-2">
+            <div>
+              <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                <TrashIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+            <div className="col-span-3 flex flex-col gap-2">
+              <h4>Personal</h4>
+              <div className="flex flex-wrap">
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-2">
+              <label
+                for="default-toggle"
+                class="inline-flex relative items-center cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  value=""
+                  id="default-toggle"
+                  class="sr-only peer"
+                />
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Include Header
+                </span>
+              </label>
             </div>
           </div>
         </Modal.Body>
@@ -193,8 +257,8 @@ function Report() {
         </Modal.Footer>
       </Modal>
 
-      {/* Modal dEdit */}
-      <Modal show={modaldEdit} size="lg" onHide={() => setModalEdit(false)}>
+      {/* Modal Edit */}
+      <Modal show={modalEdit} size="lg" onHide={() => setModalEdit(false)}>
         <Modal.Header
           closeButton
           className="mx-4 mt-4"
@@ -204,7 +268,7 @@ function Report() {
             Edit Report
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
+        <Modal.Body className="mx-4 space-y-4">
           <div className="w-full">
             <label className="text-xs">Report Name</label>
             <input
@@ -214,8 +278,8 @@ function Report() {
               placeholder="Type here"
             />
           </div>
-          <label className="text-xs mt-3 font-bold">Selection Criteria</label>
-          <div className="grid grid-cols-2 gap-3 mt-3">
+          <label className="text-xs font-bold">Selection Criteria</label>
+          <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Criteria</label>
               <div className="flex flex-row gap-3">
@@ -224,7 +288,7 @@ function Report() {
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon
-                    className="text-[#669BBC] 5 w-5"
+                    className="text-[#669BBC] h-5 w-5"
                     aria-hidden="true"
                   />
                 </button>
@@ -238,7 +302,7 @@ function Report() {
             </div>
           </div>
           <label className="text-xs mt-4 font-bold">Display Fields</label>
-          <div className="grid grid-cols-2 gap-3 mt-3">
+          <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Display Field Group</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -253,17 +317,77 @@ function Report() {
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon
-                    className="text-[#669BBC] 5 w-5"
+                    className="text-[#669BBC] h-5 w-5"
                     aria-hidden="true"
                   />
                 </button>
               </div>
             </div>
           </div>
+
+          <div className="grid grid-cols-6 gap-2">
+            <div>
+              <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                <TrashIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+            <div className="col-span-3 flex flex-col gap-2">
+              <h4>Personal</h4>
+              <div className="flex flex-wrap">
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                  <p>Employee ID</p>
+                  <a href="#">
+                    <XCircleIcon className="text-gray-400 h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-2">
+              <label
+                for="default-toggle2"
+                class="inline-flex relative items-center cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  value=""
+                  id="default-toggle2"
+                  class="sr-only peer"
+                />
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Include Header
+                </span>
+              </label>
+            </div>
+          </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
           <button
-            // onClick={() => setModaldEdit(false)}
+            // onClick={() => setModalEdit(false)}
             type="button"
             className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
           >

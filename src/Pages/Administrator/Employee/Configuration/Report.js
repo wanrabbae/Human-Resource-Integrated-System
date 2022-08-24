@@ -7,7 +7,7 @@ import {
   DocumentIcon,
 } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
-import profile from "../../../../Resourse/img/default-profile.png";
+import profile from "../../../../Resourse/img/default-profile.png"
 
 function Report() {
   const [modalAdd, setModalAdd] = useState(false);
@@ -96,7 +96,7 @@ function Report() {
                       <PencilIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                     <a
-                      href="/admin/employee/detail-report"
+                      href="/employee/detail-report"
                       className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                     >
                       <DocumentIcon className="h-5 w-5" aria-hidden="true" />

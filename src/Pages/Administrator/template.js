@@ -67,7 +67,7 @@ function Template() {
     [
       {
         nama: "Configuration",
-        click: "configuration",
+        click: "#",
       },
       {
         nama: "Employee List",
@@ -100,6 +100,7 @@ function Template() {
             borderBottomRightRadius: "20px",
           }}
         >
+          <a href="/dashboard">
           <div className="d-flex px-5 align-items-center">
             <div className="">
               <div
@@ -120,6 +121,7 @@ function Template() {
               </p>
             </div>
           </div>
+          </a>
 
           <div className="py-5 px-4">
             <hr className="mx-3"></hr>

@@ -179,7 +179,7 @@ function Schedule() {
                                     <iframe className="mt-2" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253037.7496484048!2d108.73959703281248!3d-7.713716100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e656d247d578533%3A0x96fd507454419e96!2sEthos%20Work%20Space!5e0!3m2!1sen!2sid!4v1661136050554!5m2!1sen!2sid" width="170em" height="150em"></iframe>
                                     <div className="d-flex align-items-start justify-content-start mt-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="w-12" viewBox="0 0 20 20" fill="#00000050">
-                                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                                         </svg><small className="ml-3">Gg. Satria II, Sokayasa, RT04/RW01, Kec. Purwokerto Tim., Kabupaten Banyumas, Jawa Tengah ,</small>
                                     </div>
                                 </div>
@@ -201,7 +201,7 @@ function Schedule() {
                                     <iframe className="mt-2" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253037.7496484048!2d108.73959703281248!3d-7.713716100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e656d247d578533%3A0x96fd507454419e96!2sEthos%20Work%20Space!5e0!3m2!1sen!2sid!4v1661136050554!5m2!1sen!2sid" width="170em" height="150em"></iframe>
                                     <div className="d-flex align-items-start justify-content-start mt-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="w-12" viewBox="0 0 20 20" fill="#00000050">
-                                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                                         </svg><small className="ml-3">Gg. Satria II, Sokayasa, RT04/RW01, Kec. Purwokerto Tim., Kabupaten Banyumas, Jawa Tengah ,</small>
                                     </div>
                                 </div>

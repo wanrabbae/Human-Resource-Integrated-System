@@ -25,8 +25,8 @@ function Recruitment() {
                 </div>
                 <div className="d-flex">
                     <div className="input-group me-3 align-items-center w-auto" style={{ borderRadius: '10px', border: '1.5px solid #CACACA', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }}>
-                        <div class="input-group-prepend">
-                            <span class="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
+                        <div className="input-group-prepend">
+                            <span className="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
                         </div>
                         <input style={{ border: '0', outline: 'none', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 focus:outline-0" type="search" placeholder=" Search Demand Letter" />
                     </div>

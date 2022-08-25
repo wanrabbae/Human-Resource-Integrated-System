@@ -33,8 +33,8 @@ function  EntryApplication() {
                     </div>
                     <div className="d-flex">
                         <div className="input-group me-3 align-items-center" style={{borderRadius:'10px',border:'1.5px solid #CACACA',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}}>
-                            <div class="input-group-prepend">
-                                <span class="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
+                            <div className="input-group-prepend">
+                                <span className="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
                             </div>
                             <input style={{border:'0',outline:'none',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 focus:outline-0"  type="search" placeholder="Search..."/>
                         </div>
@@ -94,7 +94,7 @@ function  EntryApplication() {
                         <h1 className='mb-3' style={{color:'#5C5C5C', fontWeight:'600'}}>Personal details</h1>
                         <div className='row gap-x-6 gap-y-1' style={{fontSize:'14px'}}>    
                             <div className='col' style={{fontSize:'14px'}}>
-                                <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+                                <div className="grid grid-cols-2 gap-x-4 gap-y-3">
                                     <div style={{fontWeight:'600'}}>Employee Name </div>
                                     <div style={{fontWeight:'500'}}>: David Kurniawan </div>
                                     <div style={{fontWeight:'600'}}>Sumber Lowongan  </div>
@@ -108,7 +108,7 @@ function  EntryApplication() {
                                 </div>
                             </div>
                             <div className='col' style={{fontSize:'14px'}}>
-                                <div class="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-2 gap-3">
                                     <div style={{fontWeight:'600'}}>Position </div>
                                     <div style={{fontWeight:'500'}}>: IT Staff</div>
                                     <div style={{fontWeight:'600'}}>Tanggal Melamar  </div>
@@ -143,7 +143,7 @@ function  EntryApplication() {
                             </div>
                             <hr className='my-3 px-5' style={{backgroundColor:'#EAEAEA'}}></hr>
                             <div className='col' style={{fontSize:'14px'}}>
-                                <div class="grid grid-cols-2 grid-rows-2 gap-2">
+                                <div className="grid grid-cols-2 grid-rows-2 gap-2">
                                     <div style={{fontWeight:'600'}}>Nama Sekolah  </div>
                                     <div style={{fontWeight:'500'}}>: Universitas Gajah Mada </div>
                                     <div style={{fontWeight:'600'}}>Nilai Akhir/ IPK   </div>
@@ -151,7 +151,7 @@ function  EntryApplication() {
                                 </div>
                             </div>
                             <div className='col' style={{fontSize:'14px'}}>
-                                <div class="grid grid-cols-2 grid-rows-2 gap-4">
+                                <div className="grid grid-cols-2 grid-rows-2 gap-4">
                                     <div style={{fontWeight:'600'}}>Jurusan  </div>
                                     <div style={{fontWeight:'500'}}>: Teknik Fisika</div>
                                 </div>
@@ -175,7 +175,7 @@ function  EntryApplication() {
                                 
                             </div>
                             <div className='col-7' style={{fontSize:'14px'}}>
-                                <div class="grid grid-cols-2 grid-rows-2 gap-2">
+                                <div className="grid grid-cols-2 grid-rows-2 gap-2">
                                     <div className=''>
                                         <div style={{fontWeight:'600'}}>Berkas Requitment</div>
                                         <Button style={{background:'linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)'}} className='btn border-0 m-1 rounded text-white'> Download</Button>

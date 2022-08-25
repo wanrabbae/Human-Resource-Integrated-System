@@ -45,7 +45,7 @@ function Dashboard() {
       <div className="flex flex-row gap-2">
         <div className="w-1/2">
           <div className="grid grid-cols-2 gap-2">
-            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+            <div className="flex flex-row justify-between bg-[#669BBC] rounded-lg">
               <div className="flex flex-col gap-2 p-4 text-sm">
                 <h1 className="text-gray-200 font-semibold uppercase">
                   Total employees
@@ -54,7 +54,7 @@ function Dashboard() {
               </div>
               <img className="rounded-lg" src={d1} />
             </div>
-            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+            <div className="flex flex-row justify-between bg-[#669BBC] rounded-lg">
               <div className="flex flex-col gap-2 p-4 text-sm">
                 <h1 className="text-gray-200 font-semibold uppercase">
                   New employees
@@ -63,7 +63,7 @@ function Dashboard() {
               </div>
               <img className="rounded-lg" src={d4} />
             </div>
-            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+            <div className="flex flex-row justify-between bg-[#669BBC] rounded-lg">
               <div className="flex flex-col gap-2 p-4 text-sm">
                 <h1 className="text-gray-200 font-semibold uppercase">
                   Applied employees
@@ -72,7 +72,7 @@ function Dashboard() {
               </div>
               <img className="rounded-lg" src={d2} />
             </div>
-            <div class="flex flex-row justify-between bg-[#669BBC] rounded-lg">
+            <div className="flex flex-row justify-between bg-[#669BBC] rounded-lg">
               <div className="flex flex-col gap-2 p-4 text-sm">
                 <h1 className="text-gray-200 font-semibold uppercase">
                   Resigned employees
@@ -221,7 +221,7 @@ function Dashboard() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_200_2733)">
+                      <g clipPath="url(#clip0_200_2733)">
                         <path
                           d="M7.29551 1.33301C12.1797 1.33301 13.2415 4.58208 13.2415 6.4296C13.2415 8.06475 13.0292 8.76554 13.0292 8.76554H1.56185C1.56185 8.76554 1.34949 8.06475 1.34949 6.4296C1.34949 4.58208 2.41128 1.33301 7.29551 1.33301Z"
                           fill="#594640"
@@ -290,7 +290,7 @@ function Dashboard() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_200_2713)">
+                      <g clipPath="url(#clip0_200_2713)">
                         <path
                           d="M12.7743 9.40261C12.7743 9.40261 13.4538 8.21341 13.4538 6.4296C13.4538 4.09366 11.7337 1.33301 7.29546 1.33301C2.85718 1.33301 1.13708 4.09366 1.13708 6.4296C1.13708 8.21341 1.79539 9.40261 1.79539 9.40261C1.0309 10.2733 0.563711 12.0358 1.22202 13.1826C1.49809 13.6498 4.21627 15.3062 4.4711 12.3544H10.0773C10.3534 15.2849 13.0716 13.6498 13.3264 13.1826C14.006 12.0358 13.5388 10.2733 12.7743 9.40261Z"
                           fill="#594640"

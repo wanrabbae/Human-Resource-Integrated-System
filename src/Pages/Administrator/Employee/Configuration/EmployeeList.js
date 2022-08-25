@@ -33,8 +33,8 @@ function EmployeeList() {
               <path
                 d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
                 stroke="#003049"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
             <p>Filter</p>
@@ -72,60 +72,60 @@ function EmployeeList() {
           </div>
         </div>
 
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   id
                 </th>
-                <th scope="col" class="py-3 px-6 w-36">
+                <th scope="col" className="py-3 px-6 w-36">
                   first name
                 </th>
-                <th scope="col" class="py-3 px-6 w-36">
+                <th scope="col" className="py-3 px-6 w-36">
                   last name
                 </th>
-                <th scope="col" class="py-3 px-6 w-96">
+                <th scope="col" className="py-3 px-6 w-96">
                   job tittle
                 </th>
-                <th scope="col" class="py-3 px-6 w-96">
+                <th scope="col" className="py-3 px-6 w-96">
                   employee status
                 </th>
-                <th scope="col" class="py-3 px-6 w-96">
+                <th scope="col" className="py-3 px-6 w-96">
                   sub units
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   supervisor
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   12345
                 </td>
-                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Fakhri
                 </td>
-                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Azmi
                 </td>
-                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Engineer
                 </td>
-                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Full-Time Contract
                 </td>
-                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Development
                 </td>
-                <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Abdan Syakuro
                 </td>
-                <td class="py-4 px-6">
+                <td className="py-4 px-6">
                   <div className="flex flex-row justify-end gap-3">
                     <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
                       <TrashIcon className="h-5 w-5" aria-hidden="true" />
@@ -233,17 +233,17 @@ function EmployeeList() {
           <div className="mt-3">
             <label
               for="default-toggle"
-              class="inline-flex relative items-center cursor-pointer"
+              className="inline-flex relative items-center cursor-pointer"
             >
               <input
                 type="checkbox"
                 value=""
                 id="default-toggle"
-                class="sr-only peer"
+                className="sr-only peer"
                 onClick={() => setShow((prev) => !prev)}
               />
-              <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                 Create Login Details
               </span>
             </label>
@@ -284,32 +284,32 @@ function EmployeeList() {
               <div className="flex flex-col gap-2 mt-3">
                 <label className="text-xs">Status</label>
                 <div className="flex flex-row gap-5">
-                  <div class="flex items-center mb-4">
+                  <div className="flex items-center mb-4">
                     <input
                       id="default-radio-1"
                       type="radio"
                       value=""
                       name="default-radio"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
                       for="default-radio-1"
-                      class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
                       Enable
                     </label>
                   </div>
-                  <div class="flex items-center mb-4">
+                  <div className="flex items-center mb-4">
                     <input
                       id="default-radio-2"
                       type="radio"
                       value=""
                       name="default-radio"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
                       for="default-radio-2"
-                      class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
                       Disable
                     </label>
@@ -323,13 +323,13 @@ function EmployeeList() {
           <button
             onClick={() => setModalAdd(false)}
             type="button"
-            class="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
           >
             Cancel
           </button>
           <button
             type="button"
-            class="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
           >
             Create
           </button>
@@ -379,13 +379,13 @@ function EmployeeList() {
           <button
             // onClick={() => setModalFilter(false)}
             type="button"
-            class="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
           >
             Clear
           </button>
           <button
             type="button"
-            class="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
           >
             Search
           </button>

@@ -120,7 +120,7 @@ function Job() {
                                 <label className="block text-gray-700 text-sm mb-2" for="username">
                                 Contract Details
                                 </label>
-                                <input class="block text-sm w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"/>
+                                <input className="block text-sm w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"/>
                             </div>
                         </div>
                     </div>

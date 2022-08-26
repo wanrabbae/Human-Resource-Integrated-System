@@ -38,6 +38,7 @@ import Pricing from './Pages/LandingPages/Pricing';
 import MyAttendance from './Pages/Administrator/TimeManagement/MyAttendance';
 import EmployeeRecord from './Pages/Administrator/TimeManagement/EmployeeRecord';
 import Schedule from './Pages/Administrator/TimeManagement/Schedule';
+import Register from './Pages/LandingPages/Register';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
       <Route path="/" element={<LandingPages />}></Route>
       <Route path="/feature" element={<Feature />}></Route>
       <Route path="/pricing" element={<Pricing />}></Route>
+      <Route path="/register" element={<Register />}></Route>
       <Route path="/dashboard" element={<Template />}>
         <Route index element={<Dashboard />} />
       </Route>

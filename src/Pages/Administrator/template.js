@@ -208,7 +208,7 @@ function Template() {
     <div style={{ backgroundColor: "#ECEEF6" }}>
       <div className="d-flex flex-nowrap">
         <aside
-          className="flex-shrink-0 py-5 w-3/12 h-screen fixed top-0 left-0 right-0 z-10"
+          className="flex-shrink-0 py-5 w-1/5 h-screen fixed top-0 left-0 right-0 z-10"
           style={{
             backgroundColor: "#FFFFFF",
             borderTopRightRadius: "20px",
@@ -280,7 +280,7 @@ function Template() {
               list[0].map((val, index) => {
                 return (
                   <>
-                    <div hidden={val.show} className="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" style={{ position: "absolute", left: "23em", }}>
+                    <div hidden={val.show} className="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" style={{ position: "absolute", left: "16em", }}>
                       <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRightButton">
                         {
                           val.body.map((e, i) => {
@@ -549,7 +549,7 @@ function Template() {
             </ListItemButton>
           </div>
         </aside>
-        <div className="ml-auto min-h-screen h-full w-9/12 p-5 space-y-5 p-5">
+        <div className="ml-auto min-h-screen h-full w-4/5 p-5 space-y-5 p-5">
           <div className="d-flex justify-content-between align-items-center">
             <div>
               <h6>

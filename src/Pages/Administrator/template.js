@@ -626,9 +626,7 @@ function Template() {
                   />
                 </svg>
 
-                <p>
-                Sign Out
-                </p>
+                <p>Sign Out</p>
               </div>
             </a>
           </div>
@@ -645,7 +643,13 @@ function Template() {
               </h6>
             </div>
             <div>
-              <IconButton aria-label="mail" component="label">
+              <IconButton
+                aria-label="mail"
+                component="label"
+                onClick={() => {
+                  window.location.href = "/message";
+                }}
+              >
                 <MailOutline />
               </IconButton>
               <IconButton

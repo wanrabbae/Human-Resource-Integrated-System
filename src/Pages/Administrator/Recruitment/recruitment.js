@@ -25,8 +25,8 @@ function Recruitment() {
                 </div>
                 <div className="d-flex">
                     <div className="input-group me-3 align-items-center w-auto" style={{ borderRadius: '10px', border: '1.5px solid #CACACA', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }}>
-                        <div className="input-group-prepend">
-                            <span className="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
+                        <div class="input-group-prepend">
+                            <span class="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
                         </div>
                         <input style={{ border: '0', outline: 'none', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 focus:outline-0" type="search" placeholder=" Search Demand Letter" />
                     </div>
@@ -74,6 +74,17 @@ function Recruitment() {
                     <input id="placement" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" type="text" placeholder="Placement" />
                     <textarea id="job_description" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" rows="8" placeholder="Job Description"></textarea>
                     <textarea id="qualification" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" rows="8" placeholder="Qualification"></textarea>
+                    <div className="mb-4">    
+                        <label className="block text-gray-700 text-sm mb-2" for="username">
+                            type
+                        </label>
+                        <select id="type" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                            <option  className="py-3">Select</option>
+                            <option value="Part Time" className="py-3">Part Time</option>
+                            <option value="Full Time" className="py-3">Full Time</option>
+                            <option value="Remote" className="py-3">Remote</option>
+                        </select>
+                    </div>
                     <div className="d-flex">
                         <input id="publish_date" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="date" placeholder="Recruitment description" />
                         <input id="expired_date" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="date" placeholder="Recruitment description" />
@@ -106,6 +117,7 @@ function Recruitment() {
                                 description: document.getElementById("description").value,
                                 position: document.getElementById("position").value,
                                 placement: document.getElementById("placement").value,
+                                type: document.getElementById("type").value,
                                 jobDescription: document.getElementById("job_description").value,
                                 qualification: document.getElementById("qualification").value,
                                 publishDate: document.getElementById("publish_date").value,

@@ -39,7 +39,8 @@ import MyAttendance from './Pages/Administrator/TimeManagement/MyAttendance';
 import EmployeeRecord from './Pages/Administrator/TimeManagement/EmployeeRecord';
 import Schedule from './Pages/Administrator/TimeManagement/Schedule';
 import Register from './Pages/LandingPages/Register';
-import Message from './Pages/Administrator/Dashboard/Message';
+import Inbox from './Pages/Administrator/Dashboard/Inbox';
+import DetailInbox from './Pages/Administrator/Dashboard/DetailInbox';
 
 
 function App() {
@@ -52,8 +53,9 @@ function App() {
       <Route path="/dashboard" element={<Template />}>
         <Route index element={<Dashboard />} />
       </Route>
-      <Route path="/message" element={<Template />}>
-        <Route index element={<Message />} />
+      <Route path="/inbox" element={<Template />}>
+        <Route index element={<Inbox />} />
+        <Route path="/inbox/detail" element={<DetailInbox />} />
       </Route>
       <Route path="/admin" element={<Template />}>
         <Route index element={<Home />} />

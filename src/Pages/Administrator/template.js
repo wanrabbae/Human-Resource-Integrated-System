@@ -661,7 +661,7 @@ function Template() {
                 aria-label="mail"
                 component="label"
                 onClick={() => {
-                  window.location.href = "/message";
+                  window.location.href = "/inbox";
                 }}
               >
                 <MailOutline />

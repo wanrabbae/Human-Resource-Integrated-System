@@ -2,12 +2,23 @@ import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fort
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, LineAxisOutlined, Search } from "@mui/icons-material";
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useState,useEffect, } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
 import { TextFieldSearch } from "../../../../Components/TextField";
+import { GetUser } from "../../../../Repository/AdminRepository";
 
 
 function Users() {
+    const [user, setUserManagement] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetUser();
+        setUserManagement(rec['result']);
+        console.log(rec);
+      }
+    useEffect(() => {
+        inAwait();
+    }, []);
     const [dialogUser, setUser] = useState(false);
     const [dialogEditUser, setEditUser] = useState(false);
     const [dialogFilter, setFilter] = useState(false);
@@ -43,17 +54,27 @@ function Users() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
-                            <td className="align-middle">Admin</td>
-                            <td className="align-middle">Admin</td>
-                            <td className="align-middle">Vina Afrilia</td>
-                            <td className="align-middle">Enable</td>
-                            <td className="align-middle">
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
-                                <button onClick={() => setEditUser(!dialogEditUser)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                        {
+                            user.length > 0 ?
+                            user.map ((val) => {
+                                return (
+                                    <tr>
+                                        <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                                        <td className="align-middle">{val['username']}</td>
+                                        <td className="align-middle">{val['role']}</td>
+                                        <td className="align-middle">{val['employe_id']}</td>
+                                        <td className="align-middle">{val['status']}</td>
+                                        <td className="align-middle">
+                                            <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                                            <button onClick={() => setEditUser(!dialogEditUser)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                        </td>
+                                    </tr>
+                                )
+                            }) :
+                            <td >
+                                <div className='d-flex justify-content-center align-middle text-center' >No Data</div>
                             </td>
-                        </tr>
+                        } 
                     </tbody>
                 </Table>
             </div>
@@ -135,15 +156,15 @@ function Users() {
                             color: "#FFFFFF",
                             width: "100px",
                         }}
-                        // onClick={async ()=> {
-                        //     var requestBody ={
-                        //         role: document.getElementById("role").value,
-                        //         name: document.getElementById("name").value,
-                        //         username: document.getElementById("username").value,
-                        //         password: document.getElementById("password").value,
-                        //     };
-                        //     var res = await axios.post
-                        // }}
+                        onClick={async ()=> {
+                            var requestBody ={
+                                role: document.getElementById("role").value,
+                                name: document.getElementById("name").value,
+                                username: document.getElementById("username").value,
+                                password: document.getElementById("password").value,
+                            };
+                            var res = await axios.post
+                        }}
                     >
                         Add
                     </button>

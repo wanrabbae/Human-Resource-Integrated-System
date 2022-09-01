@@ -1,17 +1,24 @@
 
-import { useState,useEffect, } from "react";
+import { useState,useEffect, useRef, } from "react";
 import { Plus, Eye, FileText, DotsThreeOutline, MagnifyingGlass } from "phosphor-react";
 import { Button, Modal, Table } from "react-bootstrap";
 import { AddRecruitment, GetRecruitment } from "../../../Repository/RecruitmentRepository";
+import { Editor } from '@tinymce/tinymce-react';
 import axios from "axios";
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+
+import FroalaEditorComponent from 'react-froala-wysiwyg';
+import FroalaEditor from "react-froala-wysiwyg";
+import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 
 function Recruitment() {
     const [modal, setModal] = useState(false);
     const [recruit, setRecruit] = useState([]);
+    const editorRef = useRef(null);
     const inAwait = async () => {
         var rec = await GetRecruitment();
         setRecruit(rec['result']);
-        console.log(rec);
       }
     useEffect(() => {
         inAwait();
@@ -73,7 +80,33 @@ function Recruitment() {
                     <input id="position" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" type="text" placeholder="Position" />
                     <input id="placement" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" type="text" placeholder="Placement" />
                     <textarea id="job_description" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" rows="8" placeholder="Job Description"></textarea>
-                    <textarea id="qualification" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" rows="8" placeholder="Qualification"></textarea>
+                    {/* <textarea  style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} className="mb-3 focus:ring-0 focus:ring-offset-0 me-3 form-control" rows="8" placeholder="Qualification"></textarea> */}
+                    {/* <FroalaEditor
+                    // model={this.state.content}
+                    // onModelChange={this.handleModelChange}
+                    />
+                    <FroalaEditorView
+                    // model={this.state.content}
+                    /> */}
+                    <Editor
+                    //    onChange={(val) => {
+                    //     setEditor(val.currentTarget.value)
+                    //    }}
+                        // id="qualification2"
+                        onInit={(evt, editor) => editorRef.current = editor}
+                        init={{
+                        height: 500,
+                        menubar: false,
+                        plugins: [
+                        'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+                        'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+                        'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+                        ],
+                        toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
+                        'alignleft aligncenter alignright alignjustify | ' +
+                        'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+                        }}
+                    />
                     <div className="mb-4">    
                         <label className="block text-gray-700 text-sm mb-2" for="username">
                             type
@@ -119,10 +152,11 @@ function Recruitment() {
                                 placement: document.getElementById("placement").value,
                                 type: document.getElementById("type").value,
                                 jobDescription: document.getElementById("job_description").value,
-                                qualification: document.getElementById("qualification").value,
+                                qualification: editorRef.current.getContent(),
                                 publishDate: document.getElementById("publish_date").value,
                                 expiredDate: document.getElementById("expired_date").value,
                             };
+                            console.log(requestBody)
                             var res = await AddRecruitment(requestBody);
                             setModal(false);
                             inAwait();

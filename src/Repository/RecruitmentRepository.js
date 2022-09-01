@@ -1,20 +1,21 @@
 import axios from "axios";
+import { endpoint } from "../Utils/constant";
 
 var AddRecruitment = async (requestBody) => {
-    var res = await axios.post("https://hris.afkaaruna.sch.id/addRecruitment", requestBody);
+    var res = await axios.post(`${endpoint}/addRecruitment`, requestBody);
     if (res.status == 200) {
         return res.data;
     }
 }
 
 var GetRecruitment = async () => {
-    var res = await axios.get("https://hris.afkaaruna.sch.id/getRecruitment");
+    var res = await axios.get(`${endpoint}/getRecruitment`);
     if (res.status == 200) {
         return res.data;
     }
 }
 var GetApplicant = async () => {
-    var res = await axios.get("https://hris.afkaaruna.sch.id/getApplicant");
+    var res = await axios.get(`${endpoint}/getApplicant`);
     if (res.status == 200) {
         return res.data;
     }

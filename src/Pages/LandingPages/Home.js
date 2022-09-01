@@ -18,6 +18,7 @@ import { CheckCircleIcon } from "@heroicons/react/solid";
 import Footer from "../../Components/landingPages/Footer";
 
 function Home() {
+
   return (
     <div>
       <div className="fixed top-0 left-0 right-0 z-10">

@@ -22,7 +22,7 @@ import {
   ListItemText,
   Paper,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   faCaretRight,
   faClock,
@@ -42,6 +42,7 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 
 function Template() {
   const [isOpen, setOpen] = useState([false, false, false]);
+  const [users, setUsers] = useState({});
   const [list, setList] = useState([
     [
       {
@@ -205,6 +206,15 @@ function Template() {
     ],
   ]);
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("users") == null) {
+      window.location.href = "/";
+    } else {
+      var data = JSON.parse(window.localStorage.getItem("users"));
+      setUsers(data);
+    }
+  }, []);
   return (
     <div style={{ backgroundColor: "#ECEEF6" }}>
       <div className="d-flex flex-nowrap">
@@ -590,7 +600,7 @@ function Template() {
             <ListItemButton
               style={{ color: "#00000080" }}
               className="mt-2"
-              onClick={() => {}}
+              onClick={() => { }}
             >
               <ListItemIcon>
                 <svg
@@ -611,7 +621,11 @@ function Template() {
           </div>
           <div className="">
             <hr className="mx-5 mb-3"></hr>
-            <a href="/" className="text-[#780000] hover:text-[#450000]">
+            <a href="#" onClick={() => {
+              window.localStorage.clear();
+              window.location.href = "/";
+              setUsers({});
+            }} className="text-[#780000] hover:text-[#450000]">
               <div className="flex flex-row gap-2 px-5">
                 <svg
                   width="24"
@@ -683,7 +697,9 @@ function Template() {
                   }}
                 />
                 <div style={{ width: "10px" }}></div>
-                Ahmad Subarja
+                {
+                  users['username']
+                }
               </Button>
             </div>
           </div>

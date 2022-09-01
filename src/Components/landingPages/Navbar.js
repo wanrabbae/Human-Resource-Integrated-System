@@ -1,12 +1,22 @@
 import { Button } from "flowbite-react";
-import { React, useState } from "react";
-import { Modal, Table } from "react-bootstrap";
+import { React, useEffect, useState } from "react";
+import { Alert, Modal, Table } from "react-bootstrap";
+import { PostLogin } from "../../Repository/AuthRepository";
 import logo from "../../Resourse/img/logo.png";
 import pw from "../../Resourse/img/pw.png";
+import { LoadingDialog } from "../Modals";
 
 function Navbar() {
   const [modalLogin, setModalLogin] = useState(false);
   const [modalPW, setModalPW] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("users") != null) {
+      window.location.href = "/dashboard";
+    };
+  }, []);
   return (
     <>
       <nav className="bg-white shadow-md px-2 sm:px-4 py-1 rounded dark:bg-gray-900">
@@ -100,6 +110,9 @@ function Navbar() {
       {/* start:modal login */}
       <Modal show={modalLogin} size="md" onHide={() => setModalLogin(false)}>
         <Modal.Body className="flex flex-col gap-3 m-4">
+          <Alert show={message != null ? true : false} variant="danger" onClose={() => { setMessage(null) }} dismissible>
+            {message}
+          </Alert>
           <div className="self-center">
             <img src={logo} className="" />
           </div>
@@ -107,11 +120,13 @@ function Navbar() {
           <input
             type="text"
             className="w-full rounded-lg border-[#780000] focus:ring-[#780000] focus:border-[#780000] text-sm"
+            id="username"
             placeholder="Username"
           ></input>
           <input
             type="password"
             className="w-full rounded-lg border-[#780000] focus:ring-[#780000] focus:border-[#780000] text-sm"
+            id="password"
             placeholder="Password"
           ></input>
           <a
@@ -121,12 +136,29 @@ function Navbar() {
           >
             Forgot Password?
           </a>
-          <a
-            href="/dashboard"
+          <button
+            onClick={async () => {
+              var requestBody = {
+                username: document.getElementById('username').value,
+                password: document.getElementById("password").value,
+              };
+              setModalLogin(false);
+              setLoading(true);
+              var data = await PostLogin(requestBody);
+              setLoading(false);
+              setModalLogin(true);
+              if (data['message'] != "Success") {
+                setMessage("Wrong username or password");
+              } else {
+                var toJson = JSON.stringify(data['data']);
+                window.localStorage.setItem("users", toJson);
+                window.location.href = "/dashboard";
+              }
+            }}
             className="bg-[#0E5073] block py-2 px-3 text-center text-white rounded-full hover:bg-[#003049] md:border-0 md:hover:text-white md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
           >
             Login
-          </a>
+          </button>
           <p className="text-xs text-gray-400">
             Don’t have an account?{" "}
             <a
@@ -175,6 +207,7 @@ function Navbar() {
         </Modal.Body>
       </Modal>
       {/* end:modal forgot password */}
+      <LoadingDialog active={isLoading} />
     </>
   );
 }

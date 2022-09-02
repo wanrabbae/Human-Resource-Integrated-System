@@ -29,4 +29,11 @@ var AddJobTittle = async (requestBody) => {
         return res.data;
     }
 }
-export { GetUser, GetApplicant, GetJobTittle, AddJobTittle }
+var delJobTittle = async (id) => {
+    var res = await axios.post(`${endpoint}/addJobTitle`,{id:id});
+    if (res.status == 200) {
+        return res.data;
+    }
+}
+
+export { GetUser, GetApplicant, GetJobTittle, AddJobTittle,delJobTittle }

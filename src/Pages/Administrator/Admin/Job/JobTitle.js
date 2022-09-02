@@ -2,10 +2,24 @@ import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fort
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
+import { AddJobTittle, GetJobTittle } from "../../../../Repository/AdminRepository";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function JobTitle() {
+    const [jobtitle, setJobTitle] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetJobTittle();
+        setJobTitle(rec);
+      }
+    useEffect(() => {
+        inAwait();
+    }, []);
+    var spesificationRef = useRef();
+    const [isdelete, setDelete] = useState(false);
+    const [id, setId] = useState();
+    const [spesification, setSpesification] = useState();
     const [dialogTitle, setTitle] = useState(false);
     const [dialogEditTitle, setEditTitle] = useState(false);
     return (
@@ -35,15 +49,37 @@ function JobTitle() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
-                            <td className="align-middle" style={{ minWidth: "200px", }}>IT Manager</td>
-                            <td className="align-middle">oakdoakodkao kaodkadokaodak oakdoakdoakdoakdao kdwadkwad oakdao dkaodakodako aoakdoak</td>
-                            <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
-                                <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                        {
+                            jobtitle.length > 0 ?
+                            jobtitle.map ((val) => {
+                                return (
+                                    <tr>
+                                        <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                                        <td className="align-middle" style={{ minWidth: "200px", }}>{val['name']}</td>
+                                        <td className="align-middle">{val['description']}</td>
+                                        <td className="align-middle" style={{ minWidth: "100px", }}>
+                                            <button
+                                                onClick={ ()=> {
+                                                    setDelete(true)
+                                                }}
+                                                className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" />
+                                            </button>
+                                            <button 
+                                                onClick={() =>{ 
+                                                    setId(val['id']);
+                                                    setEditTitle(!dialogEditTitle)
+                                                }
+                                                } 
+                                                className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                            }) :
+                            <td >
+                                <div className='d-flex justify-content-center align-middle text-center' >No Data</div>
                             </td>
-                        </tr>
+                        }
                     </tbody>
                 </Table>
             </div>
@@ -58,30 +94,30 @@ function JobTitle() {
                     <Modal.Title>Add Job Title</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="mx-4">
-                    <div className="row">
+                <div className="row">
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Job Title <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Jobl title..." />
+                                <input className="form-control" id="name" placeholder="Job title..." />
                             </div>
                         </div>
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
-                                <label className="mb-1">Job Description <span className="text-danger">*</span></label>
-                                <textarea className="form-control" rows={4} placeholder="Job Description..." ></textarea>
+                                <label className="mb-1">Job Description</label>
+                                <textarea className="form-control" id="description" rows={4} placeholder="Job Description..." ></textarea>
                             </div>
                         </div>
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
-                                <label className="mb-1">Job Specification <span className="text-danger">*</span></label>
-                                <input className="form-control" type="file" />
+                                <label className="mb-1">Job Specification</label>
+                                <input ref={spesificationRef} onChange={(val) => setSpesification(val.target.files[0].name)} className="form-control" type="file" />
                                 <small>* No more than 64 MB</small>
                             </div>
                         </div>
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
-                                <label className="mb-1">Job Description <span className="text-danger">*</span></label>
-                                <textarea className="form-control" rows={4} placeholder="Job Description..." ></textarea>
+                                <label className="mb-1">Note</label>
+                                <textarea className="form-control" id="note" rows={4} placeholder="Note" ></textarea>
                             </div>
                         </div>
                     </div>
@@ -108,6 +144,18 @@ function JobTitle() {
                             color: "#FFFFFF",
                             width: "100px",
                         }}
+                        onClick={async() => {
+                            var requestBody = {
+                                name : document.getElementById('name').value,
+                                description : document.getElementById('description').value,
+                                spesification : spesification,
+                                note : document.getElementById('note').value,
+                            }
+                            var res = await AddJobTittle(requestBody);
+                            console.log(res);
+                            setTitle(!dialogTitle)
+                            inAwait();
+                        }}
                     >
                         Add
                     </button>
@@ -121,33 +169,33 @@ function JobTitle() {
                     className="m-4"
                     style={{ borderBottomColor: "transparent", }}
                 >
-                    <Modal.Title>Add Job Title</Modal.Title>
+                    <Modal.Title>Edit Job Title</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="mx-4">
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Job Title <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Jobl title..." />
+                                <input id="name" className="form-control" placeholder="Job title..." />
                             </div>
                         </div>
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Job Description</label>
-                                <textarea className="form-control" rows={4} placeholder="Job Description..." ></textarea>
+                                <textarea className="form-control" id="description" rows={4} placeholder="Job Description..." ></textarea>
                             </div>
                         </div>
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Job Specification</label>
-                                <input className="form-control" type="file" />
+                                <input className="form-control" onChange={(val) => setSpesification(val.target.files[0].name)} type="file" />
                                 <small>* No more than 64 MB</small>
                             </div>
                         </div>
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
-                                <label className="mb-1">Job Description</label>
-                                <textarea className="form-control" rows={4} placeholder="Job Description..." ></textarea>
+                                <label className="mb-1">Note</label>
+                                <textarea className="form-control" id="note" rows={4} placeholder="Note" ></textarea>
                             </div>
                         </div>
                     </div>
@@ -167,6 +215,11 @@ function JobTitle() {
                         Cancel
                     </button>
                     <button
+                    onClick={ async () => {
+                        var requestBody = {
+                            id: id,
+                        }
+                    }}
                         className="btn"
                         style={{
                             backgroundColor: "#0E5073",
@@ -179,7 +232,7 @@ function JobTitle() {
                     </button>
                 </Modal.Footer>
             </Modal>
-
+            <ModalDelete close={()=>{setDelete(false)}} active={isdelete}/>
         </>
     );
 }

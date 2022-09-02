@@ -1,13 +1,26 @@
 import { Button } from "@mui/material";
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import profile from "../../../../Resourse/img/default-profile.png";
+import { GetEmployee } from "../../../../Repository/EmployeeRepository";
 
 function EmployeeList() {
   const [modalAdd, setModalAdd] = useState(false);
   const [modalFilter, setModalFilter] = useState(false);
   const [show, setShow] = useState(false);
+  const [employees, setEmployees] = useState([]);
+
+  const inAwait = async () => {
+    var dataEmployees = await GetEmployee();
+    setEmployees(dataEmployees);
+  };
+
+  useEffect(() => {
+    inAwait();
+  }, []);
+
+  console.log(employees);
 
   return (
     <>
@@ -103,42 +116,44 @@ function EmployeeList() {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  12345
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fakhri
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Azmi
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Engineer
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Full-Time Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Development
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Abdan Syakuro
-                </td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/admin/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
+              {employees.map((employee) => (
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.id}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.firstName}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.lastName}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.jobtitle_id}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.employeestatus_id}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.subUnit}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.otherId}
+                  </td>
+                  <td className="py-4 px-6">
+                    <div className="flex flex-row justify-end gap-3">
+                      <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                        <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                      </button>
+                      <a
+                        href="/admin/profile"
+                        className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      >
+                        <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

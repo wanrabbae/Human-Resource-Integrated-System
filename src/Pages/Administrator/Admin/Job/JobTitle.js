@@ -4,7 +4,7 @@ import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, Ed
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
-import { AddJobTittle, GetJobTittle } from "../../../../Repository/AdminRepository";
+import { AddJobTittle, delJobTittle, GetJobTittle } from "../../../../Repository/AdminRepository";
 import { ModalDelete } from "../../../../Components/Modals";
 
 function JobTitle() {
@@ -61,6 +61,7 @@ function JobTitle() {
                                             <button
                                                 onClick={ ()=> {
                                                     setDelete(true)
+                                                    setId(val['id']);
                                                 }}
                                                 className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" />
                                             </button>
@@ -232,7 +233,9 @@ function JobTitle() {
                     </button>
                 </Modal.Footer>
             </Modal>
-            <ModalDelete close={()=>{setDelete(false)}} active={isdelete}/>
+            <ModalDelete close={()=>{setDelete(false)}} submit={()=> {
+                delJobTittle(id);
+            }} active={isdelete}/>
         </>
     );
 }

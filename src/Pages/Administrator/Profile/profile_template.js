@@ -46,6 +46,7 @@ import Imigration from "./Components/imigration";
 import Job from "./Components/job";
 import ReportTo from "./Components/report";
 import Qualification from "./Components/qualification";
+import profile from "../../../Resourse/img/default-profile.png";
 
 function ProfileTemplate() {
     const [index, setIndex] = useState(0);
@@ -55,11 +56,11 @@ function ProfileTemplate() {
                 <img style={{width:'100%'}} src="https://cdn.discordapp.com/attachments/990841636386897971/1008574993103331358/Rectangle_213.png" alt=""/>
                 <div className="d-flex ps-5 pt-2 pb-4">
                     <div className="me-3">
-                        <img style={{marginTop:'-40px'}} src="https://cdn.discordapp.com/attachments/990841636386897971/1008594420695830568/Ellipse_3123.png" alt=""/>
+                        <img style={{marginTop:'-40px', backgroundColor:'white', borderRadius:'100%'}} src={profile} alt=""/>
                     </div>
                     <div>
-                        <h1 style={{fontSize:"20px",fontWeight:'600'}}>Vina Afrilia Kurniawan</h1>
-                        <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>IT Development</span>
+                        <h1 style={{fontSize:"20px",fontWeight:'600'}}>ACHMAD SUBARKAH</h1>
+                        <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>GA</span>
                     </div>
                 </div>
             </div>

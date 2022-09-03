@@ -19,10 +19,10 @@ function PersonalDetail() {
                         </label>
                         <div className="row">
                             <div className="col">
-                                <input value="Vina" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                                <input value="ACHMAD" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
                             </div>
                             <div className="col">
-                                <input value="Afrilia" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                                <input value="SUBARKAH" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@ function PersonalDetail() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                                 Employee ID
                             </label>
-                            <input disabled value="001" className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                            <input disabled value="010114-0001" className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
                         </div>
                         <div className='col'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
@@ -62,7 +62,8 @@ function PersonalDetail() {
                             Nationality
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Indondesia</option>
                             </select>
                         </div>
                         <div className='col'>
@@ -72,7 +73,7 @@ function PersonalDetail() {
                             </label>
                             {/* <Select  options={marital} /> */}
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
+                                <option className="py-3" hidden>Select</option>
                                 <option className="py-3">Single</option>
                                 <option className="py-3">Married</option>
                             </select>

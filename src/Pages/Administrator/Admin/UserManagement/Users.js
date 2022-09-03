@@ -37,7 +37,11 @@ import {
   ModalFooter,
 } from "react-bootstrap";
 import { TextFieldSearch } from "../../../../Components/TextField";
-import { GetUser } from "../../../../Repository/AdminRepository";
+import {
+  AddUser,
+  DeleteUser,
+  GetUser,
+} from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
 import Select from "react-select";
 
@@ -58,12 +62,7 @@ function Users() {
   const [dialogFilter, setFilter] = useState(false);
   const [changePassword, setPassword] = useState(false);
   const [employeeName, setEmployeeName] = useState({
-    // role: document.getElementById("role").value,
-    // status: document.getElementById("status").value,
     employeeName: "",
-    // username: document.getElementById("username").value,
-    // password: document.getElementById("password").value,
-    // confirmPassword: document.getElementById("confirmPassword").value,
   });
 
   return (
@@ -137,7 +136,7 @@ function Users() {
             {user.length > 0 ? (
               user.map((val) => {
                 return (
-                  <tr>
+                  <tr key={val["id"]}>
                     <td className="align-middle">
                       <input type="checkbox" style={{ borderRadius: "2px" }} />
                     </td>
@@ -151,6 +150,12 @@ function Users() {
                         style={{
                           backgroundColor: "#CEDFEA",
                           borderRadius: "8px",
+                        }}
+                        onClick={async () => {
+                          console.log(val["id"]);
+                          var deleteData = await DeleteUser(val["id"]);
+                          console.log(deleteData);
+                          inAwait();
                         }}
                       >
                         <DeleteOutline fontSize="10px" />
@@ -301,10 +306,10 @@ function Users() {
                 status: document.getElementById("status").value,
                 username: document.getElementById("username").value,
                 password: document.getElementById("password").value,
-                confirmPassword:
-                  document.getElementById("confirmPassword").value,
               };
-              console.log(requestBody);
+              await AddUser(requestBody);
+              setUser(false);
+              inAwait();
               // var res = await axios.post;
             }}
           >

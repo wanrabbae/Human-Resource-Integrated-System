@@ -4,12 +4,14 @@ import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import profile from "../../../../Resourse/img/default-profile.png";
 import { GetEmployee } from "../../../../Repository/EmployeeRepository";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function EmployeeList() {
   const [modalAdd, setModalAdd] = useState(false);
   const [modalFilter, setModalFilter] = useState(false);
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [isdelete, setDelete] = useState(false);
 
   const inAwait = async () => {
     var dataEmployees = await GetEmployee();
@@ -92,20 +94,17 @@ function EmployeeList() {
                 <th scope="col" className="py-3 px-6">
                   id
                 </th>
-                <th scope="col" className="py-3 px-6 w-36">
+                <th scope="col" className="py-3 px-6 w-72 turncate">
                   first name
                 </th>
-                <th scope="col" className="py-3 px-6 w-36">
+                <th scope="col" className="py-3 px-6 w-72">
                   last name
                 </th>
-                <th scope="col" className="py-3 px-6 w-96">
+                <th scope="col" className="py-3 px-6 w-96 turncate">
                   job tittle
                 </th>
                 <th scope="col" className="py-3 px-6 w-96">
                   employee status
-                </th>
-                <th scope="col" className="py-3 px-6 w-96">
-                  sub units
                 </th>
                 <th scope="col" className="py-3 px-6">
                   supervisor
@@ -116,6 +115,42 @@ function EmployeeList() {
               </tr>
             </thead>
             <tbody>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  010114-0001
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  ACHMAD
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  SUBARKAH
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  GA
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    onClick={ ()=> {
+                      setDelete(true);
+                  }}>
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            {/* <tbody>
               {employees.map((employee) => (
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -132,9 +167,6 @@ function EmployeeList() {
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {employee.employeestatus_id}
-                  </td>
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.subUnit}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {employee.otherId}
@@ -154,7 +186,7 @@ function EmployeeList() {
                   </td>
                 </tr>
               ))}
-            </tbody>
+            </tbody> */}
           </table>
         </div>
       </div>
@@ -215,24 +247,74 @@ function EmployeeList() {
               <label className="text-xs">Job Title</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select--</option>
+                <option>GA</option>
+                <option>ADV RISET</option>
+                <option>SENIOR TREASURY</option>
+                <option>ADV AKUISISI TIKTOK</option>
+                <option>DS-S</option>
+                <option>ADV MP</option>
+                <option>MKT-S</option>
+                <option>PACKER Koord</option>
+                <option>ADV AKUISISI</option>
+                <option>DATA ANALYST</option>
               </select>
             </div>
             <div className="w-full">
               <label className="text-xs">Employee Status</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select--</option>
+                <option>Fulltime-Permanent</option>
+                <option>Fulltime-Contract</option>
+                <option>Fulltime-Probation</option>
+                <option>Part-Time Contract</option>
+                <option>Part-Time Internship</option>
               </select>
             </div>
             <div className="w-full">
               <label className="text-xs">Job Category</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select--</option>
+                <option>Officials and Managers</option>
+                <option>Sales Workers</option>
+                <option>Technicians</option>
+                <option>Service Workers</option>
               </select>
             </div>
             <div className="w-full">
-              <label className="text-xs">Sub Unit</label>
+              <label className="text-xs">Division</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select--</option>
+                <option>HR/GA & F/A/T</option>
+                <option>MKT & SALES</option>
+                <option>BISDEV & COMMERS</option>
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Department</label>
+              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option hidden>--Select--</option>
+                <option>HR/GA</option>
+                <option>DS-S</option>
+                <option>HR/GA & F/A/T</option>
+                <option>MKT-S</option>
+                <option>SCM</option>
+                <option>STD/SD</option>
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Section</label>
+              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option hidden>--Select--</option>
+                <option>GA</option>
+                <option>DS RISET NC</option>
+                <option>F/A/T</option>
+                <option>DS AKUISISI</option>
+                <option>DS-S</option>
+                <option>DS MP</option>
+                <option>MKT-S</option>
+                <option>FULFILLMENT</option>
+                <option>DS AKUISISI</option>
+                <option>SIM</option>
               </select>
             </div>
             <div className="w-full">
@@ -406,6 +488,12 @@ function EmployeeList() {
           </button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

@@ -104,6 +104,13 @@ var AddWorkShift = async (requestBody) => {
     return res.data;
   }
 };
+var deleteWorkShift = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteWorkShift?id=${id}`);
+  console.log(res);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 export {
   GetUser,
   GetApplicant,
@@ -120,5 +127,6 @@ export {
   GetJobCategory,
   AddJobCategory,
   getWorkShift,
-  AddWorkShift
+  AddWorkShift,
+  deleteWorkShift,
 };

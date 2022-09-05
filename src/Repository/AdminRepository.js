@@ -16,7 +16,7 @@ var AddUser = async (data) => {
 };
 
 var DeleteUser = async (id) => {
-  var res = await axios.post(`${endpoint}/deleteUser`, { id: id });
+  var res = await axios.get(`${endpoint}/deleteUser?id=${id}`);
   if (res.data.status == 200) {
     return res.data;
   }

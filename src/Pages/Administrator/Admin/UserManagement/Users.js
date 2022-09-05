@@ -40,13 +40,16 @@ import { TextFieldSearch } from "../../../../Components/TextField";
 import {
   AddUser,
   DeleteUser,
+  EditUser,
   GetUser,
 } from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
 import Select from "react-select";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function Users() {
   const [user, setUserManagement] = useState([]);
+  const [editUserData, setEditUserData] = useState();
   const [employeeNames, setEmployeeNames] = useState([]);
   const inAwait = async () => {
     var rec = await GetUser();
@@ -61,6 +64,8 @@ function Users() {
   const [dialogEditUser, setEditUser] = useState(false);
   const [dialogFilter, setFilter] = useState(false);
   const [changePassword, setPassword] = useState(false);
+  const [isdelete, setDelete] = useState(false);
+  const [id, setId] = useState();
   const [employeeName, setEmployeeName] = useState({
     employeeName: "",
   });
@@ -142,7 +147,7 @@ function Users() {
                     </td>
                     <td className="align-middle">{val["username"]}</td>
                     <td className="align-middle">{val["role"]}</td>
-                    <td className="align-middle">{val["employe_id"]}</td>
+                    <td className="align-middle">{val["employee_id"]}</td>
                     <td className="align-middle">{val["status"]}</td>
                     <td className="align-middle">
                       <button
@@ -151,17 +156,18 @@ function Users() {
                           backgroundColor: "#CEDFEA",
                           borderRadius: "8px",
                         }}
-                        onClick={async () => {
-                          console.log(val["id"]);
-                          var deleteData = await DeleteUser(val["id"]);
-                          console.log(deleteData);
-                          inAwait();
+                        onClick={() => {
+                          setDelete(true);
+                          setId(val["id"]);
                         }}
                       >
                         <DeleteOutline fontSize="10px" />
                       </button>
                       <button
-                        onClick={() => setEditUser(!dialogEditUser)}
+                        onClick={() => {
+                          setEditUserData(val);
+                          setEditUser(!dialogEditUser);
+                        }}
                         className="btn btn-sm mx-1"
                         style={{
                           backgroundColor: "#CEDFEA",
@@ -237,6 +243,8 @@ function Users() {
                 </label>
                 <select className="form-control" id="status">
                   <option value={"selectStatus"}>Select Status</option>
+                  <option value="Enable">Enable</option>
+                  <option value="Disable">Disable</option>
                 </select>
               </div>
             </div>
@@ -337,8 +345,23 @@ function Users() {
                 <label className="mb-1">
                   User Role <span className="text-danger">*</span>
                 </label>
-                <select className="form-control">
+                <select className="form-control" id="roleEdit">
                   <option>Select User Role</option>
+                  {editUserData?.role === "admin" ? (
+                    <>
+                      <option value="user">User</option>
+                      <option value="admin" selected>
+                        Admin
+                      </option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="user" selected>
+                        User
+                      </option>
+                      <option value="admin">Admin</option>
+                    </>
+                  )}
                 </select>
               </div>
             </div>
@@ -350,6 +373,10 @@ function Users() {
                 <input
                   className="form-control"
                   placeholder="Employee Name..."
+                  id="employeeEdit"
+                  onChange={(val) =>
+                    setEmployeeName({ employeeName: val.target.value })
+                  }
                 />
               </div>
             </div>
@@ -358,8 +385,23 @@ function Users() {
                 <label className="mb-1">
                   Status <span className="text-danger">*</span>
                 </label>
-                <select className="form-control">
+                <select className="form-control" id="statusEdit">
                   <option>Select Status</option>
+                  {editUserData?.status === "Enable" ? (
+                    <>
+                      <option value="Enable" selected>
+                        Enable
+                      </option>
+                      <option value="Disable">Disable</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="Enable">Enable</option>
+                      <option value="Disable" selected>
+                        Disable
+                      </option>
+                    </>
+                  )}
                 </select>
               </div>
             </div>
@@ -369,8 +411,16 @@ function Users() {
                   Username <span className="text-danger">*</span>
                 </label>
                 <input
+                  id="usernameEdit"
                   className="form-control"
                   placeholder="Your Username..."
+                  value={editUserData?.username}
+                  onChange={(e) =>
+                    setEditUserData({
+                      ...editUserData,
+                      username: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>
@@ -399,6 +449,7 @@ function Users() {
                     </label>
                     <input
                       className="form-control"
+                      id="passwordEdit"
                       placeholder="Your Password..."
                     />
                   </div>
@@ -410,6 +461,7 @@ function Users() {
                     </label>
                     <input
                       className="form-control"
+                      id="confirmPasswordEdit"
                       placeholder="Confirm Password..."
                     />
                   </div>
@@ -440,6 +492,19 @@ function Users() {
               border: "1px solid transparent",
               color: "#FFFFFF",
               width: "100px",
+            }}
+            onClick={async () => {
+              var requestBody = {
+                id: editUserData.id,
+                role: document.getElementById("roleEdit")?.value,
+                name: employeeName.employeeName,
+                status: document.getElementById("statusEdit")?.value,
+                username: document.getElementById("usernameEdit")?.value,
+                password: document.getElementById("passwordEdit")?.value,
+              };
+              await EditUser(requestBody);
+              setEditUser(false);
+              inAwait();
             }}
           >
             Submit
@@ -506,6 +571,18 @@ function Users() {
           </button>
         </Modal.Footer>
       </Modal>
+
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          DeleteUser(id);
+          inAwait();
+          setDelete(false);
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

@@ -35,7 +35,7 @@ function EmployeeList() {
         </div>
         <div className="flex flex-row justify-between">
           <button
-            className="flex flex-row gap-2 bg-white hover:bg[#003049] text-[#003049] border border-gray-200 flex items-center p-2 rounded-md"
+            className="flex flex-row gap-2 bg-white hover:bg-[#003049] text-[#003049] border border-gray-200 flex items-center p-2 rounded-md"
             onClick={() => setModalFilter(true)}
           >
             <svg
@@ -78,7 +78,7 @@ function EmployeeList() {
               />
             </div>
             <button
-              className="bg-[#0E5073] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
+              className="bg-[#0E5073] hover:bg-[#003049] text-white flex items-center px-2 py-1 rounded-md"
               onClick={() => setModalAdd(true)}
             >
               <PlusIcon className="text-white 5 w-5" aria-hidden="true" /> Add

@@ -38,7 +38,7 @@ function PersonalDetail() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                                 Other ID
                             </label>
-                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text"/>
+                            <input value="3301062408860006" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text"/>
                         </div>
                     </div>
                     <div className="row mb-4">
@@ -63,7 +63,7 @@ function PersonalDetail() {
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3" hidden>Select</option>
-                                <option className="py-3">Indondesia</option>
+                                <option className="py-3" selected>Indondesia</option>
                             </select>
                         </div>
                         <div className='col'>
@@ -75,7 +75,7 @@ function PersonalDetail() {
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3" hidden>Select</option>
                                 <option className="py-3">Single</option>
-                                <option className="py-3">Married</option>
+                                <option className="py-3" selected >Married</option>
                             </select>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ function PersonalDetail() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Birth of Date
                             </label>
-                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date"/>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" value="1985-07-24"/>
                         </div>
                         <div className='col'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
@@ -92,7 +92,7 @@ function PersonalDetail() {
                             </label>
                             <div className="row py-2">    
                                 <div className="flex items-center col">
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                    <input checked id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                                     <label for="default-radio-1" className="ml-2 text-sm text-gray-900 dark:text-gray-300">Male</label>
                                 </div>
                                 <div className="flex items-center col">

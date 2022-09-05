@@ -35,7 +35,7 @@ function EmergencyContact() {
                                 <td className="align-middle">Kim Woo Bin</td>
                                 <td className="align-middle">-</td>
                                 <td className="align-middle">081234567809</td>
-                                <td className="align-middle">Husband</td>
+                                <td className="align-middle">Wife</td>
                                 <td className="align-middle">
                                     <div className="flex flex-row gap-2">
                                         <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">

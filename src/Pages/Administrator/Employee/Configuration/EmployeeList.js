@@ -134,10 +134,334 @@ function EmployeeList() {
                 <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
                 <td className="py-4 px-6">
                   <div className="flex flex-row justify-end gap-3">
-                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    onClick={ ()=> {
-                      setDelete(true);
-                  }}>
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  011114-0002
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  ADI BAGUS
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  SULISTYANTO
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  DS RISET NC
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  051214-0003
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  TRI
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  NINGSIH
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  F/A/T
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  010315-0004
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  RYAN
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  SETYO PAMBUDI
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  DS AKUISISI
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  010815-0005
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  DIMAS
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  WICAKSONO PUTRA
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  DS-S
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  020915-0006
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  TUGIYATI
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  DS MP
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  221115-0007
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  ANINDHIYA
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  SETYANINGRUM
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  MKT-S
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  010817-0008
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  ANING
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  MURSANAH
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  FULFILLMENT
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  181017-0009
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  CAHYO
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  SETIONO
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  DS AKUISISI
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <a
+                      href="/profile"
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  010118-0011
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  NURAENI
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  ERMAWATI
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  SIM
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Fulltime-Contract
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                <td className="py-4 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => {
+                        setDelete(true);
+                      }}
+                    >
                       <TrashIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                     <a

@@ -17,7 +17,7 @@ function Job() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Joined Date
                             </label>
-                            <input disabled className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="22 -06-2020"/>
+                            <input disabled className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="2014-01-01"/>
                         </div>
                         <div className='col-5'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">

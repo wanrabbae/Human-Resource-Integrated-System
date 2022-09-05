@@ -44,16 +44,9 @@ function Qualification() {
                             </thead>
                             <tbody>
                                 <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">Haruka</td>
+                                    <td className="align-middle">GamaTech</td>
                                     <td className="align-middle">IT Staff</td>
-                                    <td className="align-middle">20/01/2021</td>
-                                    <td className="align-middle">20/01/2021</td>
-                                    <td className="align-middle">Lorem Ipsum dolor </td>
-                                </tr>
-                                <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">Haruka</td>
-                                    <td className="align-middle">IT Staff</td>
-                                    <td className="align-middle">20/01/2021</td>
+                                    <td className="align-middle">01/01/2014</td>
                                     <td className="align-middle">20/01/2021</td>
                                     <td className="align-middle">Lorem Ipsum dolor </td>
                                 </tr>
@@ -81,11 +74,7 @@ function Qualification() {
                             <tbody>
                                 <tr style={{fontSize:'14px'}}>
                                     <td className="align-middle">Graphic Designer</td>
-                                    <td className="align-middle">3 Years</td>
-                                </tr>
-                                <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">GamaTech</td>
-                                    <td className="align-middle">3 Years</td>
+                                    <td className="align-middle">6 Years</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -111,13 +100,13 @@ function Qualification() {
                             </thead>
                             <tbody>
                                 <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">Bachelor's Degree</td>
-                                    <td className="align-middle">2022</td>
+                                    <td className="align-middle">magister</td>
+                                    <td className="align-middle">2014</td>
                                     <td className="align-middle">3.90</td>
                                 </tr>
                                 <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">High School</td>
-                                    <td className="align-middle">2018</td>
+                                    <td className="align-middle">Bachelor's Degree</td>
+                                    <td className="align-middle">2012</td>
                                     <td className="align-middle">3.90</td>
                                 </tr>
                             </tbody>
@@ -139,21 +128,15 @@ function Qualification() {
                                 <tr style={{ backgroundColor: "#EBF7FF", fontSize:'14px',writingMode:'horizontal-tb' }}>
                                     <th  className="align-middle " onClick={() => { }}>Language <ImportExport fontSize="2px" /></th>
                                     <th  className="align-middle " onClick={() => { }}>Fluency <ImportExport fontSize="2px" /></th>
-                                    <th  className="align-middle " onClick={() => { }}>Compelency <ImportExport fontSize="2px" /></th>
+                                    <th  className="align-middle " onClick={() => { }}>Competency <ImportExport fontSize="2px" /></th>
                                     <th  className="align-middle " onClick={() => { }}>Comment <ImportExport fontSize="2px" /></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">GamaTech</td>
-                                    <td className="align-middle">IT Staff</td>
-                                    <td className="align-middle">20/01/2021</td>
-                                    <td className="align-middle">Lorem Ipsum dolor Set amet</td>
-                                </tr>
-                                <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">GamaTech</td>
-                                    <td className="align-middle">IT Staff</td>
-                                    <td className="align-middle">20/01/2021</td>
+                                    <td className="align-middle">Indonesian</td>
+                                    <td className="align-middle">Writing, Speaking, Reading</td>
+                                    <td className="align-middle">Mother Tongue </td>
                                     <td className="align-middle">Lorem Ipsum dolor Set amet</td>
                                 </tr>
                             </tbody>
@@ -180,12 +163,7 @@ function Qualification() {
                             </thead>
                             <tbody>
                                 <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">GamaTech</td>
-                                    <td className="align-middle">20/01/2021</td>
-                                    <td className="align-middle">20/01/2021</td>
-                                </tr>
-                                <tr style={{fontSize:'14px'}}>
-                                    <td className="align-middle">GamaTech</td>
+                                    <td className="align-middle">Graphic Designer</td>
                                     <td className="align-middle">20/01/2021</td>
                                     <td className="align-middle">20/01/2021</td>
                                 </tr>

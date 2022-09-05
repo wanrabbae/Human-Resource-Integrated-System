@@ -14,13 +14,13 @@ function ContactDetail() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Street <span style={{color:"#780000"}}>*</span>
                             </label>
-                            <input value="Karangklesem, Puri Hijau, No. 18" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                            <input value="Dusun Bayeman Kidul No. 16, Gentasari, Kroya" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
                         </div>
                         <div className='col'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             City <span style={{color:"#780000"}}>*</span>
                             </label>
-                            <input value="Purwokerto" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text"/>
+                            <input value="Banyumas" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text"/>
                         </div>
                     </div>
                     <hr style={{backgroundColor:'#CACACA'}} className="mb-4"></hr>
@@ -42,7 +42,8 @@ function ContactDetail() {
                             Country
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3" selected>Indonesia</option>
                             </select>
                         </div>
                     </div>

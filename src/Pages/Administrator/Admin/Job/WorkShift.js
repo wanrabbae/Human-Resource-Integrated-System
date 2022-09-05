@@ -3,14 +3,18 @@ import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Close, Delete, DeleteOutl
 
 import { useEffect, useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter, Button, Form } from "react-bootstrap";
-import { getWorkShift } from "../../../../Repository/AdminRepository";
+import { AddWorkShift, getWorkShift } from "../../../../Repository/AdminRepository";
+import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
 
 function WorkShift() {
     var array = ["Faris", "Ahmad", "Subarja", "Soleh", "Pesulap Merah", "Pesulap Hijau", "Pesulap Pink", "Pesulap Biru", "Pesulap Kuning",];
     const [workshift, setWorkShift] = useState([]);
+    const [employee, setEmployee] = useState([]);
     const inAwait = async () => {
+        var emp = await GetEmployeeName();
         var rec = await getWorkShift();
         setWorkShift(rec);
+        setEmployee(emp);
       }
     useEffect(() => {
         inAwait();
@@ -80,20 +84,20 @@ function WorkShift() {
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Work Shift Name <span className="text-danger">*</span></label>
-                                <input className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Work Shift..." />
+                                <input id="name" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Work Shift..." />
                             </div>
                         </div>
                         <h1>Working hours</h1>
                         <div className="col-md-4 my-3">
                             <div className="form-group">
                                 <label className="mb-1">Start</label>
-                                <input type="time" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input type="time" id="start" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
                         </div>
                         <div className="col-md-4 my-3">
                             <div className="form-group">
                                 <label className="mb-1">End</label>
-                                <input type="time" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input type="time" id="end" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
                         </div>
                         <div className="col-md-4 my-3">
@@ -109,19 +113,21 @@ function WorkShift() {
                                     setSelected(current => [...current, val.target.value])} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option>Search Employee</option>
                                     {
-                                        array.map((val, index) =>
-                                            <option key={index} value={val}>{val}</option>
-                                        )
+                                        employee.map((val,) => {
+                                            return(
+                                                <option value={val['id']}>{val['firstName']}</option>
+                                            )
+                                        })
                                     }
                                 </select>
                             </div>
                             <div className="d-flex flex-wrap justify-content-start mt-3">
                                 {
-                                    selected.map((value, index) =>
-                                        <div key={index} className="px-2 d-flex align-items-center my-2 mr-3" style={{ backgroundColor: "#00000030", color: "#00000050", borderRadius: "5px", }}>
+                                    selected.map((value ) =>
+                                        <div className="px-2 d-flex align-items-center my-2 mr-3" style={{ backgroundColor: "#00000030", color: "#00000050", borderRadius: "5px", }}>
                                             {value}
                                             <button onClick={() => setSelected(current => current.filter((val, i) => {
-                                                return i !== index
+                                                return i !== value['id']
                                             }))} className="btn btn-sm" style={{ color: "#00000030" }}><Close /></button>
                                         </div>)
                                 }
@@ -151,6 +157,18 @@ function WorkShift() {
                             color: "#FFFFFF",
                             width: "100px",
                         }}
+                        onClick={async() => {
+                            var requestBody = {
+                                name : document.getElementById('name').value,
+                                start : document.getElementById('start').value,
+                                end : document.getElementById('end').value,
+                                employee_id : selected,
+                            }
+                            var res = await AddWorkShift(requestBody);
+                            console.log(requestBody);
+                            setTitle(!dialogTitle)
+                            inAwait();
+                        }}
                     >
                         Add
                     </button>
@@ -171,20 +189,20 @@ function WorkShift() {
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Work Shift Name <span className="text-danger">*</span></label>
-                                <input className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Work Shift..." />
+                                <input id="name" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Work Shift..." />
                             </div>
                         </div>
                         <h1>Working hours</h1>
                         <div className="col-md-4 my-3">
                             <div className="form-group">
                                 <label className="mb-1">Start</label>
-                                <input type="time" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input type="time" id="start" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
                         </div>
                         <div className="col-md-4 my-3">
                             <div className="form-group">
                                 <label className="mb-1">End</label>
-                                <input type="time" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input type="time" id="end" className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
                         </div>
                         <div className="col-md-4 my-3">
@@ -241,6 +259,7 @@ function WorkShift() {
                             color: "#FFFFFF",
                             width: "100px",
                         }}
+                        
                     >
                         Add
                     </button>

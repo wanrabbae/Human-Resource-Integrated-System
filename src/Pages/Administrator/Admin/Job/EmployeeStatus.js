@@ -2,10 +2,19 @@ import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fort
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
+import { AddEmployeeStatus, GetEmployeeStatus } from "../../../../Repository/AdminRepository";
 
 function EmployeeStatus() {
+    const [estatus, setEStatus] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetEmployeeStatus();
+        setEStatus(rec);
+      }
+    useEffect(() => {
+        inAwait();
+    }, []);
     const [dialogTitle, setTitle] = useState(false);
     const [dialogEditTitle, setEditTitle] = useState(false);
     return (
@@ -34,14 +43,24 @@ function EmployeeStatus() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
-                            <td className="align-middle" style={{ minWidth: "200px", }}>Fulltime-Permenant</td>
-                            <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
-                                <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                        {
+                            estatus.length > 0 ?
+                            estatus.map((val) => {
+                                return (
+                                    <tr>
+                                        <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                                        <td className="align-middle" style={{ minWidth: "200px", }}>{val['name']}</td>
+                                        <td className="align-middle" style={{ minWidth: "100px", }}>
+                                            <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                                            <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                        </td>
+                                    </tr>
+                                )
+                            }) :
+                            <td >
+                                <div className='d-flex justify-content-center align-middle text-center' >No Data</div>
                             </td>
-                        </tr>
+                        }
                     </tbody>
                 </Table>
             </div>
@@ -60,7 +79,7 @@ function EmployeeStatus() {
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Employee Status <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Employee Status..." />
+                                <input className="form-control" id="name" placeholder="Employee Status..." />
                             </div>
                         </div>
                     </div>
@@ -86,6 +105,15 @@ function EmployeeStatus() {
                             border: "1px solid transparent",
                             color: "#FFFFFF",
                             width: "100px",
+                        }}
+                        onClick={async()=> {
+                            var requestBody = {
+                                name : document.getElementById('name').value,
+                            }
+                            var res = await AddEmployeeStatus(requestBody);
+                            console.log(res);
+                            setTitle(!dialogTitle)
+                            inAwait();
                         }}
                     >
                         Add

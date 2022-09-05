@@ -1,11 +1,20 @@
 
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Close, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter, Button, Form } from "react-bootstrap";
+import { getWorkShift } from "../../../../Repository/AdminRepository";
 
 function WorkShift() {
     var array = ["Faris", "Ahmad", "Subarja", "Soleh", "Pesulap Merah", "Pesulap Hijau", "Pesulap Pink", "Pesulap Biru", "Pesulap Kuning",];
+    const [workshift, setWorkShift] = useState([]);
+    const inAwait = async () => {
+        var rec = await getWorkShift();
+        setWorkShift(rec);
+      }
+    useEffect(() => {
+        inAwait();
+    }, []);
     const [dialogTitle, setTitle] = useState(false);
     const [dialogEditTitle, setEditTitle] = useState(false);
     const [selected, setSelected] = useState([]);
@@ -35,14 +44,24 @@ function WorkShift() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
-                            <td className="align-middle" style={{ minWidth: "200px", }}>Work Shift</td>
-                            <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
-                                <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                        {
+                            workshift.length > 0 ?
+                            workshift.map ((val)=> {
+                                return (
+                                    <tr>
+                                        <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                                        <td className="align-middle" style={{ minWidth: "200px", }}>{val['name']}</td>
+                                        <td className="align-middle" style={{ minWidth: "100px", }}>
+                                            <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                                            <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                        </td>
+                                    </tr>
+                                )
+                            }) :
+                            <td >
+                                <div className='d-flex justify-content-center align-middle text-center' >No Data</div>
                             </td>
-                        </tr>
+                        }
                     </tbody>
                 </Table>
             </div>

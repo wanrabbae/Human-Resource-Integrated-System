@@ -56,7 +56,54 @@ var delJobTittle = async (id) => {
     return res.data;
   }
 };
-
+var GetJobGrade = async () => {
+  var res = await axios.get(`${endpoint}/getJobGrade`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddJobGrade = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addJobGrade`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var GetEmployeeStatus = async () => {
+  var res = await axios.get(`${endpoint}/getEmployeeStatus`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddEmployeeStatus = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addEmployeeStatus`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var GetJobCategory = async () => {
+  var res = await axios.get(`${endpoint}/getJobCategory`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddJobCategory = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addJobCategory`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var getWorkShift = async () => {
+  var res = await axios.get(`${endpoint}/getWorkShift`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddWorkShift = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addWorkShift`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 export {
   GetUser,
   GetApplicant,
@@ -66,4 +113,12 @@ export {
   AddUser,
   DeleteUser,
   EditUser,
+  GetJobGrade,
+  AddJobGrade,
+  GetEmployeeStatus,
+  AddEmployeeStatus,
+  GetJobCategory,
+  AddJobCategory,
+  getWorkShift,
+  AddWorkShift
 };

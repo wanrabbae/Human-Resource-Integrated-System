@@ -2,10 +2,19 @@ import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fort
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
 import { Box, Button, IconButton, InputAdornment, OutlinedInput, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter } from "react-bootstrap";
+import { AddJobGrade, GetJobGrade } from "../../../../Repository/AdminRepository";
 
 function JobGrade() {
+    const [jobgrade, setJobGrade] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetJobGrade();
+        setJobGrade(rec);
+      }
+    useEffect(() => {
+        inAwait();
+    }, []);
     const [dialogTitle, setTitle] = useState(false);
     const [dialogEditTitle, setEditTitle] = useState(false);
     return (
@@ -37,17 +46,27 @@ function JobGrade() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
-                            <td className="align-middle" style={{ minWidth: "200px", }}>Grade 1</td>
-                            <td className="align-middle">IDR (Indonesia Rupiah)</td>
-                            <td className="align-middle">1.800.000,00</td>
-                            <td className="align-middle">3.800.000,00</td>
-                            <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
-                                <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                        {
+                            jobgrade.length > 0 ?
+                            jobgrade.map ((val) => {
+                                return (
+                                    <tr>
+                                        <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                                        <td className="align-middle" style={{ minWidth: "200px", }}>{val['name']}</td>
+                                        <td className="align-middle">{val['type']}</td>
+                                        <td className="align-middle">{val['minsalary']}</td>
+                                        <td className="align-middle">{val['maxsalary']}</td>
+                                        <td className="align-middle" style={{ minWidth: "100px", }}>
+                                            <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                                            <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                        </td>
+                                    </tr>
+                                )
+                            }) :
+                            <td >
+                                <div className='d-flex justify-content-center align-middle text-center' >No Data</div>
                             </td>
-                        </tr>
+                        }
                     </tbody>
                 </Table>
             </div>
@@ -66,7 +85,7 @@ function JobGrade() {
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Job Grade <span className="text-danger">*</span></label>
-                                <input className="form-control" placeholder="Jobl grade..." />
+                                <input className="form-control" id="name" placeholder="Job grade..."                                                                             />
                             </div>
                         </div>
                         <div className="col-12 mb-3">
@@ -75,21 +94,23 @@ function JobGrade() {
                         <div className="col-md-12 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Currency type</label>
-                                <select className="form-control">
+                                <select id="type" className="form-control">
                                     <option>Select currency</option>
+                                    <option value="IDR">IDR (Indonesia Rupiah)</option>
+                                    <option value="USD">USD (United Stated Dollar)</option>
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-6 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Minimum salary <span className="text-danger">*</span></label>
-                                <input className="form-control" />
+                                <input id="minsalary" className="form-control" />
                             </div>
                         </div>
                         <div className="col-md-6 mb-3">
                             <div className="form-group">
                                 <label className="mb-1">Maximum salary <span className="text-danger">*</span></label>
-                                <input className="form-control" />
+                                <input id="maxsalary" className="form-control" />
                             </div>
                         </div>
                     </div>
@@ -115,6 +136,18 @@ function JobGrade() {
                             border: "1px solid transparent",
                             color: "#FFFFFF",
                             width: "100px",
+                        }}
+                        onClick={async() => {
+                            var requestBody = {
+                                name : document.getElementById('name').value,
+                                type : document.getElementById('type').value,
+                                minsalary : document.getElementById('minsalary').value,
+                                maxsalary : document.getElementById('maxsalary').value,
+                            }
+                            var res = await AddJobGrade(requestBody);
+                            console.log(res);
+                            setTitle(!dialogTitle)
+                            inAwait();
                         }}
                     >
                         Add

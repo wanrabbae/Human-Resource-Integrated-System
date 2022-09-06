@@ -5,7 +5,7 @@ function Imigration() {
         <>
             <div >
                 <div  className="mb-4">
-                    <span style={{fontWeight:'600'}}>Imigration</span>
+                    <span style={{fontWeight:'600'}}>Immigration</span>
                 </div>
                 <form>    
                     <div className="row mb-4">

@@ -29,7 +29,14 @@ function ContactDetail() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Province
                             </label>
-                            <input value="Central Java" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3" selected>Jawa Tengah</option>
+                                <option className="py-3" >Jawa Barat</option>
+                                <option className="py-3" >Jawa Timut</option>
+                                <option className="py-3" >DKI Jakarta</option>
+                            </select>
+                           
                         </div>
                         <div className='col-3'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
@@ -44,6 +51,10 @@ function ContactDetail() {
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3" hidden>Select</option>
                                 <option className="py-3" selected>Indonesia</option>
+                                <option className="py-3">Malaysia</option>
+                                <option className="py-3">Arab</option>
+                                <option className="py-3">Jepang</option>
+                                <option className="py-3">Korea</option>
                             </select>
                         </div>
                     </div>

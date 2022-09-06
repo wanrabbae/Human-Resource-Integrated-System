@@ -241,7 +241,7 @@ function StructureOrganization() {
         <Modal.Body className="mx-4">
           <div className="grid grid-cols-1 gap-3 mt-3">
             <div className="w-full">
-              <label className="text-xs">Unit ID</label>
+              <label className="text-xs">ID</label>
               <input
                 onChange={(val) => {}}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -250,12 +250,25 @@ function StructureOrganization() {
               />
             </div>
             <div className="w-full">
+              <label className="text-xs">Unit</label>
+              <select className="appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                <option className="py-3" hidden>
+                  Select
+                </option>
+                <option className="py-3">Division</option>
+                <option className="py-3">Department</option>
+                <option className="py-3">Sub Department</option>
+                <option className="py-3">Section</option>
+                <option className="py-3">Sub Section</option>
+              </select>
+            </div>
+            <div className="w-full">
               <label className="text-xs">Name</label>
               <input
                 onChange={(val) => {}}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
-                placeholder="Organization unit name..."
+                placeholder="Organization name..."
                 readOnly
               />
             </div>

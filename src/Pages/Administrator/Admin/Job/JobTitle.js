@@ -58,6 +58,8 @@ function JobTitle() {
   const [spesification, setSpesification] = useState();
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isdelete2, setDelete2] = useState(false);
   return (
     <>
       <div
@@ -79,6 +81,9 @@ function JobTitle() {
                 border: "1px solid #00000040",
                 borderRadius: "7px",
                 backgroundColor: "transparent",
+              }}
+              onClick={() => {
+                setDelete2(true);
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
@@ -108,7 +113,11 @@ function JobTitle() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input
+                  type="checkbox"
+                  style={{ borderRadius: "2px" }}
+                  onChange={() => setCheckedAll(!isCheckedAll)}
+                />
               </th>
               <th onClick={() => {}}>
                 Job Title <ImportExport fontSize="2px" />
@@ -123,7 +132,12 @@ function JobTitle() {
                 return (
                   <tr>
                     <td className="align-middle">
-                      <input type="checkbox" style={{ borderRadius: "2px" }} />
+                      <input
+                        type="checkbox"
+                        checked={isCheckedAll ? true : false}
+                        style={{ borderRadius: "2px" }}
+                        onChange={(e) => console.log(val["id"])}
+                      />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}
@@ -398,6 +412,16 @@ function JobTitle() {
           SwalSuccess({ message: "Success delete job title" });
         }}
         active={isdelete}
+      />
+      <ModalDelete
+        close={() => {
+          setDelete2(false);
+        }}
+        submit={() => {
+          setDelete2(false);
+          SwalSuccess({ message: "Success delete job title" });
+        }}
+        active={isdelete2}
       />
     </>
   );

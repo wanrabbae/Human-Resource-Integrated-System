@@ -40,6 +40,7 @@ function Nationalities() {
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
 
   const inAwait = async () => {
     var data = await GetNational();
@@ -100,7 +101,11 @@ function Nationalities() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input
+                  type="checkbox"
+                  style={{ borderRadius: "2px" }}
+                  onChange={() => setCheckedAll(!isCheckedAll)}
+                />
               </th>
               <th onClick={() => {}}>
                 Nationalities <ImportExport fontSize="2px" />
@@ -113,7 +118,12 @@ function Nationalities() {
               nationalities.map((national) => (
                 <tr key={national.id}>
                   <td className="align-middle">
-                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                    <input
+                      type="checkbox"
+                      checked={isCheckedAll ? true : false}
+                      style={{ borderRadius: "2px" }}
+                      onChange={(e) => console.log(national.id)}
+                    />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>
                     {national.name}

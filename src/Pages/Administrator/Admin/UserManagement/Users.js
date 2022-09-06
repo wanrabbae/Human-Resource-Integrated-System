@@ -53,9 +53,7 @@ function Users() {
   const [employeeNames, setEmployeeNames] = useState([]);
   const inAwait = async () => {
     var rec = await GetUser();
-    console.log("USERS: ", rec);
     var dataEmployeeName = await GetEmployeeName();
-    console.log("EMPLOYEES: ", dataEmployeeName);
     setEmployeeNames(dataEmployeeName);
     setUserManagement(rec["result"]);
   };
@@ -68,6 +66,7 @@ function Users() {
   const [changePassword, setPassword] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
   const [employeeName, setEmployeeName] = useState({
     employeeName: "",
   });
@@ -122,7 +121,11 @@ function Users() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input
+                  type="checkbox"
+                  style={{ borderRadius: "2px" }}
+                  onChange={() => setCheckedAll(!isCheckedAll)}
+                />
               </th>
               <th onClick={() => {}}>
                 Username <ImportExport fontSize="2px" />
@@ -145,7 +148,12 @@ function Users() {
                 return (
                   <tr key={val["id"]}>
                     <td className="align-middle">
-                      <input type="checkbox" style={{ borderRadius: "2px" }} />
+                      <input
+                        type="checkbox"
+                        checked={isCheckedAll ? true : false}
+                        style={{ borderRadius: "2px" }}
+                        onChange={(e) => console.log(val["id"])}
+                      />
                     </td>
                     <td className="align-middle">{val["username"]}</td>
                     <td className="align-middle">{val["role"]}</td>

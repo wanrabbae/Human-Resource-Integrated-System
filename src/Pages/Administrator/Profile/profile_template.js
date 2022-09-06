@@ -134,7 +134,7 @@ function ProfileTemplate() {
                         className="mt-2"
                         onClick={() => setIndex(4)}
                         >
-                        <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Imigration</Typography>} />
+                        <ListItemText primary={<Typography style={{ fontSize:'14px',fontWeight:'600' }}>Immigration</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                         style={{ 

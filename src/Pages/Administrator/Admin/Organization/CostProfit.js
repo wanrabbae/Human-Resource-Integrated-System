@@ -62,7 +62,10 @@ function CostProfit() {
                             <div className="form-group">
                                 <label className="mb-1">Employee Position <span className="text-danger">*</span></label>
                                 <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option>Select Employee Position</option>
+                                    <option selected disabled>Select Employee Position</option>
+                                    <option>Advertising</option>
+                                    <option>IT Development</option>
+                                    <option>CS</option>
                                 </select>
                             </div>
                         </div>
@@ -201,7 +204,10 @@ function CostProfit() {
                             <div className="form-group">
                                 <label className="mb-1">Employee Position <span className="text-danger">*</span></label>
                                 <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option>Select Employee Position</option>
+                                    <option selected disabled>Select Employee Position</option>
+                                    <option>Advertising</option>
+                                    <option>IT Development</option>
+                                    <option>CS</option>
                                 </select>
                             </div>
                         </div>

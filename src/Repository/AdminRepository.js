@@ -50,8 +50,14 @@ var AddJobTittle = async (requestBody) => {
     return res.data;
   }
 };
+var EditJobTittle = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateJobTitle`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var delJobTittle = async (id) => {
-  var res = await axios.post(`${endpoint}/addJobTitle`, { id: id });
+  var res = await axios.get(`${endpoint}/deleteJobTitle?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
@@ -104,6 +110,12 @@ var AddWorkShift = async (requestBody) => {
     return res.data;
   }
 };
+var EditWorkShift = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateWorkShift`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var deleteWorkShift = async (id) => {
   var res = await axios.get(`${endpoint}/deleteWorkShift?id=${id}`);
   console.log(res);
@@ -117,6 +129,7 @@ export {
   GetJobTittle,
   AddJobTittle,
   delJobTittle,
+  EditJobTittle,
   AddUser,
   DeleteUser,
   EditUser,
@@ -129,4 +142,5 @@ export {
   getWorkShift,
   AddWorkShift,
   deleteWorkShift,
+  EditWorkShift,
 };

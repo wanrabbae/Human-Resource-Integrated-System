@@ -27,6 +27,7 @@ import {
 import {
   AddWorkShift,
   deleteWorkShift,
+  EditWorkShift,
   getWorkShift,
 } from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
@@ -46,6 +47,7 @@ function WorkShift() {
   ];
   const [workshift, setWorkShift] = useState([]);
   const [employee, setEmployee] = useState([]);
+  const [workshiftEdit, setWorkShiftEdit] = useState();
   const inAwait = async () => {
     var emp = await GetEmployeeName();
     var rec = await getWorkShift();
@@ -145,7 +147,10 @@ function WorkShift() {
                         <DeleteOutline fontSize="10px" />
                       </button>
                       <button
-                        onClick={() => setEditTitle(!dialogEditTitle)}
+                        onClick={() => {
+                          setEditTitle(!dialogEditTitle);
+                          setWorkShiftEdit(val);
+                        }}
                         className="btn btn-sm mx-1"
                         style={{
                           backgroundColor: "#CEDFEA",
@@ -272,7 +277,10 @@ function WorkShift() {
               color: "#0E5073",
               width: "100px",
             }}
-            onClick={() => setTitle(!dialogTitle)}
+            onClick={() => {
+              setSelected([]);
+              setTitle(!dialogTitle);
+            }}
           >
             Cancel
           </button>
@@ -292,8 +300,8 @@ function WorkShift() {
                 employee_ids: selected,
               };
               var res = await AddWorkShift(requestBody);
-              console.log(res);
               setTitle(!dialogTitle);
+              setSelected([]);
               inAwait();
             }}
           >
@@ -322,9 +330,13 @@ function WorkShift() {
                   Work Shift Name <span className="text-danger">*</span>
                 </label>
                 <input
-                  id="name"
+                  id="nameEdit"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Work Shift..."
+                  value={workshiftEdit?.name ?? null}
+                  onChange={(e) =>
+                    setWorkShiftEdit({ ...workshiftEdit, name: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -334,7 +346,14 @@ function WorkShift() {
                 <label className="mb-1">Start</label>
                 <input
                   type="time"
-                  id="start"
+                  value={workshiftEdit?.start ?? null}
+                  onChange={(e) =>
+                    setWorkShiftEdit({
+                      ...workshiftEdit,
+                      start: e.target.value,
+                    })
+                  }
+                  id="startEdit"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
@@ -344,7 +363,11 @@ function WorkShift() {
                 <label className="mb-1">End</label>
                 <input
                   type="time"
-                  id="end"
+                  value={workshiftEdit?.end ?? null}
+                  onChange={(e) =>
+                    setWorkShiftEdit({ ...workshiftEdit, end: e.target.value })
+                  }
+                  id="endEdit"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
@@ -365,11 +388,11 @@ function WorkShift() {
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Search Employee</option>
-                  {array.map((val, index) => (
-                    <option key={index} value={val}>
-                      {val}
-                    </option>
-                  ))}
+                  {employee.map((val) => {
+                    return (
+                      <option value={val["id"]}>{val["firstName"]}</option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="d-flex flex-wrap justify-content-start mt-3">
@@ -385,13 +408,11 @@ function WorkShift() {
                   >
                     {value}
                     <button
-                      onClick={() =>
-                        setSelected((current) =>
-                          current.filter((val, i) => {
-                            return i !== index;
-                          })
-                        )
-                      }
+                      onClick={() => {
+                        return setSelected(
+                          selected.filter((val) => val !== value)
+                        );
+                      }}
                       className="btn btn-sm"
                       style={{ color: "#00000030" }}
                     >
@@ -412,7 +433,10 @@ function WorkShift() {
               color: "#0E5073",
               width: "100px",
             }}
-            onClick={() => setEditTitle(!dialogEditTitle)}
+            onClick={() => {
+              setSelected([]);
+              setEditTitle(!dialogEditTitle);
+            }}
           >
             Cancel
           </button>
@@ -424,8 +448,21 @@ function WorkShift() {
               color: "#FFFFFF",
               width: "100px",
             }}
+            onClick={async () => {
+              var requestBody = {
+                id: workshiftEdit.id,
+                name: document.getElementById("nameEdit")?.value,
+                start: document.getElementById("startEdit")?.value,
+                end: document.getElementById("endEdit")?.value,
+                employee_ids: selected ?? [],
+              };
+              var res = await EditWorkShift(requestBody);
+              setEditTitle(!dialogEditTitle);
+              setSelected([]);
+              inAwait();
+            }}
           >
-            Add
+            Submit
           </button>
         </Modal.Footer>
       </Modal>

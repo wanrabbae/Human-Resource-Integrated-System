@@ -53,7 +53,9 @@ function Users() {
   const [employeeNames, setEmployeeNames] = useState([]);
   const inAwait = async () => {
     var rec = await GetUser();
+    console.log("USERS: ", rec);
     var dataEmployeeName = await GetEmployeeName();
+    console.log("EMPLOYEES: ", dataEmployeeName);
     setEmployeeNames(dataEmployeeName);
     setUserManagement(rec["result"]);
   };

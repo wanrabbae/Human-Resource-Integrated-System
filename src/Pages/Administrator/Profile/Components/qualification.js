@@ -95,7 +95,7 @@ function Qualification() {
                                 <tr style={{ backgroundColor: "#EBF7FF", fontSize:'14px',writingMode:'horizontal-tb' }}>
                                     <th  className="align-middle " onClick={() => { }}>Level <ImportExport fontSize="2px" /></th>
                                     <th  className="align-middle " onClick={() => { }}>Year <ImportExport fontSize="2px" /></th>
-                                    <th  className="align-middle " onClick={() => { }}>GAP/Score <ImportExport fontSize="2px" /></th>
+                                    <th  className="align-middle " onClick={() => { }}>GPA/Score <ImportExport fontSize="2px" /></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -185,13 +185,13 @@ function Qualification() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Comany Name <span style={{color:"#780000"}}>*</span>
                             </label>
-                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Company name.."/>
                         </div>
                         <div className='mb-4'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Job Title<span style={{color:"#780000"}}>*</span>
                             </label>
-                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Job title.."/>
                         </div>
                     </div>
                     <div className="row mb-4">
@@ -258,7 +258,9 @@ function Qualification() {
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
-                            </select>
+                                <option className="py-3">Graphic Designer</option>
+                                <option className="py-3">UI UX Designer</option>
+                            </select>Graphic Designer
                         </div>
                         <div className='mb-4'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
@@ -317,6 +319,8 @@ function Qualification() {
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
+                                <option className="py-3">High School</option>High School
+                                <option className="py-3">Bachelor's Degree</option>
                             </select>
                         </div>
                         <div className='mb-4'>
@@ -341,11 +345,9 @@ function Qualification() {
                         </div>
                         <div className='col mb-4'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
-                            GAP <span style={{color:"#780000"}}>*</span>
+                            GPA <span style={{color:"#780000"}}>*</span>
                             </label>
-                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
-                            </select>
+                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text"/>
                         </div>
                         <div className="w-100">
 
@@ -405,6 +407,8 @@ function Qualification() {
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
+                                <option className="py-3">Indonesian</option>
+                                <option className="py-3">Korean</option>
                             </select>
                         </div>
                         <div className='mb-4'>
@@ -477,15 +481,17 @@ function Qualification() {
                     <div className="mb-4">
                         <div className='mb-4'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
-                            Lisency Type <span style={{color:"#780000"}}>*</span>
+                            License Type <span style={{color:"#780000"}}>*</span>
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
+                                <option className="py-3">Junior Web Programming </option>
+                                <option className="py-3">Senior Data Analyst</option>
                             </select>
                         </div>
                         <div className='mb-4'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
-                            Lisency Number <span style={{color:"#780000"}}>*</span>
+                            License Number <span style={{color:"#780000"}}>*</span>
                             </label>
                             <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Institute name..."/>
                         </div>

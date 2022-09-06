@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const { Edit } = require("@mui/icons-material");
+const { Edit, Save } = require("@mui/icons-material");
 const { IconButton, Button } = require("@mui/material");
 
 function GeneralInformation() {
@@ -12,7 +12,7 @@ function GeneralInformation() {
                     <h2><b>General Information</b></h2>
                     <h6>General company information</h6>
                 </div>
-                <Button onClick={() => setEdited(!isEdited)} style={{ color: "#FFFFFF", backgroundColor: "#0E5073" }} startIcon={<Edit />}> Edit</Button>
+                <Button onClick={() => setEdited(!isEdited)} style={{ color: "#FFFFFF", backgroundColor: "#0E5073" }} startIcon={isEdited === true ? <Save/> : <Edit/>}> {isEdited === true ? 'Save' : 'Edit'}</Button>
             </div>
             <hr></hr>
             <div className="row mt-3">

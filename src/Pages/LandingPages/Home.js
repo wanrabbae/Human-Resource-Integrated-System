@@ -91,17 +91,17 @@ function Home() {
         <p className=" text-xl md:text-3xl text-[#003049] text-center font-bold">
           Many Companies Use HRIS Software
         </p>
-        <div className="flex flex-wrap justify-center md:justify-between gap-5">
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
-          <img src={c1} />
+        <div className="flex flex-wrap justify-center md:justify-center gap-10">
+          <img src={c1} width={100}  />
+          <img src={c2} width={100}  />
+          <img src={c3} width={100}  />
+          <img src={c4} width={100}  />
+          <img src={c5} width={100}  />
+          <img src={c6} width={100}  />
+          <img src={c7} width={100}  />
+          <img src={c8} width={100}  />
+          <img src={c9} width={100}  />
+          <img src={c10} width={100}  />
         </div>
       </div>
 

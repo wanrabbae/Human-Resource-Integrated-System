@@ -12,6 +12,8 @@ function Navbar() {
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
 
+  const pathname = window.location.pathname
+
   useEffect(() => {
     if (window.localStorage.getItem("users") != null) {
       window.location.href = "/dashboard";
@@ -57,13 +59,24 @@ function Navbar() {
             <div className="flex gap-20">
               <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
-                  <a
-                    href="/"
-                    className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    aria-current="page"
-                  >
-                    Home
-                  </a>
+                  { pathname === '/' ? 
+                    <a
+                      href="/"
+                      className="block py-2 pr-4 pl-3 text-gray-700 rounded bg-red-500 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                      aria-current="page"
+                    >
+                      Home
+                    </a>
+                  :
+                    <a
+                      href="/"
+                      className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                      aria-current="page"
+                    >
+                      Home
+                    </a>
+                  
+                  }
                 </li>
                 <li>
                   <a

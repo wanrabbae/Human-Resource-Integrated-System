@@ -5,7 +5,7 @@ import { PostLogin } from "../../Repository/AuthRepository";
 import logo from "../../Resourse/img/logo.png";
 import pw from "../../Resourse/img/pw.png";
 import { LoadingDialog } from "../Modals";
-
+import lg from "../../Resourse/img/logo.png";
 function Navbar() {
   const [modalLogin, setModalLogin] = useState(false);
   const [modalPW, setModalPW] = useState(false);
@@ -24,14 +24,7 @@ function Navbar() {
       <nav className="bg-white shadow-md px-2 sm:px-4 py-1 rounded dark:bg-gray-900">
         <div className="flex flex-wrap justify-between mx-5">
           <a href="#" className="flex items-center">
-            {/* <img
-        src="https://flowbite.com/docs/images/logo.svg"
-        className="mr-3 h-6 sm:h-9"
-        alt="Flowbite Logo"
-      /> */}
-            <span className="bg-[#780000] px-5 py-1.5 text-white self-center text-sm font-semibold whitespace-nowrap dark:text-white">
-              HRIS
-            </span>
+          <img src={lg} />
           </a>
           <button
             data-collapse-toggle="navbar-default"
@@ -62,7 +55,7 @@ function Navbar() {
                   { pathname === '/' ? 
                     <a
                       href="/"
-                      className="block py-2 pr-4 pl-3 text-gray-700 rounded bg-red-500 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                      className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                       aria-current="page"
                     >
                       Home
@@ -79,20 +72,38 @@ function Navbar() {
                   }
                 </li>
                 <li>
+                { pathname === '/feature' ? 
                   <a
                     href="/feature"
-                    className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     Features
                   </a>
+                  :
+                  <a
+                  href="/feature"
+                  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  Features
+                </a>
+                }
                 </li>
                 <li>
+                { pathname === '/pricing' ? 
                   <a
                     href="/pricing"
-                    className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     Pricing
                   </a>
+                  :
+                  <a
+                  href="/pricing"
+                  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  Pricing
+                </a>
+              }
                 </li>
               </ul>
               <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-4 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">

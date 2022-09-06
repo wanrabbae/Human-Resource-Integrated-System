@@ -146,6 +146,11 @@ function Report() {
               <div className="flex flex-row gap-3">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option hidden>--Select--</option>
+                  <option>Employee Name</option>
+                  <option>Pay Grade</option>
+                  <option>Education</option>
+                  <option>Employment Status</option>
+                  <option>Service Period</option>
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon
@@ -159,6 +164,9 @@ function Report() {
               <label className="text-xs">Include</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select--</option>
+                <option>Current Employee Only</option>
+                <option>Current & Past Employee</option>
+                <option>Past Employees Only</option>
               </select>
             </div>
           </div>
@@ -168,6 +176,10 @@ function Report() {
               <label className="text-xs">Select Display Field Group</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select Field --</option>
+                <option>Personal</option>
+                <option>Contact Details</option>
+                <option>Dependents</option>
+                <option>Membership</option>
               </select>
             </div>
             <div className="w-full">
@@ -175,6 +187,9 @@ function Report() {
               <div className="flex flex-row gap-3">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option hidden>--Select--</option>
+                  <option>Skill Name</option>
+                  <option>Years of Experience</option>
+                  <option>Comments</option>
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon
@@ -283,13 +298,18 @@ function Report() {
               placeholder="Type here"
             />
           </div>
-          <label className="text-xs font-bold">Selection Criteria</label>
+          <label className="text-xsfont-bold">Selection Criteria</label>
           <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Criteria</label>
               <div className="flex flex-row gap-3">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option hidden>--Select--</option>
+                  <option>Employee Name</option>
+                  <option>Pay Grade</option>
+                  <option>Education</option>
+                  <option>Employment Status</option>
+                  <option>Service Period</option>
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon
@@ -303,15 +323,22 @@ function Report() {
               <label className="text-xs">Include</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select--</option>
+                <option>Current Employee Only</option>
+                <option>Current & Past Employee</option>
+                <option>Past Employees Only</option>
               </select>
             </div>
           </div>
-          <label className="text-xs mt-4 font-bold">Display Fields</label>
+          <label className="text-xs font-bold">Display Fields</label>
           <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Display Field Group</label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option hidden>--Select Field --</option>
+                <option>Personal</option>
+                <option>Contact Details</option>
+                <option>Dependents</option>
+                <option>Membership</option>
               </select>
             </div>
             <div className="w-full">
@@ -319,6 +346,9 @@ function Report() {
               <div className="flex flex-row gap-3">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option hidden>--Select--</option>
+                  <option>Skill Name</option>
+                  <option>Years of Experience</option>
+                  <option>Comments</option>
                 </select>
                 <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
                   <PlusIcon

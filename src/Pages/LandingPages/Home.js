@@ -25,6 +25,19 @@ function Home() {
         <Navbar />
       </div>
       <div className="mx-5 mt-28 space-y-20">
+        <div class="flex flex-row justify-around">
+        <div className="w-full md:w-1/2 flex flex-col gap-3 md:gap-2">
+            <p className="text-[#780000] text-xl md:text-5xl font-bold leading-relaxed">
+              HR software for more effective business operations
+            </p>
+            <p className="tex-xs md:text-normal">
+              Centralized system and has an important role for companies to manage human resource data
+            </p>
+          </div>
+          <div className="w-1/2">
+            <img src={lp1} />
+          </div>
+        </div>
         <div className="flex flex-col-reverse md:flex-row items-center gap-5 md:gap-0 w-full">
           <div className="w-full md:w-1/2 flex flex-col gap-3 md:gap-2">
             <p className="text-[#780000] text-xl md:text-5xl font-bold leading-relaxed">
@@ -242,7 +255,7 @@ function Home() {
           </div>
         </div>
         <div className="bg-[#ECEEF6] space-y-5 py-28">
-          <div className="flex flex-col-reverse md:flex-row items-center px-5 bg-[#E9DCE5]">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-around px-5 bg-[#E9DCE5]">
             <div className="w-full md:w-1/2 space-y-5">
               <h1 className="text-[#780000] text-4xl font-bold">
                 Get Started Now

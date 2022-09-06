@@ -83,7 +83,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="bg-[#F3F6FF]  w-1/2">
+        <div className="bg-[#F3F6FF] rounded-lg w-1/2">
           <div className="flex flex-col gap-2 p-4 rounded-lg">
             <h1 className="text-gray-700 font-semibold">Employee status</h1>
             <div className="flex">
@@ -132,68 +132,70 @@ function Dashboard() {
         </div>
       </div>
       <div className="flex flex-row gap-2">
-        <div className="bg-[#F3F6FF] p-3 w-1/2">
+        <div className="bg-[#F3F6FF] rounded-lg p-3 w-1/2">
           <h1 className="text-gray-700 font-semibold">Job Title</h1>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="flex flex-row items-center gap-5 rounded-lg">
-              <Doughnut
-                data={{
-                  datasets: [
-                    {
-                      label: "Job Title",
-                      data: [1, 4, 8, 10, 44],
-                      backgroundColor: [
-                        "#003049",
-                        "#FDF0D5",
-                        "#780000",
-                        "#C1121F",
-                        "#669BBC",
-                      ],
-                    },
-                  ],
-                }}
-              />
-              <div className="flex flex-col">
-                <div className="flex gap-10 items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1 h-1 bg-[#003049]"></div>
-                    <p className="text-gray-400 text-xs">CEO</p>
-                  </div>
-                  <p className="text-gray-700 text-xs">1</p>
+          <div className="flex flex-col gap-5 rounded-lg">
+            <div className="w-full flex items-center justify-center">
+              <div className="w-48">
+                <Doughnut
+                  data={{
+                    datasets: [
+                      {
+                        label: "Job Title",
+                        data: [1, 4, 8, 10, 44],
+                        backgroundColor: [
+                          "#003049",
+                          "#FDF0D5",
+                          "#780000",
+                          "#C1121F",
+                          "#669BBC",
+                        ],
+                      },
+                    ],
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex flex-row flex-wrap gap-5">
+              <div className="flex gap-3 items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-[#003049]"></div>
+                  <p className="text-gray-400 text-xs">CEO</p>
                 </div>
-                <div className="flex gap-10 items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1 h-1 bg-[#FDF0D5]"></div>
-                    <p className="text-gray-400 text-xs">Manager</p>
-                  </div>
-                  <p className="text-gray-700 text-xs">4</p>
+                <p className="text-gray-700 text-xs">1</p>
+              </div>
+              <div className="flex gap-3 items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-[#FDF0D5]"></div>
+                  <p className="text-gray-400 text-xs">Manager</p>
                 </div>
-                <div className="flex gap-10 items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1 h-1 bg-[#780000]"></div>
-                    <p className="text-gray-400 text-xs">HRD</p>
-                  </div>
-                  <p className="text-gray-700 text-xs">8</p>
+                <p className="text-gray-700 text-xs">4</p>
+              </div>
+              <div className="flex gap-3 items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-[#780000]"></div>
+                  <p className="text-gray-400 text-xs">HRD</p>
                 </div>
-                <div className="flex gap-10 items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1 h-1 bg-[#C1121F]"></div>
-                    <p className="text-gray-400 text-xs">Supervisor</p>
-                  </div>
-                  <p className="text-gray-700 text-xs">10</p>
+                <p className="text-gray-700 text-xs">8</p>
+              </div>
+              <div className="flex gap-3 items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-[#C1121F]"></div>
+                  <p className="text-gray-400 text-xs">Supervisor</p>
                 </div>
-                <div className="flex gap-10 items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1 h-1 bg-[#669BBC]"></div>
-                    <p className="text-gray-400 text-xs">Staff</p>
-                  </div>
-                  <p className="text-gray-700 text-xs">44</p>
+                <p className="text-gray-700 text-xs">10</p>
+              </div>
+              <div className="flex gap-3 items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-[#669BBC]"></div>
+                  <p className="text-gray-400 text-xs">Staff</p>
                 </div>
+                <p className="text-gray-700 text-xs">44</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-[#F3F6FF] p-3 w-1/2">
+        <div className="bg-[#F3F6FF] p-3 rounded-lg w-1/2">
           <h1 className="text-gray-700 font-semibold">Gender Diversity</h1>
           <div className="flex flex-col items-center gap-3">
             <div className="max-w-sm">

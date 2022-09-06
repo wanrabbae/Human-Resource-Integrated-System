@@ -35,7 +35,7 @@ function Recruitment() {
                         <div class="input-group-prepend">
                             <span class="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
                         </div>
-                        <input style={{ border: '0', outline: 'none', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 focus:outline-0" type="search" placeholder=" Search Demand Letter" />
+                        <input style={{ border: '0', outline: 'none', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 focus:outline-0" type="search" placeholder=" Search Requirement" />
                     </div>
                     <button style={{ borderRadius: '10px', border: '1.5px solid #CACACA', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href = '/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
                     <button style={{ borderRadius: '10px', backgroundColor: "#0E5073", fontSize: "14px", fontWeight: '500' }} className="btn d-flex align-items-center text-white" onClick={() => setModal(true)} type=""><Plus size={15} className="me-2" weight="bold" />Create Recruitment</button>
@@ -108,19 +108,29 @@ function Recruitment() {
                         }}
                     />
                     <div className="mb-4">    
-                        <label className="block text-gray-700 text-sm mb-2" for="username">
-                            type
+                        <label className="block text-gray-700 text-sm mt-3 mb-2" for="username">
+                            Job Type
                         </label>
                         <select id="type" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                            <option  className="py-3">Select</option>
+                            <option selected disabled className="py-3">Select Job Type</option>
                             <option value="Part Time" className="py-3">Part Time</option>
                             <option value="Full Time" className="py-3">Full Time</option>
                             <option value="Remote" className="py-3">Remote</option>
                         </select>
                     </div>
-                    <div className="d-flex">
-                        <input id="publish_date" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="date" placeholder="Recruitment description" />
-                        <input id="expired_date" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="date" placeholder="Recruitment description" />
+                    <div className="d-flex gap-4">
+                        <div className="w-full">
+                            <label className="block text-gray-700 text-sm mt-3 mb-2" for="username">
+                                Start Date
+                            </label>
+                            <input id="publish_date" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="date" placeholder="Recruitment description" />
+                        </div>
+                        <div className="w-full">
+                            <label className="block text-gray-700 text-sm mt-3 mb-2" for="username">
+                                End Date
+                            </label>
+                            <input id="expired_date" style={{ borderRadius: '10px', border: '1.5px solid #EDEDED', backgroundColor: 'transparent', fontSize: "12px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="date" placeholder="Recruitment description" />
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer className="m-4">

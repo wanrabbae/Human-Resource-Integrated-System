@@ -10,10 +10,12 @@ import {
 } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import profile from "../../../../Resourse/img/default-profile.png";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function Report() {
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [isdelete, setDelete] = useState(false);
 
   return (
     <>
@@ -91,7 +93,10 @@ function Report() {
                 </td>
                 <td className="py-4 px-6">
                   <div className="flex flex-row justify-end gap-2">
-                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    onClick={() => {
+                      setDelete(true);
+                    }}>
                       <TrashIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                     <button
@@ -400,7 +405,13 @@ function Report() {
             Search
           </button>
         </Modal.Footer>
-      </Modal>
+        </Modal>
+        <ModalDelete
+          close={() => {
+            setDelete(false);
+          }}
+          active={isdelete}
+        />
     </>
   );
 }

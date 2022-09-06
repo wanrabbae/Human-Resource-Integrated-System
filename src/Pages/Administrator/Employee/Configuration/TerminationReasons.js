@@ -2,10 +2,12 @@ import { Button } from "@mui/material";
 import { React, useState } from "react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function TerminationReasons() {
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [isdelete, setDelete] = useState(false);
   return (
     <>
       <div className="bg-white p-3 rounded-lg space-y-5">
@@ -45,7 +47,11 @@ function TerminationReasons() {
                 </th>
                 <td className="py-4 px-6">
                   <div className="flex flex-row justify-end gap-3">
-                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    onClick={() => {
+                      setDelete(true);
+                    }}
+                    >
                       <TrashIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                     <button
@@ -132,6 +138,12 @@ function TerminationReasons() {
           </button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

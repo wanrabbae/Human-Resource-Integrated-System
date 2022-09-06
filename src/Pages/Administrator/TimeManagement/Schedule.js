@@ -72,7 +72,7 @@ function Schedule() {
                     className="m-4"
                     style={{ borderBottomColor: "transparent", }}
                 >
-                    <Modal.Title>Check In / Out</Modal.Title>
+                    <Modal.Title>Add Schedule</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="mx-4">
                     <div className="row">

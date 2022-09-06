@@ -23,11 +23,24 @@ function Job() {
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Job Title
                             </label>
-                            <Select  
+                            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option hidden>--Select--</option>
+                                <option>GA</option>
+                                <option>ADV RISET</option>
+                                <option>SENIOR TREASURY</option>
+                                <option>ADV AKUISISI TIKTOK</option>
+                                <option>DS-S</option>
+                                <option>ADV MP</option>
+                                <option>MKT-S</option>
+                                <option>PACKER Koord</option>
+                                <option>ADV AKUISISI</option>
+                                <option>DATA ANALYST</option>
+                            </select>
+                            {/* <Select  
                                 isFocused="appearance-none border-0 outline-0"
                                 className="appearance-none"
                                 classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
-                            />
+                            /> */}
                             {/* <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
                             </select> */}
@@ -35,27 +48,48 @@ function Job() {
                     </div>
                     <div className="row mb-4">
                         <div className='col-5'>
-                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                        <div className="w-full">
+                            <label className="text-xs">Employee Status</label>
+                            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option hidden>--Select--</option>
+                                <option>Fulltime-Permanent</option>
+                                <option>Fulltime-Contract</option>
+                                <option>Fulltime-Probation</option>
+                                <option>Part-Time Contract</option>
+                                <option>Part-Time Internship</option>
+                            </select>
+                        </div>
+                            {/* <label className="block text-gray-700 text-sm mb-2" for="username">
                             Job Category
                             </label>
                             <Select  
                                 isFocused="appearance-none border-0 outline-0"
                                 className="appearance-none"
                                 classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
-                            />
+                            /> */}
                             {/* <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
                             </select> */}
                         </div>
                         <div className='col-5'>
-                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            <div className="w-full">
+                            <label className="text-xs">Job Category</label>
+                                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option hidden>--Select--</option>
+                                    <option>Officials and Managers</option>
+                                    <option>Sales Workers</option>
+                                    <option>Technicians</option>
+                                    <option>Service Workers</option>
+                                </select>
+                            </div>
+                            {/* <label className="block text-gray-700 text-sm mb-2" for="username">
                             Sub Unit
                             </label>
                             <Select  
                                 isFocused="appearance-none border-0 outline-0"
                                 className="appearance-none"
                                 classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
-                            />
+                            /> */}
                             {/* <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
                             </select> */}
@@ -63,14 +97,67 @@ function Job() {
                     </div>
                     <div className="row mb-4">
                         <div className='col-5'>
+                        <div className="w-full">
+                        <label className="text-xs">Division</label>
+                        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option hidden>--Select--</option>
+                            <option>HR/GA & F/A/T</option>
+                            <option>MKT & SALES</option>
+                            <option>BISDEV & COMMERS</option>
+                        </select>
+                        </div>
+                        </div>
+                        <div className='col-5'>
+                        <div className="w-full">
+                        <label className="text-xs">Department</label>
+                        <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option hidden>--Select--</option>
+                            <option>HR/GA</option>
+                            <option>DS-S</option>
+                            <option>HR/GA & F/A/T</option>
+                            <option>MKT-S</option>
+                            <option>SCM</option>
+                            <option>STD/SD</option>
+                        </select>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className='col-5'>
+                        <div className="w-full">
+                            <label className="text-xs">Section</label>
+                            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option hidden>--Select--</option>
+                                <option>GA</option>
+                                <option>DS RISET NC</option>
+                                <option>F/A/T</option>
+                                <option>DS AKUISISI</option>
+                                <option>DS-S</option>
+                                <option>DS MP</option>
+                                <option>MKT-S</option>
+                                <option>FULFILLMENT</option>
+                                <option>DS AKUISISI</option>
+                                <option>SIM</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div className='col-5'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Location
                             </label>
-                            <Select  
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Afganistan</option>
+                                <option className="py-3">Albani</option>
+                                <option className="py-3">Algeria</option>
+                                <option className="py-3">Amerika Samoa</option>
+                                <option className="py-3">Anddora</option>
+                            </select>
+                            {/* <Select  
                                 isFocused="appearance-none border-0 outline-0"
                                 className="appearance-none"
                                 classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
-                            />
+                            /> */}
                             {/* <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
                                 <option className="py-3">Select</option>
                             </select> */}
@@ -168,7 +255,12 @@ function Job() {
                             Termination Reason <span style={{color:"#780000"}}>*</span>
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Contract Not Renewed</option>
+                                <option className="py-3">Deceased</option>
+                                <option className="py-3">Dismised</option>
+                                <option className="py-3">Laid-off</option>
+                                <option className="py-3">Other</option>
                             </select>
                         </div>
                     </div>

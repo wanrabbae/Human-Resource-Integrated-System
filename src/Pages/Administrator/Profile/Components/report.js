@@ -68,11 +68,12 @@ function ReportTo() {
                 <Modal.Header  closeButton className="mx-4 mt-4"
                     style={{ borderBottomColor: "transparent", }}>
                     <Modal.Title id="contained-modal-title-vcenter">
-                    Edit Emergency Contact
+                    Edit Report-To
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="mx-4">
                 <div className="row mb-4">
+                        <h1 className="mb-3  " style={{fontSize:'16px', fontWeight:'500'}}>Add Supervisor</h1>
                         <div className='col'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
                             Name <span style={{color:"#780000"}}>*</span>
@@ -81,21 +82,32 @@ function ReportTo() {
                         </div>
                         <div className='col'>
                             <label className="block text-gray-700 text-sm mb-2" for="username">
-                            Relationship <span style={{color:"#780000"}}>*</span>
+                            Reporting Method <span style={{color:"#780000"}}>*</span>
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
-                                <option className="py-3">Child</option>
-                                <option className="py-3">Other</option>
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Direct</option>
+                                <option className="py-3">Indirect</option>
                             </select>
                         </div>
                     </div>
                     <div className="row mb-4">
-                        <div className='col-6'>
-                            <label className=" block text-gray-700 text-sm mb-2" for="username">
-                            Birth of Date
+                        <h1 className="mb-3  " style={{fontSize:'16px', fontWeight:'500'}}>Add Subordinate</h1>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Name <span style={{color:"#780000"}}>*</span>
                             </label>
-                            <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date"/>
+                            <input value="Kim Woo Bin" className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+                        </div>
+                        <div className='col'>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Reporting Method <span style={{color:"#780000"}}>*</span>
+                            </label>
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Direct</option>
+                                <option className="py-3">Indirect</option>
+                            </select>
                         </div>
                     </div>
                 </Modal.Body>
@@ -121,7 +133,7 @@ function ReportTo() {
                         }}
                         className="px-3"
                     >
-                        Create
+                        Submit
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -146,9 +158,9 @@ function ReportTo() {
                             Reporting Method <span style={{color:"#780000"}}>*</span>
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
-                                <option className="py-3">Child</option>
-                                <option className="py-3">Other</option>
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Direct</option>
+                                <option className="py-3">Indirect</option>
                             </select>
                         </div>
                     </div>
@@ -165,9 +177,9 @@ function ReportTo() {
                             Reporting Method <span style={{color:"#780000"}}>*</span>
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
-                                <option className="py-3">Child</option>
-                                <option className="py-3">Other</option>
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Direct</option>
+                                <option className="py-3">Indirect</option>
                             </select>
                         </div>
                     </div>

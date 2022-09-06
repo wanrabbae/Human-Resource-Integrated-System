@@ -250,7 +250,7 @@ function DocumentManagement() {
                     </div>
                     <div className="row mb-4">
                         <div className="col-5">
-                            <input onChange={(val)=>{}} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" type="text" placeholder="Position"/>
+                            <input onChange={(val)=>{}} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" type="text" placeholder="Field Name"/>
                         </div>
                         <div className="col-3">
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">

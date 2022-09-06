@@ -43,9 +43,109 @@ function TerminationReasons() {
                   scope="row"
                   className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  Direct
+                  Contract Not Renewed
                 </th>
-                <td className="py-4 px-6">
+                <td className="py-2 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    onClick={() => {
+                      setDelete(true);
+                    }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => setModalEdit(true)}
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  Deceased
+                </th>
+                <td className="py-2 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    onClick={() => {
+                      setDelete(true);
+                    }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => setModalEdit(true)}
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  Dismised
+                </th>
+                <td className="py-2 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    onClick={() => {
+                      setDelete(true);
+                    }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => setModalEdit(true)}
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  Laid-off
+                </th>
+                <td className="py-2 px-6">
+                  <div className="flex flex-row justify-end gap-3">
+                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                    onClick={() => {
+                      setDelete(true);
+                    }}
+                    >
+                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <button
+                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      onClick={() => setModalEdit(true)}
+                    >
+                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  Other
+                </th>
+                <td className="py-2 px-6">
                   <div className="flex flex-row justify-end gap-3">
                     <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                     onClick={() => {

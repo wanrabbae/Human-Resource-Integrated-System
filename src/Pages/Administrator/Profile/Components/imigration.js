@@ -58,7 +58,12 @@ function Imigration() {
                             Issued By
                             </label>
                             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3">Select</option>
+                                <option className="py-3" hidden>Select</option>
+                                <option className="py-3">Afganistan</option>
+                                <option className="py-3">Albani</option>
+                                <option className="py-3">Algeria</option>
+                                <option className="py-3">Amerika Samoa</option>
+                                <option className="py-3">Anddora</option>
                             </select>
                         </div>
                         <div className='col'>

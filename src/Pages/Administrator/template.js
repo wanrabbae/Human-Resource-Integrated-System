@@ -81,6 +81,10 @@ function Template() {
             nama: "Work Shift",
             link: "/admin/job/workShift",
           },
+          {
+            nama: "Unit",
+            link: "/admin/job/unit",
+          },
         ],
       },
       {

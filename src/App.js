@@ -41,6 +41,7 @@ import Schedule from './Pages/Administrator/TimeManagement/Schedule';
 import Register from './Pages/LandingPages/Register';
 import Inbox from './Pages/Administrator/Dashboard/Inbox';
 import DetailInbox from './Pages/Administrator/Dashboard/DetailInbox';
+import Unit from './Pages/Administrator/Admin/Job/Unit';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
         <Route path="/admin/job/employeeStatus" element={<EmployeeStatus />} />
         <Route path="/admin/job/jobCategories" element={<JobCategories />} />
         <Route path="/admin/job/workShift" element={<WorkShift />} />
+        <Route path="/admin/job/unit" element={<Unit />} />
         <Route path='/admin/document-management' element={<DocumentManagement />} />
         <Route path='/admin/organization/generalInformation' element={<GeneralInformation />} />
         <Route path='/admin/organization/locations' element={<Locations />} />

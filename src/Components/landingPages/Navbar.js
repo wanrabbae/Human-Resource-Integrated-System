@@ -1,4 +1,5 @@
 import { Button } from "flowbite-react";
+import { Link } from "react-router-dom";
 import { React, useEffect, useState } from "react";
 import { Alert, Modal, Table } from "react-bootstrap";
 import { PostLogin } from "../../Repository/AuthRepository";
@@ -23,7 +24,7 @@ function Navbar() {
     <>
       <nav className="bg-white shadow-md px-2 sm:px-4 py-1 rounded dark:bg-gray-900">
         <div className="flex flex-wrap justify-between mx-5">
-          <a href="#" className="flex items-center">
+          <a to="#" className="flex items-center">
           <img src={lg} />
           </a>
           <button
@@ -53,77 +54,77 @@ function Navbar() {
               <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
                   { pathname === '/' ? 
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                       aria-current="page"
                     >
                       Home
-                    </a>
+                    </Link>
                   :
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                       aria-current="page"
                     >
                       Home
-                    </a>
+                    </Link>
                   
                   }
                 </li>
                 <li>
                 { pathname === '/feature' ? 
-                  <a
-                    href="/feature"
+                  <Link
+                    to="/feature"
                     className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     Features
-                  </a>
+                  </Link>
                   :
-                  <a
-                  href="/feature"
+                  <Link
+                  to="/feature"
                   className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Features
-                </a>
+                </Link>
                 }
                 </li>
                 <li>
                 { pathname === '/pricing' ? 
-                  <a
-                    href="/pricing"
+                  <Link
+                    to="/pricing"
                     className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     Pricing
-                  </a>
+                  </Link>
                   :
-                  <a
-                  href="/pricing"
+                  <Link
+                  to="/pricing"
                   className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   Pricing
-                </a>
+                </Link>
               }
                 </li>
               </ul>
               <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-4 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="block py-2  text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     aria-current="page"
                     onClick={() => setModalLogin(true)}
                   >
                     Login
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="bg-[#0E5073] block py-2 px-3 text-white rounded-full hover:bg-[#003049] md:border-0 md:hover:text-white md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     Get Started
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -153,13 +154,13 @@ function Navbar() {
             id="password"
             placeholder="Password"
           ></input>
-          <a
-            href="#"
+          <Link
+            to="#"
             className="self-end text-[#33596D] hover:text-[#2D4D5F] text-sm"
             onClick={() => setModalPW(true)}
           >
             Forgot Password?
-          </a>
+          </Link>
           <button
             onClick={async () => {
               var requestBody = {
@@ -185,12 +186,12 @@ function Navbar() {
           </button>
           <p className="text-xs text-gray-400">
             Don’t have an account?{" "}
-            <a
-              href="#"
+            <Link
+              to="#"
               className="text-[#003049] hover:text-[#001A27] font-semibold"
             >
               Sign Up
-            </a>
+            </Link>
           </p>
         </Modal.Body>
       </Modal>
@@ -215,19 +216,19 @@ function Navbar() {
               placeholder="Username"
             ></input>
           </div>
-          <a
-            href="#"
+          <Link
+            to="#"
             className="bg-[#0E5073] block py-2 px-3 text-center text-white rounded-full hover:bg-[#003049] md:border-0 md:hover:text-white md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
           >
             Send
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="#"
             className="self-center text-[#33596D] hover:text-[#2D4D5F] text-sm"
             onClick={() => setModalPW(false)}
           >
             Back to login
-          </a>
+          </Link>
         </Modal.Body>
       </Modal>
       {/* end:modal forgot password */}

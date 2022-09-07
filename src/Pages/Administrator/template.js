@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import "../../Resourse/style.css";
 import {
   AccountCircleRounded,
@@ -230,7 +231,7 @@ function Template() {
             borderBottomRightRadius: "20px",
           }}
         >
-          <a href="/dashboard">
+          <Link to="/dashboard">
             <div className="d-flex px-5 align-items-center">
               <div className="">
                 <div
@@ -251,7 +252,7 @@ function Template() {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
 
           <div className="py-4 px-4">
             <hr className="mx-3"></hr>
@@ -307,13 +308,13 @@ function Template() {
                         {val.body.map((e, i) => {
                           return (
                             <li>
-                              <a
+                              <Link
                                 key={i}
-                                href={e.link}
+                                to={e.link}
                                 className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                               >
                                 {e.nama}
-                              </a>
+                              </Link>
                             </li>
                           );
                         })}
@@ -395,13 +396,13 @@ function Template() {
                         {val.body.map((e, i) => {
                           return (
                             <li>
-                              <a
+                              <Link
                                 key={i}
-                                href={e.link}
+                                to={e.link}
                                 className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                               >
                                 {e.nama}
-                              </a>
+                              </Link>
                             </li>
                           );
                         })}
@@ -510,13 +511,13 @@ function Template() {
                         {val.body.map((e, i) => {
                           return (
                             <li>
-                              <a
+                              <Link
                                 key={i}
-                                href={e.link}
+                                to={e.link}
                                 className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                               >
                                 {e.nama}
-                              </a>
+                              </Link>
                             </li>
                           );
                         })}
@@ -625,7 +626,7 @@ function Template() {
           </div>
           <div className="">
             <hr className="mx-5 mb-3"></hr>
-            <a href="#" onClick={() => {
+            <Link to="#" onClick={() => {
               window.localStorage.clear();
               window.location.href = "/";
               setUsers({});
@@ -646,7 +647,7 @@ function Template() {
 
                 <p>Sign Out</p>
               </div>
-            </a>
+            </Link>
           </div>
         </aside>
         <div className="ml-auto min-h-screen h-full w-4/5 p-5 space-y-5 p-5">

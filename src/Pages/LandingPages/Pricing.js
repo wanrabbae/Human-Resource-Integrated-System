@@ -22,12 +22,12 @@ function Pricing() {
       </div>
       <div className="mx-5 pt-28 space-y-20">
         <div className="flex flex-col-reverse md:flex-row items-center">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 px-20">
             <p className="text-[#780000] text-xl md:text-5xl font-bold leading-relaxed">
               We provide many features that help and make it easier for you
             </p>
           </div>
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 flex justify-center">
             <img src={lp2} />
           </div>
         </div>
@@ -227,7 +227,7 @@ function Pricing() {
         </div>
       </div>
 
-      <div className="mx-5 pt-28 space-y-20">
+      <div className="mx-5 pt-28 space-y-20 px-20">
         <p className="text-3xl text-[#003049] font-bold text-center">
           Have Any Question?
           <br />

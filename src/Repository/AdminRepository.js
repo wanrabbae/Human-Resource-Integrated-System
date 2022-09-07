@@ -74,6 +74,18 @@ var AddJobGrade = async (requestBody) => {
     return res.data;
   }
 };
+var DeleteJobGrade = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteJobGrade?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditJobGrade = async (data) => {
+  var res = await axios.post(`${endpoint}/updateJobGrade`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var GetEmployeeStatus = async () => {
   var res = await axios.get(`${endpoint}/getEmployeeStatus`);
   if (res.status == 200) {
@@ -86,6 +98,18 @@ var AddEmployeeStatus = async (requestBody) => {
     return res.data;
   }
 };
+var DeleteEmployeeStatus = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteEmployeeStatus?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditEmployeeStatus = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateEmployeeStatus`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var GetJobCategory = async () => {
   var res = await axios.get(`${endpoint}/getJobCategory`);
   if (res.status == 200) {
@@ -94,6 +118,19 @@ var GetJobCategory = async () => {
 };
 var AddJobCategory = async (requestBody) => {
   var res = await axios.post(`${endpoint}/addJobCategory`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var DeleteJobCategory = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteJobCategory?id=${id}`);
+  console.log(res);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditJobCategory = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateJobCategory`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
@@ -123,6 +160,31 @@ var deleteWorkShift = async (id) => {
     return res.data;
   }
 };
+var getUnit = async () => {
+  var res = await axios.get(`${endpoint}/getUnit`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddUnit = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addUnit`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditUnit = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateUnit`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var deleteUnit = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteUnit?id=${id}`);
+  console.log(res);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 export {
   GetUser,
   GetApplicant,
@@ -135,12 +197,22 @@ export {
   EditUser,
   GetJobGrade,
   AddJobGrade,
+  DeleteJobGrade,
+  EditJobGrade,
   GetEmployeeStatus,
   AddEmployeeStatus,
+  DeleteEmployeeStatus,
+  EditEmployeeStatus,
   GetJobCategory,
   AddJobCategory,
+  DeleteJobCategory,
+  EditJobCategory,
   getWorkShift,
   AddWorkShift,
   deleteWorkShift,
   EditWorkShift,
+  getUnit,
+  AddUnit,
+  deleteUnit,
+  EditUnit,
 };

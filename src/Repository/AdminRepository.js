@@ -205,7 +205,31 @@ var EditLicense = async (requestBody) => {
 };
 var deleteLicense = async (id) => {
   var res = await axios.get(`${endpoint}/deleteLicense?id=${id}`);
-  console.log(res);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var getCompanyLocation = async () => {
+  var res = await axios.get(`${endpoint}/getCompanyLocation`);
+  if (res.status == 200) {
+    return res.data.result;
+  }
+};
+var AddCompanyLocation = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addCompanyLocation`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditCompanyLocation = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateCompanyLocation`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var deleteCompanyLocation = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteCompanyLocation?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
@@ -244,4 +268,8 @@ export {
   AddLicense,
   EditLicense,
   deleteLicense,
+  getCompanyLocation,
+  AddCompanyLocation,
+  EditCompanyLocation,
+  deleteCompanyLocation,
 };

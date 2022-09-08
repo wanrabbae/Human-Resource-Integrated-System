@@ -1,154 +1,322 @@
-import { useState,useEffect, } from 'react';
-import { faArrowsUpDown, faArrowsUpDownLeftRight, faArrowsUpToLine } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import {
+  faArrowsUpDown,
+  faArrowsUpDownLeftRight,
+  faArrowsUpToLine,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Plus,Eye,FileText,DotsThreeOutline,Export ,MagnifyingGlass, CaretRight } from "phosphor-react";
-import {Dropdown, Modal, Button} from 'react-bootstrap';
-import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
-import { GetApplicant } from '../../../Repository/RecruitmentRepository';
+import {
+  Plus,
+  Eye,
+  FileText,
+  DotsThreeOutline,
+  Export,
+  MagnifyingGlass,
+  CaretRight,
+} from "phosphor-react";
+import { Dropdown, Modal, Button } from "react-bootstrap";
+import {
+  Add,
+  AlignVerticalCenter,
+  ArrowUpwardTwoTone,
+  Delete,
+  Filter,
+  Filter1,
+  FilterCenterFocus,
+  FilterList,
+  ImportExport,
+  Search,
+} from "@mui/icons-material";
+import { GetApplicant } from "../../../Repository/RecruitmentRepository";
 
-function  EntryApplication() {
-    const [modal, setModal] = useState(false);
-    const [applicant, setApplicant] = useState([]);
-    const inAwait = async () => {
-        var rec = await GetApplicant();
-        setApplicant(rec);
-        console.log(rec);
-      }
-    useEffect(() => {
-        inAwait();
-    }, []);
-    return (
-        <>
-            <div className="bg-light p-4" style={{ borderRadius: "10px" }}>
-                <div className="mb-5 d-flex justify-content-between">
-                    <div className="row">
-                        <h3 style={{fontSize:"20px",fontWeight:'600'}}>Entry Application</h3>
-                        <span style={{fontSize:"10px",fontWeight:'400',color:"#737373"}}>List of  job applicant</span>
-                    </div>
-                </div>
-                <div className="d-flex justify-content-between">
-                    <div className="d-flex">
-                        <input style={{borderRadius:'10px',backgroundColor:'#F5F8FA',color:"#7E8299",fontSize:"14px",fontWeight:'500',width:'51%'}} className="appearance-none border-0 py-2 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date"/>
-                        <button style={{borderRadius:'10px',border:'1px solid #CACACA',color:"#003049",fontSize:"14px",fontWeight:'500'}} className="ms-3 btn d-flex align-items-center" onClick={() => { }} type=""><Export  className="me-2" size={15} weight="bold" />Export</button>
-                    </div>
-                    <div className="d-flex">
-                        <div className="input-group me-3 align-items-center" style={{borderRadius:'10px',border:'1.5px solid #CACACA',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}}>
-                            <div className="input-group-prepend">
-                                <span className="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
-                            </div>
-                            <input style={{border:'0',outline:'none',backgroundColor:'transparent',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 focus:outline-0"  type="search" placeholder="Search..."/>
-                        </div>
-                    </div>
-                </div>
-                <div className="table-responsive">
-                    
-                    <table className="table mt-3 table-borderless" style={{ color: "#737373" }}>
-                        <thead>
-                            <tr style={{ backgroundColor: "#EBF7FF", fontSize:'14px',writingMode:'horizontal-tb' }}>
-                                <th  className="align-middle px-3"  width="10px"><input type="checkbox" /></th>
-                                <th  className="align-middle "  onClick={() => { }}>Position<ImportExport fontSize="2px" /></th>
-                                <th  className="align-middle "  onClick={() => { }}>Sumber Lowongan <ImportExport fontSize="2px" /></th>
-                                <th  className="align-middle "  onClick={() => { }}>Tanggal Melamar <ImportExport fontSize="2px" /></th>
-                                <th  className="align-middle "  onClick={() => { }}>Nama Lengkap <ImportExport fontSize="2px" /></th>
-                                <th  className="align-middle "  onClick={() => { }}>Nomor Telepon <ImportExport fontSize="2px" /></th>
-                                <th  className="align-middle pe-5" onClick={() => { }}>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                applicant.length > 0 ?
-                                    applicant.map((val) => {
-                                    return (
-                                        <tr style={{fontSize:'14px'}}>
-                                            <td className="align-middle px-3"><input type="checkbox" /></td>
-                                            <td className="align-middle">{val['source']}</td>
-                                            <td className="align-middle">{val['source']}</td>
-                                            <td className="align-middle">{val['date']}</td>
-                                            <td className="align-middle">{val['name']}</td>
-                                            <td className="align-middle">{val['phone']}</td>
-                                            <td className="align-middle">
-                                                <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg" onClick={() => setModal(true)}>
-                                                    <Eye color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
-                                                </button>  
-                                            </td>
-                                        </tr>
-                                    )
-                                }) :
-                                <td >
-                                    <div className='d-flex justify-content-center align-middle text-center' >No Data</div>
-                                </td>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+function EntryApplication() {
+  const [modal, setModal] = useState(false);
+  const [applicant, setApplicant] = useState([]);
+  const [detail, setDetail] = useState();
+  const inAwait = async () => {
+    var rec = await GetApplicant();
+    setApplicant(rec);
+    console.log(rec);
+  };
+  useEffect(() => {
+    inAwait();
+  }, []);
+  return (
+    <>
+      <div className="bg-light p-4" style={{ borderRadius: "10px" }}>
+        <div className="mb-5 d-flex justify-content-between">
+          <div className="row">
+            <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
+              Entry Application
+            </h3>
+            <span
+              style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
+            >
+              List of job applicant
+            </span>
+          </div>
+        </div>
+        <div className="d-flex justify-content-between">
+          <div className="d-flex">
+            <input
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#F5F8FA",
+                color: "#7E8299",
+                fontSize: "14px",
+                fontWeight: "500",
+                width: "51%",
+              }}
+              className="appearance-none border-0 py-2 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              id="username"
+              type="date"
+            />
+            <button
+              style={{
+                borderRadius: "10px",
+                border: "1px solid #CACACA",
+                color: "#003049",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 btn d-flex align-items-center"
+              onClick={() => {}}
+              type=""
+            >
+              <Export className="me-2" size={15} weight="bold" />
+              Export
+            </button>
+          </div>
+          <div className="d-flex">
+            <div
+              className="input-group me-3 align-items-center"
+              style={{
+                borderRadius: "10px",
+                border: "1.5px solid #CACACA",
+                backgroundColor: "transparent",
+                color: "#0E5073",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+            >
+              <div className="input-group-prepend">
+                <span className="transparent ">
+                  <MagnifyingGlass
+                    size={20}
+                    className="mx-2 form-control-feedback"
+                    color="#CACACA"
+                    weight="bold"
+                  />
+                </span>
+              </div>
+              <input
+                style={{
+                  border: "0",
+                  outline: "none",
+                  backgroundColor: "transparent",
+                  color: "#0E5073",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                onChange={(val) => {}}
+                className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
+                type="search"
+                placeholder="Search..."
+              />
             </div>
-            <Modal show={modal} size="lg"  onHide={() => setModal(false)}>
-                <Modal.Header  closeButton className="mx-4 mt-4"
-                    style={{ borderBottomColor: "transparent", }}>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                    More Information
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="m-4">
-                    <div className=" bg-[#F8F8F8] rounded-xl px-3 py-5" style={{color:'#737373'}}>
-                        <h1 className='mb-4' style={{color:'#5C5C5C', fontWeight:'600'}}>Personal details</h1>
-                        <div className='row gap-x-6 gap-y-1' style={{fontSize:'14px'}}>    
-                            <div className='col-6' style={{fontSize:'14px'}}>
-                                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                                    <div style={{fontWeight:'600'}}>Employee Name </div>
-                                    <div style={{fontWeight:'500'}}>: David Kurniawan </div>
-                                    <div style={{fontWeight:'600'}}>Usia  </div>
-                                    <div style={{fontWeight:'500'}}>: 23 </div>
-                                    <div style={{fontWeight:'600'}}>Position  </div>
-                                    <div style={{fontWeight:'500'}}>: IT Staff </div>
-                                    <div style={{fontWeight:'600'}}>Jurusan  </div>
-                                    <div style={{fontWeight:'500'}}>: Teknik Fisika  </div>
-                                    {/* <div style={{fontWeight:'600'}}>Email  </div>
+          </div>
+        </div>
+        <div className="table-responsive">
+          <table
+            className="table mt-3 table-borderless"
+            style={{ color: "#737373" }}
+          >
+            <thead>
+              <tr
+                style={{
+                  backgroundColor: "#EBF7FF",
+                  fontSize: "14px",
+                  writingMode: "horizontal-tb",
+                }}
+              >
+                <th className="align-middle px-3" width="10px">
+                  <input type="checkbox" />
+                </th>
+                <th className="align-middle " onClick={() => {}}>
+                  Position
+                  <ImportExport fontSize="2px" />
+                </th>
+                <th className="align-middle " onClick={() => {}}>
+                  Sumber Lowongan <ImportExport fontSize="2px" />
+                </th>
+                <th className="align-middle " onClick={() => {}}>
+                  Tanggal Melamar <ImportExport fontSize="2px" />
+                </th>
+                <th className="align-middle " onClick={() => {}}>
+                  Nama Lengkap <ImportExport fontSize="2px" />
+                </th>
+                <th className="align-middle " onClick={() => {}}>
+                  Nomor Telepon <ImportExport fontSize="2px" />
+                </th>
+                <th className="align-middle pe-5" onClick={() => {}}>
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {applicant.length > 0 ? (
+                applicant.map((val) => {
+                  return (
+                    <tr style={{ fontSize: "14px" }}>
+                      <td className="align-middle px-3">
+                        <input type="checkbox" />
+                      </td>
+                      <td className="align-middle">{val["source"]}</td>
+                      <td className="align-middle">{val["source"]}</td>
+                      <td className="align-middle">{val["date"]}</td>
+                      <td className="align-middle">{val["name"]}</td>
+                      <td className="align-middle">{val["phone"]}</td>
+                      <td className="align-middle">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setDetail(val);
+                            setModal(true);
+                          }}
+                        >
+                          <Eye
+                            color="#003049"
+                            weight="bold"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <td>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
+                  </div>
+                </td>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <Modal show={modal} size="lg" onHide={() => setModal(false)}>
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            More Information
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="m-4">
+          <div
+            className=" bg-[#F8F8F8] rounded-xl px-3 py-5"
+            style={{ color: "#737373" }}
+          >
+            <h1
+              className="mb-4"
+              style={{ color: "#5C5C5C", fontWeight: "600" }}
+            >
+              Personal details
+            </h1>
+            <div className="row gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
+              <div className="col-6" style={{ fontSize: "14px" }}>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+                  <div style={{ fontWeight: "600" }}>Employee Name </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.name ?? ""}{" "}
+                  </div>
+                  <div style={{ fontWeight: "600" }}>Usia </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.age ?? ""}{" "}
+                  </div>
+                  <div style={{ fontWeight: "600" }}>Position </div>
+                  <div style={{ fontWeight: "500" }}>: IT Staff </div>
+                  <div style={{ fontWeight: "600" }}>Jurusan </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.major ?? ""}{" "}
+                  </div>
+                  {/* <div style={{fontWeight:'600'}}>Email  </div>
                                     <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
-                                </div>
-                            </div>
-                            <div className='w-100 mb-4'>
-                                
-                            </div>
-                            <h1 className='mb-4' style={{color:'#5C5C5C', fontWeight:'600'}}>Experience</h1>
-                            <div className='col'>
-                                <div className="grid grid-cols-1 gap-x-4 gap-y-2">
-                                    <div className='py-2' style={{fontWeight:'600',borderBottom:'2px solid #EAEAEA'}}>
-                                        Machine Learning Engineering
-                                        <div style={{fontWeight:'400'}}>
-                                        Tokopedia
-                                        </div>
-                                    </div>
-                                    <div className='py-2' style={{fontWeight:'600',borderBottom:'2px solid #EAEAEA'}}>
-                                        Data Scientist
-                                        <div style={{fontWeight:'400'}}>
-                                        PT. Ibid by Astra
-                                        </div>
-                                    </div>
-                                    <div className='py-2' style={{fontWeight:'600',borderBottom:'2px solid #EAEAEA'}}>
-                                    Data Analyst
-                                        <div style={{fontWeight:'400'}}>
-                                        Traveloka
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer className="m-4" style={{ borderTopColor: "transparent", }}>
-                    <button 
-                        style={{ backgroundColor: "#0E5073", fontSize: "14px", fontWeight: '500' }} 
-                        className="btn d-flex align-items-center text-white" 
-                        onClick={() => window.location.href = '/recruitment/entry-application/detail-applicant'} 
-                        type=""
-                    >
-                        Read Detail
-                        <CaretRight className='ms-2' size={15} weight="fill" color="white"/>
-                    </button>
-                </Modal.Footer>
-            </Modal>
-        </>
-    )
+                </div>
+              </div>
+              <div className="w-100 mb-4"></div>
+              <h1
+                className="mb-4"
+                style={{ color: "#5C5C5C", fontWeight: "600" }}
+              >
+                Experience
+              </h1>
+              <div className="col">
+                <div className="grid grid-cols-1 gap-x-4 gap-y-2">
+                  <div
+                    className="py-2"
+                    style={{
+                      fontWeight: "600",
+                      borderBottom: "2px solid #EAEAEA",
+                    }}
+                  >
+                    Machine Learning Engineering
+                    <div style={{ fontWeight: "400" }}>Tokopedia</div>
+                  </div>
+                  <div
+                    className="py-2"
+                    style={{
+                      fontWeight: "600",
+                      borderBottom: "2px solid #EAEAEA",
+                    }}
+                  >
+                    Data Scientist
+                    <div style={{ fontWeight: "400" }}>PT. Ibid by Astra</div>
+                  </div>
+                  <div
+                    className="py-2"
+                    style={{
+                      fontWeight: "600",
+                      borderBottom: "2px solid #EAEAEA",
+                    }}
+                  >
+                    Data Analyst
+                    <div style={{ fontWeight: "400" }}>Traveloka</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
+          <button
+            style={{
+              backgroundColor: "#0E5073",
+              fontSize: "14px",
+              fontWeight: "500",
+            }}
+            className="btn d-flex align-items-center text-white"
+            onClick={() =>
+              (window.location.href =
+                "/recruitment/entry-application/detail-applicant")
+            }
+            type=""
+          >
+            Read Detail
+            <CaretRight
+              className="ms-2"
+              size={15}
+              weight="fill"
+              color="white"
+            />
+          </button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 export default EntryApplication;

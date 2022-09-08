@@ -42,6 +42,7 @@ import Register from './Pages/LandingPages/Register';
 import Inbox from './Pages/Administrator/Dashboard/Inbox';
 import DetailInbox from './Pages/Administrator/Dashboard/DetailInbox';
 import Unit from './Pages/Administrator/Admin/Job/Unit';
+import DetailApplicant from './Pages/Administrator/Recruitment/detail_applicant';
 
 
 function App() {
@@ -82,6 +83,7 @@ function App() {
       <Route path="/recruitment" element={<Template />}>
         <Route path="/recruitment" element={<Recruitment />} />
         <Route path="/recruitment/entry-application" element={<EntryApplication />} />
+        <Route path="/recruitment/entry-application/detail-applicant" element={<DetailApplicant/>} />
       </Route>
       <Route path="/profile" element={<Template />}>
         <Route path="/profile" element={<ProfileTemplate/>} />

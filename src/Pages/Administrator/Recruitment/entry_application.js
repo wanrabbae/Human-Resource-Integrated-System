@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   faArrowsUpDown,
   faArrowsUpDownLeftRight,
@@ -30,6 +31,7 @@ import {
 import { GetApplicant } from "../../../Repository/RecruitmentRepository";
 
 function EntryApplication() {
+  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
   const [detail, setDetail] = useState();
@@ -301,8 +303,9 @@ function EntryApplication() {
             }}
             className="btn d-flex align-items-center text-white"
             onClick={() =>
-              (window.location.href =
-                "/recruitment/entry-application/detail-applicant")
+              navigate("/recruitment/entry-application/detail-applicant", {
+                state: { details: detail },
+              })
             }
             type=""
           >

@@ -340,6 +340,14 @@ function Locations() {
             onClick={async () => {
               var requestBody = {
                 name: document.getElementById("name").value,
+                city: document.getElementById("city").value,
+                province: document.getElementById("province").value,
+                country: document.getElementById("country").value,
+                postalCode: document.getElementById("postalCode").value,
+                phone: document.getElementById("phone").value,
+                fax: document.getElementById("fax").value,
+                address: document.getElementById("address").value,
+                note: document.getElementById("note").value,
               };
               var res = await AddCompanyLocation(requestBody);
               setTitle(!dialogTitle);
@@ -372,6 +380,11 @@ function Locations() {
                   Location Name <span className="text-danger">*</span>
                 </label>
                 <input
+                  id="nameEdit"
+                  value={editValues?.name ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, name: e.target.value })
+                  }
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Location Name..."
                 />
@@ -425,6 +438,10 @@ function Locations() {
                   Postal Code <span className="text-danger">*</span>
                 </label>
                 <input
+                  value={editValues?.postalCode ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, postalCode: e.target.value })
+                  }
                   placeholder="Postal Code..."
                   type="number"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -438,6 +455,10 @@ function Locations() {
                   Phone <span className="text-danger">*</span>
                 </label>
                 <input
+                  value={editValues?.phone ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, phone: e.target.value })
+                  }
                   placeholder="Phone number..."
                   type="number"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -451,6 +472,10 @@ function Locations() {
                   Fax <span className="text-danger">*</span>
                 </label>
                 <input
+                  value={editValues?.fax ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, fax: e.target.value })
+                  }
                   placeholder="Fax number..."
                   type="number"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -464,6 +489,11 @@ function Locations() {
                   Address <span className="text-danger">*</span>
                 </label>
                 <textarea
+                  id="addressEdit"
+                  value={editValues?.address ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, address: e.target.value })
+                  }
                   rows={4}
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Address..."
@@ -474,6 +504,11 @@ function Locations() {
               <div className="form-group">
                 <label className="mb-1">Note</label>
                 <textarea
+                  id="noteEdit"
+                  value={editValues?.note ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, note: e.target.value })
+                  }
                   rows={4}
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Note..."
@@ -506,7 +541,15 @@ function Locations() {
             onClick={async () => {
               var requestBody = {
                 id: editValues.id,
-                name: editValues.name,
+                name: document.getElementById("nameEdit")?.value,
+                city: document.getElementById("cityEdit")?.value,
+                province: document.getElementById("provinceEdit")?.value,
+                country: document.getElementById("countryEdit")?.value,
+                postalCode: document.getElementById("postalCodeEdit")?.value,
+                phone: document.getElementById("phoneEdit")?.value,
+                fax: document.getElementById("faxEdit")?.value,
+                address: document.getElementById("addressEdit")?.value,
+                note: document.getElementById("noteEdit")?.value,
               };
               var res = await EditCompanyLocation(requestBody);
               setEditTitle(!dialogEditTitle);

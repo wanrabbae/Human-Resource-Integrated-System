@@ -32,6 +32,7 @@ import {
   EditLicense,
   getLicense,
 } from "../../../../Repository/AdminRepository";
+import { endpoint } from "../../../../Utils/constant";
 
 function License() {
   const [licenses, setLicenses] = useState([]);
@@ -274,6 +275,7 @@ function License() {
                   className="form-control"
                   type="file"
                 />
+                {/* <img src={`${endpoint}/${editValues.attachment}`} width={30} /> */}
               </div>
             </div>
           </div>

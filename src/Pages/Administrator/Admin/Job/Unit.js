@@ -1,297 +1,312 @@
-// import {
-//   faArrowsUpDown,
-//   faArrowsUpDownLeftRight,
-//   faArrowsUpToLine,
-// } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   Add,
-//   AlignVerticalCenter,
-//   ArrowUpwardTwoTone,
-//   Delete,
-//   DeleteOutline,
-//   EditOutlined,
-//   Filter,
-//   Filter1,
-//   FilterCenterFocus,
-//   FilterList,
-//   ImportExport,
-//   Search,
-// } from "@mui/icons-material";
-// import {
-//   Box,
-//   Button,
-//   IconButton,
-//   InputAdornment,
-//   OutlinedInput,
-//   TextField,
-// } from "@mui/material";
-// import { useEffect, useRef, useState } from "react";
-// import {
-//   Table,
-//   Modal,
-//   ModalBody,
-//   ModalHeader,
-//   ModalFooter,
-// } from "react-bootstrap";
-// import {
-//   AddJobTittle,
-//   DeleteJobCategory,
-//   delJobTittle,
-//   EditJobCategory,
-//   GetJobCategory,
-//   GetJobTittle,
-// } from "../../../../Repository/AdminRepository";
-// import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
+import {
+  faArrowsUpDown,
+  faArrowsUpDownLeftRight,
+  faArrowsUpToLine,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  Add,
+  AlignVerticalCenter,
+  ArrowUpwardTwoTone,
+  Delete,
+  DeleteOutline,
+  EditOutlined,
+  Filter,
+  Filter1,
+  FilterCenterFocus,
+  FilterList,
+  ImportExport,
+  Search,
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import {
+  Table,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+} from "react-bootstrap";
+import {
+  AddUnit,
+  deleteUnit,
+  EditUnit,
+  getUnit,
+} from "../../../../Repository/AdminRepository";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 
-// function Unit() {
-//   const [editValues, setEditValues] = useState();
-//   const [dialogTitle, setTitle] = useState(false);
-//   const [dialogEditTitle, setEditTitle] = useState(false);
-//   const [isdelete, setDelete] = useState(false);
-//   const [id, setId] = useState();
-//   const inAwait = async () => {
-//     var rec = await GetJobCategory();
-//     setJCategory(rec);
-//   };
-//   useEffect(() => {
-//     inAwait();
-//   }, []);
-//   return (
-//     <>
-//       <div
-//         className="w-100 p-4"
-//         style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
-//       >
-//         <h5>
-//           <b>Unit</b>
-//         </h5>
-//         <p>
-//           <small>list of Unit</small>
-//         </p>
-//         <br></br>
-//         <div className="d-flex justify-content-between">
-//           <div>
-//             <Button
-//               style={{
-//                 color: "#003049",
-//                 border: "1px solid #00000040",
-//                 borderRadius: "7px",
-//                 backgroundColor: "transparent",
-//               }}
-//               variant="contained"
-//               startIcon={<DeleteOutline />}
-//             >
-//               Delete
-//             </Button>
-//           </div>
-//           <div>
-//             <Button
-//               onClick={() => {
-//                 setTitle(!dialogTitle);
-//               }}
-//               style={{
-//                 color: "#FFFFFF",
-//                 borderRadius: "7px",
-//                 backgroundColor: "#0E5073",
-//               }}
-//               variant="contained"
-//               startIcon={<Add />}
-//             >
-//               Add Unit
-//             </Button>
-//           </div>
-//         </div>
-//         <br></br>
-//         <Table borderless responsive style={{ color: "#00000070" }}>
-//           <thead>
-//             <tr style={{ backgroundColor: "#EBF7FF" }}>
-//               <th width="10px">
-//                 <input type="checkbox" style={{ borderRadius: "2px" }} />
-//               </th>
-//               <th onClick={() => {}}>
-//                 Unit <ImportExport fontSize="2px" />
-//               </th>
-//               <th onClick={() => {}}>Action</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             <tr>
-//               <td className="align-middle">
-//                 <input type="checkbox" style={{ borderRadius: "2px" }} />
-//               </td>
-//               <td className="align-middle" style={{ minWidth: "200px" }}>
-//                 dsfsd
-//               </td>
-//               <td className="align-middle" style={{ minWidth: "100px" }}>
-//                 <button
-//                   onClick={() => {
-//                     setDelete(true);
-//                     setId(val["id"]);
-//                   }}
-//                   className="btn btn-sm mx-1"
-//                   style={{ backgroundColor: "#CEDFEA", borderRadius: "8px" }}
-//                 >
-//                   <DeleteOutline fontSize="10px" />
-//                 </button>
-//                 <button
-//                   onClick={() => {
-//                     setId(val["id"]);
-//                     setEditValues(val);
-//                     setEditTitle(!dialogEditTitle);
-//                   }}
-//                   className="btn btn-sm mx-1"
-//                   style={{ backgroundColor: "#CEDFEA", borderRadius: "8px" }}
-//                 >
-//                   <EditOutlined fontSize="10px" />
-//                 </button>
-//               </td>
-//             </tr>
-//           </tbody>
-//         </Table>
-//       </div>
+function Unit() {
+  const [units, setUnits] = useState([]);
+  const [editValues, setEditValues] = useState();
+  const [dialogTitle, setTitle] = useState(false);
+  const [dialogEditTitle, setEditTitle] = useState(false);
+  const [isdelete, setDelete] = useState(false);
+  const [id, setId] = useState();
+  const inAwait = async () => {
+    var rec = await getUnit();
+    setUnits(rec);
+  };
+  useEffect(() => {
+    inAwait();
+  }, []);
+  return (
+    <>
+      <div
+        className="w-100 p-4"
+        style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
+      >
+        <h5>
+          <b>Unit</b>
+        </h5>
+        <p>
+          <small>list of Unit</small>
+        </p>
+        <br></br>
+        <div className="d-flex justify-content-between">
+          <div>
+            <Button
+              style={{
+                color: "#003049",
+                border: "1px solid #00000040",
+                borderRadius: "7px",
+                backgroundColor: "transparent",
+              }}
+              variant="contained"
+              startIcon={<DeleteOutline />}
+            >
+              Delete
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() => {
+                setTitle(!dialogTitle);
+              }}
+              style={{
+                color: "#FFFFFF",
+                borderRadius: "7px",
+                backgroundColor: "#0E5073",
+              }}
+              variant="contained"
+              startIcon={<Add />}
+            >
+              Add Unit
+            </Button>
+          </div>
+        </div>
+        <br></br>
+        <Table borderless responsive style={{ color: "#00000070" }}>
+          <thead>
+            <tr style={{ backgroundColor: "#EBF7FF" }}>
+              <th width="10px">
+                <input type="checkbox" style={{ borderRadius: "2px" }} />
+              </th>
+              <th onClick={() => {}}>
+                Unit <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => {}}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {units.length > 0 ? (
+              units.map((unit) => (
+                <tr key={unit.id}>
+                  <td className="align-middle">
+                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                  </td>
+                  <td className="align-middle" style={{ minWidth: "200px" }}>
+                    {unit.name}
+                  </td>
+                  <td className="align-middle" style={{ minWidth: "100px" }}>
+                    <button
+                      onClick={() => {
+                        setDelete(true);
+                        setId(unit.id);
+                      }}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setId(unit.id);
+                        setEditValues(unit);
+                        setEditTitle(!dialogEditTitle);
+                      }}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <EditOutlined fontSize="10px" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <td rowSpan={2} colSpan={2}>
+                <div className="d-flex justify-content-center align-middle text-center">
+                  No Data
+                </div>
+              </td>
+            )}
+          </tbody>
+        </Table>
+      </div>
 
-//       <Modal show={dialogTitle} size="lg" onHide={() => setTitle(!dialogTitle)}>
-//         <Modal.Header
-//           closeButton
-//           className="m-4"
-//           style={{ borderBottomColor: "transparent" }}
-//         >
-//           <Modal.Title>Add Unit</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body className="mx-4">
-//           <div className="row">
-//             <div className="col-md-12 mb-3">
-//               <div className="form-group">
-//                 <label className="mb-1">
-//                   Unit Name <span className="text-danger">*</span>
-//                 </label>
-//                 <input
-//                   className="form-control"
-//                   id="name"
-//                   placeholder="Unit Name..."
-//                 />
-//               </div>
-//             </div>
-//           </div>
-//         </Modal.Body>
-//         <Modal.Footer className="m-4">
-//           <button
-//             className="btn"
-//             style={{
-//               backgroundColor: "#00000010",
-//               border: "1px solid transparent",
-//               color: "#0E5073",
-//               width: "100px",
-//             }}
-//             onClick={() => setTitle(!dialogTitle)}
-//           >
-//             Cancel
-//           </button>
-//           <button
-//             className="btn"
-//             style={{
-//               backgroundColor: "#0E5073",
-//               border: "1px solid transparent",
-//               color: "#FFFFFF",
-//               width: "100px",
-//             }}
-//             onClick={async () => {
-//               var requestBody = {
-//                 name: document.getElementById("name").value,
-//               };
-//               var res = await AddJobCategory(requestBody);
-//               setTitle(!dialogTitle);
-//               SwalSuccess({ message: "Success add unit" });
-//               inAwait();
-//             }}
-//           >
-//             Add
-//           </button>
-//         </Modal.Footer>
-//       </Modal>
-//       <Modal
-//         show={dialogEditTitle}
-//         size="lg"
-//         onHide={() => setEditTitle(!dialogEditTitle)}
-//       >
-//         <Modal.Header
-//           closeButton
-//           className="m-4"
-//           style={{ borderBottomColor: "transparent" }}
-//         >
-//           <Modal.Title>Edit Unit</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body className="mx-4">
-//           <div className="row">
-//             <div className="col-md-12 mb-3">
-//               <div className="form-group">
-//                 <label className="mb-1">
-//                   Unit Name <span className="text-danger">*</span>
-//                 </label>
-//                 <input
-//                   className="form-control"
-//                   id="name"
-//                   placeholder="Unit Name..."
-//                   value={editValues?.name ?? null}
-//                   onChange={(e) =>
-//                     setEditValues({ ...editValues, name: e.target.value })
-//                   }
-//                 />
-//               </div>
-//             </div>
-//           </div>
-//         </Modal.Body>
-//         <Modal.Footer className="m-4">
-//           <button
-//             className="btn"
-//             style={{
-//               backgroundColor: "#00000010",
-//               border: "1px solid transparent",
-//               color: "#0E5073",
-//               width: "100px",
-//             }}
-//             onClick={() => setEditTitle(!dialogEditTitle)}
-//           >
-//             Cancel
-//           </button>
-//           <button
-//             className="btn"
-//             style={{
-//               backgroundColor: "#0E5073",
-//               border: "1px solid transparent",
-//               color: "#FFFFFF",
-//               width: "100px",
-//             }}
-//             onClick={async () => {
-//               var requestBody = {
-//                 id: editValues.id,
-//                 name: editValues.name,
-//               };
-//               var res = await EditJobCategory(requestBody);
-//               setEditTitle(!dialogEditTitle);
-//               SwalSuccess({ message: "Success edit unit" });
-//               inAwait();
-//             }}
-//           >
-//             Submit
-//           </button>
-//         </Modal.Footer>
-//       </Modal>
-//       <ModalDelete
-//         close={() => {
-//           setDelete(false);
-//         }}
-//         submit={() => {
-//           DeleteJobCategory(id);
-//           setDelete(false);
-//           inAwait();
-//           SwalSuccess({ message: "Success delete unit" });
-//         }}
-//         active={isdelete}
-//       />
-//     </>
-//   );
-// }
+      <Modal show={dialogTitle} size="lg" onHide={() => setTitle(!dialogTitle)}>
+        <Modal.Header
+          closeButton
+          className="m-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title>Add Unit</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="row">
+            <div className="col-md-12 mb-3">
+              <div className="form-group">
+                <label className="mb-1">
+                  Unit Name <span className="text-danger">*</span>
+                </label>
+                <input
+                  className="form-control"
+                  id="name"
+                  placeholder="Unit Name..."
+                />
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <button
+            className="btn"
+            style={{
+              backgroundColor: "#00000010",
+              border: "1px solid transparent",
+              color: "#0E5073",
+              width: "100px",
+            }}
+            onClick={() => setTitle(!dialogTitle)}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn"
+            style={{
+              backgroundColor: "#0E5073",
+              border: "1px solid transparent",
+              color: "#FFFFFF",
+              width: "100px",
+            }}
+            onClick={async () => {
+              var requestBody = {
+                name: document.getElementById("name").value,
+              };
+              var res = await AddUnit(requestBody);
+              setTitle(!dialogTitle);
+              SwalSuccess({ message: "Success add unit" });
+              inAwait();
+            }}
+          >
+            Add
+          </button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={dialogEditTitle}
+        size="lg"
+        onHide={() => setEditTitle(!dialogEditTitle)}
+      >
+        <Modal.Header
+          closeButton
+          className="m-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title>Edit Unit</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="row">
+            <div className="col-md-12 mb-3">
+              <div className="form-group">
+                <label className="mb-1">
+                  Unit Name <span className="text-danger">*</span>
+                </label>
+                <input
+                  className="form-control"
+                  id="name"
+                  placeholder="Unit Name..."
+                  value={editValues?.name ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, name: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <button
+            className="btn"
+            style={{
+              backgroundColor: "#00000010",
+              border: "1px solid transparent",
+              color: "#0E5073",
+              width: "100px",
+            }}
+            onClick={() => setEditTitle(!dialogEditTitle)}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn"
+            style={{
+              backgroundColor: "#0E5073",
+              border: "1px solid transparent",
+              color: "#FFFFFF",
+              width: "100px",
+            }}
+            onClick={async () => {
+              var requestBody = {
+                id: editValues.id,
+                name: editValues.name,
+              };
+              var res = await EditUnit(requestBody);
+              setEditTitle(!dialogEditTitle);
+              SwalSuccess({ message: "Success edit unit" });
+              inAwait();
+            }}
+          >
+            Submit
+          </button>
+        </Modal.Footer>
+      </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          deleteUnit(id);
+          setDelete(false);
+          inAwait();
+          SwalSuccess({ message: "Success delete unit" });
+        }}
+        active={isdelete}
+      />
+    </>
+  );
+}
 
-// export default Unit;
+export default Unit;

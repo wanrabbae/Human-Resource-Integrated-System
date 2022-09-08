@@ -224,7 +224,7 @@ function JobTitle() {
                 <label className="mb-1">Job Specification</label>
                 <input
                   ref={spesificationRef}
-                  onChange={(val) => setSpesification(val.target.files[0].name)}
+                  onChange={(val) => setSpesification(val.target.files[0])}
                   className="form-control"
                   type="file"
                 />
@@ -337,7 +337,7 @@ function JobTitle() {
                 <input
                   ref={spesificationRef}
                   className="form-control"
-                  onChange={(val) => setSpesification(val.target.files[0].name)}
+                  onChange={(val) => setSpesification(val.target.files[0])}
                   type="file"
                 />
                 <small>* No more than 64 MB</small>

@@ -163,7 +163,7 @@ var deleteWorkShift = async (id) => {
 var getUnit = async () => {
   var res = await axios.get(`${endpoint}/getUnit`);
   if (res.status == 200) {
-    return res.data;
+    return res.data.result;
   }
 };
 var AddUnit = async (requestBody) => {
@@ -180,6 +180,31 @@ var EditUnit = async (requestBody) => {
 };
 var deleteUnit = async (id) => {
   var res = await axios.get(`${endpoint}/deleteUnit?id=${id}`);
+  console.log(res);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var getLicense = async () => {
+  var res = await axios.get(`${endpoint}/getLicense`);
+  if (res.status == 200) {
+    return res.data.result;
+  }
+};
+var AddLicense = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addLicense`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditLicense = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateLicense`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var deleteLicense = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteLicense?id=${id}`);
   console.log(res);
   if (res.status == 200) {
     return res.data;
@@ -215,4 +240,8 @@ export {
   AddUnit,
   deleteUnit,
   EditUnit,
+  getLicense,
+  AddLicense,
+  EditLicense,
+  deleteLicense,
 };

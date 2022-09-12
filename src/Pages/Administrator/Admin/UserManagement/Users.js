@@ -53,6 +53,7 @@ function Users() {
   const [employeeNames, setEmployeeNames] = useState([]);
   const inAwait = async () => {
     var rec = await GetUser();
+    console.log(rec);
     var dataEmployeeName = await GetEmployeeName();
     setEmployeeNames(dataEmployeeName);
     setUserManagement(rec["result"]);
@@ -157,7 +158,11 @@ function Users() {
                     </td>
                     <td className="align-middle">{val["username"]}</td>
                     <td className="align-middle">{val["role"]}</td>
-                    <td className="align-middle">{val["employee_id"]}</td>
+                    <td className="align-middle">
+                      {val?.employee?.firstName ??
+                        " " + " " + val?.employee?.lastName ??
+                        " "}
+                    </td>
                     <td className="align-middle">{val["status"]}</td>
                     <td className="align-middle">
                       <button

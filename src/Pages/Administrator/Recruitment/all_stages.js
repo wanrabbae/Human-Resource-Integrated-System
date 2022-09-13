@@ -15,7 +15,7 @@ import {
   MagnifyingGlass,
   CaretRight,
 } from "phosphor-react";
-import { Dropdown, Modal, Button } from "react-bootstrap";
+import { Dropdown, Modal, Button, Badge } from "react-bootstrap";
 import {
   Add,
   AlignVerticalCenter,
@@ -31,6 +31,7 @@ import {
 import { GetApplicant } from "../../../Repository/RecruitmentRepository";
 
 function AllStages() {
+  const [isOnProg, setOnProg] = useState(true);
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
@@ -169,27 +170,24 @@ function AllStages() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle px-3" width="10px">
-                  <input type="checkbox" />
+                <th className="align-middle " onClick={() => {}}>
+                  Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
-                  Sumber Lowongan <ImportExport fontSize="2px" />
-                </th>
-                <th className="align-middle " onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
-                </th>
-                <th className="align-middle " onClick={() => {}}>
-                  Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle pe-5" onClick={() => {}}>
-                  Action
+                <th className="align-middle " onClick={() => {}}>
+                  Recruitment Stage <ImportExport fontSize="2px" />
+                </th>
+                <th className="align-middle " onClick={() => {}}>
+                  Status <ImportExport fontSize="2px" />
                 </th>
               </tr>
             </thead>
@@ -198,29 +196,13 @@ function AllStages() {
                 applicant.map((val) => {
                   return (
                     <tr style={{ fontSize: "14px" }}>
-                      <td className="align-middle px-3">
-                        <input type="checkbox" />
-                      </td>
-                      <td className="align-middle">{val["source"]}</td>
+                      <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
-                      <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">{val["phone"]}</td>
+                      <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setModal(true);
-                          }}
-                        >
-                          <Eye
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
+                      <Badge className="py-2.5" style={{ fontSize:'15px' }} bg={isOnProg == true ? "warning" : "#BDFFD7"}>On Progress</Badge>
                       </td>
                     </tr>
                   );

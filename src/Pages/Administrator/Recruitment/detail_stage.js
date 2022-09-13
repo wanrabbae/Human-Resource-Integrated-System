@@ -17,7 +17,7 @@ import {
   ListChecks,
   X,
 } from "phosphor-react";
-import { Dropdown, Modal, Button } from "react-bootstrap";
+import { Dropdown, Modal, Button, DropdownButton, Badge } from "react-bootstrap";
 import {
   Add,
   AlignVerticalCenter,
@@ -34,6 +34,7 @@ import { GetApplicant } from "../../../Repository/RecruitmentRepository";
 
 function DetailStage() {
   const navigate = useNavigate();
+  const [isOnProg, setOnProg] = useState(true);
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
@@ -105,54 +106,17 @@ function DetailStage() {
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["phone"]}</td>
-                      <td className="align-middle">{val["name"]}</td>
+                      <td className="align-middle"><Badge className="py-2.5" style={{ fontSize:'15px' }} bg={isOnProg == true ? "warning" : "#BDFFD7"}>On Progress</Badge></td>
                       <td className="align-middle gap-2 d-flex">
-                        <select style={{borderRadius:'10px',fontSize:"14px",fontWeight:'500'}} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                                <option className="py-3" >Action</option>
-                                <option className="py-3" >On Progress</option>
-                                <option className="py-3" >Succes</option>
-                                <option className="py-3" >Failed</option>
-                          </select>
-                        {/* <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setModal(true);
-                          }}
-                        >
-                          <Eye
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setstageModal(true);
-                          }}
-                        >
-                          <ListChecks
-                            weight="bold" 
-                            color="#00AE46"
-                            className="h-5 w-5"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setModal(true);
-                          }}
-                        >
-                          <X
-                            weight="bold" 
-                            color="#780000"
-                            className="h-5 w-5"
-                          />
-                        </button> */}
+                      <Dropdown>
+                        <Dropdown.Toggle style={{ backgroundColor:'#CECECE', outline:'0' }} className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0" >
+                          Action
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item href="#">Succes</Dropdown.Item>
+                          <Dropdown.Item href="#">Failed</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
                       </td>
                     </tr>
                   );
@@ -166,6 +130,38 @@ function DetailStage() {
               )}
             </tbody>
           </table>
+          <hr />
+          <div className="mt-4 d-flex align-center align-items-center justify-content-start">
+          End Recruitment ? 
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor:'#CAFFDF',
+                color: "#028F3B",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+              onClick={() => {}}
+              type=""
+            >
+              Accept
+            </button>
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor:'#FFE0E0',
+                color: "#C1121F",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+              onClick={() => {}}
+              type=""
+            >
+             Reject
+            </button>
+          </div>
         </div>
       </div>
       <Modal show={stagemodal} size="md" onHide={() => setstageModal(false)}>

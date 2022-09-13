@@ -43,6 +43,8 @@ import Inbox from './Pages/Administrator/Dashboard/Inbox';
 import DetailInbox from './Pages/Administrator/Dashboard/DetailInbox';
 import Unit from './Pages/Administrator/Admin/Job/Unit';
 import DetailApplicant from './Pages/Administrator/Recruitment/detail_applicant';
+import AllStages from './Pages/Administrator/Recruitment/all_stages';
+import DetailStage from './Pages/Administrator/Recruitment/detail_stage';
 
 
 function App() {
@@ -84,6 +86,8 @@ function App() {
         <Route path="/recruitment" element={<Recruitment />} />
         <Route path="/recruitment/entry-application" element={<EntryApplication />} />
         <Route path="/recruitment/entry-application/detail-applicant" element={<DetailApplicant/>} />
+        <Route path="/recruitment/entry-application/all-stages-recruitment" element={<AllStages/>} />
+        <Route path="/recruitment/entry-application/detail-stage" element={<DetailStage/>} />
       </Route>
       <Route path="/profile" element={<Template />}>
         <Route path="/profile" element={<ProfileTemplate/>} />

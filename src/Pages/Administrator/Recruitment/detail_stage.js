@@ -32,6 +32,7 @@ import {
 } from "@mui/icons-material";
 import { AddStage, GetApplicant, GetStage } from "../../../Repository/RecruitmentRepository";
 import { SwalSuccess } from "../../../Components/Modals";
+import { Drawer } from "@mui/material";
 
 function DetailStage() {
   const location = useLocation();

@@ -31,9 +31,12 @@ import {
   Search,
 } from "@mui/icons-material";
 import { GetApplicant } from "../../../Repository/RecruitmentRepository";
+import { Drawer } from "@mui/material";
+import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
 
 function EntryApplication() {
   const navigate = useNavigate();
+  const [filter, setfilter] = useState(false)
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
@@ -85,8 +88,9 @@ function EntryApplication() {
                 fontWeight: "500",
               }}
               className="ms-3 btn d-flex align-items-center"
-              onClick={() => { }}
+              onClick={() => setfilter(true)}
             >
+
               <svg
                 className="me-2"
                 width="14"
@@ -444,6 +448,186 @@ function EntryApplication() {
           </button>
         </Modal.Footer>
       </Modal>
+      <Drawer PaperProps={{
+        sx: {
+          width: 350,
+          borderBottomLeftRadius: '15px',
+          borderTopLeftRadius: '15px',
+          backgroundColor: "#ECEEF6"
+        }
+      }} open={filter} anchor={"right"} onClose={() => setfilter(false)}>
+        <div className="grid p-4 gap-4">
+          <div className="d-flex align-items-center">
+            <svg
+              className="me-3"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
+                stroke="#282828"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <p style={{ fontWeight: '600' }}>FILTER</p>
+          </div>
+          <div>
+            <input
+              style={{
+                border: "0",
+                outline: "none",
+                backgroundColor: "white",
+                color: "#0E5073",
+                fontSize: "14px",
+                fontWeight: "500",
+                borderRadius: '5px'
+              }}
+              onChange={(val) => { }}
+              className="w-full focus:ring-0 focus:ring-offset-0 focus:outline-0"
+              type="search"
+              placeholder="Search by experience..."
+            />
+          </div>
+          <div>
+            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+              Tanggal Melamar
+            </label>
+            <input className="border-0 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" placeholder="Username" />
+          </div>
+          <div className="">
+            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+              Sumber Lowongan
+            </label>
+            <div className="" >
+              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ height: '115px', borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
+                {
+                  [1, 2, 3, 4, 5].map((e, i) => {
+                    return (
+                      <li className="items-center align-items-center">
+                        <input
+                          id="default-checkbox"
+                          type="checkbox"
+                          value=""
+                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+          </div>
+          <div className="">
+            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+              Position
+            </label>
+            <div className="" >
+              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ height: '115px', borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
+                {
+                  [1, 2, 3, 4, 5].map((e, i) => {
+                    return (
+                      <li className="items-center align-items-center">
+                        <input
+                          id="default-checkbox"
+                          type="checkbox"
+                          value=""
+                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+          </div>
+          <div className="">
+            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+              Pendidikan Terakhir
+            </label>
+            <div className="" >
+              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
+                <li className="items-center align-items-center">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    value=""
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">SMA / SMK</label>
+                </li>
+                <li className="items-center align-items-center">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    value=""
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">S1</label>
+                </li>
+                <li className="items-center align-items-center">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    value=""
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">S2</label>
+                </li>
+                <li className="items-center align-items-center">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    value=""
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">S3</label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="">
+            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+              Gender
+            </label>
+            <div className="" >
+              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
+                <li className="items-center align-items-center">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    value=""
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">Perempuan</label>
+                </li>
+                <li className="items-center align-items-center">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    value=""
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">Laki Laki</label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <MultiRangeSlider
+              min={17}
+              max={30}
+              onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+            />
+          </div>
+          <button className="btn bg-[#0E5073] text-white" onClick={() => setfilter(false)}>Apply Filter</button>
+        </div>
+      </Drawer>
     </>
   );
 }

@@ -21,4 +21,23 @@ var GetApplicant = async () => {
     }
 }
 
-export { AddRecruitment, GetRecruitment, GetApplicant }
+var GetStage = async (data) => {
+    var res;
+    if (data != null) {
+        res = await axios.get(`${endpoint}/getStage?applicant_id=${data}`);
+    } else {
+        res = await axios.get(`${endpoint}/getStage`);
+    }
+    if (res.status == 200) {
+        return res.data['result'];
+    }
+}
+
+var AddStage = async (requestBody) => {
+    var res = await axios.post(`${endpoint}/addStage`, requestBody);
+    if (res.status == 200) {
+        return res.data['message'];
+    }
+}
+
+export { AddRecruitment, GetRecruitment, GetApplicant, GetStage, AddStage }

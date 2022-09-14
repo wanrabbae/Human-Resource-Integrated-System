@@ -77,33 +77,33 @@ function EntryApplication() {
               type="date"
             />
             <button
-            style={{
-              borderRadius: "10px",
-              border: "1px solid #CACACA",
-              color: "#003049",
-              fontSize: "14px",
-              fontWeight: "500",
-            }}
-            className="ms-3 btn d-flex align-items-center"
-            onClick={() => {}}
-          >
-            <svg
-              className="me-2"
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              style={{
+                borderRadius: "10px",
+                border: "1px solid #CACACA",
+                color: "#003049",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 btn d-flex align-items-center"
+              onClick={() => { }}
             >
-              <path
-                d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
-                stroke="#003049"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <p>Filter</p>
-          </button>
+              <svg
+                className="me-2"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
+                  stroke="#003049"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p>Filter</p>
+            </button>
             <button
               style={{
                 borderRadius: "10px",
@@ -113,13 +113,13 @@ function EntryApplication() {
                 fontWeight: "500",
               }}
               className="ms-3 btn d-flex align-items-center"
-              onClick={() => {}}
+              onClick={() => { }}
               type=""
             >
               <Export className="me-2" size={15} weight="bold" />
               Export
             </button>
-            <button 
+            <button
               style={{
                 borderRadius: "10px",
                 border: "1px solid #CACACA",
@@ -127,10 +127,10 @@ function EntryApplication() {
                 fontSize: "14px",
                 fontWeight: "500",
               }}
-              className="ms-3 btn d-flex align-items-center" 
+              className="ms-3 btn d-flex align-items-center"
               onClick={() => { window.location.href = '/recruitment/entry-application/all-stages-recruitment' }}>
-                <Eye className="me-2" size={15} weight="bold" />
-                All Stages
+              <Eye className="me-2" size={15} weight="bold" />
+              All Stages
             </button>
           </div>
           <div className="d-flex">
@@ -164,7 +164,7 @@ function EntryApplication() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -188,23 +188,23 @@ function EntryApplication() {
                 <th className="align-middle px-3" width="10px">
                   <input type="checkbox" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Sumber Lowongan <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle pe-5" onClick={() => {}}>
+                <th className="align-middle pe-5" onClick={() => { }}>
                   Action
                 </th>
               </tr>
@@ -240,11 +240,13 @@ function EntryApplication() {
                         <button
                           className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                           onClick={() => {
-                            window.location.href = '/recruitment/entry-application/detail-stage'
+                            navigate('/recruitment/entry-application/detail-stage', {
+                              state: val
+                            })
                           }}
                         >
                           <ListChecks
-                            weight="bold" 
+                            weight="bold"
                             color="#00AE46"
                             className="h-5 w-5"
                           />
@@ -257,7 +259,7 @@ function EntryApplication() {
                           }}
                         >
                           <X
-                            weight="bold" 
+                            weight="bold"
                             color="#780000"
                             className="h-5 w-5"
                           />
@@ -284,52 +286,52 @@ function EntryApplication() {
           style={{ borderBottomColor: "transparent" }}
         >
           <Modal.Title id="contained-modal-title-vcenter">
-          Recruitment Stage
+            Recruitment Stage
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="m-4">
           <div className="">
-              <div className='mb-4'>
-                  <label className="block text-gray-700 text-sm mb-2" for="username">
-                  Stage Name <span style={{color:"#780000"}}>*</span>
-                  </label>
-                  <input className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Stage Name"/>
-              </div>
-              <div className="">
-                  <label className="block text-gray-700 text-sm mb-2" for="username">
-                  Note
-                  </label>
-                  <textarea rows="4" placeholder="Note here" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
-              </div>
+            <div className='mb-4'>
+              <label className="block text-gray-700 text-sm mb-2" for="username">
+                Stage Name <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Stage Name" />
+            </div>
+            <div className="">
+              <label className="block text-gray-700 text-sm mb-2" for="username">
+                Note
+              </label>
+              <textarea rows="4" placeholder="Note here" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
-                    <Button
-                        style={{
-                            border: 'none',
-                            fontSize: '14px',
-                            backgroundColor: "#ECECEC",
-                            color: "#003049",
-                        }}
-                        className="px-3"
-                        onClick={() => setstageModal(false)}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        style={{
-                            border: 'none',
-                            fontSize: '14px',
-                            backgroundColor: "#0E5073",
-                            color: "#FFFFFF",
-                        }}
-                        className="px-3"
-                        onClick={async () => {
-                        }}
-                    >
-                        Add
-                    </Button>
-                </Modal.Footer>
+          <Button
+            style={{
+              border: 'none',
+              fontSize: '14px',
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setstageModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: 'none',
+              fontSize: '14px',
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-3"
+            onClick={async () => {
+            }}
+          >
+            Add
+          </Button>
+        </Modal.Footer>
       </Modal>
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>
         <Modal.Header

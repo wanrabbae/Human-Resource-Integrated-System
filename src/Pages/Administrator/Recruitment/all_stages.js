@@ -28,17 +28,17 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { GetApplicant } from "../../../Repository/RecruitmentRepository";
+import { GetApplicant, GetStage } from "../../../Repository/RecruitmentRepository";
 
 function AllStages() {
   const [isOnProg, setOnProg] = useState(true);
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
-  const [applicant, setApplicant] = useState([]);
+  const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
   const inAwait = async () => {
-    var rec = await GetApplicant();
-    setApplicant(rec);
+    var rec = await GetStage();
+    setStage(rec);
     console.log(rec);
   };
   useEffect(() => {
@@ -50,7 +50,7 @@ function AllStages() {
         <div className="mb-5 d-flex justify-content-between">
           <div className="row">
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
-            All Stages  Recruitment
+              All Stages  Recruitment
             </h3>
             <span
               style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
@@ -61,7 +61,7 @@ function AllStages() {
         </div>
         <div className="d-flex justify-content-between">
           <div className="d-flex">
-          <input
+            <input
               style={{
                 borderRadius: "10px",
                 backgroundColor: "#F5F8FA",
@@ -75,43 +75,43 @@ function AllStages() {
               type="date"
             />
             <button
-            style={{
-              borderRadius: "10px",
-              border: "1px solid #CACACA",
-              color: "#003049",
-              fontSize: "14px",
-              fontWeight: "500",
-            }}
-            className="me-3 btn d-flex align-items-center"
-            onClick={() => {}}
-          >
-            <svg
-              className="me-2"
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              style={{
+                borderRadius: "10px",
+                border: "1px solid #CACACA",
+                color: "#003049",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="me-3 btn d-flex align-items-center"
+              onClick={() => { }}
             >
-              <path
-                d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
-                stroke="#003049"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <p>Filter</p>
-          </button>
+              <svg
+                className="me-2"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
+                  stroke="#003049"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <p>Filter</p>
+            </button>
             <button
               style={{
                 borderRadius: "10px",
-                backgroundColor:'#0E5073',
+                backgroundColor: '#0E5073',
                 color: "white",
                 fontSize: "14px",
                 fontWeight: "500",
               }}
               className="btn d-flex align-items-center"
-              onClick={() => {}}
+              onClick={() => { }}
               type=""
             >
               <Export className="me-2" size={15} weight="bold" />
@@ -149,7 +149,7 @@ function AllStages() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -170,39 +170,39 @@ function AllStages() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Recruitment Stage <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Status <ImportExport fontSize="2px" />
                 </th>
               </tr>
             </thead>
             <tbody>
-              {applicant.length > 0 ? (
-                applicant.map((val) => {
+              {stage.length > 0 ? (
+                stage.map((val, i) => {
                   return (
-                    <tr style={{ fontSize: "14px" }}>
+                    <tr style={{ fontSize: "14px" }} key={i}>
+                      <td className="align-middle">{val['applicant']["name"]}</td>
+                      <td className="align-middle">{val["applicant"]['recruitment_id']['position']}</td>
+                      <td className="align-middle">{val['applicant']["date"]}</td>
+                      <td className="align-middle">{val['applicant']["phone"]}</td>
                       <td className="align-middle">{val["name"]}</td>
-                      <td className="align-middle">{val["source"]}</td>
-                      <td className="align-middle">{val["date"]}</td>
-                      <td className="align-middle">{val["phone"]}</td>
-                      <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">
-                      <Badge className="py-2.5" style={{ fontSize:'15px' }} bg={isOnProg == true ? "warning" : "#BDFFD7"}>On Progress</Badge>
+                        <button onClick={() => { }} className={`text-light btn btn-sm btn-${val['status'] == "Success" ? "success" : val['status'] == "Failed" ? "danger" : "warning"} py-2.5`} style={{ fontSize: '15px' }}>{val['status']}</button>
                       </td>
                     </tr>
                   );
@@ -218,7 +218,7 @@ function AllStages() {
           </table>
         </div>
       </div>
-      
+
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>
         <Modal.Header
           closeButton

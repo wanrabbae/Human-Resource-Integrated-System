@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   faArrowsUpDown,
   faArrowsUpDownLeftRight,
@@ -30,18 +30,19 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { GetApplicant } from "../../../Repository/RecruitmentRepository";
+import { AddStage, GetApplicant, GetStage } from "../../../Repository/RecruitmentRepository";
+import { SwalSuccess } from "../../../Components/Modals";
 
 function DetailStage() {
-  const navigate = useNavigate();
+  const location = useLocation();
   const [isOnProg, setOnProg] = useState(true);
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
-  const [applicant, setApplicant] = useState([]);
+  const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
   const inAwait = async () => {
-    var rec = await GetApplicant();
-    setApplicant(rec);
+    var rec = await GetStage(location.state.id);
+    setStage(rec);
     console.log(rec);
   };
   useEffect(() => {
@@ -53,15 +54,15 @@ function DetailStage() {
         <div className="mb-5 d-flex justify-content-between">
           <div className="row">
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
-            Puspa Wahyuningtias
+              {location.state?.name}
             </h3>
             <span
               style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
             >
-              List of  stage for employee recruitment 
+              List of  stage for employee recruitment
             </span>
           </div>
-          <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setstageModal(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
+          <button style={{ borderRadius: '10px', color: "white", fontSize: "14px", fontWeight: '500' }} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setstageModal(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
         </div>
         <div className="table-responsive">
           <table
@@ -76,47 +77,49 @@ function DetailStage() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Stage <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Status <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle pe-5" onClick={() => {}}>
+                <th className="align-middle pe-5" onClick={() => { }}>
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {applicant.length > 0 ? (
-                applicant.map((val) => {
+              {stage.length > 0 ? (
+                stage.map((val) => {
                   return (
                     <tr style={{ fontSize: "14px" }}>
-                      <td className="align-middle">{val["source"]}</td>
-                      <td className="align-middle">{val["source"]}</td>
-                      <td className="align-middle">{val["date"]}</td>
-                      <td className="align-middle">{val["phone"]}</td>
-                      <td className="align-middle"><Badge className="py-2.5" style={{ fontSize:'15px' }} bg={isOnProg == true ? "warning" : "#BDFFD7"}>On Progress</Badge></td>
+                      <td className="align-middle">{val['name']}</td>
+                      <td className="align-middle">{val["applicant"]['recruitment_id']['position']}</td>
+                      <td className="align-middle">{val['applicant']["date"]}</td>
+                      <td className="align-middle">{val['applicant']["phone"]}</td>
+                      <td className="align-middle">
+                        <button onClick={() => { }} className={`text-light btn btn-sm btn-${val['status'] == "Success" ? "success" : val['status'] == "Failed" ? "danger" : "warning"} py-2.5`} style={{ fontSize: '15px' }}>{val['status']}</button>
+                      </td>
                       <td className="align-middle gap-2 d-flex">
-                      <Dropdown>
-                        <Dropdown.Toggle style={{ backgroundColor:'#CECECE', outline:'0' }} className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0" >
-                          Action
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item href="#">Succes</Dropdown.Item>
-                          <Dropdown.Item href="#">Failed</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                        <Dropdown>
+                          <Dropdown.Toggle style={{ backgroundColor: '#CECECE', outline: '0' }} className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0" >
+                            Action
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                            <Dropdown.Item href="#">Succes</Dropdown.Item>
+                            <Dropdown.Item href="#">Failed</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
                       </td>
                     </tr>
                   );
@@ -132,17 +135,17 @@ function DetailStage() {
           </table>
           <hr />
           <div className="mt-4 d-flex align-center align-items-center justify-content-start">
-          End Recruitment ? 
+            End Recruitment ?
             <button
               style={{
                 borderRadius: "10px",
-                backgroundColor:'#CAFFDF',
+                backgroundColor: '#CAFFDF',
                 color: "#028F3B",
                 fontSize: "14px",
                 fontWeight: "500",
               }}
               className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              onClick={() => {}}
+              onClick={() => { }}
               type=""
             >
               Accept
@@ -150,16 +153,16 @@ function DetailStage() {
             <button
               style={{
                 borderRadius: "10px",
-                backgroundColor:'#FFE0E0',
+                backgroundColor: '#FFE0E0',
                 color: "#C1121F",
                 fontSize: "14px",
                 fontWeight: "500",
               }}
               className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              onClick={() => {}}
+              onClick={() => { }}
               type=""
             >
-             Reject
+              Reject
             </button>
           </div>
         </div>
@@ -171,52 +174,63 @@ function DetailStage() {
           style={{ borderBottomColor: "transparent" }}
         >
           <Modal.Title id="contained-modal-title-vcenter">
-          Recruitment Stage
+            Recruitment Stage
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="m-4">
           <div className="">
-              <div className='mb-4'>
-                  <label className="block text-gray-700 text-sm mb-2" for="username">
-                  Stage Name <span style={{color:"#780000"}}>*</span>
-                  </label>
-                  <input className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Stage Name"/>
-              </div>
-              <div className="">
-                  <label className="block text-gray-700 text-sm mb-2" for="username">
-                  Note
-                  </label>
-                  <textarea rows="4" placeholder="Note here" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
-              </div>
+            <div className='mb-4'>
+              <label className="block text-gray-700 text-sm mb-2" for="username">
+                Stage Name <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input className="appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="name" type="text" placeholder="Stage Name" />
+            </div>
+            <div className="">
+              <label className="block text-gray-700 text-sm mb-2" for="username">
+                Note
+              </label>
+              <textarea id="note" rows="4" placeholder="Note here" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
-                    <Button
-                        style={{
-                            border: 'none',
-                            fontSize: '14px',
-                            backgroundColor: "#ECECEC",
-                            color: "#003049",
-                        }}
-                        className="px-3"
-                        onClick={() => setstageModal(false)}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        style={{
-                            border: 'none',
-                            fontSize: '14px',
-                            backgroundColor: "#0E5073",
-                            color: "#FFFFFF",
-                        }}
-                        className="px-3"
-                        onClick={async () => {
-                        }}
-                    >
-                        Add
-                    </Button>
-                </Modal.Footer>
+          <Button
+            style={{
+              border: 'none',
+              fontSize: '14px',
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setstageModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: 'none',
+              fontSize: '14px',
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-3"
+            onClick={async () => {
+              var requestBody = {
+                name: document.getElementById("name").value,
+                note: document.getElementById("note").value,
+                applicant_id: location.state.id,
+              };
+              var res = await AddStage(requestBody);
+              if (res == "success") {
+                setstageModal(false);
+                await SwalSuccess({ message: "Success add stage" });
+                await inAwait();
+              }
+            }}
+          >
+            Add
+          </Button>
+        </Modal.Footer>
       </Modal>
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>
         <Modal.Header
@@ -312,11 +326,7 @@ function DetailStage() {
               fontWeight: "500",
             }}
             className="btn d-flex align-items-center text-white"
-            onClick={() =>
-              navigate("/recruitment/entry-application/detail-applicant", {
-                state: { details: detail },
-              })
-            }
+            onClick={() => { }}
             type=""
           >
             Read Detail

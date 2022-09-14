@@ -31,6 +31,7 @@ import {
   Search,
 } from "@mui/icons-material";
 import { GetApplicant } from "../../../Repository/RecruitmentRepository";
+import { Drawer } from "@mui/material";
 
 function DetailStage() {
   const navigate = useNavigate();

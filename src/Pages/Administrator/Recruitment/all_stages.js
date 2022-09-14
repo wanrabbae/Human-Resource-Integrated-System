@@ -29,9 +29,11 @@ import {
   Search,
 } from "@mui/icons-material";
 import { GetApplicant } from "../../../Repository/RecruitmentRepository";
+import { Drawer } from "@mui/material";
 
 function AllStages() {
   const [isOnProg, setOnProg] = useState(true);
+  const [filter, setfilter] = useState(false)
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
@@ -83,7 +85,7 @@ function AllStages() {
               fontWeight: "500",
             }}
             className="me-3 btn d-flex align-items-center"
-            onClick={() => {}}
+            onClick={() => setfilter(true)}
           >
             <svg
               className="me-2"
@@ -330,6 +332,84 @@ function AllStages() {
           </button>
         </Modal.Footer>
       </Modal>
+      <Drawer PaperProps={{
+        sx: {
+          width: 350,
+          borderBottomLeftRadius:'15px',
+          borderTopLeftRadius:'15px',
+          backgroundColor: "#ECEEF6"
+        }
+      }} open={filter} anchor={"right"} onClose={() => setfilter(false)}>
+        <div className="grid p-4 gap-4">
+          <div className="d-flex align-items-center">
+            <svg
+              className="me-3"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
+                stroke="#282828"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <p style={{fontWeight:'600'}}>FILTER</p>
+          </div>   
+          <div className="">
+              <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+                Position
+              </label>
+              <div className="" >
+                <ul className="px-3 py-2 bg-[#FFFFFF]" style={{borderRadius:'5px', overflow:'auto',whiteSpace:'unset',scrollbarColor:'transparent',scrollbarWidth:'none'}}>
+                  {
+                    [1,2,3,4,5].map((e,i) => {
+                      return (
+                        <li className="items-center align-items-center">
+                          <input
+                              id="default-checkbox"
+                              type="checkbox"
+                              value=""
+                              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                          <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              </div>
+          </div>
+          <div className="">
+              <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+                Recruitment Stage
+              </label>
+              <div className="" >
+                <ul className="px-3 py-2 bg-[#FFFFFF]" style={{borderRadius:'5px', overflow:'auto',whiteSpace:'unset',scrollbarColor:'transparent',scrollbarWidth:'none'}}>
+                  {
+                    [1,2,3,4,5].map((e,i) => {
+                      return (
+                        <li className="items-center align-items-center">
+                          <input
+                              id="default-checkbox"
+                              type="checkbox"
+                              value=""
+                              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                          <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              </div>
+          </div>
+          <button className="btn bg-[#0E5073] text-white" onClick={()=>setfilter(false)}>Apply Filter</button>             
+        </div>
+      </Drawer>
     </>
   );
 }

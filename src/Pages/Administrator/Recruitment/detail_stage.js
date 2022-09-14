@@ -17,7 +17,7 @@ import {
   ListChecks,
   X,
 } from "phosphor-react";
-import { Dropdown, Modal, Button } from "react-bootstrap";
+import { Dropdown, Modal, Button, DropdownButton, Badge } from "react-bootstrap";
 import {
   Add,
   AlignVerticalCenter,
@@ -32,8 +32,9 @@ import {
 } from "@mui/icons-material";
 import { GetApplicant } from "../../../Repository/RecruitmentRepository";
 
-function EntryApplication() {
+function DetailStage() {
   const navigate = useNavigate();
+  const [isOnProg, setOnProg] = useState(true);
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
@@ -52,129 +53,19 @@ function EntryApplication() {
         <div className="mb-5 d-flex justify-content-between">
           <div className="row">
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
-              Entry Application
+            Puspa Wahyuningtias
             </h3>
             <span
               style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
             >
-              List of job applicant
+              List of  stage for employee recruitment 
             </span>
           </div>
-        </div>
-        <div className="d-flex justify-content-between">
-          <div className="d-flex">
-            <input
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "#F5F8FA",
-                color: "#7E8299",
-                fontSize: "14px",
-                fontWeight: "500",
-                width: "30%",
-              }}
-              className="appearance-none border-0 py-2 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-              id="username"
-              type="date"
-            />
-            <button
-            style={{
-              borderRadius: "10px",
-              border: "1px solid #CACACA",
-              color: "#003049",
-              fontSize: "14px",
-              fontWeight: "500",
-            }}
-            className="ms-3 btn d-flex align-items-center"
-            onClick={() => {}}
-          >
-            <svg
-              className="me-2"
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
-                stroke="#003049"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <p>Filter</p>
-          </button>
-            <button
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #CACACA",
-                color: "#003049",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 btn d-flex align-items-center"
-              onClick={() => {}}
-              type=""
-            >
-              <Export className="me-2" size={15} weight="bold" />
-              Export
-            </button>
-            <button 
-              style={{
-                borderRadius: "10px",
-                border: "1px solid #CACACA",
-                color: "#003049",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 btn d-flex align-items-center" 
-              onClick={() => { window.location.href = '/recruitment/entry-application/all-stages-recruitment' }}>
-                <Eye className="me-2" size={15} weight="bold" />
-                All Stages
-            </button>
-          </div>
-          <div className="d-flex">
-            <div
-              className="input-group me-3 align-items-center"
-              style={{
-                borderRadius: "10px",
-                border: "1.5px solid #CACACA",
-                backgroundColor: "transparent",
-                color: "#0E5073",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-            >
-              <div className="input-group-prepend">
-                <span className="transparent ">
-                  <MagnifyingGlass
-                    size={20}
-                    className="mx-2 form-control-feedback"
-                    color="#CACACA"
-                    weight="bold"
-                  />
-                </span>
-              </div>
-              <input
-                style={{
-                  border: "0",
-                  outline: "none",
-                  backgroundColor: "transparent",
-                  color: "#0E5073",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                }}
-                onChange={(val) => {}}
-                className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
-                type="search"
-                placeholder="Search..."
-              />
-            </div>
-          </div>
+          <button style={{borderRadius:'10px',color:"white",fontSize:"14px",fontWeight:'500'}} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setstageModal(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
         </div>
         <div className="table-responsive">
           <table
-            className="table mt-3 table-borderless"
+            className="table mt-1 table-borderless"
             style={{ color: "#737373" }}
           >
             <thead>
@@ -185,24 +76,21 @@ function EntryApplication() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle px-3" width="10px">
-                  <input type="checkbox" />
+                <th className="align-middle " onClick={() => {}}>
+                  Stage <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
-                  Sumber Lowongan <ImportExport fontSize="2px" />
-                </th>
-                <th className="align-middle " onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
-                  Nama Lengkap <ImportExport fontSize="2px" />
+                  Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
-                  Nomor Telepon <ImportExport fontSize="2px" />
+                  Status <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle pe-5" onClick={() => {}}>
                   Action
@@ -214,54 +102,21 @@ function EntryApplication() {
                 applicant.map((val) => {
                   return (
                     <tr style={{ fontSize: "14px" }}>
-                      <td className="align-middle px-3">
-                        <input type="checkbox" />
-                      </td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
-                      <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">{val["phone"]}</td>
+                      <td className="align-middle"><Badge className="py-2.5" style={{ fontSize:'15px' }} bg={isOnProg == true ? "warning" : "#BDFFD7"}>On Progress</Badge></td>
                       <td className="align-middle gap-2 d-flex">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setModal(true);
-                          }}
-                        >
-                          <Eye
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            window.location.href = '/recruitment/entry-application/detail-stage'
-                          }}
-                        >
-                          <ListChecks
-                            weight="bold" 
-                            color="#00AE46"
-                            className="h-5 w-5"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setModal(true);
-                          }}
-                        >
-                          <X
-                            weight="bold" 
-                            color="#780000"
-                            className="h-5 w-5"
-                          />
-                        </button>
+                      <Dropdown>
+                        <Dropdown.Toggle style={{ backgroundColor:'#CECECE', outline:'0' }} className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0" >
+                          Action
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item href="#">Succes</Dropdown.Item>
+                          <Dropdown.Item href="#">Failed</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
                       </td>
                     </tr>
                   );
@@ -275,6 +130,38 @@ function EntryApplication() {
               )}
             </tbody>
           </table>
+          <hr />
+          <div className="mt-4 d-flex align-center align-items-center justify-content-start">
+          End Recruitment ? 
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor:'#CAFFDF',
+                color: "#028F3B",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+              onClick={() => {}}
+              type=""
+            >
+              Accept
+            </button>
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor:'#FFE0E0',
+                color: "#C1121F",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+              onClick={() => {}}
+              type=""
+            >
+             Reject
+            </button>
+          </div>
         </div>
       </div>
       <Modal show={stagemodal} size="md" onHide={() => setstageModal(false)}>
@@ -445,4 +332,4 @@ function EntryApplication() {
     </>
   );
 }
-export default EntryApplication;
+export default DetailStage;

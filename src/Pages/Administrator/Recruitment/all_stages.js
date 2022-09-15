@@ -28,12 +28,15 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { GetApplicant, GetStage } from "../../../Repository/RecruitmentRepository";
+import {
+  GetApplicant,
+  GetStage,
+} from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 
 function AllStages() {
   const [isOnProg, setOnProg] = useState(true);
-  const [filter, setfilter] = useState(false)
+  const [filter, setfilter] = useState(false);
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [stage, setStage] = useState([]);
@@ -52,12 +55,12 @@ function AllStages() {
         <div className="mb-5 d-flex justify-content-between">
           <div className="row">
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
-              All Stages  Recruitment
+              All Stages Recruitment
             </h3>
             <span
               style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
             >
-              List of  stage recruitment
+              List of stage recruitment
             </span>
           </div>
         </div>
@@ -95,7 +98,6 @@ function AllStages() {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-
                 <path
                   d="M0.875 3.9375H13.125M3.0625 7H10.9375M5.6875 10.0625H8.3125"
                   stroke="#003049"
@@ -108,13 +110,13 @@ function AllStages() {
             <button
               style={{
                 borderRadius: "10px",
-                backgroundColor: '#0E5073',
+                backgroundColor: "#0E5073",
                 color: "white",
                 fontSize: "14px",
                 fontWeight: "500",
               }}
               className="btn d-flex align-items-center"
-              onClick={() => { }}
+              onClick={() => {}}
               type=""
             >
               <Export className="me-2" size={15} weight="bold" />
@@ -152,7 +154,7 @@ function AllStages() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -173,23 +175,23 @@ function AllStages() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Recruitment Stage <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Status <ImportExport fontSize="2px" />
                 </th>
               </tr>
@@ -199,13 +201,41 @@ function AllStages() {
                 stage.map((val, i) => {
                   return (
                     <tr style={{ fontSize: "14px" }} key={i}>
-                      <td className="align-middle">{val['applicant']["name"]}</td>
-                      <td className="align-middle">{val["applicant"]['recruitment_id']['position']}</td>
-                      <td className="align-middle">{val['applicant']["date"]}</td>
-                      <td className="align-middle">{val['applicant']["phone"]}</td>
+                      <td className="align-middle">
+                        {val["applicant"]["name"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["applicant"]["recruitment_id"]["position"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["applicant"]["date"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["applicant"]["phone"]}
+                      </td>
                       <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">
-                        <button onClick={() => { }} className={`text-light btn btn-sm btn-${val['status'] == "Success" ? "success" : val['status'] == "Failed" ? "danger" : "warning"} py-2.5`} style={{ fontSize: '15px' }}>{val['status']}</button>
+                        <span
+                          className="p-2.5"
+                          style={{
+                            fontSize: "15px",
+                            borderRadius: "10px",
+                            backgroundColor:
+                              val["status"] == "Success"
+                                ? "#CAFFDF"
+                                : val["status"] == "Failed"
+                                ? "#FFE0E0"
+                                : "#FFF0CA",
+                            color:
+                              val["status"] == "Success"
+                                ? "#028F3B"
+                                : val["status"] == "Failed"
+                                ? "#C1121F"
+                                : "#8F5702",
+                          }}
+                        >
+                          {val["status"]}
+                        </span>{" "}
                       </td>
                     </tr>
                   );
@@ -333,14 +363,19 @@ function AllStages() {
           </button>
         </Modal.Footer>
       </Modal>
-      <Drawer PaperProps={{
-        sx: {
-          width: 350,
-          borderBottomLeftRadius: '15px',
-          borderTopLeftRadius: '15px',
-          backgroundColor: "#ECEEF6"
-        }
-      }} open={filter} anchor={"right"} onClose={() => setfilter(false)}>
+      <Drawer
+        PaperProps={{
+          sx: {
+            width: 350,
+            borderBottomLeftRadius: "15px",
+            borderTopLeftRadius: "15px",
+            backgroundColor: "#ECEEF6",
+          },
+        }}
+        open={filter}
+        anchor={"right"}
+        onClose={() => setfilter(false)}
+      >
         <div className="grid p-4 gap-4">
           <div className="d-flex align-items-center">
             <svg
@@ -358,57 +393,92 @@ function AllStages() {
                 strokeLinejoin="round"
               />
             </svg>
-            <p style={{ fontWeight: '600' }}>FILTER</p>
+            <p style={{ fontWeight: "600" }}>FILTER</p>
           </div>
           <div className="">
-            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+            <label
+              className="text-gray-700 font-semibold text-xs mb-2"
+              for="username"
+            >
               Position
             </label>
-            <div className="" >
-              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
-                {
-                  [1, 2, 3, 4, 5].map((e, i) => {
-                    return (
-                      <li className="items-center align-items-center">
-                        <input
-                          id="default-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
-                      </li>
-                    )
-                  })
-                }
+            <div className="">
+              <ul
+                className="px-3 py-2 bg-[#FFFFFF]"
+                style={{
+                  borderRadius: "5px",
+                  overflow: "auto",
+                  whiteSpace: "unset",
+                  scrollbarColor: "transparent",
+                  scrollbarWidth: "none",
+                }}
+              >
+                {[1, 2, 3, 4, 5].map((e, i) => {
+                  return (
+                    <li className="items-center align-items-center">
+                      <input
+                        id="default-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        for="default-checkbox"
+                        class="ml-2 text-sm text-gray-900"
+                      >
+                        I agree with the.
+                      </label>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
           <div className="">
-            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+            <label
+              className="text-gray-700 font-semibold text-xs mb-2"
+              for="username"
+            >
               Recruitment Stage
             </label>
-            <div className="" >
-              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
-                {
-                  [1, 2, 3, 4, 5].map((e, i) => {
-                    return (
-                      <li className="items-center align-items-center">
-                        <input
-                          id="default-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
-                      </li>
-                    )
-                  })
-                }
+            <div className="">
+              <ul
+                className="px-3 py-2 bg-[#FFFFFF]"
+                style={{
+                  borderRadius: "5px",
+                  overflow: "auto",
+                  whiteSpace: "unset",
+                  scrollbarColor: "transparent",
+                  scrollbarWidth: "none",
+                }}
+              >
+                {[1, 2, 3, 4, 5].map((e, i) => {
+                  return (
+                    <li className="items-center align-items-center">
+                      <input
+                        id="default-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        for="default-checkbox"
+                        class="ml-2 text-sm text-gray-900"
+                      >
+                        I agree with the.
+                      </label>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
-          <button className="btn bg-[#0E5073] text-white" onClick={() => setfilter(false)}>Apply Filter</button>
+          <button
+            className="btn bg-[#0E5073] text-white"
+            onClick={() => setfilter(false)}
+          >
+            Apply Filter
+          </button>
         </div>
       </Drawer>
     </>

@@ -36,15 +36,15 @@ import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
 
 function EntryApplication() {
   const navigate = useNavigate();
-  const [filter, setfilter] = useState(false)
+  const [filter, setfilter] = useState(false);
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
   const [detail, setDetail] = useState();
   const inAwait = async () => {
     var rec = await GetApplicant();
-    setApplicant(rec);
     console.log(rec);
+    setApplicant(rec);
   };
   useEffect(() => {
     inAwait();
@@ -90,7 +90,6 @@ function EntryApplication() {
               className="ms-3 btn d-flex align-items-center"
               onClick={() => setfilter(true)}
             >
-
               <svg
                 className="me-2"
                 width="14"
@@ -117,7 +116,7 @@ function EntryApplication() {
                 fontWeight: "500",
               }}
               className="ms-3 btn d-flex align-items-center"
-              onClick={() => { }}
+              onClick={() => {}}
               type=""
             >
               <Export className="me-2" size={15} weight="bold" />
@@ -132,7 +131,11 @@ function EntryApplication() {
                 fontWeight: "500",
               }}
               className="ms-3 btn d-flex align-items-center"
-              onClick={() => { window.location.href = '/recruitment/entry-application/all-stages-recruitment' }}>
+              onClick={() => {
+                window.location.href =
+                  "/recruitment/entry-application/all-stages-recruitment";
+              }}
+            >
               <Eye className="me-2" size={15} weight="bold" />
               All Stages
             </button>
@@ -168,7 +171,7 @@ function EntryApplication() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -192,23 +195,23 @@ function EntryApplication() {
                 <th className="align-middle px-3" width="10px">
                   <input type="checkbox" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Sumber Lowongan <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle pe-5" onClick={() => { }}>
+                <th className="align-middle pe-5" onClick={() => {}}>
                   Action
                 </th>
               </tr>
@@ -244,9 +247,12 @@ function EntryApplication() {
                         <button
                           className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                           onClick={() => {
-                            navigate('/recruitment/entry-application/detail-stage', {
-                              state: val
-                            })
+                            navigate(
+                              "/recruitment/entry-application/detail-stage",
+                              {
+                                state: val,
+                              }
+                            );
                           }}
                         >
                           <ListChecks
@@ -295,25 +301,40 @@ function EntryApplication() {
         </Modal.Header>
         <Modal.Body className="m-4">
           <div className="">
-            <div className='mb-4'>
-              <label className="block text-gray-700 text-sm mb-2" for="username">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
                 Stage Name <span style={{ color: "#780000" }}>*</span>
               </label>
-              <input className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="Stage Name" />
+              <input
+                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Stage Name"
+              />
             </div>
             <div className="">
-              <label className="block text-gray-700 text-sm mb-2" for="username">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
                 Note
               </label>
-              <textarea rows="4" placeholder="Note here" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
+              <textarea
+                rows="4"
+                placeholder="Note here"
+                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              ></textarea>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
           <Button
             style={{
-              border: 'none',
-              fontSize: '14px',
+              border: "none",
+              fontSize: "14px",
               backgroundColor: "#ECECEC",
               color: "#003049",
             }}
@@ -324,14 +345,13 @@ function EntryApplication() {
           </Button>
           <Button
             style={{
-              border: 'none',
-              fontSize: '14px',
+              border: "none",
+              fontSize: "14px",
               backgroundColor: "#0E5073",
               color: "#FFFFFF",
             }}
             className="px-3"
-            onClick={async () => {
-            }}
+            onClick={async () => {}}
           >
             Add
           </Button>
@@ -388,36 +408,20 @@ function EntryApplication() {
               </h1>
               <div className="col">
                 <div className="grid grid-cols-1 gap-x-4 gap-y-2">
-                  <div
-                    className="py-2"
-                    style={{
-                      fontWeight: "600",
-                      borderBottom: "2px solid #EAEAEA",
-                    }}
-                  >
-                    Machine Learning Engineering
-                    <div style={{ fontWeight: "400" }}>Tokopedia</div>
-                  </div>
-                  <div
-                    className="py-2"
-                    style={{
-                      fontWeight: "600",
-                      borderBottom: "2px solid #EAEAEA",
-                    }}
-                  >
-                    Data Scientist
-                    <div style={{ fontWeight: "400" }}>PT. Ibid by Astra</div>
-                  </div>
-                  <div
-                    className="py-2"
-                    style={{
-                      fontWeight: "600",
-                      borderBottom: "2px solid #EAEAEA",
-                    }}
-                  >
-                    Data Analyst
-                    <div style={{ fontWeight: "400" }}>Traveloka</div>
-                  </div>
+                  {detail?.experience?.map((expe) => (
+                    <div
+                      className="py-2"
+                      style={{
+                        fontWeight: "600",
+                        borderBottom: "2px solid #EAEAEA",
+                      }}
+                    >
+                      {expe?.position}
+                      <div style={{ fontWeight: "400" }}>
+                        {expe?.perusahaan}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -448,14 +452,19 @@ function EntryApplication() {
           </button>
         </Modal.Footer>
       </Modal>
-      <Drawer PaperProps={{
-        sx: {
-          width: 350,
-          borderBottomLeftRadius: '15px',
-          borderTopLeftRadius: '15px',
-          backgroundColor: "#ECEEF6"
-        }
-      }} open={filter} anchor={"right"} onClose={() => setfilter(false)}>
+      <Drawer
+        PaperProps={{
+          sx: {
+            width: 350,
+            borderBottomLeftRadius: "15px",
+            borderTopLeftRadius: "15px",
+            backgroundColor: "#ECEEF6",
+          },
+        }}
+        open={filter}
+        anchor={"right"}
+        onClose={() => setfilter(false)}
+      >
         <div className="grid p-4 gap-4">
           <div className="d-flex align-items-center">
             <svg
@@ -473,7 +482,7 @@ function EntryApplication() {
                 strokeLinejoin="round"
               />
             </svg>
-            <p style={{ fontWeight: '600' }}>FILTER</p>
+            <p style={{ fontWeight: "600" }}>FILTER</p>
           </div>
           <div>
             <input
@@ -484,74 +493,126 @@ function EntryApplication() {
                 color: "#0E5073",
                 fontSize: "14px",
                 fontWeight: "500",
-                borderRadius: '5px'
+                borderRadius: "5px",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className="w-full focus:ring-0 focus:ring-offset-0 focus:outline-0"
               type="search"
               placeholder="Search by experience..."
             />
           </div>
           <div>
-            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+            <label
+              className="text-gray-700 font-semibold text-xs mb-2"
+              for="username"
+            >
               Tanggal Melamar
             </label>
-            <input className="border-0 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="date" placeholder="Username" />
+            <input
+              className="border-0 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              id="username"
+              type="date"
+              placeholder="Username"
+            />
           </div>
           <div className="">
-            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+            <label
+              className="text-gray-700 font-semibold text-xs mb-2"
+              for="username"
+            >
               Sumber Lowongan
             </label>
-            <div className="" >
-              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ height: '115px', borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
-                {
-                  [1, 2, 3, 4, 5].map((e, i) => {
-                    return (
-                      <li className="items-center align-items-center">
-                        <input
-                          id="default-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
-                      </li>
-                    )
-                  })
-                }
+            <div className="">
+              <ul
+                className="px-3 py-2 bg-[#FFFFFF]"
+                style={{
+                  height: "115px",
+                  borderRadius: "5px",
+                  overflow: "auto",
+                  whiteSpace: "unset",
+                  scrollbarColor: "transparent",
+                  scrollbarWidth: "none",
+                }}
+              >
+                {[1, 2, 3, 4, 5].map((e, i) => {
+                  return (
+                    <li className="items-center align-items-center">
+                      <input
+                        id="default-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        for="default-checkbox"
+                        class="ml-2 text-sm text-gray-900"
+                      >
+                        I agree with the.
+                      </label>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
           <div className="">
-            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+            <label
+              className="text-gray-700 font-semibold text-xs mb-2"
+              for="username"
+            >
               Position
             </label>
-            <div className="" >
-              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ height: '115px', borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
-                {
-                  [1, 2, 3, 4, 5].map((e, i) => {
-                    return (
-                      <li className="items-center align-items-center">
-                        <input
-                          id="default-checkbox"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label for="default-checkbox" class="ml-2 text-sm text-gray-900">I agree with the.</label>
-                      </li>
-                    )
-                  })
-                }
+            <div className="">
+              <ul
+                className="px-3 py-2 bg-[#FFFFFF]"
+                style={{
+                  height: "115px",
+                  borderRadius: "5px",
+                  overflow: "auto",
+                  whiteSpace: "unset",
+                  scrollbarColor: "transparent",
+                  scrollbarWidth: "none",
+                }}
+              >
+                {[1, 2, 3, 4, 5].map((e, i) => {
+                  return (
+                    <li className="items-center align-items-center">
+                      <input
+                        id="default-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        for="default-checkbox"
+                        class="ml-2 text-sm text-gray-900"
+                      >
+                        I agree with the.
+                      </label>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
           <div className="">
-            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+            <label
+              className="text-gray-700 font-semibold text-xs mb-2"
+              for="username"
+            >
               Pendidikan Terakhir
             </label>
-            <div className="" >
-              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
+            <div className="">
+              <ul
+                className="px-3 py-2 bg-[#FFFFFF]"
+                style={{
+                  borderRadius: "5px",
+                  overflow: "auto",
+                  whiteSpace: "unset",
+                  scrollbarColor: "transparent",
+                  scrollbarWidth: "none",
+                }}
+              >
                 <li className="items-center align-items-center">
                   <input
                     id="default-checkbox"
@@ -559,7 +620,12 @@ function EntryApplication() {
                     value=""
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
-                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">SMA / SMK</label>
+                  <label
+                    for="default-checkbox"
+                    class="ml-2 text-sm text-gray-900"
+                  >
+                    SMA / SMK
+                  </label>
                 </li>
                 <li className="items-center align-items-center">
                   <input
@@ -568,7 +634,12 @@ function EntryApplication() {
                     value=""
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
-                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">S1</label>
+                  <label
+                    for="default-checkbox"
+                    class="ml-2 text-sm text-gray-900"
+                  >
+                    S1
+                  </label>
                 </li>
                 <li className="items-center align-items-center">
                   <input
@@ -577,7 +648,12 @@ function EntryApplication() {
                     value=""
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
-                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">S2</label>
+                  <label
+                    for="default-checkbox"
+                    class="ml-2 text-sm text-gray-900"
+                  >
+                    S2
+                  </label>
                 </li>
                 <li className="items-center align-items-center">
                   <input
@@ -586,17 +662,34 @@ function EntryApplication() {
                     value=""
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
-                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">S3</label>
+                  <label
+                    for="default-checkbox"
+                    class="ml-2 text-sm text-gray-900"
+                  >
+                    S3
+                  </label>
                 </li>
               </ul>
             </div>
           </div>
           <div className="">
-            <label className="text-gray-700 font-semibold text-xs mb-2" for="username">
+            <label
+              className="text-gray-700 font-semibold text-xs mb-2"
+              for="username"
+            >
               Gender
             </label>
-            <div className="" >
-              <ul className="px-3 py-2 bg-[#FFFFFF]" style={{ borderRadius: '5px', overflow: 'auto', whiteSpace: 'unset', scrollbarColor: 'transparent', scrollbarWidth: 'none' }}>
+            <div className="">
+              <ul
+                className="px-3 py-2 bg-[#FFFFFF]"
+                style={{
+                  borderRadius: "5px",
+                  overflow: "auto",
+                  whiteSpace: "unset",
+                  scrollbarColor: "transparent",
+                  scrollbarWidth: "none",
+                }}
+              >
                 <li className="items-center align-items-center">
                   <input
                     id="default-checkbox"
@@ -604,7 +697,12 @@ function EntryApplication() {
                     value=""
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
-                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">Perempuan</label>
+                  <label
+                    for="default-checkbox"
+                    class="ml-2 text-sm text-gray-900"
+                  >
+                    Perempuan
+                  </label>
                 </li>
                 <li className="items-center align-items-center">
                   <input
@@ -613,7 +711,12 @@ function EntryApplication() {
                     value=""
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
-                  <label for="default-checkbox" class="ml-2 text-sm text-gray-900">Laki Laki</label>
+                  <label
+                    for="default-checkbox"
+                    class="ml-2 text-sm text-gray-900"
+                  >
+                    Laki Laki
+                  </label>
                 </li>
               </ul>
             </div>
@@ -622,10 +725,17 @@ function EntryApplication() {
             <MultiRangeSlider
               min={17}
               max={30}
-              onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+              onChange={({ min, max }) =>
+                console.log(`min = ${min}, max = ${max}`)
+              }
             />
           </div>
-          <button className="btn bg-[#0E5073] text-white" onClick={() => setfilter(false)}>Apply Filter</button>
+          <button
+            className="btn bg-[#0E5073] text-white"
+            onClick={() => setfilter(false)}
+          >
+            Apply Filter
+          </button>
         </div>
       </Drawer>
     </>

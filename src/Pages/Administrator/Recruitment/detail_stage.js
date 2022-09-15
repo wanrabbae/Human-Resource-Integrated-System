@@ -41,6 +41,7 @@ import {
   AddStage,
   GetApplicant,
   GetStage,
+  UpdateApplicant,
   updateStatusStage,
 } from "../../../Repository/RecruitmentRepository";
 import { SwalSuccess } from "../../../Components/Modals";
@@ -48,6 +49,7 @@ import { Drawer } from "@mui/material";
 
 function DetailStage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOnProg, setOnProg] = useState(true);
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
@@ -56,7 +58,6 @@ function DetailStage() {
   const inAwait = async () => {
     var rec = await GetStage(location.state.id);
     setStage(rec);
-    console.log(rec);
   };
   useEffect(() => {
     inAwait();
@@ -234,7 +235,11 @@ function DetailStage() {
                 fontWeight: "500",
               }}
               className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              onClick={() => {}}
+              onClick={() => {
+                UpdateApplicant({ id: `${location.state?.id}`, status: "2" });
+                SwalSuccess({ message: "Success Accepted Applicant" });
+                navigate("/recruitment/entry-application");
+              }}
               type=""
             >
               Accept
@@ -248,7 +253,11 @@ function DetailStage() {
                 fontWeight: "500",
               }}
               className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              onClick={() => {}}
+              onClick={() => {
+                UpdateApplicant({ id: `${location.state?.id}`, status: "0" });
+                SwalSuccess({ message: "Success Rejected Applicant" });
+                navigate("/recruitment/entry-application");
+              }}
               type=""
             >
               Reject

@@ -43,10 +43,18 @@ var AddStage = async (requestBody) => {
 var updateStatusStage = async (requestBody) => {
   var res = await axios.post(`${endpoint}/updateStatusStage`, requestBody);
   if (res.status == 200) {
-    console.log(res.data);
     return res.data["message"];
   }
 };
+
+var UpdateApplicant = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateStatusApplicant`, requestBody);
+  console.log(res.data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
   AddRecruitment,
   GetRecruitment,
@@ -54,4 +62,5 @@ export {
   GetStage,
   AddStage,
   updateStatusStage,
+  UpdateApplicant,
 };

@@ -43,7 +43,6 @@ function EntryApplication() {
   const [detail, setDetail] = useState();
   const inAwait = async () => {
     var rec = await GetApplicant();
-    console.log(rec);
     setApplicant(rec);
   };
   useEffect(() => {

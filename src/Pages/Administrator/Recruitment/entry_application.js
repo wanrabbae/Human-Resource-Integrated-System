@@ -226,49 +226,86 @@ function EntryApplication() {
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">{val["phone"]}</td>
-                      <td className="align-middle gap-2 d-flex">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setModal(true);
-                          }}
-                        >
-                          <Eye
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            navigate('/recruitment/entry-application/detail-stage', {
-                              state: val
-                            })
-                          }}
-                        >
-                          <ListChecks
-                            weight="bold"
-                            color="#00AE46"
-                            className="h-5 w-5"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDetail(val);
-                            setModal(true);
-                          }}
-                        >
-                          <X
-                            weight="bold"
-                            color="#780000"
-                            className="h-5 w-5"
-                          />
-                        </button>
-                      </td>
+                      {
+                        val['status'] == "1" ? (
+                          <td className="align-middle gap-2 d-flex">
+                            <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => {
+                                setDetail(val);
+                                setModal(true);
+                              }}
+                            >
+                              <Eye
+                                color="#003049"
+                                weight="bold"
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </button>
+                            <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => {
+                                navigate('/recruitment/entry-application/detail-stage', {
+                                  state: val
+                                })
+                              }}
+                            >
+                              <ListChecks
+                                weight="bold"
+                                color="#00AE46"
+                                className="h-5 w-5"
+                              />
+                            </button>
+                            <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => {
+                                setDetail(val);
+                                setModal(true);
+                              }}
+                            >
+                              <X
+                                weight="bold"
+                                color="#780000"
+                                className="h-5 w-5"
+                              />
+                            </button>
+                          </td>
+                        ) : (
+                          <>
+                            <td className="align-middle gap-2 d-flex">
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                                onClick={() => {
+                                  setDetail(val);
+                                  setModal(true);
+                                }}
+                              >
+                                <Eye
+                                  color="#003049"
+                                  weight="bold"
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                                onClick={() => {
+                                  navigate('/recruitment/entry-application/detail-stage', {
+                                    state: val
+                                  })
+                                }}
+                              >
+                                <ListChecks
+                                  weight="bold"
+                                  color="#00AE46"
+                                  className="h-5 w-5"
+                                />
+                              </button>
+                            </td>
+                          </>
+                        )
+                      }
                     </tr>
                   );
                 })

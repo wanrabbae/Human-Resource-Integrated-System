@@ -64,7 +64,7 @@ function DetailStage() {
               List of  stage for employee recruitment
             </span>
           </div>
-          <button style={{ borderRadius: '10px', color: "white", fontSize: "14px", fontWeight: '500' }} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setstageModal(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button>
+          {location.state.status == "1" ? <button style={{ borderRadius: '10px', color: "white", fontSize: "14px", fontWeight: '500' }} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setstageModal(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button> : <></>}
         </div>
         <div className="table-responsive">
           <table
@@ -114,7 +114,7 @@ function DetailStage() {
                       </td>
                       <td className="align-middle gap-2 d-flex">
                         <Dropdown>
-                          <Dropdown.Toggle style={{ backgroundColor: '#CECECE', outline: '0' }} className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0" >
+                          <Dropdown.Toggle disabled={location.state.status == "1" ? false : true} style={{ backgroundColor: '#CECECE', outline: '0' }} className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0" >
                             Action
                           </Dropdown.Toggle>
                           <Dropdown.Menu>
@@ -156,37 +156,41 @@ function DetailStage() {
             </tbody>
           </table>
           <hr />
-          <div className="mt-4 d-flex align-center align-items-center justify-content-start">
-            End Recruitment ?
-            <button
-              style={{
-                borderRadius: "10px",
-                backgroundColor: '#CAFFDF',
-                color: "#028F3B",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              onClick={() => { }}
-              type=""
-            >
-              Accept
-            </button>
-            <button
-              style={{
-                borderRadius: "10px",
-                backgroundColor: '#FFE0E0',
-                color: "#C1121F",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              onClick={() => { }}
-              type=""
-            >
-              Reject
-            </button>
-          </div>
+          {location.state.status == "1" ?
+            <div className="mt-4 d-flex align-center align-items-center justify-content-start">
+              End Recruitment ?
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: '#CAFFDF',
+                  color: "#028F3B",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                onClick={() => { }}
+                type=""
+              >
+                Accept
+              </button>
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: '#FFE0E0',
+                  color: "#C1121F",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                onClick={() => { }}
+                type=""
+              >
+                Reject
+              </button>
+            </div>
+            :
+            <></>
+          }
         </div>
       </div>
       <Modal show={stagemodal} size="md" onHide={() => setstageModal(false)}>

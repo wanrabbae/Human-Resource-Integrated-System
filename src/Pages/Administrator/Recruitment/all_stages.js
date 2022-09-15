@@ -216,7 +216,7 @@ function AllStages() {
                       <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">
                         <span
-                          className="p-2.5"
+                          className="p-2 my-3"
                           style={{
                             fontSize: "15px",
                             borderRadius: "10px",

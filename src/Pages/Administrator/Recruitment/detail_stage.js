@@ -29,8 +29,9 @@ import {
   FilterList,
   ImportExport,
   Search,
+  VaccinesOutlined,
 } from "@mui/icons-material";
-import { AddStage, GetApplicant, GetStage } from "../../../Repository/RecruitmentRepository";
+import { AddStage, GetApplicant, GetStage, updateStatusStage } from "../../../Repository/RecruitmentRepository";
 import { SwalSuccess } from "../../../Components/Modals";
 import { Drawer } from "@mui/material";
 
@@ -101,9 +102,9 @@ function DetailStage() {
             </thead>
             <tbody>
               {stage.length > 0 ? (
-                stage.map((val) => {
+                stage.map((val, i) => {
                   return (
-                    <tr style={{ fontSize: "14px" }}>
+                    <tr style={{ fontSize: "14px" }} key={i}>
                       <td className="align-middle">{val['name']}</td>
                       <td className="align-middle">{val["applicant"]['recruitment_id']['position']}</td>
                       <td className="align-middle">{val['applicant']["date"]}</td>
@@ -117,8 +118,28 @@ function DetailStage() {
                             Action
                           </Dropdown.Toggle>
                           <Dropdown.Menu>
-                            <Dropdown.Item href="#">Succes</Dropdown.Item>
-                            <Dropdown.Item href="#">Failed</Dropdown.Item>
+                            <Dropdown.Item href="#" onClick={async () => {
+                              var requestBody = {
+                                id: val.id,
+                                status: "2",
+                              }
+                              var data = await updateStatusStage(requestBody);
+                              if (data == "success") {
+                                await SwalSuccess({ message: "Success update status" });
+                                await inAwait();
+                              }
+                            }}>Success</Dropdown.Item>
+                            <Dropdown.Item href="#" onClick={async () => {
+                              var requestBody = {
+                                id: val.id,
+                                status: "0",
+                              }
+                              var data = await updateStatusStage(requestBody);
+                              if (data == "success") {
+                                await SwalSuccess({ message: "Success update status" });
+                                await inAwait();
+                              }
+                            }}>Failed</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                       </td>

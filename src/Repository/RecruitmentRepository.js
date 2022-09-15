@@ -40,4 +40,11 @@ var AddStage = async (requestBody) => {
     }
 }
 
-export { AddRecruitment, GetRecruitment, GetApplicant, GetStage, AddStage }
+var updateStatusStage = async (requestBody) => {
+    var res = await axios.post(`${endpoint}/updateStatusStage`, requestBody);
+    if (res.status == 200) {
+        console.log(res.data);
+        return res.data['message'];
+    }
+}
+export { AddRecruitment, GetRecruitment, GetApplicant, GetStage, AddStage, updateStatusStage }

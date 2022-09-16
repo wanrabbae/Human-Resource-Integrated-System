@@ -30,7 +30,10 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { GetApplicant } from "../../../Repository/RecruitmentRepository";
+import {
+  GetApplicant,
+  searchApplicant,
+} from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
 
@@ -48,6 +51,16 @@ function EntryApplication() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const searching = async (keyword) => {
+    if (keyword !== null || (keyword !== undefined) !== "") {
+      const data = await searchApplicant(keyword);
+      setApplicant(data);
+    } else {
+      inAwait();
+    }
+  };
+
   return (
     <>
       <div className="bg-light p-4" style={{ borderRadius: "10px" }}>
@@ -170,7 +183,7 @@ function EntryApplication() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => {}}
+                onChange={(val) => searching(val.target.value)}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -223,7 +236,7 @@ function EntryApplication() {
                       <td className="align-middle px-3">
                         <input type="checkbox" />
                       </td>
-                      <td className="align-middle">{val["position"]}</td>
+                      <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["name"]}</td>

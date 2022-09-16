@@ -14,8 +14,25 @@ var GetRecruitment = async () => {
     return res.data;
   }
 };
+
+const searchData = async (keyword) => {
+  var res = await axios.get(
+    `https://hris.afkaaruna.sch.id/getRecruitment?keyword=${keyword}`
+  );
+  if (res.status == 200) {
+    return res.data.result;
+  }
+};
+
 var GetApplicant = async () => {
   var res = await axios.get(`${endpoint}/getApplicant`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var searchApplicant = async (keyword) => {
+  var res = await axios.get(`${endpoint}/getApplicant?keyword=${keyword}`);
   if (res.status == 200) {
     return res.data;
   }
@@ -63,4 +80,6 @@ export {
   AddStage,
   updateStatusStage,
   UpdateApplicant,
+  searchData,
+  searchApplicant,
 };

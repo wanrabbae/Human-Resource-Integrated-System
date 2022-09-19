@@ -5,6 +5,7 @@ import {
   FileText,
   DotsThreeOutline,
   MagnifyingGlass,
+  Gear,
 } from "phosphor-react";
 import { Button, Modal, Table } from "react-bootstrap";
 import {
@@ -53,43 +54,26 @@ function Recruitment() {
             list of recruitment form{" "}
           </span>
         </div>
+      </div>
+      <div className="mt-5 d-flex justify-content-between">
         <div className="d-flex">
-          <div
-            className="input-group me-3 align-items-center w-auto"
+          <button
             style={{
               borderRadius: "10px",
               border: "1.5px solid #CACACA",
-              backgroundColor: "transparent",
               color: "#0E5073",
               fontSize: "14px",
               fontWeight: "500",
             }}
+            className="me-3 btn d-flex align-items-center"
+            onClick={() => {
+              window.location.href = "/recruitment/setting";
+            }}
+            type=""
           >
-            <div class="input-group-prepend">
-              <span class="transparent ">
-                <MagnifyingGlass
-                  size={20}
-                  className="mx-2 form-control-feedback"
-                  color="#CACACA"
-                  weight="bold"
-                />
-              </span>
-            </div>
-            <input
-              style={{
-                border: "0",
-                outline: "none",
-                backgroundColor: "transparent",
-                color: "#0E5073",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
-              type="search"
-              placeholder=" Search Requirement"
-              onChange={(e) => search(e.target.value)}
-            />
-          </div>
+            <Gear className="me-2" size={15} weight="bold" />
+            Recruitment Setting
+          </button>
           <button
             style={{
               borderRadius: "10px",
@@ -107,25 +91,63 @@ function Recruitment() {
             <Eye className="me-2" size={15} weight="bold" />
             Entry Application
           </button>
-          <button
-            style={{
-              borderRadius: "10px",
-              backgroundColor: "#0E5073",
-              fontSize: "14px",
-              fontWeight: "500",
-            }}
-            className="btn d-flex align-items-center text-white"
-            onClick={() => setModal(true)}
-            type=""
-          >
-            <Plus size={15} className="me-2" weight="bold" />
-            Create Recruitment
-          </button>
         </div>
-      </div>
-      <div className="container-fluid">
+          <div className="d-flex">
+              <div
+                className="input-group me-3 align-items-center w-auto"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #CACACA",
+                  backgroundColor: "transparent",
+                  color: "#0E5073",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+              >
+                <div class="input-group-prepend">
+                  <span class="transparent ">
+                    <MagnifyingGlass
+                      size={20}
+                      className="mx-2 form-control-feedback"
+                      color="#CACACA"
+                      weight="bold"
+                    />
+                  </span>
+                </div>
+                <input
+                  style={{
+                    border: "0",
+                    outline: "none",
+                    backgroundColor: "transparent",
+                    color: "#0E5073",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                  className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
+                  type="search"
+                  placeholder=" Search Requirement"
+                  onChange={(e) => search(e.target.value)}
+                />
+              </div>
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#0E5073",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="btn d-flex align-items-center text-white"
+              onClick={() => setModal(true)}
+              type=""
+            >
+              <Plus size={15} className="me-2" weight="bold" />
+              Create Recruitment
+            </button>
+          </div>
+        </div>
+      <div className="">
         <div
-          className="grid grid-cols-3 gap-4 mt-5 px-4 pt-4 pb-56"
+          className="grid grid-cols-3 gap-4 mt-1 px-4 pt-4 pb-56"
           style={{ backgroundColor: "#F3F6FF", borderRadius: "10px" }}
         >
           {recruit.length > 0 ? (

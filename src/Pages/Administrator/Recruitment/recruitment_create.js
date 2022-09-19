@@ -22,7 +22,7 @@ import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 
-function Recruitment() {
+function RecruitmentCreate() {
   const [modal, setModal] = useState(false);
   const [recruit, setRecruit] = useState([]);
   const editorRef = useRef(null);
@@ -47,19 +47,156 @@ function Recruitment() {
     <>
       <div className="d-flex justify-content-between">
         <div className="row">
-          <h3 style={{ fontSize: "20px", fontWeight: "600" }}>Create Recruitment</h3>
+          <h3 style={{ fontSize: "20px", fontWeight: "600" }}>Requirment</h3>
           <span
             style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
           >
-           Make sure the data filled in matches the vacancies opened
+            list of recruitment form{" "}
           </span>
         </div>
       </div>
+      <div className="mt-5 d-flex justify-content-between">
+        <div className="d-flex">
+          <button
+            style={{
+              borderRadius: "10px",
+              border: "1.5px solid #CACACA",
+              color: "#0E5073",
+              fontSize: "14px",
+              fontWeight: "500",
+            }}
+            className="me-3 btn d-flex align-items-center"
+            onClick={() => {
+              window.location.href = "/recruitment/setting";
+            }}
+            type=""
+          >
+            <Gear className="me-2" size={15} weight="bold" />
+            Recruitment Setting
+          </button>
+          <button
+            style={{
+              borderRadius: "10px",
+              border: "1.5px solid #CACACA",
+              color: "#0E5073",
+              fontSize: "14px",
+              fontWeight: "500",
+            }}
+            className="me-3 btn d-flex align-items-center"
+            onClick={() => {
+              window.location.href = "/recruitment/entry-application";
+            }}
+            type=""
+          >
+            <Eye className="me-2" size={15} weight="bold" />
+            Entry Application
+          </button>
+        </div>
+          <div className="d-flex">
+              <div
+                className="input-group me-3 align-items-center w-auto"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #CACACA",
+                  backgroundColor: "transparent",
+                  color: "#0E5073",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+              >
+                <div class="input-group-prepend">
+                  <span class="transparent ">
+                    <MagnifyingGlass
+                      size={20}
+                      className="mx-2 form-control-feedback"
+                      color="#CACACA"
+                      weight="bold"
+                    />
+                  </span>
+                </div>
+                <input
+                  style={{
+                    border: "0",
+                    outline: "none",
+                    backgroundColor: "transparent",
+                    color: "#0E5073",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                  className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
+                  type="search"
+                  placeholder=" Search Requirement"
+                  onChange={(e) => search(e.target.value)}
+                />
+              </div>
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#0E5073",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="btn d-flex align-items-center text-white"
+              onClick={() => setModal(true)}
+              type=""
+            >
+              <Plus size={15} className="me-2" weight="bold" />
+              Create Recruitment
+            </button>
+          </div>
+        </div>
       <div className="">
         <div
-          className="grid gap-4 mt-1 p-4"
-          style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
+          className="grid grid-cols-3 gap-4 mt-1 px-4 pt-4 pb-56"
+          style={{ backgroundColor: "#F3F6FF", borderRadius: "10px" }}
         >
+          {recruit.length > 0 ? (
+            recruit.map((val) => {
+              return (
+                <div
+                  className="p-3 d-flex align-items-center"
+                  style={{
+                    boxShadow: "0px 0px 3px 0px rgba(179,179,179,1)",
+                    backgroundColor: "white",
+                    color: "#003049",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <FileText className="me-3" size={35} weight="fill" />
+                  <div className="row">
+                    <h2 style={{ fontWeight: "600" }}>{val["title"]}</h2>
+                    <span
+                      style={{
+                        fontSize: "10px",
+                        color: "#A8A8A8",
+                        fontWeight: "400",
+                      }}
+                    >
+                      {val["publishDate"]}
+                    </span>
+                  </div>
+                  <a href="" className="ms-auto">
+                    <DotsThreeOutline size={20} weight="fill" />
+                  </a>
+                </div>
+              );
+            })
+          ) : (
+            <div className="text-center grid-cols-1">No Data</div>
+          )}
+        </div>
+      </div>
+      <Modal show={modal} size="lg" onHide={() => setModal(false)}>
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Create Recruitment
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
           <div
             className="px-4 pb-4 mb-4 pt-2"
             style={{
@@ -260,69 +397,52 @@ function Recruitment() {
               />
             </div>
           </div>
-          <div className="d-flex justify-content-end">
-            <Button
-              style={{
-                border: "none",
-                fontSize: "14px",
-                backgroundColor: "#ECECEC",
-                color: "#003049",
-              }}
-              className="px-3"
-              onClick={() => setModal(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              style={{
-                border: "none",
-                fontSize: "14px",
-                backgroundColor: "#0E5073",
-                color: "#FFFFFF",
-              }}
-              className="px-3"
-              onClick={async () => {
-                var requestBody = {
-                  title: document.getElementById("title").value,
-                  description: document.getElementById("description").value,
-                  position: document.getElementById("position").value,
-                  placement: document.getElementById("placement").value,
-                  type: document.getElementById("type").value,
-                  jobDescription:
-                    document.getElementById("job_description").value,
-                  qualification: editorRef.current.getContent(),
-                  publishDate: document.getElementById("publish_date").value,
-                  expiredDate: document.getElementById("expired_date").value,
-                };
-                console.log(requestBody);
-                var res = await AddRecruitment(requestBody);
-                setModal(false);
-                inAwait();
-              }}
-            >
-              Create
-            </Button>
-          </div>
-        </div>
-      </div>
-      <Modal show={modal} size="lg" onHide={() => setModal(false)}>
-        <Modal.Header
-          closeButton
-          className="mx-4 mt-4"
-          style={{ borderBottomColor: "transparent" }}
-        >
-          <Modal.Title id="contained-modal-title-vcenter">
-            Create Recruitment
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="mx-4">
-          
         </Modal.Body>
         <Modal.Footer className="m-4">
-          
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-3"
+            onClick={async () => {
+              var requestBody = {
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                position: document.getElementById("position").value,
+                placement: document.getElementById("placement").value,
+                type: document.getElementById("type").value,
+                jobDescription:
+                  document.getElementById("job_description").value,
+                qualification: editorRef.current.getContent(),
+                publishDate: document.getElementById("publish_date").value,
+                expiredDate: document.getElementById("expired_date").value,
+              };
+              console.log(requestBody);
+              var res = await AddRecruitment(requestBody);
+              setModal(false);
+              inAwait();
+            }}
+          >
+            Create
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
 }
-export default Recruitment;
+export default RecruitmentCreate;

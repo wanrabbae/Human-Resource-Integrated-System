@@ -132,7 +132,7 @@ function DetailStage() {
                     <tr style={{ fontSize: "14px" }} key={i}>
                       <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">
-                        {val["applicant"]["recruitment_id"]["position"]}
+                        {val["applicant"]["recruitment"]["position"]}
                       </td>
                       <td className="align-middle">
                         {val["applicant"]["date"]}

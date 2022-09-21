@@ -208,7 +208,7 @@ function AllStages() {
                         {val["applicant"]["name"]}
                       </td>
                       <td className="align-middle">
-                        {val["applicant"]["recruitment_id"]["position"]}
+                        {val["applicant"]["recruitment"]["position"]}
                       </td>
                       <td className="align-middle">
                         {val["applicant"]["date"]}
@@ -424,7 +424,7 @@ function AllStages() {
                         <input
                           id={val["id"]}
                           type="checkbox"
-                          value={val["applicant"]["recruitment_id"]["position"]}
+                          value={val["applicant"]["recruitment"]["position"]}
                           onChange={(e) => {
                             setFilterData(
                               filterData.position.push(e.target.value)
@@ -436,7 +436,7 @@ function AllStages() {
                           for={val["id"]}
                           class="ml-2 text-sm text-gray-900"
                         >
-                          {val["applicant"]["recruitment_id"]["position"]}
+                          {val["applicant"]["recruitment"]["position"]}
                         </label>
                       </li>
                     );
@@ -473,7 +473,7 @@ function AllStages() {
                         <input
                           id={val["id"]}
                           type="checkbox"
-                          value={val["applicant"]["recruitment_id"]["position"]}
+                          value={val["applicant"]["recruitment"]["position"]}
                           onChange={(e) => {
                             setFilterData(
                               filterData.recruitment_stage.push(e.target.value)

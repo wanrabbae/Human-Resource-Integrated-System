@@ -45,22 +45,87 @@ function Recruitment() {
   }, []);
   return (
     <>
-    <div className="d-flex justify-content-between">
-                <div className="row">
-                    <h3 style={{ fontSize: "20px", fontWeight: '600' }}>Requirment</h3>
-                    <span style={{ fontSize: "10px", fontWeight: '400', color: "#737373" }}>list of recruitment form </span>
-                </div>
-                <div className="d-flex">
-                    <div className="input-group me-3 align-items-center w-auto" style={{ borderRadius: '10px', border: '1.5px solid #CACACA', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }}>
-                        <div class="input-group-prepend">
-                            <span class="transparent "><MagnifyingGlass size={20} className="mx-2 form-control-feedback" color="#CACACA" weight="bold" /></span>
-                        </div>
-                        <input style={{ border: '0', outline: 'none', backgroundColor: 'transparent', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} onChange={(val) => { }} className="focus:ring-0 focus:ring-offset-0 focus:outline-0" type="search" placeholder=" Search Requirement" />
-                    </div>
-                    <button style={{ borderRadius: '10px', border: '1.5px solid #CACACA', color: "#0E5073", fontSize: "14px", fontWeight: '500' }} className="me-3 btn d-flex align-items-center" onClick={() => { window.location.href = '/recruitment/entry-application' }} type=""><Eye className="me-2" size={15} weight="bold" />Entry Application</button>
-                    <button style={{ borderRadius: '10px', backgroundColor: "#0E5073", fontSize: "14px", fontWeight: '500' }} className="btn d-flex align-items-center text-white" onClick={() => { window.location.href = '/recruitment/create' }} type=""><Plus size={15} className="me-2" weight="bold" />Create Recruitment</button>
-                </div>
+      <div className="d-flex justify-content-between">
+        <div className="row">
+          <h3 style={{ fontSize: "20px", fontWeight: "600" }}>Requirment</h3>
+          <span
+            style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
+          >
+            list of recruitment form{" "}
+          </span>
+        </div>
+        <div className="d-flex">
+          <div
+            className="input-group me-3 align-items-center w-auto"
+            style={{
+              borderRadius: "10px",
+              border: "1.5px solid #CACACA",
+              backgroundColor: "transparent",
+              color: "#0E5073",
+              fontSize: "14px",
+              fontWeight: "500",
+            }}
+          >
+            <div class="input-group-prepend">
+              <span class="transparent ">
+                <MagnifyingGlass
+                  size={20}
+                  className="mx-2 form-control-feedback"
+                  color="#CACACA"
+                  weight="bold"
+                />
+              </span>
             </div>
+            <input
+              style={{
+                border: "0",
+                outline: "none",
+                backgroundColor: "transparent",
+                color: "#0E5073",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              onChange={(val) => {}}
+              className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
+              type="search"
+              placeholder=" Search Requirement"
+            />
+          </div>
+          <button
+            style={{
+              borderRadius: "10px",
+              border: "1.5px solid #CACACA",
+              color: "#0E5073",
+              fontSize: "14px",
+              fontWeight: "500",
+            }}
+            className="me-3 btn d-flex align-items-center"
+            onClick={() => {
+              window.location.href = "/recruitment/entry-application";
+            }}
+            type=""
+          >
+            <Eye className="me-2" size={15} weight="bold" />
+            Entry Application
+          </button>
+          <button
+            style={{
+              borderRadius: "10px",
+              backgroundColor: "#0E5073",
+              fontSize: "14px",
+              fontWeight: "500",
+            }}
+            className="btn d-flex align-items-center text-white"
+            onClick={() => {
+              window.location.href = "/recruitment/create";
+            }}
+            type=""
+          >
+            <Plus size={15} className="me-2" weight="bold" />
+            Create Recruitment
+          </button>
+        </div>
+      </div>
       <div className="">
         <div
           className="grid grid-cols-3 gap-4 mt-1 px-4 pt-4 pb-56"
@@ -68,6 +133,7 @@ function Recruitment() {
         >
           {recruit.length > 0 ? (
             recruit.map((val) => {
+              const isExpired = new Date(val.expiredDate) < new Date();
               return (
                 <div
                   className="p-3 d-flex align-items-center"
@@ -78,9 +144,18 @@ function Recruitment() {
                     borderRadius: "10px",
                   }}
                 >
-                  <FileText className="me-3" size={35} weight="fill" />
+                  <FileText
+                    className={`me-3 ${isExpired ? "text-[#CACACA]" : ""}`}
+                    size={35}
+                    weight="fill"
+                  />
                   <div className="row">
-                    <h2 style={{ fontWeight: "600" }}>{val["title"]}</h2>
+                    <h2
+                      style={{ fontWeight: "600" }}
+                      className={`${isExpired ? "text-[#CACACA]" : ""}`}
+                    >
+                      {val["title"]}
+                    </h2>
                     <span
                       style={{
                         fontSize: "10px",
@@ -91,7 +166,10 @@ function Recruitment() {
                       {val["publishDate"]}
                     </span>
                   </div>
-                  <a href="" className="ms-auto">
+                  <a
+                    href=""
+                    className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
+                  >
                     <DotsThreeOutline size={20} weight="fill" />
                   </a>
                 </div>
@@ -112,12 +190,8 @@ function Recruitment() {
             Create Recruitment
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          
-        </Modal.Footer>
+        <Modal.Body className="mx-4"></Modal.Body>
+        <Modal.Footer className="m-4"></Modal.Footer>
       </Modal>
     </>
   );

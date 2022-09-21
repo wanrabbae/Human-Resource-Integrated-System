@@ -41,10 +41,13 @@ function AllStages() {
   const [modal, setModal] = useState(false);
   const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
+  const [filterData, setFilterData] = useState({
+    recruitment_stage: [],
+    position: [],
+  });
   const inAwait = async () => {
     var rec = await GetStage();
     setStage(rec);
-    console.log(rec);
   };
   useEffect(() => {
     inAwait();
@@ -406,6 +409,7 @@ function AllStages() {
               <ul
                 className="px-3 py-2 bg-[#FFFFFF]"
                 style={{
+                  height: "200px",
                   borderRadius: "5px",
                   overflow: "auto",
                   whiteSpace: "unset",
@@ -413,24 +417,33 @@ function AllStages() {
                   scrollbarWidth: "none",
                 }}
               >
-                {[1, 2, 3, 4, 5].map((e, i) => {
-                  return (
-                    <li className="items-center align-items-center">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <label
-                        for="default-checkbox"
-                        class="ml-2 text-sm text-gray-900"
-                      >
-                        I agree with the.
-                      </label>
-                    </li>
-                  );
-                })}
+                {stage.length > 0 ? (
+                  stage.map((val, i) => {
+                    return (
+                      <li className="items-center align-items-center">
+                        <input
+                          id={val["id"]}
+                          type="checkbox"
+                          value={val["applicant"]["recruitment_id"]["position"]}
+                          onChange={(e) => {
+                            setFilterData(
+                              filterData.position.push(e.target.value)
+                            );
+                          }}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label
+                          for={val["id"]}
+                          class="ml-2 text-sm text-gray-900"
+                        >
+                          {val["applicant"]["recruitment_id"]["position"]}
+                        </label>
+                      </li>
+                    );
+                  })
+                ) : (
+                  <li>No Data</li>
+                )}
               </ul>
             </div>
           </div>
@@ -445,6 +458,7 @@ function AllStages() {
               <ul
                 className="px-3 py-2 bg-[#FFFFFF]"
                 style={{
+                  height: "200px",
                   borderRadius: "5px",
                   overflow: "auto",
                   whiteSpace: "unset",
@@ -452,30 +466,42 @@ function AllStages() {
                   scrollbarWidth: "none",
                 }}
               >
-                {[1, 2, 3, 4, 5].map((e, i) => {
-                  return (
-                    <li className="items-center align-items-center">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <label
-                        for="default-checkbox"
-                        class="ml-2 text-sm text-gray-900"
-                      >
-                        I agree with the.
-                      </label>
-                    </li>
-                  );
-                })}
+                {stage.length > 0 ? (
+                  stage.map((val, i) => {
+                    return (
+                      <li className="items-center align-items-center">
+                        <input
+                          id={val["id"]}
+                          type="checkbox"
+                          value={val["applicant"]["recruitment_id"]["position"]}
+                          onChange={(e) => {
+                            setFilterData(
+                              filterData.recruitment_stage.push(e.target.value)
+                            );
+                          }}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label
+                          for={val["id"]}
+                          class="ml-2 text-sm text-gray-900"
+                        >
+                          {val["name"]}
+                        </label>
+                      </li>
+                    );
+                  })
+                ) : (
+                  <li>No Data</li>
+                )}
               </ul>
             </div>
           </div>
           <button
             className="btn bg-[#0E5073] text-white"
-            onClick={() => setfilter(false)}
+            onClick={() => {
+              setfilter(false);
+              console.log(filterData);
+            }}
           >
             Apply Filter
           </button>

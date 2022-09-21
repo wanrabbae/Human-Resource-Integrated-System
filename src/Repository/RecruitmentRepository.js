@@ -50,6 +50,13 @@ var GetStage = async (data) => {
   }
 };
 
+var FilterStage = async (data) => {
+  var res = await axios.post(`${endpoint}/getFilterStage`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 var AddStage = async (requestBody) => {
   var res = await axios.post(`${endpoint}/addStage`, requestBody);
   if (res.status == 200) {
@@ -82,4 +89,5 @@ export {
   UpdateApplicant,
   searchData,
   searchApplicant,
+  FilterStage,
 };

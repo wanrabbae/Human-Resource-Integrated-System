@@ -393,7 +393,7 @@ function EntryApplication() {
             <div className="row gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
               <div className="col-6" style={{ fontSize: "14px" }}>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  <div style={{ fontWeight: "600" }}>Employee Name </div>
+                  <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
                   <div style={{ fontWeight: "500" }}>
                     : {detail?.name ?? ""}{" "}
                   </div>
@@ -402,10 +402,17 @@ function EntryApplication() {
                     : {detail?.age ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
-                  <div style={{ fontWeight: "500" }}>: IT Staff </div>
+                  <div style={{ fontWeight: "500" }}>: {detail?.recruitment.position ?? ""}{" "} </div>
                   <div style={{ fontWeight: "600" }}>Jurusan </div>
                   <div style={{ fontWeight: "500" }}>
-                    : {detail?.major ?? ""}{" "}
+                    {/* : {detail?.educations.studi ?? ""}{" "} */}
+                    <div className="d-flex" style={{ fontWeight: "500" }}>:  
+                    {detail?.educations?.map((edu) => (
+                      <div className="ms-1">
+                        {edu.studi}
+                      </div>
+                        ))}
+                    </div>
                   </div>
                   {/* <div style={{fontWeight:'600'}}>Email  </div>
                                     <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}

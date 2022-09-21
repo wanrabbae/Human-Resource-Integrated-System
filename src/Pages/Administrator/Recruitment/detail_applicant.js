@@ -66,13 +66,15 @@ function DetailApplicant() {
         <h1 className="mb-3" style={{ color: "#5C5C5C", fontWeight: "600" }}>
           Personal details
         </h1>
-        <div className="d-flex gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
+        <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
           <div className="col-6" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-              <div style={{ fontWeight: "600" }}>Employee Name </div>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+              <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
               <div style={{ fontWeight: "500" }}>: {data?.name ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
-              <div style={{ fontWeight: "500" }}>: {data?.source ?? ""} </div>
+              <div style={{ fontWeight: "600" }}>Tanggal Lahir </div>
+              <div style={{ fontWeight: "500" }}>
+                : {data?.birthDate ?? ""}{" "}
+              </div>
               <div style={{ fontWeight: "600" }}>Jenis Kelamin </div>
               <div style={{ fontWeight: "500" }}>: {data?.gender ?? ""} </div>
               <div style={{ fontWeight: "600" }}>Usia </div>
@@ -82,23 +84,21 @@ function DetailApplicant() {
             </div>
           </div>
           <div className="col-6" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 gap-3">
-              <div style={{ fontWeight: "600" }}>Position </div>
-              <div style={{ fontWeight: "500" }}>: {data?.major ?? ""} </div>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-5">
+            <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
+              <div style={{ fontWeight: "500" }}>: {data?.source ?? ""} </div>
               <div style={{ fontWeight: "600" }}>Tanggal Melamar </div>
               <div style={{ fontWeight: "500" }}>: {data?.date ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Tanggal Lahir </div>
-              <div style={{ fontWeight: "500" }}>
-                : {data?.birthDate ?? ""}{" "}
-              </div>
+              <div style={{ fontWeight: "600" }}>Position </div>
+              <div style={{ fontWeight: "500" }}>: {data?.recruitment.position ?? ""} </div>
               <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
               <div style={{ fontWeight: "500" }}>: {data?.phone ?? ""} </div>
             </div>
           </div>
         </div>
-        <div className="d-flex gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
-          <div className="col-6" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+        <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
+          <div className="col-6 mt-3" style={{ fontSize: "14px" }}>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
               <div style={{ fontWeight: "600" }}>Email </div>
               <div style={{ fontWeight: "500" }}>: {data?.email ?? ""} </div>
               <div style={{ fontWeight: "600" }}>Alamat KTP </div>
@@ -112,20 +112,30 @@ function DetailApplicant() {
             </div>
           </div>
         </div>
-        <hr className="my-3 px-5" style={{ backgroundColor: "#EAEAEA" }}></hr>
+      </div>
+      <div
+        className="mb-5 bg-[#F8F8F8] rounded-xl px-4 py-5"
+        style={{ color: "#737373" }}
+      >
+        <h1 className="mb-3" style={{ color: "#5C5C5C", fontWeight: "600" }}>
+          Education
+        </h1>
         <div className="d-flex gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
-          <div className="col-6" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 grid-rows-2 gap-2">
-              <div style={{ fontWeight: "600" }}>Nama Sekolah </div>
-              <div style={{ fontWeight: "500" }}>: {data?.univName ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Nilai Akhir/ IPK </div>
-              <div style={{ fontWeight: "500" }}>: {data?.ipk ?? ""} </div>
-            </div>
-          </div>
-          <div className="col-6" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 grid-rows-2 gap-4">
-              <div style={{ fontWeight: "600" }}>Jurusan </div>
-              <div style={{ fontWeight: "500" }}>: {data?.major ?? ""} </div>
+          <div className="col" style={{ fontSize: "14px" }}>
+            <div className="grid grid-cols-1 gap-x-4 gap-y-2">
+              {data?.educations?.map((edu) => (
+                <div
+                  className="py-3"
+                  style={{
+                    fontWeight: "600",
+                    borderBottom: "2px solid #EAEAEA",
+                  }}
+                >
+                  {edu.instansi}
+                  <div className="my-1" style={{ fontWeight: "400" }}>{edu.studi}</div>
+                  <div style={{ fontWeight: "300", color:'#A8A8A8' }}>{edu.nilai}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -149,7 +159,14 @@ function DetailApplicant() {
                   }}
                 >
                   {expe.position}
-                  <div style={{ fontWeight: "400" }}>{expe.perusahaan}</div>
+                  <div className="d-flex my-1">
+                    <div style={{ fontWeight: "400" }}>{expe.perusahaan} -  </div>
+                    <div className="ms-1" style={{ fontWeight: "400", color:'#A8A8A8' }}> {expe.jenis}</div>
+                  </div>
+                  <div className="d-flex">
+                    <div style={{ fontWeight: "300" , color:'#A8A8A8'}}>{expe.mulai} -  </div>
+                    <div className="ms-1" style={{ fontWeight: "300", color:'#A8A8A8' }}> {expe.berakhir}</div>
+                  </div>
                 </div>
               ))}
             </div>

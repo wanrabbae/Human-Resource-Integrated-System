@@ -236,7 +236,9 @@ function EntryApplication() {
                       <td className="align-middle px-3">
                         <input type="checkbox" />
                       </td>
-                      <td className="align-middle">{val["recruitment"]["position"]}</td>
+                      <td className="align-middle">
+                        {val["recruitment"]["position"]}
+                      </td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["name"]}</td>
@@ -402,16 +404,16 @@ function EntryApplication() {
                     : {detail?.age ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.recruitment.position ?? ""}{" "} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.recruitment.position ?? ""}{" "}
+                  </div>
                   <div style={{ fontWeight: "600" }}>Jurusan </div>
                   <div style={{ fontWeight: "500" }}>
-                    {/* : {detail?.educations.studi ?? ""}{" "} */}
-                    <div className="d-flex" style={{ fontWeight: "500" }}>:  
-                    {detail?.educations?.map((edu) => (
-                      <div className="ms-1">
-                        {edu.studi}
-                      </div>
-                        ))}
+                    <div className="d-flex" style={{ fontWeight: "500" }}>
+                      :{" "}
+                      {detail?.educations?.length > 1
+                        ? detail?.educations?.pop()?.studi
+                        : detail?.educations[0]?.studi}
                     </div>
                   </div>
                   {/* <div style={{fontWeight:'600'}}>Email  </div>

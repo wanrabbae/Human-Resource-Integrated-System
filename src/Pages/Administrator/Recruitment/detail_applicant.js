@@ -32,8 +32,14 @@ import { GetApplicant } from "../../../Repository/RecruitmentRepository";
 function DetailApplicant() {
   const location = useLocation();
   const data = location.state?.details;
-  console.log(location.state.details);
-  console.log(location.state.details.experience);
+
+  function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+  }
   return (
     <>
       <div className="d-flex align-items-center mb-5 justify-content-between">
@@ -85,12 +91,14 @@ function DetailApplicant() {
           </div>
           <div className="col-6" style={{ fontSize: "14px" }}>
             <div className="grid grid-cols-2 gap-x-3 gap-y-5">
-            <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
+              <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
               <div style={{ fontWeight: "500" }}>: {data?.source ?? ""} </div>
               <div style={{ fontWeight: "600" }}>Tanggal Melamar </div>
               <div style={{ fontWeight: "500" }}>: {data?.date ?? ""} </div>
               <div style={{ fontWeight: "600" }}>Position </div>
-              <div style={{ fontWeight: "500" }}>: {data?.recruitment.position ?? ""} </div>
+              <div style={{ fontWeight: "500" }}>
+                : {data?.recruitment.position ?? ""}{" "}
+              </div>
               <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
               <div style={{ fontWeight: "500" }}>: {data?.phone ?? ""} </div>
             </div>
@@ -132,8 +140,12 @@ function DetailApplicant() {
                   }}
                 >
                   {edu.instansi}
-                  <div className="my-1" style={{ fontWeight: "400" }}>{edu.studi}</div>
-                  <div style={{ fontWeight: "300", color:'#A8A8A8' }}>{edu.nilai}</div>
+                  <div className="my-1" style={{ fontWeight: "400" }}>
+                    {edu.studi}
+                  </div>
+                  <div style={{ fontWeight: "300", color: "#A8A8A8" }}>
+                    {edu.nilai}
+                  </div>
                 </div>
               ))}
             </div>
@@ -160,12 +172,44 @@ function DetailApplicant() {
                 >
                   {expe.position}
                   <div className="d-flex my-1">
-                    <div style={{ fontWeight: "400" }}>{expe.perusahaan} -  </div>
-                    <div className="ms-1" style={{ fontWeight: "400", color:'#A8A8A8' }}> {expe.jenis}</div>
+                    <div style={{ fontWeight: "400" }}>
+                      {expe.perusahaan} -{" "}
+                    </div>
+                    <div
+                      className="ms-1"
+                      style={{ fontWeight: "400", color: "#A8A8A8" }}
+                    >
+                      {" "}
+                      {expe.jenis}
+                    </div>
                   </div>
                   <div className="d-flex">
-                    <div style={{ fontWeight: "300" , color:'#A8A8A8'}}>{expe.mulai} -  </div>
-                    <div className="ms-1" style={{ fontWeight: "300", color:'#A8A8A8' }}> {expe.berakhir}</div>
+                    <div style={{ fontWeight: "300", color: "#A8A8A8" }}>
+                      {new Date(expe.mulai).toDateString().split(" ")[1] +
+                        " " +
+                        new Date(expe.mulai).toDateString().split(" ")[3]}{" "}
+                      -{" "}
+                    </div>
+                    <div
+                      className="ms-1"
+                      style={{ fontWeight: "300", color: "#A8A8A8" }}
+                    >
+                      {" "}
+                      {new Date(expe.berakhir).toDateString().split(" ")[1] +
+                        " " +
+                        new Date(expe.berakhir)
+                          .toDateString()
+                          .split(" ")[3]}{" "}
+                    </div>
+
+                    <div
+                      className="ms-1"
+                      style={{ fontWeight: "300", color: "#A8A8A8" }}
+                    >
+                      ·{" "}
+                      {monthDiff(new Date(expe.mulai), new Date(expe.berakhir))}{" "}
+                      bln
+                    </div>
                   </div>
                 </div>
               ))}

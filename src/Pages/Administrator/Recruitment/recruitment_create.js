@@ -121,6 +121,38 @@ function RecruitmentCreate() {
               placeholder="Position"
             />
           </div>
+          <div className="">
+            <label
+              className="block text-gray-700 text-sm mb-2"
+              for="username"
+            >
+              Job Type
+            </label>
+            <select
+            style={{
+              borderRadius: "10px",
+              border: "1.5px solid #EDEDED",
+              backgroundColor: "transparent",
+              fontSize: "12px",
+              fontWeight: "500",
+            }}
+              id="type"
+              className="appearance-none w-full py-2 px-3 text-gray-700 focus:outline-none focus:border-0 focus:shadow-outline"
+            >
+              <option selected disabled className="py-3">
+                Select Job Type
+              </option>
+              <option value="Part Time" className="py-3">
+                Part Time
+              </option>
+              <option value="Full Time" className="py-3">
+                Full Time
+              </option>
+              <option value="Remote" className="py-3">
+                Remote
+              </option>
+            </select>
+          </div>
           <div>
             <label className="block text-gray-700 text-sm mb-2" for="username">
               Placement
@@ -219,31 +251,6 @@ function RecruitmentCreate() {
               <Plus size={15} className="me-2" weight="bold" />
               Add Specific Qualification 
             </button>
-          </div>
-          <div className="">
-            <label
-              className="block text-gray-700 text-sm mt-3 mb-2"
-              for="username"
-            >
-              Job Type
-            </label>
-            <select
-              id="type"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-            >
-              <option selected disabled className="py-3">
-                Select Job Type
-              </option>
-              <option value="Part Time" className="py-3">
-                Part Time
-              </option>
-              <option value="Full Time" className="py-3">
-                Full Time
-              </option>
-              <option value="Remote" className="py-3">
-                Remote
-              </option>
-            </select>
           </div>
           <div className="d-flex gap-4">
             <div className="w-full">

@@ -29,7 +29,6 @@ function Recruitment() {
   const inAwait = async () => {
     var rec = await GetRecruitment();
     setRecruit(rec["result"]);
-    console.log(rec)
   };
 
   const search = async (keyword) => {

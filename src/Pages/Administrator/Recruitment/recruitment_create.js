@@ -22,48 +22,38 @@ import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 import MultiSlider from "../../../Utils/multiSlider/MultiSlider";
+import { useNavigate } from "react-router-dom";
+import { SwalSuccess } from "../../../Components/Modals";
 
 function RecruitmentCreate() {
+  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [recruit, setRecruit] = useState([]);
+  const [spesificQua, setSpesificQua] = useState({});
   const editorRef = useRef(null);
-  const inAwait = async () => {
-    var rec = await GetRecruitment();
-    setRecruit(rec["result"]);
-  };
 
-  const search = async (keyword) => {
-    if (keyword !== null || (keyword !== undefined) !== "") {
-      const data = await searchData(keyword);
-      setRecruit(data);
-    } else {
-      inAwait();
-    }
-  };
-
-  useEffect(() => {
-    inAwait();
-  }, []);
   return (
     <>
       <div className="d-flex justify-content-between">
         <div className="row">
-          <h3 style={{ fontSize: "20px", fontWeight: "600" }}>Create Recruitment</h3>
+          <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
+            Create Recruitment
+          </h3>
           <span
             style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
           >
-           Make sure the data filled in matches the vacancies opened
+            Make sure the data filled in matches the vacancies opened
           </span>
         </div>
       </div>
-        <div className="">
+      <div className="">
         <div
           className="grid gap-4 mt-1 p-4"
           style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
         >
           <div>
-          <label className="block text-gray-700 text-sm mb-2" for="username">
-            Recruitment Title
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              Recruitment Title
             </label>
             <input
               id="title"
@@ -79,11 +69,10 @@ function RecruitmentCreate() {
               type="text"
               placeholder="Recruitment Title Title"
             />
-            
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-2" for="username">
-            Recruitment Description
+              Recruitment Description
             </label>
             <textarea
               id="description"
@@ -121,20 +110,17 @@ function RecruitmentCreate() {
             />
           </div>
           <div className="">
-            <label
-              className="block text-gray-700 text-sm mb-2"
-              for="username"
-            >
+            <label className="block text-gray-700 text-sm mb-2" for="username">
               Job Type
             </label>
             <select
-            style={{
-              borderRadius: "10px",
-              border: "1.5px solid #EDEDED",
-              backgroundColor: "transparent",
-              fontSize: "12px",
-              fontWeight: "500",
-            }}
+              style={{
+                borderRadius: "10px",
+                border: "1.5px solid #EDEDED",
+                backgroundColor: "transparent",
+                fontSize: "12px",
+                fontWeight: "500",
+              }}
               id="type"
               className="appearance-none w-full py-2 px-3 text-gray-700 focus:outline-none focus:border-0 focus:shadow-outline"
             >
@@ -235,20 +221,20 @@ function RecruitmentCreate() {
             />
           </div>
           <div>
-          <button
+            <button
               style={{
                 borderRadius: "8px",
                 backgroundColor: "#FFF",
                 fontSize: "14px",
                 fontWeight: "500",
-                color:"#669BBC"
+                color: "#669BBC",
               }}
               className="btn d-flex align-items-center text-[#669BBC]"
               onClick={() => setModal(true)}
               type=""
             >
               <Plus size={15} className="me-2" weight="bold" />
-              Add Specific Qualification 
+              Add Specific Qualification
             </button>
           </div>
           <div className="d-flex gap-4">
@@ -298,50 +284,52 @@ function RecruitmentCreate() {
             </div>
           </div>
         </div>
-          <div className="m-4 gap-4 d-flex justify-content-end">
-            <Button
-              style={{
-                border: "none",
-                fontSize: "14px",
-                backgroundColor: "#ECECEC",
-                color: "#003049",
-                fontWeight:"500"
-              }}
-              className="px-3"
-              onClick={() => setModal(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              style={{
-                border: "none",
-                fontSize: "14px",
-                backgroundColor: "#0E5073",
-                color: "#FFFFFF",
-              }}
-              className="px-3"
-              onClick={async () => {
-                var requestBody = {
-                  title: document.getElementById("title").value,
-                  description: document.getElementById("description").value,
-                  position: document.getElementById("position").value,
-                  placement: document.getElementById("placement").value,
-                  type: document.getElementById("type").value,
-                  jobDescription:
-                    document.getElementById("job_description").value,
-                  qualification: editorRef.current.getContent(),
-                  publishDate: document.getElementById("publish_date").value,
-                  expiredDate: document.getElementById("expired_date").value,
-                };
-                console.log(requestBody);
-                var res = await AddRecruitment(requestBody);
-                setModal(false);
-                inAwait();
-              }}
-            >
-              Create
-            </Button>
-          </div>
+        <div className="m-4 gap-4 d-flex justify-content-end">
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+              fontWeight: "500",
+            }}
+            className="px-3"
+            onClick={() => setModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-3"
+            onClick={async () => {
+              var requestBody = {
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                position: document.getElementById("position").value,
+                placement: document.getElementById("placement").value,
+                type: document.getElementById("type").value,
+                jobDescription:
+                  document.getElementById("job_description").value,
+                qualification: editorRef.current.getContent(),
+                publishDate: document.getElementById("publish_date").value,
+                expiredDate: document.getElementById("expired_date").value,
+                spesificQualification: spesificQua ?? {},
+              };
+              var res = await AddRecruitment(requestBody);
+              // console.log(requestBody);
+              SwalSuccess({ message: "Success add recruitment" });
+
+              // navigate("/recruitment");
+            }}
+          >
+            Create
+          </Button>
+        </div>
       </div>
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>
         <Modal.Header
@@ -355,17 +343,14 @@ function RecruitmentCreate() {
         </Modal.Header>
         <Modal.Body className="mx-4">
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm mt-3"
-              for="username"
-            >
+            <label className="block text-gray-700 text-sm mt-3" for="username">
               Age
             </label>
             <MultiSlider
               min={17}
               max={30}
               onChange={({ min, max }) =>
-                console.log(`min = ${min}, max = ${max}`)
+                setSpesificQua({ ...spesificQua, ageRange: `${min}-${max}` })
               }
             />
           </div>
@@ -379,18 +364,21 @@ function RecruitmentCreate() {
             <select
               id="type"
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              onChange={(e) =>
+                setSpesificQua({ ...spesificQua, gender: e.target.value })
+              }
             >
               <option selected disabled className="py-3">
-                Select Job Type
+                Select Gender
               </option>
-              <option value="Part Time" className="py-3">
-                Man
+              <option value="Laki - Laki" className="py-3">
+                Laki - Laki
               </option>
-              <option value="Full Time" className="py-3">
-                Woman
+              <option value="Perempuan" className="py-3">
+                Perempuan
               </option>
-              <option value="Remote" className="py-3">
-              Both of Them 
+              <option value="unknown" className="py-3">
+                Tidak keduanya
               </option>
             </select>
           </div>
@@ -404,6 +392,9 @@ function RecruitmentCreate() {
             <select
               id="type"
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              onChange={(e) =>
+                setSpesificQua({ ...spesificQua, education: e.target.value })
+              }
             >
               <option selected disabled className="py-3">
                 Select Job Type
@@ -415,7 +406,7 @@ function RecruitmentCreate() {
                 Woman
               </option>
               <option value="Remote" className="py-3">
-              Both of Them 
+                Both of Them
               </option>
             </select>
           </div>
@@ -429,6 +420,9 @@ function RecruitmentCreate() {
             <select
               id="type"
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              onChange={(e) =>
+                setSpesificQua({ ...spesificQua, experience: e.target.value })
+              }
             >
               <option selected disabled className="py-3">
                 Select Job Type
@@ -440,7 +434,7 @@ function RecruitmentCreate() {
                 Woman
               </option>
               <option value="Remote" className="py-3">
-              Both of Them 
+                Both of Them
               </option>
             </select>
           </div>
@@ -452,23 +446,25 @@ function RecruitmentCreate() {
               Skill
             </label>
             <div className="d-flex ">
-            <input
-              id="placement"
-              style={{
-                borderRadius: "5px",
-                border: "1.5px solid #EDEDED",
-                backgroundColor: "transparent",
-                fontSize: "12px",
-                fontWeight: "500",
-              }}
-              onChange={(val) => {}}
-              className="focus:ring-0 focus:ring-offset-0 me-2 form-control"
-              type="text"
-              placeholder="Skill qualification"
-            />
-            <button className="btn bg-[#669BBC]">
-            <Plus size={15} className="text-white mx-1" weight="bold" />
-            </button>
+              <input
+                id="placement"
+                style={{
+                  borderRadius: "5px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                onChange={(e) =>
+                  setSpesificQua({ ...spesificQua, skill: e.target.value })
+                }
+                className="focus:ring-0 focus:ring-offset-0 me-2 form-control"
+                type="text"
+                placeholder="Skill qualification"
+              />
+              <button className="btn bg-[#669BBC]">
+                <Plus size={15} className="text-white mx-1" weight="bold" />
+              </button>
             </div>
           </div>
           <div className="mb-4">
@@ -503,7 +499,10 @@ function RecruitmentCreate() {
               color: "#003049",
             }}
             className="px-3"
-            onClick={() => setModal(false)}
+            onClick={() => {
+              setModal(false);
+              setSpesificQua({});
+            }}
           >
             Cancel
           </Button>
@@ -515,23 +514,8 @@ function RecruitmentCreate() {
               color: "#FFFFFF",
             }}
             className="px-3"
-            onClick={async () => {
-              var requestBody = {
-                title: document.getElementById("title").value,
-                description: document.getElementById("description").value,
-                position: document.getElementById("position").value,
-                placement: document.getElementById("placement").value,
-                type: document.getElementById("type").value,
-                jobDescription:
-                  document.getElementById("job_description").value,
-                qualification: editorRef.current.getContent(),
-                publishDate: document.getElementById("publish_date").value,
-                expiredDate: document.getElementById("expired_date").value,
-              };
-              console.log(requestBody);
-              var res = await AddRecruitment(requestBody);
+            onClick={() => {
               setModal(false);
-              inAwait();
             }}
           >
             Create

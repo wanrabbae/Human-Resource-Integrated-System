@@ -23,13 +23,13 @@
 }
 
 .slider__track {
-  background-color: #780000!important;
+  background-color: #780000;
   width: 100%;
   z-index: 1;
 }
 
 .slider__range {
-  background-color: #780000!important;
+  background-color: #780000;
   z-index: 2;
 }
 
@@ -52,7 +52,7 @@
 .thumb,
 .thumb::-webkit-slider-thumb {
   -webkit-appearance: unset;
-  background-color: #780000!important;
+  background-color: #780000;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -60,7 +60,6 @@
   pointer-events: none;
   position: absolute;
   height: 0;
-  width: 290px;
   outline: none;
 }
 

@@ -62,6 +62,10 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
         className={classnames("thumb thumb--zindex-3", {
           "thumb--zindex-5": minVal > max - 100
         })}
+        style={{
+          width: '290px',
+          backgroundColor: '#780000',
+        }}
       />
       <input
         type="range"
@@ -74,7 +78,11 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
           setMaxVal(value);
           event.target.value = value.toString();
         }}
-        className="thumb w-full bg-[#780000] thumb--zindex-4"
+        className="thumb bg-[#780000] thumb--zindex-4"
+        style={{
+          width: '290px',
+          backgroundColor: '#780000',
+        }}
       />
 
       <div className="slider">

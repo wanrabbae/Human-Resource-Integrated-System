@@ -35,7 +35,7 @@ import {
   searchApplicant,
 } from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
-import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
+import MultiRangeSlider from "../../../Utils/multiRangeSlider/";
 
 function EntryApplication() {
   const navigate = useNavigate();

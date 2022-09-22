@@ -21,8 +21,7 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
-import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
-import MultiSlider from "../../../Utils/multiSlider";
+import MultiSlider from "../../../Utils/multiSlider/MultiSlider";
 
 function RecruitmentCreate() {
   const [modal, setModal] = useState(false);

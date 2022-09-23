@@ -8,6 +8,13 @@ var AddRecruitment = async (requestBody) => {
   }
 };
 
+var RepostRecruitment = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/repostRecruitment`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 var GetRecruitment = async () => {
   var res = await axios.get(`${endpoint}/getRecruitment`);
   if (res.status == 200) {
@@ -81,6 +88,7 @@ var UpdateApplicant = async (requestBody) => {
 
 export {
   AddRecruitment,
+  RepostRecruitment,
   GetRecruitment,
   GetApplicant,
   GetStage,

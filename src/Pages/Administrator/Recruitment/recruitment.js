@@ -7,10 +7,11 @@ import {
   MagnifyingGlass,
   Gear,
 } from "phosphor-react";
-import { Button,Dropdown, Modal, Table } from "react-bootstrap";
+import { Button, Dropdown, Modal, Table } from "react-bootstrap";
 import {
   AddRecruitment,
   GetRecruitment,
+  RepostRecruitment,
   searchData,
 } from "../../../Repository/RecruitmentRepository";
 import { Editor } from "@tinymce/tinymce-react";
@@ -21,11 +22,13 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
+import { SwalSuccess } from "../../../Components/Modals";
 // import { Dropdown } from "flowbite-react";
 
 function Recruitment() {
-  const [modal, setModal] = useState(false);
+  const [modalRepost, setModalRepost] = useState(false);
   const [drp, setDrp] = useState(true);
+  const [id, setId] = useState();
   const [recruit, setRecruit] = useState([]);
   const editorRef = useRef(null);
   const inAwait = async () => {
@@ -42,7 +45,6 @@ function Recruitment() {
     }
   };
 
-  
   useEffect(() => {
     inAwait();
   }, []);
@@ -52,16 +54,15 @@ function Recruitment() {
       href=""
       ref={ref}
       style={{
-        color:'#003049'
+        color: "#003049",
       }}
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault();
         onClick(e);
       }}
     >
       <DotsThreeOutline size={20} weight="fill" />
       {children}
-  
     </a>
   ));
   return (
@@ -213,15 +214,31 @@ function Recruitment() {
                       Sign out
                     </Dropdown.Item>
                   </Dropdown> */}
-                  <Dropdown className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}>
+                  <Dropdown
+                    className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
+                  >
                     <Dropdown.Toggle as={CustomToggle} />
 
                     <Dropdown.Menu size="sm">
-                      <Dropdown.Item href="#/action-1" className="text-sm">Edit</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" className="text-sm">Delete</Dropdown.Item>
+                      <Dropdown.Item href="#/action-1" className="text-sm">
+                        Edit
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" className="text-sm">
+                        Delete
+                      </Dropdown.Item>
                       <Dropdown.Divider />
-                      <Dropdown.Item href="#/action-3" className="text-sm">Repost</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3" className="text-sm">Share</Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => {
+                          setModalRepost(true);
+                          setId(val["id"]);
+                        }}
+                        className="text-sm"
+                      >
+                        Repost
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-3" className="text-sm">
+                        Share
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                   {/* <div  id="dropdownDots"  className="hidden w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
@@ -248,20 +265,104 @@ function Recruitment() {
           )}
         </div>
       </div>
-      <Modal show={modal} size="lg" onHide={() => setModal(false)}>
+      <Modal show={modalRepost} size="lg" onHide={() => setModalRepost(false)}>
         <Modal.Header
           closeButton
           className="mx-4 mt-4"
           style={{ borderBottomColor: "transparent" }}
         >
           <Modal.Title id="contained-modal-title-vcenter">
-            Create Recruitment
+            Repost Job Vacancies
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4"></Modal.Body>
-        <Modal.Footer className="m-4"></Modal.Footer>
-      </Modal>
+        <Modal.Body className="mx-4">
+          <div className="d-flex gap-4">
+            <div className="w-full">
+              <label
+                className="block text-gray-700 text-sm mt-3 mb-2"
+                for="username"
+              >
+                Publish Date
+              </label>
+              <input
+                id="publish_date"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                onChange={(val) => {}}
+                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                type="date"
+                placeholder="Recruitment description"
+              />
+            </div>
 
+            <div className="w-full">
+              <label
+                className="block text-gray-700 text-sm mt-3 mb-2"
+                for="username"
+              >
+                Expired Date
+              </label>
+              <input
+                id="expired_date"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                onChange={(val) => {}}
+                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                type="date"
+                placeholder="Recruitment description"
+              />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModalRepost(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-3"
+            onClick={async () => {
+              const reqBody = {
+                publishDate: document.getElementById("publish_date").value,
+                expiredDate: document.getElementById("expired_date").value,
+                id: id,
+              };
+
+              const repost = await RepostRecruitment(reqBody);
+              inAwait();
+              console.log(repost);
+              SwalSuccess({ message: "Repost success" });
+              setModalRepost(false);
+            }}
+          >
+            Export
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

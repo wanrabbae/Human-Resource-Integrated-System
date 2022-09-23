@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Plus,
   Eye,
@@ -7,7 +7,7 @@ import {
   MagnifyingGlass,
   Gear,
 } from "phosphor-react";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button,Dropdown, Modal, Table } from "react-bootstrap";
 import {
   AddRecruitment,
   GetRecruitment,
@@ -21,9 +21,11 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
+// import { Dropdown } from "flowbite-react";
 
 function Recruitment() {
   const [modal, setModal] = useState(false);
+  const [drp, setDrp] = useState(true);
   const [recruit, setRecruit] = useState([]);
   const editorRef = useRef(null);
   const inAwait = async () => {
@@ -40,9 +42,28 @@ function Recruitment() {
     }
   };
 
+  
   useEffect(() => {
     inAwait();
   }, []);
+  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <a
+      // className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
+      href=""
+      ref={ref}
+      style={{
+        color:'#003049'
+      }}
+      onClick={e => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      <DotsThreeOutline size={20} weight="fill" />
+      {children}
+  
+    </a>
+  ));
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -166,12 +187,59 @@ function Recruitment() {
                       {val["publishDate"]}
                     </span>
                   </div>
-                  <a
-                    href=""
+                  {/* <button
+                    type="button"
+                    onClick={() => setDrp(false)}
+                    id="dropdownMenuIconButton" dataDropdownToggle="dropdownDots" 
                     className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
                   >
                     <DotsThreeOutline size={20} weight="fill" />
-                  </a>
+                  </button> */}
+                  {/* <Dropdown
+                    // label={<DotsThreeOutline size={20} weight="fill" />}
+                    // size="sm"
+                    // className="bg-[#ffffff]"
+                  >
+                    <Dropdown.Item>
+                      Dashboard
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      Settings
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      Earnings
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      Sign out
+                    </Dropdown.Item>
+                  </Dropdown> */}
+                  <Dropdown className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}>
+                    <Dropdown.Toggle as={CustomToggle} />
+
+                    <Dropdown.Menu size="sm">
+                      <Dropdown.Item href="#/action-1" className="text-sm">Edit</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" className="text-sm">Delete</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item href="#/action-3" className="text-sm">Repost</Dropdown.Item>
+                      <Dropdown.Item href="#/action-3" className="text-sm">Share</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  {/* <div  id="dropdownDots"  className="hidden w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" ariaLabelledBy="dropdownMenuIconButton">
+                        <li>
+                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        </li>
+                        <li>
+                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        </li>
+                        <li>
+                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                        </li>
+                      </ul>
+                      <div class="py-1">
+                        <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Separated link</a>
+                      </div>
+                  </div> */}
                 </div>
               );
             })
@@ -193,6 +261,7 @@ function Recruitment() {
         <Modal.Body className="mx-4"></Modal.Body>
         <Modal.Footer className="m-4"></Modal.Footer>
       </Modal>
+
     </>
   );
 }

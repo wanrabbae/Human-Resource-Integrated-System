@@ -51,7 +51,7 @@ var GetStage = async (data) => {
 };
 
 var FilterStage = async (data) => {
-  var res = await axios.post(`${endpoint}/getFilterStage`, data);
+  var res = await axios.post(`${endpoint}/getStageFilter`, data);
   if (res.status == 200) {
     return res.data;
   }

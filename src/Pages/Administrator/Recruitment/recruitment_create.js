@@ -323,8 +323,7 @@ function RecruitmentCreate() {
               var res = await AddRecruitment(requestBody);
               // console.log(requestBody);
               SwalSuccess({ message: "Success add recruitment" });
-
-              // navigate("/recruitment");
+              navigate("/recruitment");
             }}
           >
             Create

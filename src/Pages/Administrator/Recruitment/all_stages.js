@@ -29,6 +29,7 @@ import {
   Search,
 } from "@mui/icons-material";
 import {
+  FilterStage,
   GetApplicant,
   GetStage,
 } from "../../../Repository/RecruitmentRepository";
@@ -41,10 +42,8 @@ function AllStages() {
   const [modal, setModal] = useState(false);
   const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
-  const [filterData, setFilterData] = useState({
-    recruitment_stage: [],
-    position: [],
-  });
+  let recruitment_stage = [];
+  let position = [];
   const inAwait = async () => {
     var rec = await GetStage();
     setStage(rec);
@@ -91,7 +90,10 @@ function AllStages() {
                 fontWeight: "500",
               }}
               className="me-3 btn d-flex align-items-center"
-              onClick={() => setfilter(true)}
+              onClick={() => {
+                setfilter(true);
+                inAwait();
+              }}
             >
               <svg
                 className="me-2"
@@ -377,7 +379,11 @@ function AllStages() {
         }}
         open={filter}
         anchor={"right"}
-        onClose={() => setfilter(false)}
+        onClose={() => {
+          setfilter(false);
+          recruitment_stage = [];
+          position = [];
+        }}
       >
         <div className="grid p-4 gap-4">
           <div className="d-flex align-items-center">
@@ -422,18 +428,16 @@ function AllStages() {
                     return (
                       <li className="items-center align-items-center">
                         <input
-                          id={val["id"]}
+                          id={val["name"]}
                           type="checkbox"
                           value={val["applicant"]["recruitment"]["position"]}
                           onChange={(e) => {
-                            setFilterData(
-                              filterData.position.push(e.target.value)
-                            );
+                            position.push(e.target.value);
                           }}
                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
                         <label
-                          for={val["id"]}
+                          for={val["name"]}
                           class="ml-2 text-sm text-gray-900"
                         >
                           {val["applicant"]["recruitment"]["position"]}
@@ -471,18 +475,16 @@ function AllStages() {
                     return (
                       <li className="items-center align-items-center">
                         <input
-                          id={val["id"]}
+                          id={val["name"]}
                           type="checkbox"
-                          value={val["applicant"]["recruitment"]["position"]}
+                          value={val["name"]}
                           onChange={(e) => {
-                            setFilterData(
-                              filterData.recruitment_stage.push(e.target.value)
-                            );
+                            recruitment_stage.push(e.target.value);
                           }}
                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
                         <label
-                          for={val["id"]}
+                          for={val["name"]}
                           class="ml-2 text-sm text-gray-900"
                         >
                           {val["name"]}
@@ -498,9 +500,14 @@ function AllStages() {
           </div>
           <button
             className="btn bg-[#0E5073] text-white"
-            onClick={() => {
+            onClick={async () => {
+              const reqBody = {
+                position: position,
+                recruitment_stage: recruitment_stage,
+              };
+              var res = await FilterStage(reqBody);
+              setStage(res.result);
               setfilter(false);
-              console.log(filterData);
             }}
           >
             Apply Filter

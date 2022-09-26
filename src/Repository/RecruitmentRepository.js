@@ -38,6 +38,13 @@ var GetApplicant = async () => {
   }
 };
 
+var FilterApplicant = async (data) => {
+  var res = await axios.post(`${endpoint}/getApplicantFilter`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 var searchApplicant = async (keyword) => {
   var res = await axios.get(`${endpoint}/getApplicant?keyword=${keyword}`);
   if (res.status == 200) {
@@ -91,6 +98,7 @@ export {
   RepostRecruitment,
   GetRecruitment,
   GetApplicant,
+  FilterApplicant,
   GetStage,
   AddStage,
   updateStatusStage,

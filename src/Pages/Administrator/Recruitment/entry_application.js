@@ -31,6 +31,7 @@ import {
   Search,
 } from "@mui/icons-material";
 import {
+  FilterApplicant,
   GetApplicant,
   searchApplicant,
 } from "../../../Repository/RecruitmentRepository";
@@ -44,10 +45,10 @@ function EntryApplication() {
   const [stagemodal, setstageModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
   const [applicantFilter, setApplicantFilter] = useState({});
-  let sourceFilter = [];
-  let positionFilter = [];
-  let studiFilter = [];
-  let genderFilter = [];
+  const [sourceFilter, setSourceFilter] = useState([]);
+  const [positionFilter, setPositionFilter] = useState([]);
+  const [studiFilter, setStudiFilter] = useState([]);
+  const [genderFilter, setGenderFilter] = useState([]);
 
   const [detail, setDetail] = useState();
   const inAwait = async () => {
@@ -590,9 +591,8 @@ function EntryApplication() {
                         type="checkbox"
                         value={val["source"]}
                         className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        onChange={(val) => {
-                          sourceFilter.push(val.target.value);
-                          console.log(val.target.value);
+                        onChange={(e) => {
+                          setSourceFilter([...sourceFilter, e.target.value]);
                         }}
                       />
                       <label
@@ -634,9 +634,11 @@ function EntryApplication() {
                         type="checkbox"
                         value={val["recruitment"]["position"]}
                         className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        onChange={(val) => {
-                          positionFilter.push(val.target.value);
-                          console.log(val.target.value);
+                        onChange={(e) => {
+                          setPositionFilter([
+                            ...positionFilter,
+                            e.target.value,
+                          ]);
                         }}
                       />
                       <label
@@ -675,9 +677,8 @@ function EntryApplication() {
                     type="checkbox"
                     value="SMA / SMK"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(val) => {
-                      studiFilter.push(val.target.value);
-                      console.log(val.target.value);
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
                     }}
                   />
                   <label
@@ -693,9 +694,8 @@ function EntryApplication() {
                     type="checkbox"
                     value="S1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(val) => {
-                      studiFilter.push(val.target.value);
-                      console.log(val.target.value);
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
                     }}
                   />
                   <label
@@ -711,9 +711,8 @@ function EntryApplication() {
                     type="checkbox"
                     value="S2"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(val) => {
-                      studiFilter.push(val.target.value);
-                      console.log(val.target.value);
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
                     }}
                   />
                   <label
@@ -729,9 +728,8 @@ function EntryApplication() {
                     type="checkbox"
                     value="S3"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(val) => {
-                      studiFilter.push(val.target.value);
-                      console.log(val.target.value);
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
                     }}
                   />
                   <label
@@ -768,9 +766,8 @@ function EntryApplication() {
                     type="checkbox"
                     value="Perempuan"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(val) => {
-                      genderFilter.push(val.target.value);
-                      console.log(val.target.value);
+                    onChange={(e) => {
+                      setGenderFilter([...genderFilter, e.target.value]);
                     }}
                   />
                   <label
@@ -786,9 +783,8 @@ function EntryApplication() {
                     type="checkbox"
                     value="Laki - Laki"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(val) => {
-                      genderFilter.push(val.target.value);
-                      console.log(val.target.value);
+                    onChange={(e) => {
+                      setGenderFilter([...genderFilter, e.target.value]);
                     }}
                   />
                   <label
@@ -815,18 +811,19 @@ function EntryApplication() {
           </div>
           <button
             className="btn bg-[#0E5073] text-white"
-            onClick={() => {
+            onClick={async () => {
               setfilter(false);
               const reqBody = {
                 experience: applicantFilter.experience,
                 date: applicantFilter.date,
+                age: applicantFilter.age,
                 source: sourceFilter,
                 position: positionFilter,
                 gender: genderFilter,
                 studi: studiFilter,
-                age: applicantFilter.age,
               };
-              console.log(reqBody);
+              const res = await FilterApplicant(reqBody);
+              setApplicant(res.result);
             }}
           >
             Apply Filter

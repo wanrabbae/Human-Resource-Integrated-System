@@ -53,9 +53,9 @@ function Recruitment() {
       // className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
       href=""
       ref={ref}
-      style={{
-        color: "#003049",
-      }}
+      // style={{
+      //   color: "#003049",
+      // }}
       onClick={(e) => {
         e.preventDefault();
         onClick(e);

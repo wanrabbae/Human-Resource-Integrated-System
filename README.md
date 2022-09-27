@@ -1,3 +1,9 @@
+# Human Resource Integrated System (HRIS)
+<p>The Frontend is build with React.JS</p>
+
+<img src="https://cdn.discordapp.com/attachments/1008921423915532368/1022315561985785866/Screenshot_2022-09-21_085542.png" >
+<img src="https://cdn.discordapp.com/attachments/1008921423915532368/1022315561578934322/Screenshot_2022-09-21_085735.png" >
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

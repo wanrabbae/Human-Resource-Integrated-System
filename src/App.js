@@ -45,6 +45,8 @@ import Unit from './Pages/Administrator/Admin/Job/Unit';
 import DetailApplicant from './Pages/Administrator/Recruitment/detail_applicant';
 import AllStages from './Pages/Administrator/Recruitment/all_stages';
 import DetailStage from './Pages/Administrator/Recruitment/detail_stage';
+import RecruitmentSet from './Pages/Administrator/Recruitment/recruitment_setting';
+import RecruitmentCreate from './Pages/Administrator/Recruitment/recruitment_create';
 
 
 function App() {
@@ -84,6 +86,8 @@ function App() {
       </Route>
       <Route path="/recruitment" element={<Template />}>
         <Route path="/recruitment" element={<Recruitment />} />
+        <Route path="/recruitment/create" element={<RecruitmentCreate />} />
+        <Route path="/recruitment/setting" element={<RecruitmentSet />} />
         <Route path="/recruitment/entry-application" element={<EntryApplication />} />
         <Route path="/recruitment/entry-application/detail-applicant" element={<DetailApplicant/>} />
         <Route path="/recruitment/entry-application/all-stages-recruitment" element={<AllStages/>} />

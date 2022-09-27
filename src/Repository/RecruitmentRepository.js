@@ -8,14 +8,45 @@ var AddRecruitment = async (requestBody) => {
   }
 };
 
+var RepostRecruitment = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/repostRecruitment`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 var GetRecruitment = async () => {
   var res = await axios.get(`${endpoint}/getRecruitment`);
   if (res.status == 200) {
     return res.data;
   }
 };
+
+const searchData = async (keyword) => {
+  var res = await axios.get(
+    `https://hris.afkaaruna.sch.id/getRecruitment?keyword=${keyword}`
+  );
+  if (res.status == 200) {
+    return res.data.result;
+  }
+};
+
 var GetApplicant = async () => {
   var res = await axios.get(`${endpoint}/getApplicant`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var FilterApplicant = async (data) => {
+  var res = await axios.post(`${endpoint}/getApplicantFilter`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var searchApplicant = async (keyword) => {
+  var res = await axios.get(`${endpoint}/getApplicant?keyword=${keyword}`);
   if (res.status == 200) {
     return res.data;
   }
@@ -30,6 +61,13 @@ var GetStage = async (data) => {
   }
   if (res.status == 200) {
     return res.data["result"];
+  }
+};
+
+var FilterStage = async (data) => {
+  var res = await axios.post(`${endpoint}/getStageFilter`, data);
+  if (res.status == 200) {
+    return res.data;
   }
 };
 
@@ -57,10 +95,15 @@ var UpdateApplicant = async (requestBody) => {
 
 export {
   AddRecruitment,
+  RepostRecruitment,
   GetRecruitment,
   GetApplicant,
+  FilterApplicant,
   GetStage,
   AddStage,
   updateStatusStage,
   UpdateApplicant,
+  searchData,
+  searchApplicant,
+  FilterStage,
 };

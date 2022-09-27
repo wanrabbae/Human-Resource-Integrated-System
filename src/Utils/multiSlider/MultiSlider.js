@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import "./multiRangeSlider.css";
+import "./multiSlider.css";
 
-const MultiRangeSlider = ({ min, max, onChange }) => {
+const MultiSlider = ({ min, max, onChange }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(null);
@@ -48,6 +48,12 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
 
   return (
     <div className="w-full py-4">
+      <div className="slider">
+        <div className="slider__track" />
+        <div ref={range} className="slider__range w-full" />
+        <div className="slider__left-value">{minVal}</div>
+        <div className="slider__right-value">{maxVal}</div>
+      </div>
       <input
         type="range"
         min={min}
@@ -63,8 +69,8 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
           "thumb--zindex-5": minVal > max - 100
         })}
         style={{
-          width: '290px',
-          backgroundColor: '#780000',
+          width: '96%',
+          backgroundColor: '#C1121F'
         }}
       />
       <input
@@ -78,27 +84,21 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
           setMaxVal(value);
           event.target.value = value.toString();
         }}
-        className="thumb bg-[#780000] thumb--zindex-4"
+        className="thumb w-full thumb--zindex-4"
         style={{
-          width: '290px',
-          backgroundColor: '#780000',
+          width: '96%',
+          backgroundColor: '#C1121F'
         }}
       />
 
-      <div className="slider">
-        <div className="slider__track" />
-        <div ref={range} className="slider__range w-full" />
-        <div className="slider__left-value">{minVal}</div>
-        <div className="slider__right-value">{maxVal}</div>
-      </div>
     </div>
   );
 };
 
-MultiRangeSlider.propTypes = {
+MultiSlider.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
-export default MultiRangeSlider;
+export default MultiSlider;

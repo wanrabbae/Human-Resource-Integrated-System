@@ -30,7 +30,11 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { GetApplicant, UpdateApplicant } from "../../../Repository/RecruitmentRepository";
+import {
+  FilterApplicant,
+  GetApplicant, UpdateApplicant,
+  searchApplicant,
+} from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
 import { SwalSuccess } from "../../../Components/Modals";
@@ -41,6 +45,12 @@ function EntryApplication() {
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
   const [applicant, setApplicant] = useState([]);
+  const [applicantFilter, setApplicantFilter] = useState({});
+  const [sourceFilter, setSourceFilter] = useState([]);
+  const [positionFilter, setPositionFilter] = useState([]);
+  const [studiFilter, setStudiFilter] = useState([]);
+  const [genderFilter, setGenderFilter] = useState([]);
+
   const [detail, setDetail] = useState();
   const inAwait = async () => {
     var rec = await GetApplicant();
@@ -49,6 +59,16 @@ function EntryApplication() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const searching = async (keyword) => {
+    if (keyword !== null || (keyword !== undefined) !== "") {
+      const data = await searchApplicant(keyword);
+      setApplicant(data);
+    } else {
+      inAwait();
+    }
+  };
+
   return (
     <>
       <div className="bg-light p-4" style={{ borderRadius: "10px" }}>
@@ -88,7 +108,10 @@ function EntryApplication() {
                 fontWeight: "500",
               }}
               className="ms-3 btn d-flex align-items-center"
-              onClick={() => setfilter(true)}
+              onClick={() => {
+                setfilter(true);
+                inAwait();
+              }}
             >
               <svg
                 className="me-2"
@@ -171,7 +194,7 @@ function EntryApplication() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => { }}
+                onChange={(val) => searching(val.target.value)}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -224,7 +247,9 @@ function EntryApplication() {
                       <td className="align-middle px-3">
                         <input type="checkbox" />
                       </td>
-                      <td className="align-middle">{val["source"]}</td>
+                      <td className="align-middle">
+                        {val["recruitment"]["position"]}
+                      </td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["name"]}</td>
@@ -423,7 +448,7 @@ function EntryApplication() {
             <div className="row gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
               <div className="col-6" style={{ fontSize: "14px" }}>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  <div style={{ fontWeight: "600" }}>Employee Name </div>
+                  <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
                   <div style={{ fontWeight: "500" }}>
                     : {detail?.name ?? ""}{" "}
                   </div>
@@ -432,10 +457,17 @@ function EntryApplication() {
                     : {detail?.age ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
-                  <div style={{ fontWeight: "500" }}>: IT Staff </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.recruitment.position ?? ""}{" "}
+                  </div>
                   <div style={{ fontWeight: "600" }}>Jurusan </div>
                   <div style={{ fontWeight: "500" }}>
-                    : {detail?.major ?? ""}{" "}
+                    <div className="d-flex" style={{ fontWeight: "500" }}>
+                      :{" "}
+                      {detail?.educations?.length > 1
+                        ? detail?.educations?.pop()?.studi
+                        : detail?.educations[0]?.studi}
+                    </div>
                   </div>
                   {/* <div style={{fontWeight:'600'}}>Email  </div>
                                     <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
@@ -505,7 +537,14 @@ function EntryApplication() {
         }}
         open={filter}
         anchor={"right"}
-        onClose={() => setfilter(false)}
+        onClose={() => {
+          setfilter(false);
+          setApplicantFilter({});
+          sourceFilter = [];
+          positionFilter = [];
+          studiFilter = [];
+          genderFilter = [];
+        }}
       >
         <div className="grid p-4 gap-4">
           <div className="d-flex align-items-center">
@@ -537,7 +576,12 @@ function EntryApplication() {
                 fontWeight: "500",
                 borderRadius: "5px",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {
+                setApplicantFilter({
+                  ...applicantFilter,
+                  experience: val.target.value,
+                });
+              }}
               className="w-full focus:ring-0 focus:ring-offset-0 focus:outline-0"
               type="search"
               placeholder="Search by experience..."
@@ -554,6 +598,12 @@ function EntryApplication() {
               className="border-0 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               id="username"
               type="date"
+              onChange={(val) =>
+                setApplicantFilter({
+                  ...applicantFilter,
+                  date: val.target.value,
+                })
+              }
               placeholder="Username"
             />
           </div>
@@ -576,20 +626,23 @@ function EntryApplication() {
                   scrollbarWidth: "none",
                 }}
               >
-                {[1, 2, 3, 4, 5].map((e, i) => {
+                {applicant.map((val, i) => {
                   return (
                     <li className="items-center align-items-center">
                       <input
                         id="default-checkbox"
                         type="checkbox"
-                        value=""
+                        value={val["source"]}
                         className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        onChange={(e) => {
+                          setSourceFilter([...sourceFilter, e.target.value]);
+                        }}
                       />
                       <label
                         for="default-checkbox"
                         class="ml-2 text-sm text-gray-900"
                       >
-                        I agree with the.
+                        {val["source"]}
                       </label>
                     </li>
                   );
@@ -616,20 +669,26 @@ function EntryApplication() {
                   scrollbarWidth: "none",
                 }}
               >
-                {[1, 2, 3, 4, 5].map((e, i) => {
+                {applicant.map((val, i) => {
                   return (
                     <li className="items-center align-items-center">
                       <input
                         id="default-checkbox"
                         type="checkbox"
-                        value=""
+                        value={val["recruitment"]["position"]}
                         className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        onChange={(e) => {
+                          setPositionFilter([
+                            ...positionFilter,
+                            e.target.value,
+                          ]);
+                        }}
                       />
                       <label
                         for="default-checkbox"
                         class="ml-2 text-sm text-gray-900"
                       >
-                        I agree with the.
+                        {val["recruitment"]["position"]}
                       </label>
                     </li>
                   );
@@ -659,8 +718,11 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value=""
+                    value="SMA / SMK"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
+                    }}
                   />
                   <label
                     for="default-checkbox"
@@ -673,8 +735,11 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value=""
+                    value="S1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
+                    }}
                   />
                   <label
                     for="default-checkbox"
@@ -687,8 +752,11 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value=""
+                    value="S2"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
+                    }}
                   />
                   <label
                     for="default-checkbox"
@@ -701,8 +769,11 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value=""
+                    value="S3"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => {
+                      setStudiFilter([...studiFilter, e.target.value]);
+                    }}
                   />
                   <label
                     for="default-checkbox"
@@ -736,8 +807,11 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value=""
+                    value="Perempuan"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => {
+                      setGenderFilter([...genderFilter, e.target.value]);
+                    }}
                   />
                   <label
                     for="default-checkbox"
@@ -750,8 +824,11 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value=""
+                    value="Laki - Laki"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => {
+                      setGenderFilter([...genderFilter, e.target.value]);
+                    }}
                   />
                   <label
                     for="default-checkbox"
@@ -768,13 +845,29 @@ function EntryApplication() {
               min={17}
               max={30}
               onChange={({ min, max }) =>
-                console.log(`min = ${min}, max = ${max}`)
+                setApplicantFilter({
+                  ...applicantFilter,
+                  age: `${min}-${max}`,
+                })
               }
             />
           </div>
           <button
             className="btn bg-[#0E5073] text-white"
-            onClick={() => setfilter(false)}
+            onClick={async () => {
+              setfilter(false);
+              const reqBody = {
+                experience: applicantFilter.experience,
+                date: applicantFilter.date,
+                age: applicantFilter.age,
+                source: sourceFilter,
+                position: positionFilter,
+                gender: genderFilter,
+                studi: studiFilter,
+              };
+              const res = await FilterApplicant(reqBody);
+              setApplicant(res.result);
+            }}
           >
             Apply Filter
           </button>

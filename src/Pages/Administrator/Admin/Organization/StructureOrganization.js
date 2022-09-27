@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 
 function StructureOrganization() {
-  const [isSelected, setSelected] = useState(true);
+  const [isSelected, setSelected] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   return (
     <>
@@ -52,137 +52,153 @@ function StructureOrganization() {
               <li className="">
                 <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
                   <span>CEO</span>
-                  <div className="flex space-x-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                      //   onClick={() => setModalAdd(true)}
-                    >
-                      <DeleteOutlineOutlined
-                        className="text-[#003049] h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    </button>
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                      //   onClick={() => setModalAdd(true)}
-                    >
-                      <CreateOutlined
-                        className="text-[#003049] h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    </button>
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                      onClick={() => setModalAdd(true)}
-                    >
-                      <AddIcon
-                        className="text-[#003049] h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    </button>
-                  </div>
+                  {isSelected ? (
+                    <div className="flex space-x-3">
+                      <button
+                        className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                        //   onClick={() => setModalAdd(true)}
+                      >
+                        <DeleteOutlineOutlined
+                          className="text-[#003049] h-5 w-5"
+                          aria-hidden="true"
+                        />
+                      </button>
+                      <button
+                        className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                        //   onClick={() => setModalAdd(true)}
+                      >
+                        <CreateOutlined
+                          className="text-[#003049] h-5 w-5"
+                          aria-hidden="true"
+                        />
+                      </button>
+                      <button
+                        className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                        onClick={() => setModalAdd(true)}
+                      >
+                        <AddIcon
+                          className="text-[#003049] h-5 w-5"
+                          aria-hidden="true"
+                        />
+                      </button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </p>
                 <ul className="ml-10">
                   <li className="">
                     <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
                       <span>ADM dan F/T/A</span>
-                      <div className="flex space-x-3">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                          //   onClick={() => setModalAdd(true)}
-                        >
-                          <DeleteOutlineOutlined
-                            className="text-[#003049] h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                          //   onClick={() => setModalAdd(true)}
-                        >
-                          <CreateOutlined
-                            className="text-[#003049] h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                          onClick={() => setModalAdd(true)}
-                        >
-                          <AddIcon
-                            className="text-[#003049] h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
+                      {isSelected ? (
+                        <div className="flex space-x-3">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                            //   onClick={() => setModalAdd(true)}
+                          >
+                            <DeleteOutlineOutlined
+                              className="text-[#003049] h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                            //   onClick={() => setModalAdd(true)}
+                          >
+                            <CreateOutlined
+                              className="text-[#003049] h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                            onClick={() => setModalAdd(true)}
+                          >
+                            <AddIcon
+                              className="text-[#003049] h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </p>
                     <ul className="ml-10">
                       <li className="">
                         <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
                           <span>HR/GA</span>
-                          <div className="flex space-x-3">
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                              //   onClick={() => setModalAdd(true)}
-                            >
-                              <DeleteOutlineOutlined
-                                className="text-[#003049] h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                              //   onClick={() => setModalAdd(true)}
-                            >
-                              <CreateOutlined
-                                className="text-[#003049] h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                              onClick={() => setModalAdd(true)}
-                            >
-                              <AddIcon
-                                className="text-[#003049] h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </div>
+                          {isSelected ? (
+                            <div className="flex space-x-3">
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                                //   onClick={() => setModalAdd(true)}
+                              >
+                                <DeleteOutlineOutlined
+                                  className="text-[#003049] h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                                //   onClick={() => setModalAdd(true)}
+                              >
+                                <CreateOutlined
+                                  className="text-[#003049] h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                                onClick={() => setModalAdd(true)}
+                              >
+                                <AddIcon
+                                  className="text-[#003049] h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </div>
+                          ) : (
+                            ""
+                          )}
                         </p>
                       </li>
                       <li className="">
                         <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
                           <span>F/T/A</span>
-                          <div className="flex space-x-3">
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                              //   onClick={() => setModalAdd(true)}
-                            >
-                              <DeleteOutlineOutlined
-                                className="text-[#003049] h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                              //   onClick={() => setModalAdd(true)}
-                            >
-                              <CreateOutlined
-                                className="text-[#003049] h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                              onClick={() => setModalAdd(true)}
-                            >
-                              <AddIcon
-                                className="text-[#003049] h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </div>
+                          {isSelected ? (
+                            <div className="flex space-x-3">
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                                //   onClick={() => setModalAdd(true)}
+                              >
+                                <DeleteOutlineOutlined
+                                  className="text-[#003049] h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                                //   onClick={() => setModalAdd(true)}
+                              >
+                                <CreateOutlined
+                                  className="text-[#003049] h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                                onClick={() => setModalAdd(true)}
+                              >
+                                <AddIcon
+                                  className="text-[#003049] h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </div>
+                          ) : (
+                            ""
+                          )}
                         </p>
                       </li>
                     </ul>
@@ -190,35 +206,39 @@ function StructureOrganization() {
                   <li className="">
                     <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
                       <span>BBISDEV/ COMMERCE</span>
-                      <div className="flex space-x-3">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                          //   onClick={() => setModalAdd(true)}
-                        >
-                          <DeleteOutlineOutlined
-                            className="text-[#003049] h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                          //   onClick={() => setModalAdd(true)}
-                        >
-                          <CreateOutlined
-                            className="text-[#003049] h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                          onClick={() => setModalAdd(true)}
-                        >
-                          <AddIcon
-                            className="text-[#003049] h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
+                      {isSelected ? (
+                        <div className="flex space-x-3">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                            //   onClick={() => setModalAdd(true)}
+                          >
+                            <DeleteOutlineOutlined
+                              className="text-[#003049] h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                            //   onClick={() => setModalAdd(true)}
+                          >
+                            <CreateOutlined
+                              className="text-[#003049] h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
+                            onClick={() => setModalAdd(true)}
+                          >
+                            <AddIcon
+                              className="text-[#003049] h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </p>
                   </li>
                 </ul>

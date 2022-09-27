@@ -32,12 +32,14 @@ import {
 } from "@mui/icons-material";
 import {
   FilterApplicant,
-  GetApplicant, UpdateApplicant,
+  GetApplicant,
+  UpdateApplicant,
   searchApplicant,
 } from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
 import { SwalSuccess } from "../../../Components/Modals";
+import * as XLSX from "xlsx";
 
 function EntryApplication() {
   const navigate = useNavigate();
@@ -59,6 +61,34 @@ function EntryApplication() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  console.log(applicant);
+
+  const exportExcel = async () => {
+    if (applicant.length > 0) {
+      var wb = XLSX.utils.book_new();
+      var data = [];
+
+      await applicant.map((app) => {
+        data.push({
+          Position: app?.recruitment.position,
+          "Sumber Lowongan": app.source,
+          "Tanggal Melamar": app.date,
+          "Nama Lengkap": app.name,
+          "Nomor Telepon": app.phone,
+        });
+      });
+
+      var ws = XLSX.utils.json_to_sheet(data);
+
+      XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
+
+      XLSX.writeFile(wb, "MyExcel.xlsx");
+      console.log("Exported excel!");
+    } else {
+      alert("Data masih kosong");
+    }
+  };
 
   const searching = async (keyword) => {
     if (keyword !== null || (keyword !== undefined) !== "") {
@@ -140,7 +170,9 @@ function EntryApplication() {
                 fontWeight: "500",
               }}
               className="ms-3 btn d-flex align-items-center"
-              onClick={() => { }}
+              onClick={() => {
+                exportExcel();
+              }}
               type=""
             >
               <Export className="me-2" size={15} weight="bold" />
@@ -219,23 +251,23 @@ function EntryApplication() {
                 <th className="align-middle px-3" width="10px">
                   <input type="checkbox" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Sumber Lowongan <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle pe-5" onClick={() => { }}>
+                <th className="align-middle pe-5" onClick={() => {}}>
                   Action
                 </th>
               </tr>
@@ -249,14 +281,71 @@ function EntryApplication() {
                         <input type="checkbox" />
                       </td>
                       <td className="align-middle">
-                        {val?.recruitment.position ?? " "}
+                        {val.recruitment.position ?? " "}
                       </td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">{val["phone"]}</td>
-                      {
-                        val['status'] == "1" ? (
+                      {val["status"] == "1" ? (
+                        <td className="align-middle gap-2 d-flex">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setDetail(val);
+                              setModal(true);
+                            }}
+                          >
+                            <Eye
+                              color="#003049"
+                              weight="bold"
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              navigate(
+                                "/recruitment/entry-application/detail-stage",
+                                {
+                                  state: val,
+                                }
+                              );
+                            }}
+                          >
+                            <ListChecks
+                              weight="bold"
+                              color="#00AE46"
+                              className="h-5 w-5"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={async () => {
+                              var requestBody = {
+                                id: val["id"],
+                                status: "0",
+                              };
+                              console.log(requestBody);
+                              var data = await UpdateApplicant(requestBody);
+                              if (data["message"] == "success") {
+                                await SwalSuccess({
+                                  message: "Applicant has been rejected",
+                                });
+                                await inAwait();
+                              }
+                            }}
+                          >
+                            <X
+                              weight="bold"
+                              color="#780000"
+                              className="h-5 w-5"
+                            />
+                          </button>
+                        </td>
+                      ) : (
+                        <>
                           <td className="align-middle gap-2 d-flex">
                             <button
                               className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
@@ -275,9 +364,12 @@ function EntryApplication() {
                             <button
                               className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                               onClick={() => {
-                                navigate('/recruitment/entry-application/detail-stage', {
-                                  state: val
-                                })
+                                navigate(
+                                  "/recruitment/entry-application/detail-stage",
+                                  {
+                                    state: val,
+                                  }
+                                );
                               }}
                             >
                               <ListChecks
@@ -286,63 +378,9 @@ function EntryApplication() {
                                 className="h-5 w-5"
                               />
                             </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={async () => {
-                                var requestBody = {
-                                  id: val['id'],
-                                  status: "0",
-                                }
-                                console.log(requestBody);
-                                var data = await UpdateApplicant(requestBody);
-                                if (data['message'] == "success") {
-                                  await SwalSuccess({ message: "Applicant has been rejected" });
-                                  await inAwait();
-                                }
-                              }}
-                            >
-                              <X
-                                weight="bold"
-                                color="#780000"
-                                className="h-5 w-5"
-                              />
-                            </button>
                           </td>
-                        ) : (
-                          <>
-                            <td className="align-middle gap-2 d-flex">
-                              <button
-                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                                onClick={() => {
-                                  setDetail(val);
-                                  setModal(true);
-                                }}
-                              >
-                                <Eye
-                                  color="#003049"
-                                  weight="bold"
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              </button>
-                              <button
-                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                                onClick={() => {
-                                  navigate('/recruitment/entry-application/detail-stage', {
-                                    state: val
-                                  })
-                                }}
-                              >
-                                <ListChecks
-                                  weight="bold"
-                                  color="#00AE46"
-                                  className="h-5 w-5"
-                                />
-                              </button>
-                            </td>
-                          </>
-                        )
-                      }
+                        </>
+                      )}
                     </tr>
                   );
                 })
@@ -419,7 +457,7 @@ function EntryApplication() {
               color: "#FFFFFF",
             }}
             className="px-3"
-            onClick={async () => { }}
+            onClick={async () => {}}
           >
             Add
           </Button>

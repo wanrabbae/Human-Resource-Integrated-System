@@ -34,6 +34,7 @@ import {
   GetStage,
 } from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
+import * as XLSX from "xlsx";
 
 function AllStages() {
   const [isOnProg, setOnProg] = useState(true);
@@ -48,6 +49,33 @@ function AllStages() {
     var rec = await GetStage();
     setStage(rec);
   };
+
+  const exportExcel = async () => {
+    if (stage.length > 0) {
+      var wb = XLSX.utils.book_new();
+      var data = [];
+
+      await stage.map((stg) => {
+        data.push({
+          "Nama Lengkap": stg.applicant.name,
+          Position: stg.applicant.recruitment.position,
+          "Tanggal Melamar": stg.applicant.date,
+          "Nomor Lengkap": stg.applicant.phone,
+          "Recruitment Stage": stg.name,
+        });
+      });
+
+      var ws = XLSX.utils.json_to_sheet(data);
+
+      XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
+
+      XLSX.writeFile(wb, "MyExcel.xlsx");
+      console.log("Exported excel!");
+    } else {
+      alert("Data masih kosong");
+    }
+  };
+
   useEffect(() => {
     inAwait();
   }, []);
@@ -121,7 +149,9 @@ function AllStages() {
                 fontWeight: "500",
               }}
               className="btn d-flex align-items-center"
-              onClick={() => {}}
+              onClick={() => {
+                exportExcel();
+              }}
               type=""
             >
               <Export className="me-2" size={15} weight="bold" />

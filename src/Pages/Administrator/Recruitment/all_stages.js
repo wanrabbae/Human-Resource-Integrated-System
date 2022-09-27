@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   faArrowsUpDown,
@@ -79,6 +79,31 @@ function AllStages() {
   useEffect(() => {
     inAwait();
   }, []);
+  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <button
+      // className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
+      style={{
+        borderRadius: "10px",
+        backgroundColor: "#0E5073",
+        color: "white",
+        fontSize: "14px",
+        fontWeight: "500",
+      }}
+      className="btn py-2.5 d-flex align-items-center"
+      ref={ref}
+      // style={{
+      //   color: "#003049",
+      // }}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      <Export className="me-2" size={15} weight="bold" />
+      Export
+      {children}
+    </button>
+  ));
   return (
     <>
       <div className="bg-light p-4" style={{ borderRadius: "10px" }}>
@@ -140,23 +165,64 @@ function AllStages() {
               </svg>
               <p>Filter</p>
             </button>
-            <button
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "#0E5073",
-                color: "white",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="btn d-flex align-items-center"
-              onClick={() => {
-                exportExcel();
-              }}
-              type=""
-            >
-              <Export className="me-2" size={15} weight="bold" />
-              Export
-            </button>
+            <Dropdown
+                  >
+                    <Dropdown.Toggle as={CustomToggle} />
+
+                    <Dropdown.Menu className="p-3 rounded-xl" size="md">
+                      <p style={{fontWeight:'600',color:'#5C5C5C'}}>
+                        Range Export 
+                      </p>
+                      <div className="d-flex my-3 align-items-center">
+                        <input
+                          style={{
+                            borderRadius: "5px",
+                            backgroundColor: "#F5F8FA",
+                            color: "#7E8299",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            // width: "30%",
+                          }}
+                          className="me-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                          id="username"
+                          type="date"
+                        />
+                        -
+                        <input
+                          style={{
+                            borderRadius: "5px",
+                            backgroundColor: "#F5F8FA",
+                            color: "#7E8299",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            // width: "30%",
+                          }}
+                          className="ms-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                          id="username"
+                          type="date"
+                        />
+                      </div>
+                      <div className="d-flex justify-content-end">
+                        <button
+                          style={{
+                            borderRadius: "5px",
+                            backgroundColor: "#0E5073",
+                            color: "white",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                          }}
+                          className="btn"
+                          onClick={() => {
+                            exportExcel();
+                          }}
+                          type=""
+                        >
+                          {/* <Export className="me-2" size={15} weight="bold" /> */}
+                          Export
+                        </button>
+                      </div>
+                    </Dropdown.Menu>
+                  </Dropdown>
           </div>
           <div className="d-flex">
             <div

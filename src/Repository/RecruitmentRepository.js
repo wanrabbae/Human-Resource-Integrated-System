@@ -22,6 +22,13 @@ var GetRecruitment = async () => {
   }
 };
 
+var DeleteRecruitment = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteRecruitment?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 const searchData = async (keyword) => {
   var res = await axios.get(
     `https://hris.afkaaruna.sch.id/getRecruitment?keyword=${keyword}`
@@ -95,6 +102,7 @@ var UpdateApplicant = async (requestBody) => {
 
 export {
   AddRecruitment,
+  DeleteRecruitment,
   RepostRecruitment,
   GetRecruitment,
   GetApplicant,

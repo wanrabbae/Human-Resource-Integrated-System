@@ -62,8 +62,6 @@ function EntryApplication() {
     inAwait();
   }, []);
 
-  console.log(applicant);
-
   const exportExcel = async () => {
     if (applicant.length > 0) {
       var wb = XLSX.utils.book_new();
@@ -93,7 +91,6 @@ function EntryApplication() {
   const searching = async (keyword) => {
     if (keyword !== null || (keyword !== undefined) !== "") {
       const data = await searchApplicant(keyword);
-      console.log(data);
       setApplicant(data);
     } else {
       inAwait();
@@ -665,27 +662,29 @@ function EntryApplication() {
                   scrollbarWidth: "none",
                 }}
               >
-                {applicant.map((val, i) => {
-                  return (
-                    <li className="items-center align-items-center">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        value={val["source"]}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        onChange={(e) => {
-                          setSourceFilter([...sourceFilter, e.target.value]);
-                        }}
-                      />
-                      <label
-                        for="default-checkbox"
-                        class="ml-2 text-sm text-gray-900"
-                      >
-                        {val["source"]}
-                      </label>
-                    </li>
-                  );
-                })}
+                {applicant
+                  .filter((app) => app.source === app.source)
+                  .map((val, i) => {
+                    return (
+                      <li className="items-center align-items-center">
+                        <input
+                          id="default-checkbox"
+                          type="checkbox"
+                          value={val["source"]}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          onChange={(e) => {
+                            setSourceFilter([...sourceFilter, e.target.value]);
+                          }}
+                        />
+                        <label
+                          for="default-checkbox"
+                          class="ml-2 text-sm text-gray-900"
+                        >
+                          {val["source"]}
+                        </label>
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           </div>

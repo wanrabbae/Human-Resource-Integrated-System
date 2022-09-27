@@ -10,6 +10,7 @@ import {
 import { Button, Dropdown, Modal, Table } from "react-bootstrap";
 import {
   AddRecruitment,
+  DeleteRecruitment,
   GetRecruitment,
   RepostRecruitment,
   searchData,
@@ -22,12 +23,13 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
-import { SwalSuccess } from "../../../Components/Modals";
+import { SwalSuccess, ModalDelete } from "../../../Components/Modals";
 // import { Dropdown } from "flowbite-react";
 
 function Recruitment() {
   const [modalRepost, setModalRepost] = useState(false);
   const [drp, setDrp] = useState(true);
+  const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [recruit, setRecruit] = useState([]);
   const editorRef = useRef(null);
@@ -43,6 +45,11 @@ function Recruitment() {
     } else {
       inAwait();
     }
+  };
+
+  const deleteRec = async (id) => {
+    const deletes = await DeleteRecruitment(id);
+    inAwait();
   };
 
   useEffect(() => {
@@ -225,7 +232,13 @@ function Recruitment() {
                       <Dropdown.Item href="#/action-1" className="text-sm">
                         Edit
                       </Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" className="text-sm">
+                      <Dropdown.Item
+                        onClick={() => {
+                          setDelete(true);
+                          setId(val.id);
+                        }}
+                        className="text-sm"
+                      >
                         Delete
                       </Dropdown.Item>
                       <Dropdown.Divider />
@@ -365,6 +378,21 @@ function Recruitment() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+          setId("");
+        }}
+        submit={() => {
+          deleteRec(id);
+          inAwait();
+          setDelete(false);
+          setId("");
+          SwalSuccess({ message: "Success delete recruitment" });
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

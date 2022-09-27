@@ -115,6 +115,45 @@ function EmployeeList() {
               </tr>
             </thead>
             <tbody>
+              {employees.map((employee) => (
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.id}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.firstName}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.lastName}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.jobtitle_id}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.employeestatus_id}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {employee.otherId}
+                  </td>
+                  <td className="py-4 px-6">
+                    <div className="flex flex-row justify-end gap-3">
+                      <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                        <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                      </button>
+                      <a
+                        href="/admin/profile"
+                        className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      >
+                        <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+
+            {/* ========= DATA DUMMY ========= */}
+            {/* <tbody>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   010114-0001
@@ -474,43 +513,7 @@ function EmployeeList() {
                 </td>
               </tr>
             </tbody>
-            {/* <tbody>
-              {employees.map((employee) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.id}
-                  </td>
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.firstName}
-                  </td>
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.lastName}
-                  </td>
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.jobtitle_id}
-                  </td>
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.employeestatus_id}
-                  </td>
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.otherId}
-                  </td>
-                  <td className="py-4 px-6">
-                    <div className="flex flex-row justify-end gap-3">
-                      <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
-                        <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                      </button>
-                      <a
-                        href="/admin/profile"
-                        className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      >
-                        <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody> */}
+             */}
           </table>
         </div>
       </div>

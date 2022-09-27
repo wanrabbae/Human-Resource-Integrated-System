@@ -17,7 +17,13 @@ import {
   ListChecks,
   X,
 } from "phosphor-react";
-import { Dropdown, Modal, Button, DropdownButton, Badge } from "react-bootstrap";
+import {
+  Dropdown,
+  Modal,
+  Button,
+  DropdownButton,
+  Badge,
+} from "react-bootstrap";
 import {
   Add,
   AlignVerticalCenter,
@@ -31,12 +37,19 @@ import {
   Search,
   VaccinesOutlined,
 } from "@mui/icons-material";
-import { AddStage, GetApplicant, GetStage, updateStatusStage } from "../../../Repository/RecruitmentRepository";
+import {
+  AddStage,
+  GetApplicant,
+  GetStage,
+  UpdateApplicant,
+  updateStatusStage,
+} from "../../../Repository/RecruitmentRepository";
 import { SwalSuccess } from "../../../Components/Modals";
 import { Drawer } from "@mui/material";
 
 function DetailStage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOnProg, setOnProg] = useState(true);
   const [modal, setModal] = useState(false);
   const [stagemodal, setstageModal] = useState(false);
@@ -45,7 +58,6 @@ function DetailStage() {
   const inAwait = async () => {
     var rec = await GetStage(location.state.id);
     setStage(rec);
-    console.log(rec);
   };
   useEffect(() => {
     inAwait();
@@ -61,7 +73,7 @@ function DetailStage() {
             <span
               style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
             >
-              List of  stage for employee recruitment
+              List of stage for employee recruitment
             </span>
           </div>
           {location.state.status == "1" ? <button style={{ borderRadius: '10px', color: "white", fontSize: "14px", fontWeight: '500' }} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setstageModal(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button> : <></>}
@@ -105,12 +117,38 @@ function DetailStage() {
                 stage.map((val, i) => {
                   return (
                     <tr style={{ fontSize: "14px" }} key={i}>
-                      <td className="align-middle">{val['name']}</td>
-                      <td className="align-middle">{val["applicant"]['recruitment_id']['position']}</td>
-                      <td className="align-middle">{val['applicant']["date"]}</td>
-                      <td className="align-middle">{val['applicant']["phone"]}</td>
+                      <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">
-                        <button onClick={() => { }} className={`text-light btn btn-sm btn-${val['status'] == "Success" ? "success" : val['status'] == "Failed" ? "danger" : "warning"} py-2.5`} style={{ fontSize: '15px' }}>{val['status']}</button>
+                        {val["applicant"]["recruitment_id"]["position"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["applicant"]["date"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["applicant"]["phone"]}
+                      </td>
+                      <td className="align-middle">
+                        <span
+                          className="p-2.5"
+                          style={{
+                            fontSize: "15px",
+                            borderRadius: "10px",
+                            backgroundColor:
+                              val["status"] == "Success"
+                                ? "#CAFFDF"
+                                : val["status"] == "Failed"
+                                  ? "#FFE0E0"
+                                  : "#FFF0CA",
+                            color:
+                              val["status"] == "Success"
+                                ? "#028F3B"
+                                : val["status"] == "Failed"
+                                  ? "#C1121F"
+                                  : "#8F5702",
+                          }}
+                        >
+                          {val["status"]}
+                        </span>{" "}
                       </td>
                       <td className="align-middle gap-2 d-flex">
                         <Dropdown>
@@ -118,28 +156,42 @@ function DetailStage() {
                             Action
                           </Dropdown.Toggle>
                           <Dropdown.Menu>
-                            <Dropdown.Item href="#" onClick={async () => {
-                              var requestBody = {
-                                id: val.id,
-                                status: "2",
-                              }
-                              var data = await updateStatusStage(requestBody);
-                              if (data == "success") {
-                                await SwalSuccess({ message: "Success update status" });
-                                await inAwait();
-                              }
-                            }}>Success</Dropdown.Item>
-                            <Dropdown.Item href="#" onClick={async () => {
-                              var requestBody = {
-                                id: val.id,
-                                status: "0",
-                              }
-                              var data = await updateStatusStage(requestBody);
-                              if (data == "success") {
-                                await SwalSuccess({ message: "Success update status" });
-                                await inAwait();
-                              }
-                            }}>Failed</Dropdown.Item>
+                            <Dropdown.Item
+                              href="#"
+                              onClick={async () => {
+                                var requestBody = {
+                                  id: val.id,
+                                  status: "2",
+                                };
+                                var data = await updateStatusStage(requestBody);
+                                if (data == "success") {
+                                  await SwalSuccess({
+                                    message: "Success update status",
+                                  });
+                                  await inAwait();
+                                }
+                              }}
+                            >
+                              Success
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              href="#"
+                              onClick={async () => {
+                                var requestBody = {
+                                  id: val.id,
+                                  status: "0",
+                                };
+                                var data = await updateStatusStage(requestBody);
+                                if (data == "success") {
+                                  await SwalSuccess({
+                                    message: "Success update status",
+                                  });
+                                  await inAwait();
+                                }
+                              }}
+                            >
+                              Failed
+                            </Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                       </td>
@@ -168,7 +220,20 @@ function DetailStage() {
                   fontWeight: "500",
                 }}
                 className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-                onClick={() => { }}
+                onClick={async () => {
+                  var requestBody = {
+                    id: location.state.id,
+                    status: "2",
+                  }
+
+                  console.log(requestBody);
+                  var data = await UpdateApplicant(requestBody);
+                  if (data['message'] == "success") {
+                    await SwalSuccess({ message: "Applicant has been accepted" });
+                    await inAwait();
+                    navigate(-1);
+                  }
+                }}
                 type=""
               >
                 Accept
@@ -182,7 +247,18 @@ function DetailStage() {
                   fontWeight: "500",
                 }}
                 className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-                onClick={() => { }}
+                onClick={async () => {
+                  var requestBody = {
+                    id: location.state.id,
+                    status: "0",
+                  }
+                  console.log(requestBody);
+                  var data = await UpdateApplicant(requestBody);
+                  if (data['message'] == "success") {
+                    await SwalSuccess({ message: "Applicant has been rejected" });
+                    navigate(-1);
+                  }
+                }}
                 type=""
               >
                 Reject
@@ -205,25 +281,41 @@ function DetailStage() {
         </Modal.Header>
         <Modal.Body className="m-4">
           <div className="">
-            <div className='mb-4'>
-              <label className="block text-gray-700 text-sm mb-2" for="username">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
                 Stage Name <span style={{ color: "#780000" }}>*</span>
               </label>
-              <input className="appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="name" type="text" placeholder="Stage Name" />
+              <input
+                className="appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="name"
+                type="text"
+                placeholder="Stage Name"
+              />
             </div>
             <div className="">
-              <label className="block text-gray-700 text-sm mb-2" for="username">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
                 Note
               </label>
-              <textarea id="note" rows="4" placeholder="Note here" className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"></textarea>
+              <textarea
+                id="note"
+                rows="4"
+                placeholder="Note here"
+                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              ></textarea>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
           <Button
             style={{
-              border: 'none',
-              fontSize: '14px',
+              border: "none",
+              fontSize: "14px",
               backgroundColor: "#ECECEC",
               color: "#003049",
             }}
@@ -234,8 +326,8 @@ function DetailStage() {
           </Button>
           <Button
             style={{
-              border: 'none',
-              fontSize: '14px',
+              border: "none",
+              fontSize: "14px",
               backgroundColor: "#0E5073",
               color: "#FFFFFF",
             }}

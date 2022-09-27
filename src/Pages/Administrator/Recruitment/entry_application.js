@@ -62,6 +62,7 @@ function EntryApplication() {
   const searching = async (keyword) => {
     if (keyword !== null || (keyword !== undefined) !== "") {
       const data = await searchApplicant(keyword);
+      console.log(data);
       setApplicant(data);
     } else {
       inAwait();
@@ -247,7 +248,7 @@ function EntryApplication() {
                         <input type="checkbox" />
                       </td>
                       <td className="align-middle">
-                        {val["recruitment"]["position"]}
+                        {val?.recruitment.position ?? " "}
                       </td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>

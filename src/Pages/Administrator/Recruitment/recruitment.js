@@ -107,7 +107,9 @@ function Recruitment() {
                 fontSize: "14px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              onChange={(val) => {
+                search(val.target.value);
+              }}
               className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
               type="search"
               placeholder=" Search Requirement"

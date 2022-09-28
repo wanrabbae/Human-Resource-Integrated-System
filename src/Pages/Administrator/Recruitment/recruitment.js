@@ -28,6 +28,7 @@ import { SwalSuccess, ModalDelete } from "../../../Components/Modals";
 
 function Recruitment() {
   const [modalRepost, setModalRepost] = useState(false);
+  const [modalShare, setModalShare] = useState(false);
   const [drp, setDrp] = useState(true);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
@@ -197,32 +198,6 @@ function Recruitment() {
                       {val["publishDate"]}
                     </span>
                   </div>
-                  {/* <button
-                    type="button"
-                    onClick={() => setDrp(false)}
-                    id="dropdownMenuIconButton" dataDropdownToggle="dropdownDots" 
-                    className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
-                  >
-                    <DotsThreeOutline size={20} weight="fill" />
-                  </button> */}
-                  {/* <Dropdown
-                    // label={<DotsThreeOutline size={20} weight="fill" />}
-                    // size="sm"
-                    // className="bg-[#ffffff]"
-                  >
-                    <Dropdown.Item>
-                      Dashboard
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                      Settings
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                      Earnings
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                      Sign out
-                    </Dropdown.Item>
-                  </Dropdown> */}
                   <Dropdown
                     className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
                   >
@@ -251,27 +226,15 @@ function Recruitment() {
                       >
                         Repost
                       </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3" className="text-sm">
+                      <Dropdown.Item href="#/action-3" className="text-sm" 
+                      onClick={() => {
+                        setModalShare(true);
+                        setId(val["id"]);
+                      }}>
                         Share
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  {/* <div  id="dropdownDots"  className="hidden w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" ariaLabelledBy="dropdownMenuIconButton">
-                        <li>
-                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                          <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li>
-                      </ul>
-                      <div class="py-1">
-                        <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Separated link</a>
-                      </div>
-                  </div> */}
                 </div>
               );
             })
@@ -378,7 +341,77 @@ function Recruitment() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <Modal show={modalShare} size="md" onHide={() => setModalRepost(false)}>
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+          Share Vacancy
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div>
+            <label className="block text-gray-700 text-sm mb-2" for="link">
+              Link
+            </label>
+            <input
+              id="link"
+              style={{
+                borderRadius: "10px",
+                border: "1.5px solid #EDEDED",
+                backgroundColor: "transparent",
+                fontSize: "12px",
+                fontWeight: "500",
+              }}
+              onChange={(val) => {}}
+              className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+              type="text"
+              placeholder="Link"
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4"
+          style={{ borderTopColor: "transparent" }}
+        >
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModalShare(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-3"
+            // onClick={async () => {
+            //   const reqBody = {
+            //     publishDate: document.getElementById("publish_date").value,
+            //     expiredDate: document.getElementById("expired_date").value,
+            //     id: id,
+            //   };
 
+            //   const repost = await RepostRecruitment(reqBody);
+            //   inAwait();
+            //   console.log(repost);
+            //   SwalSuccess({ message: "Repost success" });
+            //   setModalRepost(false);
+            // }}
+          >
+            Copy
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <ModalDelete
         close={() => {
           setDelete(false);

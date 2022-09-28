@@ -204,7 +204,7 @@ function Recruitment() {
                     <Dropdown.Toggle as={CustomToggle} />
 
                     <Dropdown.Menu size="sm">
-                      <Dropdown.Item href="#/action-1" className="text-sm">
+                      <Dropdown.Item className="text-sm">
                         Edit
                       </Dropdown.Item>
                       <Dropdown.Item
@@ -226,7 +226,7 @@ function Recruitment() {
                       >
                         Repost
                       </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3" className="text-sm" 
+                      <Dropdown.Item  className="text-sm" 
                       onClick={() => {
                         setModalShare(true);
                         setId(val["id"]);

@@ -204,9 +204,7 @@ function Recruitment() {
                     <Dropdown.Toggle as={CustomToggle} />
 
                     <Dropdown.Menu size="sm">
-                      <Dropdown.Item className="text-sm">
-                        Edit
-                      </Dropdown.Item>
+                      <Dropdown.Item className="text-sm">Edit</Dropdown.Item>
                       <Dropdown.Item
                         onClick={() => {
                           setDelete(true);
@@ -226,11 +224,13 @@ function Recruitment() {
                       >
                         Repost
                       </Dropdown.Item>
-                      <Dropdown.Item  className="text-sm" 
-                      onClick={() => {
-                        setModalShare(true);
-                        setId(val["id"]);
-                      }}>
+                      <Dropdown.Item
+                        className="text-sm"
+                        onClick={() => {
+                          setModalShare(true);
+                          setId(val["id"]);
+                        }}
+                      >
                         Share
                       </Dropdown.Item>
                     </Dropdown.Menu>
@@ -341,13 +341,17 @@ function Recruitment() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Modal show={modalShare} size="md" onHide={() => setModalRepost(false)}>
-        <Modal.Header
-          closeButton
-          className="mx-4 mt-4"
-        >
+      <Modal
+        show={modalShare}
+        size="md"
+        onHide={() => {
+          setModalRepost(false);
+          setId("");
+        }}
+      >
+        <Modal.Header closeButton className="mx-4 mt-4">
           <Modal.Title id="contained-modal-title-vcenter">
-          Share Vacancy
+            Share Vacancy
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="mx-4">
@@ -364,16 +368,16 @@ function Recruitment() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              disabled
+              readOnly
+              value={`https://ethos.afkaaruna.sch.id/karir/detail/${id}`}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Link"
             />
           </div>
         </Modal.Body>
-        <Modal.Footer className="m-4"
-          style={{ borderTopColor: "transparent" }}
-        >
+        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
           <Button
             style={{
               border: "none",
@@ -382,7 +386,10 @@ function Recruitment() {
               color: "#003049",
             }}
             className="px-3"
-            onClick={() => setModalShare(false)}
+            onClick={() => {
+              setModalShare(false);
+              setId("");
+            }}
           >
             Cancel
           </Button>
@@ -394,19 +401,15 @@ function Recruitment() {
               color: "#FFFFFF",
             }}
             className="px-3"
-            // onClick={async () => {
-            //   const reqBody = {
-            //     publishDate: document.getElementById("publish_date").value,
-            //     expiredDate: document.getElementById("expired_date").value,
-            //     id: id,
-            //   };
+            onClick={() => {
+              // CARA COPY TO CLIPBOARD
+              const link = document.getElementById("link");
 
-            //   const repost = await RepostRecruitment(reqBody);
-            //   inAwait();
-            //   console.log(repost);
-            //   SwalSuccess({ message: "Repost success" });
-            //   setModalRepost(false);
-            // }}
+              link.select();
+              link.setSelectionRange(0, 99999);
+
+              navigator.clipboard.writeText(link.value);
+            }}
           >
             Copy
           </Button>

@@ -52,6 +52,13 @@ var FilterApplicant = async (data) => {
   }
 };
 
+var GetApplicantByDate = async (data) => {
+  var res = await axios.post(`${endpoint}/getApplicantByDate`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 var searchApplicant = async (keyword) => {
   var res = await axios.get(`${endpoint}/getApplicant?keyword=${keyword}`);
   if (res.status == 200) {
@@ -114,4 +121,5 @@ export {
   searchData,
   searchApplicant,
   FilterStage,
+  GetApplicantByDate,
 };

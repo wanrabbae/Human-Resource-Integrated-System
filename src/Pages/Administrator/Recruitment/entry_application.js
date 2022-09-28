@@ -35,6 +35,7 @@ import {
   GetApplicant,
   UpdateApplicant,
   searchApplicant,
+  GetApplicantByDate,
 } from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 import MultiRangeSlider from "../../../Utils/multiRangeSlider/MultiRangeSlider";
@@ -126,6 +127,13 @@ function EntryApplication() {
               className="appearance-none border-0 py-2 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               id="username"
               type="date"
+              onClick={() => inAwait()}
+              onChange={async (e) => {
+                const res = await GetApplicantByDate({
+                  date: e.target.value,
+                });
+                setApplicant(res.result);
+              }}
             />
             <button
               style={{
@@ -137,8 +145,8 @@ function EntryApplication() {
               }}
               className="ms-3 btn d-flex align-items-center"
               onClick={() => {
-                setfilter(true);
                 inAwait();
+                setfilter(true);
               }}
             >
               <svg

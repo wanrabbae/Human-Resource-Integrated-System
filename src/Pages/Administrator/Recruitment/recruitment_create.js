@@ -13,6 +13,7 @@ import {
   GetRecruitment,
   searchData,
 } from "../../../Repository/RecruitmentRepository";
+import Select from 'react-select'
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import "froala-editor/css/froala_style.min.css";
@@ -31,6 +32,11 @@ function RecruitmentCreate() {
   const [recruit, setRecruit] = useState([]);
   const [spesificQua, setSpesificQua] = useState({});
   const editorRef = useRef(null);
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
 
   return (
     <>
@@ -471,6 +477,19 @@ function RecruitmentCreate() {
               className="block text-gray-700 text-sm mt-3 mb-2"
               for="username"
             >
+              Priority Option
+            </label>
+            <Select
+            className="basic-multi-select"
+            classNamePrefix="select"
+            isMulti
+            options={options} />
+          </div>
+          {/* <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm mt-3 mb-2"
+              for="username"
+            >
               Minimum Skills that Must be Possessed
             </label>
             <input
@@ -487,7 +506,7 @@ function RecruitmentCreate() {
               type="number"
               placeholder="0"
             />
-          </div>
+          </div> */}
         </Modal.Body>
         <Modal.Footer className="m-4">
           <Button

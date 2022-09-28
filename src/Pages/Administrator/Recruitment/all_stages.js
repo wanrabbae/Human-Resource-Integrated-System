@@ -84,8 +84,8 @@ function AllStages() {
       // className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
       style={{
         borderRadius: "10px",
-        backgroundColor: "#0E5073",
-        color: "white",
+        border: "1px solid #CACACA",
+        color: "#003049",
         fontSize: "14px",
         fontWeight: "500",
       }}
@@ -128,7 +128,7 @@ function AllStages() {
                 color: "#7E8299",
                 fontSize: "14px",
                 fontWeight: "500",
-                width: "50%",
+                width: "30%",
               }}
               className="appearance-none border-0 py-2 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               id="username"
@@ -223,6 +223,22 @@ function AllStages() {
                       </div>
                     </Dropdown.Menu>
                   </Dropdown>
+                  <button
+              style={{
+                borderRadius: "10px",
+                border: "1px solid #CACACA",
+                color: "#5C5C5C",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 btn d-flex align-items-center"
+              onClick={() => {
+                window.location.href =
+                  "/recruitment/entry-application/all-stages-recruitment/archive-applicant";
+              }}
+            >
+              <p>Archive Applicant</p>
+            </button>
           </div>
           <div className="d-flex">
             <div

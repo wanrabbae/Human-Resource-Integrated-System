@@ -217,9 +217,9 @@ function DetailApplicant() {
           </div>
           <div className="w-100 my-2"></div>
           <div className="col-10" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-4">
               <div className="">
-                <div style={{ fontWeight: "600" }}>Berkas Requitment</div>
+                <div style={{ fontWeight: "600" }}>Cv Terbaru</div>
                 {data?.applicantFile ? (
                   <a download href={data?.applicantFile}>
                     <Button
@@ -238,9 +238,9 @@ function DetailApplicant() {
                 )}
               </div>
               <div className="">
-                <div style={{ fontWeight: "600" }}>Surat Pengalaman</div>
-                {data?.experienceFile ? (
-                  <a download href={data?.experienceFile}>
+                <div style={{ fontWeight: "600" }}>KTP</div>
+                {data?.applicantFile ? (
+                  <a download href={data?.applicantFile}>
                     <Button
                       style={{
                         background:
@@ -257,9 +257,47 @@ function DetailApplicant() {
                 )}
               </div>
               <div className="">
-                <div style={{ fontWeight: "600" }}>Portofolio</div>
-                {data?.portfolio ? (
-                  <a download href={data?.portfolio}>
+                <div style={{ fontWeight: "600" }}>Kartu Keluarga</div>
+                {data?.applicantFile ? (
+                  <a download href={data?.applicantFile}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Ijazah Terakhir</div>
+                {data?.applicantFile ? (
+                  <a download href={data?.applicantFile}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Transkrip Nilai</div>
+                {data?.experienceFile ? (
+                  <a download href={data?.experienceFile}>
                     <Button
                       style={{
                         background:
@@ -279,6 +317,25 @@ function DetailApplicant() {
                 <div style={{ fontWeight: "600" }}>Sertifikat Vaksin</div>
                 {data?.vaccince ? (
                   <a download href={data?.vaccince}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Portofolio</div>
+                {data?.portfolio ? (
+                  <a download href={data?.portfolio}>
                     <Button
                       style={{
                         background:

@@ -631,7 +631,7 @@ function EntryApplication() {
               Tanggal Melamar
             </label>
             <input
-              className="border-0 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              className="border-0 appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               id="username"
               type="date"
               onChange={(val) =>
@@ -663,7 +663,14 @@ function EntryApplication() {
                 }}
               >
                 {applicant
-                  .filter((app) => app.source === app.source)
+                  .filter(
+                    (value, index, self) =>
+                      index ===
+                      self.findIndex(
+                        (t) =>
+                          t.source === value.source && t.source === value.source
+                      )
+                  )
                   .map((val, i) => {
                     return (
                       <li className="items-center align-items-center">
@@ -707,30 +714,41 @@ function EntryApplication() {
                   scrollbarWidth: "none",
                 }}
               >
-                {applicant.map((val, i) => {
-                  return (
-                    <li className="items-center align-items-center">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        value={val["recruitment"]["position"]}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        onChange={(e) => {
-                          setPositionFilter([
-                            ...positionFilter,
-                            e.target.value,
-                          ]);
-                        }}
-                      />
-                      <label
-                        for="default-checkbox"
-                        class="ml-2 text-sm text-gray-900"
-                      >
-                        {val["recruitment"]["position"]}
-                      </label>
-                    </li>
-                  );
-                })}
+                {applicant
+                  .filter(
+                    (value, index, self) =>
+                      index ===
+                      self.findIndex(
+                        (t) =>
+                          t.recruitment.position ===
+                            value.recruitment.position &&
+                          t.recruitment.position === value.recruitment.position
+                      )
+                  )
+                  .map((val, i) => {
+                    return (
+                      <li className="items-center align-items-center">
+                        <input
+                          id="default-checkbox"
+                          type="checkbox"
+                          value={val["recruitment"]["position"]}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          onChange={(e) => {
+                            setPositionFilter([
+                              ...positionFilter,
+                              e.target.value,
+                            ]);
+                          }}
+                        />
+                        <label
+                          for="default-checkbox"
+                          class="ml-2 text-sm text-gray-900"
+                        >
+                          {val["recruitment"]["position"]}
+                        </label>
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           </div>

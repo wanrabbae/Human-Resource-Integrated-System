@@ -25,17 +25,28 @@ import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 import MultiSlider from "../../../Utils/multiSlider/MultiSlider";
 import { useNavigate } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
+import { DeleteForever } from "@mui/icons-material";
 
 function RecruitmentCreate() {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [recruit, setRecruit] = useState([]);
+  const [skills, setSkills] = useState([]);
   const [spesificQua, setSpesificQua] = useState({});
   const editorRef = useRef(null);
   const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+    { value: 'SMA', label: 'SMA / SMK Sederajat' },
+    { value: 'S1', label: 'S1' },
+    { value: 'S2', label: 'S2' },
+    { value: 'S3', label: 'S3' },
+  ]
+
+  const optionsPriority = [
+    { value: 'age', label: 'Age' },
+    { value: 'gender', label: 'Gender' },
+    { value: 'education', label: 'Education' },
+    { value: 'experience', label: 'Experience' },
+    { value: 'skill', label: 'Skill' },
   ]
 
   return (
@@ -70,7 +81,7 @@ function RecruitmentCreate() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              onChange={(val) => { }}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Recruitment Title Title"
@@ -90,7 +101,7 @@ function RecruitmentCreate() {
                 fontWeight: "500",
               }}
               rows="3"
-              onChange={(val) => {}}
+              onChange={(val) => { }}
               className="focus:ring-0 focus:ring-offset-0 form-control"
               type="text"
               placeholder="Recruitment description"
@@ -109,7 +120,7 @@ function RecruitmentCreate() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              onChange={(val) => { }}
               className=" focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Position"
@@ -157,7 +168,7 @@ function RecruitmentCreate() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              onChange={(val) => { }}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Placement"
@@ -260,7 +271,7 @@ function RecruitmentCreate() {
                   fontSize: "12px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                 type="date"
                 placeholder="Recruitment description"
@@ -282,7 +293,7 @@ function RecruitmentCreate() {
                   fontSize: "12px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                 type="date"
                 placeholder="Recruitment description"
@@ -326,6 +337,8 @@ function RecruitmentCreate() {
                 expiredDate: document.getElementById("expired_date").value,
                 spesificQualification: spesificQua ?? {},
               };
+
+              console.log(requestBody);
               var res = await AddRecruitment(requestBody);
               // console.log(requestBody);
               SwalSuccess({ message: "Success add recruitment" });
@@ -394,26 +407,11 @@ function RecruitmentCreate() {
             >
               Education
             </label>
-            <select
-              id="type"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-              onChange={(e) =>
-                setSpesificQua({ ...spesificQua, education: e.target.value })
-              }
-            >
-              <option selected disabled className="py-3">
-                Select Job Type
-              </option>
-              <option value="Part Time" className="py-3">
-                Man
-              </option>
-              <option value="Full Time" className="py-3">
-                Woman
-              </option>
-              <option value="Remote" className="py-3">
-                Both of Them
-              </option>
-            </select>
+            <Select
+              className="basic-multi-select"
+              classNamePrefix="select"
+              isMulti
+              options={options} />
           </div>
           <div className="mb-4">
             <label
@@ -430,16 +428,28 @@ function RecruitmentCreate() {
               }
             >
               <option selected disabled className="py-3">
-                Select Job Type
+                Select experience time
               </option>
-              <option value="Part Time" className="py-3">
-                Man
+              <option value="0" className="py-3">
+                No experience yet
               </option>
-              <option value="Full Time" className="py-3">
-                Woman
+              <option value="1" className="py-3">
+                1 years
               </option>
-              <option value="Remote" className="py-3">
-                Both of Them
+              <option value="2" className="py-3">
+                2 years
+              </option>
+              <option value="3" className="py-3">
+                3 years
+              </option>
+              <option value="4" className="py-3">
+                4 years
+              </option>
+              <option value="5" className="py-3">
+                5 years
+              </option>
+              <option value="more" className="py-3">
+                {'> 5 years'}
               </option>
             </select>
           </div>
@@ -450,9 +460,9 @@ function RecruitmentCreate() {
             >
               Skill
             </label>
-            <div className="d-flex ">
+            <div className="d-flex mb-4">
               <input
-                id="placement"
+                id="skills"
                 style={{
                   borderRadius: "5px",
                   border: "1.5px solid #EDEDED",
@@ -460,16 +470,27 @@ function RecruitmentCreate() {
                   fontSize: "12px",
                   fontWeight: "500",
                 }}
-                onChange={(e) =>
-                  setSpesificQua({ ...spesificQua, skill: e.target.value })
-                }
                 className="focus:ring-0 focus:ring-offset-0 me-2 form-control"
                 type="text"
                 placeholder="Skill qualification"
               />
-              <button className="btn bg-[#669BBC]">
+              <button onClick={() => {
+                setSkills(e => [...e, document.getElementById("skills").value])
+              }} className="btn bg-[#669BBC]">
                 <Plus size={15} className="text-white mx-1" weight="bold" />
               </button>
+            </div>
+            <div className="d-flex flex-wrap">
+              {
+                skills.map((e, i) => {
+                  return (
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                      <h1 className="mx-3">{e}</h1>
+                      <button className="btn btn-sm btn-outline-danger"><DeleteForever /></button>
+                    </div>
+                  );
+                })
+              }
             </div>
           </div>
           <div className="mb-4">
@@ -480,10 +501,10 @@ function RecruitmentCreate() {
               Priority Option
             </label>
             <Select
-            className="basic-multi-select"
-            classNamePrefix="select"
-            isMulti
-            options={options} />
+              className="basic-multi-select"
+              classNamePrefix="select"
+              isMulti
+              options={optionsPriority} />
           </div>
           {/* <div className="mb-4">
             <label
@@ -533,6 +554,7 @@ function RecruitmentCreate() {
             }}
             className="px-3"
             onClick={() => {
+              setSpesificQua({ ...spesificQua, education: JSON.stringify(options), priority: JSON.stringify(optionsPriority), skill: JSON.stringify(skills) })
               setModal(false);
             }}
           >

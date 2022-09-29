@@ -44,6 +44,12 @@ var GetApplicant = async () => {
     return res.data;
   }
 };
+var GetApplicantArchive = async () => {
+  var res = await axios.get(`${endpoint}/getApplicantArchive`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 
 var FilterApplicant = async (data) => {
   var res = await axios.post(`${endpoint}/getApplicantFilter`, data);
@@ -58,9 +64,21 @@ var GetApplicantByDate = async (data) => {
     return res.data;
   }
 };
+var GetStageByDate = async (date) => {
+  var res = await axios.get(`${endpoint}/getStage?date=${date}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 
 var searchApplicant = async (keyword) => {
   var res = await axios.get(`${endpoint}/getApplicant?keyword=${keyword}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var searchApplicantArchive = async (keyword) => {
+  var res = await axios.get(`${endpoint}/getApplicantArchive?keyword=${keyword}`);
   if (res.status == 200) {
     return res.data;
   }
@@ -122,4 +140,7 @@ export {
   searchApplicant,
   FilterStage,
   GetApplicantByDate,
+  GetApplicantArchive,
+  searchApplicantArchive,
+  GetStageByDate,
 };

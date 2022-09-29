@@ -82,7 +82,7 @@ function EntryApplication() {
 
       XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
 
-      XLSX.writeFile(wb, "MyExcel.xlsx");
+      XLSX.writeFile(wb, "Entry Application.xlsx");
       console.log("Exported excel!");
     } else {
       alert("Data masih kosong");

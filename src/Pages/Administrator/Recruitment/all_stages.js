@@ -32,6 +32,7 @@ import {
   FilterStage,
   GetApplicant,
   GetStage,
+  GetStageByDate,
 } from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 import * as XLSX from "xlsx";
@@ -69,7 +70,7 @@ function AllStages() {
 
       XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
 
-      XLSX.writeFile(wb, "MyExcel.xlsx");
+      XLSX.writeFile(wb, "All Stage Recruitment.xlsx");
       console.log("Exported excel!");
     } else {
       alert("Data masih kosong");
@@ -133,6 +134,14 @@ function AllStages() {
               className="appearance-none border-0 py-2 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               id="username"
               type="date"
+              onClick={() => inAwait()}
+              onChange={async (e) => {
+                const res = await GetStageByDate({
+                  date: e.target.value,
+                });
+                // console.log(e.target.value);
+                setStage(res.result);
+              }}
             />
             <button
               style={{

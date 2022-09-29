@@ -78,7 +78,9 @@ var searchApplicant = async (keyword) => {
   }
 };
 var searchApplicantArchive = async (keyword) => {
-  var res = await axios.get(`${endpoint}/getApplicantArchive?keyword=${keyword}`);
+  var res = await axios.get(
+    `${endpoint}/getApplicantArchive?keyword=${keyword}`
+  );
   if (res.status == 200) {
     return res.data;
   }
@@ -91,6 +93,15 @@ var GetStage = async (data) => {
   } else {
     res = await axios.get(`${endpoint}/getStage`);
   }
+  if (res.status == 200) {
+    return res.data["result"];
+  }
+};
+
+var GetStageRange = async (startDate, endDate) => {
+  var res = await axios.get(
+    `${endpoint}/getStageRange?startDate=${startDate}&endDate=${endDate}`
+  );
   if (res.status == 200) {
     return res.data["result"];
   }
@@ -133,6 +144,7 @@ export {
   GetApplicant,
   FilterApplicant,
   GetStage,
+  GetStageRange,
   AddStage,
   updateStatusStage,
   UpdateApplicant,

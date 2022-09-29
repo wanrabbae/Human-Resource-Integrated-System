@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Plus,
   Eye,
@@ -26,6 +26,7 @@ import MultiSlider from "../../../Utils/multiSlider/MultiSlider";
 import { useNavigate } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
 import { DeleteForever } from "@mui/icons-material";
+// import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select } from "@mui/material";
 
 function RecruitmentCreate() {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ function RecruitmentCreate() {
   const [recruit, setRecruit] = useState([]);
   const [skills, setSkills] = useState([]);
   const [spesificQua, setSpesificQua] = useState({});
+  const [education, setEducation] = useState([]);
+  const [priority, setPriority] = useState([]);
   const editorRef = useRef(null);
   const options = [
     { value: 'SMA', label: 'SMA / SMK Sederajat' },
@@ -48,7 +51,25 @@ function RecruitmentCreate() {
     { value: 'experience', label: 'Experience' },
     { value: 'skill', label: 'Skill' },
   ]
-
+  const gender = [
+    { value: 'Laki - Laki', label: 'Laki - Laki' },
+    { value: 'Perempuan', label: 'Perempuan' },
+    { value: 'unknown', label: 'Keduanya' },
+  ]
+  const experience = [
+    { value: '0', label: 'No experience yet' },
+    { value: '1', label: '1 Year' },
+    { value: '2', label: '2 Year' },
+    { value: '3', label: '3 Year' },
+    { value: '4', label: '4 Year' },
+    { value: '5', label: '5 Year' },
+    { value: '5', label: '>5 Year' },
+  ]
+  // useEffect(() => {
+  //  priority();
+  //  education();
+  //  gender();
+  // }, );
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -379,7 +400,13 @@ function RecruitmentCreate() {
             >
               Gender
             </label>
-            <select
+            <Select
+              options={gender}
+            // onChange={(e) =>
+            //   setSpesificQua({ ...spesificQua, gender: e.target.value })
+            // }
+            />
+            {/* <select
               id="type"
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               onChange={(e) =>
@@ -396,9 +423,9 @@ function RecruitmentCreate() {
                 Perempuan
               </option>
               <option value="unknown" className="py-3">
-                Tidak keduanya
+                Keduanya
               </option>
-            </select>
+            </select> */}
           </div>
           <div className="mb-4">
             <label
@@ -411,6 +438,13 @@ function RecruitmentCreate() {
               className="basic-multi-select"
               classNamePrefix="select"
               isMulti
+              onChange={(e) => {
+                var data = [];
+                for (var i in e) {
+                  data.push(e[i].value);
+                }
+                setEducation(data);
+              }}
               options={options} />
           </div>
           <div className="mb-4">
@@ -450,6 +484,18 @@ function RecruitmentCreate() {
               </option>
               <option value="more" className="py-3">
                 {'> 5 years'}
+              </option>
+              <option value="3" className="py-3">
+                3 year
+              </option>
+              <option value="4" className="py-3">
+                4 year
+              </option>
+              <option value="5" className="py-3">
+                5 year
+              </option>
+              <option value="5" className="py-3">
+                5 year
               </option>
             </select>
           </div>
@@ -504,7 +550,15 @@ function RecruitmentCreate() {
               className="basic-multi-select"
               classNamePrefix="select"
               isMulti
-              options={optionsPriority} />
+              options={optionsPriority}
+              onChange={(e) => {
+                var data = [];
+                for (var i in e) {
+                  data.push(e[i].value);
+                }
+                setPriority(data);
+              }}
+            />
           </div>
           {/* <div className="mb-4">
             <label
@@ -554,7 +608,8 @@ function RecruitmentCreate() {
             }}
             className="px-3"
             onClick={() => {
-              setSpesificQua({ ...spesificQua, education: JSON.stringify(options), priority: JSON.stringify(optionsPriority), skill: JSON.stringify(skills) })
+              setSpesificQua({ ...spesificQua, education: JSON.stringify(education), priority: JSON.stringify(priority), skill: JSON.stringify(skills) })
+              // console.log(spesificQua);
               setModal(false);
             }}
           >

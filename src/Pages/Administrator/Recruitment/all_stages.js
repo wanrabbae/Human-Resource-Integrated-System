@@ -33,6 +33,7 @@ import {
   GetApplicant,
   GetStage,
   GetStageByDate,
+  GetStageRange,
 } from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 import * as XLSX from "xlsx";
@@ -51,12 +52,13 @@ function AllStages() {
     setStage(rec);
   };
 
-  const exportExcel = async () => {
+  const exportExcel = async (startDate, endDate) => {
     if (stage.length > 0) {
+      var getRangeData = await GetStageRange(startDate, endDate);
       var wb = XLSX.utils.book_new();
       var data = [];
 
-      await stage.map((stg) => {
+      await getRangeData.map((stg) => {
         data.push({
           "Nama Lengkap": stg.applicant.name,
           Position: stg.applicant.recruitment.position,
@@ -174,12 +176,11 @@ function AllStages() {
               </svg>
               <p>Filter</p>
             </button>
-            <Dropdown
-            >
+            <Dropdown>
               <Dropdown.Toggle as={CustomToggle} />
 
               <Dropdown.Menu className="p-3 rounded-xl" size="md">
-                <p style={{ fontWeight: '600', color: '#5C5C5C' }}>
+                <p style={{ fontWeight: "600", color: "#5C5C5C" }}>
                   Range Export
                 </p>
                 <div className="d-flex my-3 align-items-center">
@@ -193,7 +194,7 @@ function AllStages() {
                       // width: "30%",
                     }}
                     className="me-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                    id="username"
+                    id="startDate"
                     type="date"
                   />
                   -
@@ -207,7 +208,7 @@ function AllStages() {
                       // width: "30%",
                     }}
                     className="ms-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                    id="username"
+                    id="endDate"
                     type="date"
                   />
                 </div>
@@ -222,7 +223,10 @@ function AllStages() {
                     }}
                     className="btn"
                     onClick={() => {
-                      exportExcel();
+                      exportExcel(
+                        document.getElementById("startDate")?.value,
+                        document.getElementById("endDate")?.value
+                      );
                     }}
                     type=""
                   >
@@ -280,7 +284,7 @@ function AllStages() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -301,23 +305,23 @@ function AllStages() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Recruitment Stage <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Status <ImportExport fontSize="2px" />
                 </th>
               </tr>
@@ -350,14 +354,14 @@ function AllStages() {
                               val["status"] == "Success"
                                 ? "#CAFFDF"
                                 : val["status"] == "Failed"
-                                  ? "#FFE0E0"
-                                  : "#FFF0CA",
+                                ? "#FFE0E0"
+                                : "#FFF0CA",
                             color:
                               val["status"] == "Success"
                                 ? "#028F3B"
                                 : val["status"] == "Failed"
-                                  ? "#C1121F"
-                                  : "#8F5702",
+                                ? "#C1121F"
+                                : "#8F5702",
                           }}
                         >
                           {val["status"]}

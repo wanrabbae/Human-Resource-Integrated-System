@@ -166,64 +166,64 @@ function AllStages() {
               <p>Filter</p>
             </button>
             <Dropdown
-                  >
-                    <Dropdown.Toggle as={CustomToggle} />
+            >
+              <Dropdown.Toggle as={CustomToggle} />
 
-                    <Dropdown.Menu className="p-3 rounded-xl" size="md">
-                      <p style={{fontWeight:'600',color:'#5C5C5C'}}>
-                        Range Export 
-                      </p>
-                      <div className="d-flex my-3 align-items-center">
-                        <input
-                          style={{
-                            borderRadius: "5px",
-                            backgroundColor: "#F5F8FA",
-                            color: "#7E8299",
-                            fontSize: "14px",
-                            fontWeight: "500",
-                            // width: "30%",
-                          }}
-                          className="me-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                          id="username"
-                          type="date"
-                        />
-                        -
-                        <input
-                          style={{
-                            borderRadius: "5px",
-                            backgroundColor: "#F5F8FA",
-                            color: "#7E8299",
-                            fontSize: "14px",
-                            fontWeight: "500",
-                            // width: "30%",
-                          }}
-                          className="ms-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                          id="username"
-                          type="date"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-end">
-                        <button
-                          style={{
-                            borderRadius: "5px",
-                            backgroundColor: "#0E5073",
-                            color: "white",
-                            fontSize: "14px",
-                            fontWeight: "500",
-                          }}
-                          className="btn"
-                          onClick={() => {
-                            exportExcel();
-                          }}
-                          type=""
-                        >
-                          {/* <Export className="me-2" size={15} weight="bold" /> */}
-                          Export
-                        </button>
-                      </div>
-                    </Dropdown.Menu>
-                  </Dropdown>
+              <Dropdown.Menu className="p-3 rounded-xl" size="md">
+                <p style={{ fontWeight: '600', color: '#5C5C5C' }}>
+                  Range Export
+                </p>
+                <div className="d-flex my-3 align-items-center">
+                  <input
+                    style={{
+                      borderRadius: "5px",
+                      backgroundColor: "#F5F8FA",
+                      color: "#7E8299",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      // width: "30%",
+                    }}
+                    className="me-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                    id="username"
+                    type="date"
+                  />
+                  -
+                  <input
+                    style={{
+                      borderRadius: "5px",
+                      backgroundColor: "#F5F8FA",
+                      color: "#7E8299",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      // width: "30%",
+                    }}
+                    className="ms-2 appearance-none border-0 py-2.5 px-3 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                    id="username"
+                    type="date"
+                  />
+                </div>
+                <div className="d-flex justify-content-end">
                   <button
+                    style={{
+                      borderRadius: "5px",
+                      backgroundColor: "#0E5073",
+                      color: "white",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                    }}
+                    className="btn"
+                    onClick={() => {
+                      exportExcel();
+                    }}
+                    type=""
+                  >
+                    {/* <Export className="me-2" size={15} weight="bold" /> */}
+                    Export
+                  </button>
+                </div>
+              </Dropdown.Menu>
+            </Dropdown>
+            <button
               style={{
                 borderRadius: "10px",
                 border: "1px solid #CACACA",
@@ -271,7 +271,7 @@ function AllStages() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."
@@ -292,23 +292,23 @@ function AllStages() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Recruitment Stage <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Status <ImportExport fontSize="2px" />
                 </th>
               </tr>
@@ -341,14 +341,14 @@ function AllStages() {
                               val["status"] == "Success"
                                 ? "#CAFFDF"
                                 : val["status"] == "Failed"
-                                ? "#FFE0E0"
-                                : "#FFF0CA",
+                                  ? "#FFE0E0"
+                                  : "#FFF0CA",
                             color:
                               val["status"] == "Success"
                                 ? "#028F3B"
                                 : val["status"] == "Failed"
-                                ? "#C1121F"
-                                : "#8F5702",
+                                  ? "#C1121F"
+                                  : "#8F5702",
                           }}
                         >
                           {val["status"]}

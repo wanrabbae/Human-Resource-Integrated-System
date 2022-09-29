@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Plus,
   Eye,
@@ -25,6 +25,7 @@ import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 import MultiSlider from "../../../Utils/multiSlider/MultiSlider";
 import { useNavigate } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
+// import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select } from "@mui/material";
 
 function RecruitmentCreate() {
   const navigate = useNavigate();
@@ -32,12 +33,38 @@ function RecruitmentCreate() {
   const [recruit, setRecruit] = useState([]);
   const [spesificQua, setSpesificQua] = useState({});
   const editorRef = useRef(null);
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+  const education = [
+    { value: 'smk/sma', label: 'SMK/SMA Sederajat' },
+    { value: 'S1', label: 'S1' },
+    { value: 'S2', label: 'S2' },
+    { value: 'S3', label: 'S3' },
   ]
-
+  const priority = [
+    { value: 'age', label: 'Age' },
+    { value: 'gender', label: 'Gender' },
+    { value: 'education', label: 'Education' },
+    { value: 'experience', label: 'Experience' },
+    { value: 'skill', label: 'Skill' },
+  ]
+  const gender = [
+    { value: 'Laki - Laki', label: 'Laki - Laki' },
+    { value: 'Perempuan', label: 'Perempuan' },
+    { value: 'unknown', label: 'Keduanya' },
+  ]
+  const experience = [
+    { value: '0', label: 'No experience yet' },
+    { value: '1', label: '1 Year' },
+    { value: '2', label: '2 Year' },
+    { value: '3', label: '3 Year' },
+    { value: '4', label: '4 Year' },
+    { value: '5', label: '5 Year' },
+    { value: '5', label: '>5 Year' },
+  ]
+  // useEffect(() => {
+  //  priority();
+  //  education();
+  //  gender();
+  // }, );
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -366,7 +393,13 @@ function RecruitmentCreate() {
             >
               Gender
             </label>
-            <select
+            <Select
+            options={gender} 
+            // onChange={(e) =>
+            //   setSpesificQua({ ...spesificQua, gender: e.target.value })
+            // }
+            />
+            {/* <select
               id="type"
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               onChange={(e) =>
@@ -383,9 +416,9 @@ function RecruitmentCreate() {
                 Perempuan
               </option>
               <option value="unknown" className="py-3">
-                Tidak keduanya
+                Keduanya
               </option>
-            </select>
+            </select> */}
           </div>
           <div className="mb-4">
             <label
@@ -394,26 +427,15 @@ function RecruitmentCreate() {
             >
               Education
             </label>
-            <select
-              id="type"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-              onChange={(e) =>
-                setSpesificQua({ ...spesificQua, education: e.target.value })
-              }
-            >
-              <option selected disabled className="py-3">
-                Select Job Type
-              </option>
-              <option value="Part Time" className="py-3">
-                Man
-              </option>
-              <option value="Full Time" className="py-3">
-                Woman
-              </option>
-              <option value="Remote" className="py-3">
-                Both of Them
-              </option>
-            </select>
+            <Select
+            className="basic-multi-select"
+            classNamePrefix="select"
+            isMulti
+            options={education} 
+            // onChange={(e) =>
+            //   setSpesificQua({ ...spesificQua, education: e.target.value })
+            // }
+            />
           </div>
           <div className="mb-4">
             <label
@@ -422,7 +444,15 @@ function RecruitmentCreate() {
             >
               Experience
             </label>
-            <select
+            <Select
+            className="basic-select"
+            classNamePrefix="select"
+            options={experience} 
+            // onChange={(e) =>
+            //   setSpesificQua({ ...spesificQua, experience: e.target.value })
+            // }
+            />
+            {/* <select
               id="type"
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               onChange={(e) =>
@@ -430,18 +460,30 @@ function RecruitmentCreate() {
               }
             >
               <option selected disabled className="py-3">
-                Select Job Type
+                Select Experience
               </option>
-              <option value="Part Time" className="py-3">
-                Man
+              <option value="0" className="py-3">
+              No experience yet
               </option>
-              <option value="Full Time" className="py-3">
-                Woman
+              <option value="1" className="py-3">
+              1 year
               </option>
-              <option value="Remote" className="py-3">
-                Both of Them
+              <option value="2" className="py-3">
+              2 year
               </option>
-            </select>
+              <option value="3" className="py-3">
+              3 year
+              </option>
+              <option value="4" className="py-3">
+              4 year
+              </option>
+              <option value="5" className="py-3">
+              5 year
+              </option>
+              <option value="5" className="py-3">
+              5 year
+              </option>
+            </select> */}
           </div>
           <div className="mb-4">
             <label
@@ -483,7 +525,7 @@ function RecruitmentCreate() {
             className="basic-multi-select"
             classNamePrefix="select"
             isMulti
-            options={options} />
+            options={priority} />
           </div>
           {/* <div className="mb-4">
             <label

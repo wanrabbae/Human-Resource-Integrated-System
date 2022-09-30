@@ -73,11 +73,17 @@ function ArchiveApplicant() {
 
       await applicant.map((app) => {
         data.push({
-          Position: app?.recruitment.position,
-          "Sumber Lowongan": app.source,
-          "Tanggal Melamar": app.date,
-          "Nama Lengkap": app.name,
-          "Nomor Telepon": app.phone,
+          "Rejected Date": app.date,
+          "Full Name": app.name,
+          Position: app.recruitment.position ?? "",
+          "Apply Date":
+            new Date(app.createdAt).getFullYear() +
+            "-" +
+            new Date(app.createdAt).getMonth() +
+            "-" +
+            new Date(app.createdAt).getDate(),
+          "Phone Number": app.phone,
+          "Source of vacancies": app.source,
         });
       });
 
@@ -107,7 +113,7 @@ function ArchiveApplicant() {
         <div className="mb-5 d-flex justify-content-between">
           <div className="row">
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
-            Archive Applicant
+              Archive Applicant
             </h3>
             <span
               style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
@@ -199,13 +205,13 @@ function ArchiveApplicant() {
                   <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
-                  Apply Date  <ImportExport fontSize="2px" />
+                  Apply Date <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
-                Phone Number <ImportExport fontSize="2px" />
+                  Phone Number <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
-                Source of vacancies <ImportExport fontSize="2px" />
+                  Source of vacancies <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle pe-5" onClick={() => {}}>
                   Action
@@ -216,31 +222,37 @@ function ArchiveApplicant() {
               {applicant.length > 0 ? (
                 applicant.map((val) => {
                   return (
-                    <tr style={{ fontSize: "14px" }}>   
+                    <tr style={{ fontSize: "14px" }}>
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">
                         {val.recruitment.position ?? " "}
                       </td>
-                      <td className="align-middle">{new Date(val["createdAt"]).getFullYear()+"-"+new Date(val["createdAt"]).getMonth()+"-"+new Date(val["createdAt"]).getDate()}</td>
+                      <td className="align-middle">
+                        {new Date(val["createdAt"]).getFullYear() +
+                          "-" +
+                          new Date(val["createdAt"]).getMonth() +
+                          "-" +
+                          new Date(val["createdAt"]).getDate()}
+                      </td>
                       <td className="align-middle">{val["phone"]}</td>
                       <td className="align-middle">{val["source"]}</td>
-                        <td className="align-middle gap-2 d-flex">
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => {
-                                setDetail(val);
-                                setModal(true);
-                              }}
-                            >
-                              <Eye
-                                color="#003049"
-                                weight="bold"
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </td>
+                      <td className="align-middle gap-2 d-flex">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setDetail(val);
+                            setModal(true);
+                          }}
+                        >
+                          <Eye
+                            color="#003049"
+                            weight="bold"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </td>
                     </tr>
                   );
                 })
@@ -276,19 +288,28 @@ function ArchiveApplicant() {
             >
               Personal details
             </h1>
-            <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
+            <div
+              className="d-flex gap-x-6 gap-y-5"
+              style={{ fontSize: "14px" }}
+            >
               <div className="col-6" style={{ fontSize: "14px" }}>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.name ?? ""}{" "}</div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.name ?? ""}{" "}
+                  </div>
                   <div style={{ fontWeight: "600" }}>Tanggal Lahir </div>
                   <div style={{ fontWeight: "500" }}>
                     : {detail?.birthDate ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Jenis Kelamin </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.gender ?? ""} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.gender ?? ""}{" "}
+                  </div>
                   <div style={{ fontWeight: "600" }}>Usia </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.age ?? ""} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.age ?? ""}{" "}
+                  </div>
                   {/* <div style={{fontWeight:'600'}}>Email  </div>
                                         <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
                 </div>
@@ -296,36 +317,52 @@ function ArchiveApplicant() {
               <div className="col-6" style={{ fontSize: "14px" }}>
                 <div className="grid grid-cols-2 gap-x-3 gap-y-5">
                   <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.source ?? ""} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.source ?? ""}{" "}
+                  </div>
                   <div style={{ fontWeight: "600" }}>Tanggal Melamar </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.date ?? ""} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.date ?? ""}{" "}
+                  </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
                   <div style={{ fontWeight: "500" }}>
                     : {detail?.recruitment.position ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.phone ?? ""} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.phone ?? ""}{" "}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
+            <div
+              className="d-flex gap-x-6 gap-y-5"
+              style={{ fontSize: "14px" }}
+            >
               <div className="col-6 mt-3" style={{ fontSize: "14px" }}>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   <div style={{ fontWeight: "600" }}>Email </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.email ?? ""} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.email ?? ""}{" "}
+                  </div>
                   <div style={{ fontWeight: "600" }}>Alamat KTP </div>
                   <div style={{ fontWeight: "500" }}>
                     : {detail?.identityAddress ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Alamat Domisili </div>
-                  <div style={{ fontWeight: "500" }}>: {detail?.address ?? ""} </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {detail?.address ?? ""}{" "}
+                  </div>
                   {/* <div style={{fontWeight:'600'}}>Email  </div>
                                         <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
                 </div>
               </div>
             </div>
-            <hr className="my-4" style={{color:'#A8A8A8',height:'2px'}}/>
-            <div className="row mb-4 gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
+            <hr className="my-4" style={{ color: "#A8A8A8", height: "2px" }} />
+            <div
+              className="row mb-4 gap-x-6 gap-y-1"
+              style={{ fontSize: "14px" }}
+            >
               <h1
                 className="mb-2"
                 style={{ color: "#5C5C5C", fontWeight: "600" }}
@@ -335,7 +372,7 @@ function ArchiveApplicant() {
               <div className="col">
                 <div className="grid grid-cols-1 gap-x-4 gap-y-2">
                   {detail?.educations?.map((edu) => (
-                      <div
+                    <div
                       className="py-3"
                       style={{
                         fontWeight: "600",
@@ -354,7 +391,7 @@ function ArchiveApplicant() {
                 </div>
               </div>
             </div>
-            <hr className="my-4" style={{color:'#A8A8A8',height:'2px'}}/>
+            <hr className="my-4" style={{ color: "#A8A8A8", height: "2px" }} />
             <div className="row gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
               <h1
                 className="mb-2"
@@ -381,7 +418,7 @@ function ArchiveApplicant() {
                 </div>
               </div>
             </div>
-            <hr className="my-4" style={{color:'#A8A8A8',height:'2px'}}/>
+            <hr className="my-4" style={{ color: "#A8A8A8", height: "2px" }} />
             <div className="col-10" style={{ fontSize: "14px" }}>
               <div className="grid grid-cols-4 gap-4">
                 <div className="">

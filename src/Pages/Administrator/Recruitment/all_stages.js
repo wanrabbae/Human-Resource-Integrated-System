@@ -34,6 +34,7 @@ import {
   GetStage,
   GetStageByDate,
   GetStageRange,
+  searchStage,
 } from "../../../Repository/RecruitmentRepository";
 import { Drawer } from "@mui/material";
 import * as XLSX from "xlsx";
@@ -79,6 +80,14 @@ function AllStages() {
     }
   };
 
+  const searching = async (keyword) => {
+    if (keyword !== null || (keyword !== undefined) !== "") {
+      const data = await searchStage(keyword);
+      setStage(data);
+    } else {
+      inAwait();
+    }
+  };
   useEffect(() => {
     inAwait();
   }, []);
@@ -284,7 +293,7 @@ function AllStages() {
                   fontSize: "14px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => {}}
+                onChange={(val) => searching(val.target.value)}
                 className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
                 type="search"
                 placeholder="Search..."

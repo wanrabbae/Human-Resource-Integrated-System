@@ -71,6 +71,12 @@ var GetStageByDate = async (date) => {
   }
 };
 
+var searchStage = async (keyword) => {
+  var res = await axios.get(`${endpoint}/getStage?keyword=${keyword}`);
+  if (res.status == 200) {
+    return res.data.result;
+  }
+};
 var searchApplicant = async (keyword) => {
   var res = await axios.get(`${endpoint}/getApplicant?keyword=${keyword}`);
   if (res.status == 200) {
@@ -155,4 +161,5 @@ export {
   GetApplicantArchive,
   searchApplicantArchive,
   GetStageByDate,
+  searchStage
 };

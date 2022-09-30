@@ -13,7 +13,7 @@ import {
   GetRecruitment,
   searchData,
 } from "../../../Repository/RecruitmentRepository";
-import Select from 'react-select'
+import Select from "react-select";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import "froala-editor/css/froala_style.min.css";
@@ -38,33 +38,33 @@ function RecruitmentCreate() {
   const [priority, setPriority] = useState([]);
   const editorRef = useRef(null);
   const options = [
-    { value: 'SMA', label: 'SMA / SMK Sederajat' },
-    { value: 'S1', label: 'S1' },
-    { value: 'S2', label: 'S2' },
-    { value: 'S3', label: 'S3' },
-  ]
+    { value: "SMA", label: "SMA / SMK Sederajat" },
+    { value: "S1", label: "S1" },
+    { value: "S2", label: "S2" },
+    { value: "S3", label: "S3" },
+  ];
 
   const optionsPriority = [
-    { value: 'age', label: 'Age' },
-    { value: 'gender', label: 'Gender' },
-    { value: 'education', label: 'Education' },
-    { value: 'experience', label: 'Experience' },
-    { value: 'skill', label: 'Skill' },
-  ]
+    { value: "age", label: "Age" },
+    { value: "gender", label: "Gender" },
+    { value: "education", label: "Education" },
+    { value: "experience", label: "Experience" },
+    { value: "skill", label: "Skill" },
+  ];
   const gender = [
-    { value: 'Laki - Laki', label: 'Laki - Laki' },
-    { value: 'Perempuan', label: 'Perempuan' },
-    { value: 'unknown', label: 'Keduanya' },
-  ]
+    { value: "Laki - Laki", label: "Laki - Laki" },
+    { value: "Perempuan", label: "Perempuan" },
+    { value: "unknown", label: "Keduanya" },
+  ];
   const experience = [
-    { value: '0', label: 'No experience yet' },
-    { value: '1', label: '1 Year' },
-    { value: '2', label: '2 Year' },
-    { value: '3', label: '3 Year' },
-    { value: '4', label: '4 Year' },
-    { value: '5', label: '5 Year' },
-    { value: '5', label: '>5 Year' },
-  ]
+    { value: "0", label: "No experience yet" },
+    { value: "1", label: "1 Year" },
+    { value: "2", label: "2 Year" },
+    { value: "3", label: "3 Year" },
+    { value: "4", label: "4 Year" },
+    { value: "5", label: "5 Year" },
+    { value: "5", label: ">5 Year" },
+  ];
   // useEffect(() => {
   //  priority();
   //  education();
@@ -102,7 +102,7 @@ function RecruitmentCreate() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Recruitment Title Title"
@@ -122,7 +122,7 @@ function RecruitmentCreate() {
                 fontWeight: "500",
               }}
               rows="3"
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className="focus:ring-0 focus:ring-offset-0 form-control"
               type="text"
               placeholder="Recruitment description"
@@ -141,7 +141,7 @@ function RecruitmentCreate() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className=" focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Position"
@@ -189,7 +189,7 @@ function RecruitmentCreate() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Placement"
@@ -292,7 +292,7 @@ function RecruitmentCreate() {
                   fontSize: "12px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                 type="date"
                 placeholder="Recruitment description"
@@ -314,7 +314,7 @@ function RecruitmentCreate() {
                   fontSize: "12px",
                   fontWeight: "500",
                 }}
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                 type="date"
                 placeholder="Recruitment description"
@@ -400,13 +400,14 @@ function RecruitmentCreate() {
             >
               Gender
             </label>
-            <Select
+            {/* <Select
+              value={spesificQua.gender}
               options={gender}
-            // onChange={(e) =>
-            //   setSpesificQua({ ...spesificQua, gender: e.target.value })
-            // }
-            />
-            {/* <select
+              onChange={(e) =>
+                setSpesificQua({ ...spesificQua, gender: e.target.value })
+              }
+            /> */}
+            <select
               id="type"
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               onChange={(e) =>
@@ -425,7 +426,7 @@ function RecruitmentCreate() {
               <option value="unknown" className="py-3">
                 Keduanya
               </option>
-            </select> */}
+            </select>
           </div>
           <div className="mb-4">
             <label
@@ -445,7 +446,8 @@ function RecruitmentCreate() {
                 }
                 setEducation(data);
               }}
-              options={options} />
+              options={options}
+            />
           </div>
           <div className="mb-4">
             <label
@@ -483,7 +485,7 @@ function RecruitmentCreate() {
                 5 years
               </option>
               <option value="more" className="py-3">
-                {'> 5 years'}
+                {"> 5 years"}
               </option>
               <option value="3" className="py-3">
                 3 year
@@ -520,23 +522,29 @@ function RecruitmentCreate() {
                 type="text"
                 placeholder="Skill qualification"
               />
-              <button onClick={() => {
-                setSkills(e => [...e, document.getElementById("skills").value])
-              }} className="btn bg-[#669BBC]">
+              <button
+                onClick={() => {
+                  setSkills((e) => [
+                    ...e,
+                    document.getElementById("skills").value,
+                  ]);
+                }}
+                className="btn bg-[#669BBC]"
+              >
                 <Plus size={15} className="text-white mx-1" weight="bold" />
               </button>
             </div>
             <div className="d-flex flex-wrap">
-              {
-                skills.map((e, i) => {
-                  return (
-                    <div className="d-flex justify-content-between align-items-center mb-4">
-                      <h1 className="mx-3">{e}</h1>
-                      <button className="btn btn-sm btn-outline-danger"><DeleteForever /></button>
-                    </div>
-                  );
-                })
-              }
+              {skills.map((e, i) => {
+                return (
+                  <div className="d-flex justify-content-between align-items-center mb-4">
+                    <h1 className="mx-3">{e}</h1>
+                    <button className="btn btn-sm btn-outline-danger">
+                      <DeleteForever />
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="mb-4">
@@ -608,7 +616,12 @@ function RecruitmentCreate() {
             }}
             className="px-3"
             onClick={() => {
-              setSpesificQua({ ...spesificQua, education: JSON.stringify(education), priority: JSON.stringify(priority), skill: JSON.stringify(skills) })
+              setSpesificQua({
+                ...spesificQua,
+                education: JSON.stringify(education),
+                priority: JSON.stringify(priority),
+                skill: JSON.stringify(skills),
+              });
               // console.log(spesificQua);
               setModal(false);
             }}

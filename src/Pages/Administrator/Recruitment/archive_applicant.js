@@ -521,7 +521,7 @@ function ArchiveApplicant() {
             </div>
           </div>
         </Modal.Body>
-        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
+        {/* <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
           <button
             style={{
               backgroundColor: "#0E5073",
@@ -544,7 +544,7 @@ function ArchiveApplicant() {
               color="white"
             />
           </button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </>
   );

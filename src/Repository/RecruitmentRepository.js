@@ -7,6 +7,12 @@ var AddRecruitment = async (requestBody) => {
     return res.data;
   }
 };
+var EditRecruitment = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateRecruitment`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 
 var RepostRecruitment = async (requestBody) => {
   var res = await axios.post(`${endpoint}/repostRecruitment`, requestBody);
@@ -161,5 +167,6 @@ export {
   GetApplicantArchive,
   searchApplicantArchive,
   GetStageByDate,
-  searchStage
+  searchStage,
+  EditRecruitment
 };

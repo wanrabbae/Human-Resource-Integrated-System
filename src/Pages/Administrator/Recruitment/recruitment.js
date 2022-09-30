@@ -204,7 +204,14 @@ function Recruitment() {
                     <Dropdown.Toggle as={CustomToggle} />
 
                     <Dropdown.Menu size="sm">
-                      <Dropdown.Item className="text-sm">Edit</Dropdown.Item>
+                      <Dropdown.Item className="text-sm"
+                      onClick={() => {
+                        window.location.href = `/recruitment/edit/${val["id"]}`;
+                        setId(val.id);
+                      }}
+                      >
+                        Edit
+                      </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() => {
                           setDelete(true);

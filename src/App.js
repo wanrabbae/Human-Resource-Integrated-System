@@ -48,6 +48,7 @@ import DetailStage from './Pages/Administrator/Recruitment/detail_stage';
 import RecruitmentSet from './Pages/Administrator/Recruitment/recruitment_setting';
 import RecruitmentCreate from './Pages/Administrator/Recruitment/recruitment_create';
 import ArchiveApplicant from './Pages/Administrator/Recruitment/archive_applicant';
+import RecruitmentEdit from './Pages/Administrator/Recruitment/recruitment_edit';
 
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
       </Route>
       <Route path="/recruitment" element={<Template />}>
         <Route path="/recruitment" element={<Recruitment />} />
+        <Route path="/recruitment/edit/${id}" element={<RecruitmentEdit />} />
         <Route path="/recruitment/create" element={<RecruitmentCreate />} />
         <Route path="/recruitment/setting" element={<RecruitmentSet />} />
         <Route path="/recruitment/entry-application" element={<EntryApplication />} />

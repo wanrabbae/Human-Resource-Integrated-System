@@ -184,13 +184,13 @@ function RecruitmentEdit() {
               <option selected disabled className="py-3">
                 Select Job Type
               </option>
-              <option value="Part Time" className="py-3">
+              <option value="Part Time" selected={recruit?.type == "Part Time"? true : false} className="py-3">
                 Part Time
               </option>
-              <option value="Full Time" className="py-3">
+              <option value="Full Time" selected={recruit?.type == "Full Time"? true : false} className="py-3">
                 Full Time
               </option>
-              <option value="Remote" className="py-3">
+              <option value="Remote" selected={recruit?.type == "Remote"? true : false} className="py-3">
                 Remote
               </option>
             </select>
@@ -399,13 +399,13 @@ function RecruitmentEdit() {
               <option selected disabled className="py-3">
                 Select Gender
               </option>
-              <option value="Laki - Laki" className="py-3">
+              <option value="Laki - Laki" selected={recruit?.spesificrecruitment?.gender == "Laki - Laki"? true : false} className="py-3">
                 Laki - Laki
               </option>
-              <option value="Perempuan" className="py-3">
+              <option value="Perempuan" selected={recruit?.spesificrecruitment?.gender == "Perempuan"? true : false} className="py-3">
                 Perempuan
               </option>
-              <option value="unknown" className="py-3">
+              <option value="unknown" selected={recruit?.spesificrecruitment?.gender == "unknown"? true : false} className="py-3">
                 Keduanya
               </option>
             </select>
@@ -421,6 +421,7 @@ function RecruitmentEdit() {
               className="basic-multi-select"
               classNamePrefix="select"
               isMulti
+              defaultValue={recruit?.spesificrecruitment?.education == "[\"SMA\"]"?[options[0]]:recruit?.spesificrecruitment?.education == "[\"SMA\",\"S1\"]"?[options[0],options[1]]:recruit?.spesificrecruitment?.education == "[\"SMA\",\"S1\",\"S2\"]"?[options[0],options[1],options[2]]:recruit?.spesificrecruitment?.education == "[\"SMA\",\"S1\",\"S2\",\"S3\"]"?[options[0],options[1],options[2],options[3]]:recruit?.spesificrecruitment?.education == "[\"SMA\",\"S2\"]"?[options[0],options[2]]:recruit?.spesificrecruitment?.education == "[\"SMA\",\"S2\",\"S3\"]"?[options[0],options[2],options[3]]:recruit?.spesificrecruitment?.education == "[\"SMA\",\"S3\"]"?[options[0],options[3]]: recruit?.spesificrecruitment?.education == "[\"S1\",\"S2\"]"?[options[1],options[2]]: recruit?.spesificrecruitment?.education == "[\"S1\",\"S2\",\"S3\"]"?[options[1],options[2],options[3]]: recruit?.spesificrecruitment?.education == "[\"S1\",\"S3\"]"?[options[1],options[3]]:recruit?.spesificrecruitment?.education == "[\"S2\"]"?[options[2]]:recruit?.spesificrecruitment?.education == "[\"S2\",\"S3\"]"?[options[2],options[3]]:recruit?.spesificrecruitment?.education == "[\"S3\"]"?[options[3]]:[]}
               onChange={(e) => {
                 var data = [];
                 for (var i in e) {
@@ -448,38 +449,26 @@ function RecruitmentEdit() {
               <option selected disabled className="py-3">
                 Select experience time
               </option>
-              <option value="0" className="py-3">
+              <option value="0" selected={recruit?.spesificrecruitment?.experience == "0"? true : false} className="py-3">
                 No experience yet
               </option>
-              <option value="1" className="py-3">
+              <option value="1" selected={recruit?.spesificrecruitment?.experience == "1"? true : false} className="py-3">
                 1 years
               </option>
-              <option value="2" className="py-3">
+              <option value="2" selected={recruit?.spesificrecruitment?.experience == "2"? true : false} className="py-3">
                 2 years
               </option>
-              <option value="3" className="py-3">
+              <option value="3" selected={recruit?.spesificrecruitment?.experience == "3"? true : false} className="py-3">
                 3 years
               </option>
-              <option value="4" className="py-3">
+              <option value="4" selected={recruit?.spesificrecruitment?.experience == "4"? true : false} className="py-3">
                 4 years
               </option>
-              <option value="5" className="py-3">
+              <option value="5" selected={recruit?.spesificrecruitment?.experience == "5"? true : false} className="py-3">
                 5 years
               </option>
-              <option value="more" className="py-3">
+              <option value="more" selected={recruit?.spesificrecruitment?.experience == "more"? true : false} className="py-3">
                 {"> 5 years"}
-              </option>
-              <option value="3" className="py-3">
-                3 year
-              </option>
-              <option value="4" className="py-3">
-                4 year
-              </option>
-              <option value="5" className="py-3">
-                5 year
-              </option>
-              <option value="5" className="py-3">
-                5 year
               </option>
             </select>
           </div>
@@ -540,6 +529,12 @@ function RecruitmentEdit() {
               className="basic-multi-select"
               classNamePrefix="select"
               isMulti
+            //   defaultValue={optionsPriority.find(op => {
+            //     return op.value === recruit?.spesificrecruitment?.priority
+            //  })}
+              // defaultValue={optionsPriority.map(ele => ele)}
+              // defaultValue={optionsPriority.find(({ value }) => value === props.state)}
+              defaultValue={recruit?.spesificrecruitment?.priority == "[\"age\"]"?[optionsPriority[0]]:recruit?.spesificrecruitment?.priority == "[\"age\",\"gender\"]"?[optionsPriority[0],optionsPriority[1]]:[]}
               options={optionsPriority}
               onChange={(e) => {
                 var data = [];

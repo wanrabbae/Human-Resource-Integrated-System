@@ -487,18 +487,6 @@ function RecruitmentCreate() {
               <option value="more" className="py-3">
                 {"> 5 years"}
               </option>
-              <option value="3" className="py-3">
-                3 year
-              </option>
-              <option value="4" className="py-3">
-                4 year
-              </option>
-              <option value="5" className="py-3">
-                5 year
-              </option>
-              <option value="5" className="py-3">
-                5 year
-              </option>
             </select>
           </div>
           <div className="mb-4">

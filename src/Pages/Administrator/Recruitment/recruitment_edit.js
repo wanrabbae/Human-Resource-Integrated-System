@@ -11,6 +11,7 @@ import { Button, Modal, Table } from "react-bootstrap";
 import {
   AddRecruitment,
   GetRecruitment,
+  GetRecruitmentById,
   searchData,
 } from "../../../Repository/RecruitmentRepository";
 import Select from "react-select";
@@ -23,13 +24,14 @@ import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 import MultiSlider from "../../../Utils/multiSlider/MultiSlider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
 import { DeleteForever } from "@mui/icons-material";
 // import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select } from "@mui/material";
 
 function RecruitmentEdit() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [modal, setModal] = useState(false);
   const [recruit, setRecruit] = useState([]);
   const [skills, setSkills] = useState([]);
@@ -65,17 +67,25 @@ function RecruitmentEdit() {
     { value: "5", label: "5 Year" },
     { value: "5", label: ">5 Year" },
   ];
-  // useEffect(() => {
-  //  priority();
-  //  education();
-  //  gender();
-  // }, );
+
+  const inAwait = async () => {
+    var rec = await GetRecruitmentById(id);
+    setRecruit(rec["result"]);
+  };
+
+  useEffect(() => {
+    inAwait();
+    //  priority();
+    //  education();
+    //  gender();
+  }, []);
+
   return (
     <>
       <div className="d-flex justify-content-between">
         <div className="row">
           <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
-            Edit Recruitment
+            Edit Recruitment {id}
           </h3>
           <span
             style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
@@ -102,7 +112,10 @@ function RecruitmentEdit() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              value={recruit?.title}
+              onChange={(val) => {
+                setRecruit({ ...recruit, title: val.target.value });
+              }}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Recruitment Title Title"
@@ -122,7 +135,10 @@ function RecruitmentEdit() {
                 fontWeight: "500",
               }}
               rows="3"
-              onChange={(val) => {}}
+              value={recruit?.description}
+              onChange={(val) => {
+                setRecruit({ ...recruit, description: val.target.value });
+              }}
               className="focus:ring-0 focus:ring-offset-0 form-control"
               type="text"
               placeholder="Recruitment description"
@@ -141,7 +157,10 @@ function RecruitmentEdit() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              value={recruit?.position}
+              onChange={(val) => {
+                setRecruit({ ...recruit, position: val.target.value });
+              }}
               className=" focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Position"
@@ -189,7 +208,10 @@ function RecruitmentEdit() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              value={recruit?.placement}
+              onChange={(val) => {
+                setRecruit({ ...recruit, placement: val.target.value });
+              }}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Placement"
@@ -208,6 +230,10 @@ function RecruitmentEdit() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
+              value={recruit?.jobDescription}
+              onChange={(val) => {
+                setRecruit({ ...recruit, jobDescription: val.target.value });
+              }}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               rows="8"
               placeholder="Job Description"
@@ -222,6 +248,10 @@ function RecruitmentEdit() {
               //     setEditor(val.currentTarget.value)
               //    }}
               // id="qualification2"
+              value={recruit?.qualification}
+              onChange={(val) => {
+                setRecruit({ ...recruit, qualification: val.target.value });
+              }}
               onInit={(evt, editor) => (editorRef.current = editor)}
               init={{
                 height: 250,
@@ -275,52 +305,6 @@ function RecruitmentEdit() {
               Add Specific Qualification
             </button>
           </div>
-          <div className="d-flex gap-4">
-            <div className="w-full">
-              <label
-                className="block text-gray-700 text-sm mt-3 mb-2"
-                for="username"
-              >
-                Start Date
-              </label>
-              <input
-                id="publish_date"
-                style={{
-                  borderRadius: "10px",
-                  border: "1.5px solid #EDEDED",
-                  backgroundColor: "transparent",
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}
-                onChange={(val) => {}}
-                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
-                type="date"
-                placeholder="Recruitment description"
-              />
-            </div>
-            <div className="w-full">
-              <label
-                className="block text-gray-700 text-sm mt-3 mb-2"
-                for="username"
-              >
-                End Date
-              </label>
-              <input
-                id="expired_date"
-                style={{
-                  borderRadius: "10px",
-                  border: "1.5px solid #EDEDED",
-                  backgroundColor: "transparent",
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}
-                onChange={(val) => {}}
-                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
-                type="date"
-                placeholder="Recruitment description"
-              />
-            </div>
-          </div>
         </div>
         <div className="m-4 gap-4 d-flex justify-content-end">
           <Button
@@ -332,9 +316,9 @@ function RecruitmentEdit() {
               fontWeight: "500",
             }}
             className="px-3"
-            onClick={() => setModal(false)}
+            onClick={() => navigate("/recruitment")}
           >
-            Cancel
+            Back
           </Button>
           <Button
             style={{
@@ -354,19 +338,17 @@ function RecruitmentEdit() {
                 jobDescription:
                   document.getElementById("job_description").value,
                 qualification: editorRef.current.getContent(),
-                publishDate: document.getElementById("publish_date").value,
-                expiredDate: document.getElementById("expired_date").value,
                 spesificQualification: spesificQua ?? {},
               };
 
               console.log(requestBody);
-              var res = await AddRecruitment(requestBody);
-              // console.log(requestBody);
-              SwalSuccess({ message: "Success add recruitment" });
+              // var res = await AddRecruitment(requestBody);
+              console.log(requestBody);
+              SwalSuccess({ message: "Success edit recruitment" });
               navigate("/recruitment");
             }}
           >
-            Create
+            Save
           </Button>
         </div>
       </div>

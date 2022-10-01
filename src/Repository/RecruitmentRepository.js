@@ -21,6 +21,13 @@ var RepostRecruitment = async (requestBody) => {
   }
 };
 
+var GetRecruitmentById = async (id) => {
+  var res = await axios.get(`${endpoint}/getRecruitmentById?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 var GetRecruitment = async () => {
   var res = await axios.get(`${endpoint}/getRecruitment`);
   if (res.status == 200) {
@@ -153,6 +160,7 @@ export {
   DeleteRecruitment,
   RepostRecruitment,
   GetRecruitment,
+  GetRecruitmentById,
   GetApplicant,
   FilterApplicant,
   GetStage,
@@ -168,5 +176,5 @@ export {
   searchApplicantArchive,
   GetStageByDate,
   searchStage,
-  EditRecruitment
+  EditRecruitment,
 };

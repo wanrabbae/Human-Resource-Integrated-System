@@ -24,9 +24,11 @@ import FroalaEditorComponent from "react-froala-wysiwyg";
 import FroalaEditor from "react-froala-wysiwyg";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 import { SwalSuccess, ModalDelete } from "../../../Components/Modals";
+import { useNavigate } from "react-router-dom";
 // import { Dropdown } from "flowbite-react";
 
 function Recruitment() {
+  const navigate = useNavigate();
   const [modalRepost, setModalRepost] = useState(false);
   const [modalShare, setModalShare] = useState(false);
   const [drp, setDrp] = useState(true);
@@ -77,7 +79,7 @@ function Recruitment() {
     <>
       <div className="d-flex justify-content-between">
         <div className="row">
-          <h3 style={{ fontSize: "20px", fontWeight: "600" }}>Requirment</h3>
+          <h3 style={{ fontSize: "20px", fontWeight: "600" }}>Recruitment</h3>
           <span
             style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
           >
@@ -204,11 +206,11 @@ function Recruitment() {
                     <Dropdown.Toggle as={CustomToggle} />
 
                     <Dropdown.Menu size="sm">
-                      <Dropdown.Item className="text-sm"
-                      onClick={() => {
-                        window.location.href = `/recruitment/edit/${val["id"]}`;
-                        setId(val.id);
-                      }}
+                      <Dropdown.Item
+                        className="text-sm"
+                        onClick={() => {
+                          navigate(`/recruitment/edit/${val["id"]}`);
+                        }}
                       >
                         Edit
                       </Dropdown.Item>

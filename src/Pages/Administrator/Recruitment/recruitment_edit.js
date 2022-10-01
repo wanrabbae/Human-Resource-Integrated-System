@@ -10,6 +10,7 @@ import {
 import { Button, Modal, Table } from "react-bootstrap";
 import {
   AddRecruitment,
+  EditRecruitment,
   GetRecruitment,
   GetRecruitmentById,
   searchData,
@@ -39,6 +40,7 @@ function RecruitmentEdit() {
   const [education, setEducation] = useState([]);
   const [priority, setPriority] = useState([]);
   const [editEdu, setEditEdu] = useState([]);
+  const [editPrio, setEditPrio] = useState([]);
   const editorRef = useRef(null);
   const options = [
     { value: "SMA", label: "SMA / SMK Sederajat" },
@@ -73,19 +75,26 @@ function RecruitmentEdit() {
     var rec = await GetRecruitmentById(id);
     setRecruit(rec["result"]);
     var edu = JSON.parse(rec['result']['spesificrecruitment']['education']);
-    var data = [];
+    var dataedu = [];
     for (var i = 0; i < edu.length; i++) {
-      data.push({
+      dataedu.push({
         value: edu[i],
         label: edu[i] == "SMA" ? "SMA / SMK Sederajat" : edu[i],
       })
       // console.log();
     }
-    setEditEdu(data);
+    setEditEdu(dataedu);
+    var prio = JSON.parse(rec['result']['spesificrecruitment']['priority']);
+    var dataprio = [];
+    for (var i = 0; i < prio.length; i++) {
+      dataprio.push({
+        value: prio[i],
+        label: prio[i] == "SMA" ? "SMA / SMK Sederajat" : prio[i],
+      })
+      // console.log();
+    }
+    setEditPrio(dataprio);
   };
-
-
-
 
   useEffect(() => {
     inAwait();
@@ -356,8 +365,7 @@ function RecruitmentEdit() {
               };
 
               console.log(requestBody);
-              // var res = await AddRecruitment(requestBody);
-              console.log(requestBody);
+              var res = await EditRecruitment(requestBody);
               SwalSuccess({ message: "Success edit recruitment" });
               navigate("/recruitment");
             }}
@@ -548,7 +556,7 @@ function RecruitmentEdit() {
               //  })}
               // defaultValue={optionsPriority.map(ele => ele)}
               // defaultValue={optionsPriority.find(({ value }) => value === props.state)}
-              defaultValue={recruit?.spesificrecruitment?.priority == "[\"age\"]" ? [optionsPriority[0]] : recruit?.spesificrecruitment?.priority == "[\"age\",\"gender\"]" ? [optionsPriority[0], optionsPriority[1]] : []}
+              defaultValue={editPrio}
               options={optionsPriority}
               onChange={(e) => {
                 var data = [];

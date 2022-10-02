@@ -384,7 +384,7 @@ function RecruitmentEdit() {
               var res = await EditRecruitment(requestBody);
               console.log(res);
               SwalSuccess({ message: "Success edit recruitment" });
-              // navigate("/recruitment");
+              navigate("/recruitment");
             }}
           >
             Save
@@ -484,7 +484,6 @@ function RecruitmentEdit() {
               className="basic-multi-select"
               classNamePrefix="select"
               isMulti
-              value={editEdu}
               onChange={(e) => {
                 var data = [];
                 for (var i in e) {
@@ -493,6 +492,8 @@ function RecruitmentEdit() {
                 setEducation(data);
               }}
               options={options}
+              // value={editEdu}
+              defaultValue={editEdu}
             />
           </div>
           <div className="mb-4">
@@ -654,7 +655,6 @@ function RecruitmentEdit() {
               //  })}
               // defaultValue={optionsPriority.map(ele => ele)}
               // defaultValue={optionsPriority.find(({ value }) => value === props.state)}
-              value={editPrio}
               options={optionsPriority}
               onChange={(e) => {
                 var data = [];
@@ -663,6 +663,7 @@ function RecruitmentEdit() {
                 }
                 setPriority(data);
               }}
+              defaultValue={editPrio}
             />
           </div>
           {/* <div className="mb-4">

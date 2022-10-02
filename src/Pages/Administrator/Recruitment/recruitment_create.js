@@ -526,8 +526,21 @@ function RecruitmentCreate() {
               {skills.map((e, i) => {
                 return (
                   <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h1 className="mx-3">{e}</h1>
-                    <button className="btn btn-sm btn-outline-danger">
+                    <h1 className="mx-3" id="skillEdit">
+                      {e}
+                    </h1>
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() =>
+                        setSkills(
+                          skills.filter(
+                            (skl) =>
+                              skl ==
+                              document.getElementById("skillEdit").textContent
+                          )
+                        )
+                      }
+                    >
                       <DeleteForever />
                     </button>
                   </div>

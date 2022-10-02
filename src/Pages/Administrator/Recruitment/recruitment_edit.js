@@ -73,7 +73,6 @@ function RecruitmentEdit() {
 
   const inAwait = async () => {
     var rec = await GetRecruitmentById(id);
-    console.log(rec);
     setRecruit(rec["result"]);
     var edu = JSON.parse(rec["result"]["spesificrecruitment"]["education"]);
     var dataedu = [];
@@ -341,7 +340,7 @@ function RecruitmentEdit() {
               type=""
             >
               <Plus size={15} className="me-2" weight="bold" />
-              Add Specific Qualification
+              Edit Specific Qualification
             </button>
           </div>
         </div>
@@ -617,8 +616,21 @@ function RecruitmentEdit() {
               {skills.map((e, i) => {
                 return (
                   <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h1 className="mx-3">{e}</h1>
-                    <button className="btn btn-sm btn-outline-danger">
+                    <h1 className="mx-3" id="skillEdit">
+                      {e}
+                    </h1>
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() =>
+                        setSkills(
+                          skills.filter(
+                            (skl) =>
+                              skl ==
+                              document.getElementById("skillEdit").textContent
+                          )
+                        )
+                      }
+                    >
                       <DeleteForever />
                     </button>
                   </div>

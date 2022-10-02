@@ -353,6 +353,7 @@ function RecruitmentEdit() {
             className="px-3"
             onClick={async () => {
               var requestBody = {
+                recruitment_id:id,
                 title: document.getElementById("title").value,
                 description: document.getElementById("description").value,
                 position: document.getElementById("position").value,
@@ -366,6 +367,7 @@ function RecruitmentEdit() {
 
               console.log(requestBody);
               var res = await EditRecruitment(requestBody);
+              console.log(res);
               SwalSuccess({ message: "Success edit recruitment" });
               navigate("/recruitment");
             }}
@@ -443,7 +445,7 @@ function RecruitmentEdit() {
               className="basic-multi-select"
               classNamePrefix="select"
               isMulti
-              defaultValue={editEdu}
+              value={editEdu}
               onChange={(e) => {
                 var data = [];
                 for (var i in e) {
@@ -556,7 +558,7 @@ function RecruitmentEdit() {
               //  })}
               // defaultValue={optionsPriority.map(ele => ele)}
               // defaultValue={optionsPriority.find(({ value }) => value === props.state)}
-              defaultValue={editPrio}
+              value={editPrio}
               options={optionsPriority}
               onChange={(e) => {
                 var data = [];

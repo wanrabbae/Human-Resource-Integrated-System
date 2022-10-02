@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import JsonSearch from "search-array";
 import {
   faArrowsUpDown,
   faArrowsUpDownLeftRight,
@@ -92,6 +93,8 @@ function EntryApplication() {
   const searching = async (keyword) => {
     if (keyword !== null || (keyword !== undefined) !== "") {
       const data = await searchApplicant(keyword);
+      // const searcher = new JsonSearch(applicant);
+      // const data = searcher.query(keyword);
       setApplicant(data);
     } else {
       inAwait();

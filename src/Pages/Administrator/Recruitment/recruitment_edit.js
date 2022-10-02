@@ -74,23 +74,23 @@ function RecruitmentEdit() {
   const inAwait = async () => {
     var rec = await GetRecruitmentById(id);
     setRecruit(rec["result"]);
-    var edu = JSON.parse(rec['result']['spesificrecruitment']['education']);
+    var edu = JSON.parse(rec["result"]["spesificrecruitment"]["education"]);
     var dataedu = [];
     for (var i = 0; i < edu.length; i++) {
       dataedu.push({
         value: edu[i],
         label: edu[i] == "SMA" ? "SMA / SMK Sederajat" : edu[i],
-      })
+      });
       // console.log();
     }
     setEditEdu(dataedu);
-    var prio = JSON.parse(rec['result']['spesificrecruitment']['priority']);
+    var prio = JSON.parse(rec["result"]["spesificrecruitment"]["priority"]);
     var dataprio = [];
     for (var i = 0; i < prio.length; i++) {
       dataprio.push({
         value: prio[i],
         label: prio[i] == "SMA" ? "SMA / SMK Sederajat" : prio[i],
-      })
+      });
       // console.log();
     }
     setEditPrio(dataprio);
@@ -207,13 +207,25 @@ function RecruitmentEdit() {
               <option selected disabled className="py-3">
                 Select Job Type
               </option>
-              <option value="Part Time" selected={recruit?.type == "Part Time" ? true : false} className="py-3">
+              <option
+                value="Part Time"
+                selected={recruit?.type == "Part Time" ? true : false}
+                className="py-3"
+              >
                 Part Time
               </option>
-              <option value="Full Time" selected={recruit?.type == "Full Time" ? true : false} className="py-3">
+              <option
+                value="Full Time"
+                selected={recruit?.type == "Full Time" ? true : false}
+                className="py-3"
+              >
                 Full Time
               </option>
-              <option value="Remote" selected={recruit?.type == "Remote" ? true : false} className="py-3">
+              <option
+                value="Remote"
+                selected={recruit?.type == "Remote" ? true : false}
+                className="py-3"
+              >
                 Remote
               </option>
             </select>
@@ -353,7 +365,7 @@ function RecruitmentEdit() {
             className="px-3"
             onClick={async () => {
               var requestBody = {
-                recruitment_id:id,
+                id: id,
                 title: document.getElementById("title").value,
                 description: document.getElementById("description").value,
                 position: document.getElementById("position").value,
@@ -369,7 +381,7 @@ function RecruitmentEdit() {
               var res = await EditRecruitment(requestBody);
               console.log(res);
               SwalSuccess({ message: "Success edit recruitment" });
-              navigate("/recruitment");
+              // navigate("/recruitment");
             }}
           >
             Save
@@ -423,13 +435,37 @@ function RecruitmentEdit() {
               <option selected disabled className="py-3">
                 Select Gender
               </option>
-              <option value="Laki - Laki" selected={recruit?.spesificrecruitment?.gender == "Laki - Laki" ? true : false} className="py-3">
+              <option
+                value="Laki - Laki"
+                selected={
+                  recruit?.spesificrecruitment?.gender == "Laki - Laki"
+                    ? true
+                    : false
+                }
+                className="py-3"
+              >
                 Laki - Laki
               </option>
-              <option value="Perempuan" selected={recruit?.spesificrecruitment?.gender == "Perempuan" ? true : false} className="py-3">
+              <option
+                value="Perempuan"
+                selected={
+                  recruit?.spesificrecruitment?.gender == "Perempuan"
+                    ? true
+                    : false
+                }
+                className="py-3"
+              >
                 Perempuan
               </option>
-              <option value="unknown" selected={recruit?.spesificrecruitment?.gender == "unknown" ? true : false} className="py-3">
+              <option
+                value="unknown"
+                selected={
+                  recruit?.spesificrecruitment?.gender == "unknown"
+                    ? true
+                    : false
+                }
+                className="py-3"
+              >
                 Keduanya
               </option>
             </select>
@@ -473,25 +509,69 @@ function RecruitmentEdit() {
               <option selected disabled className="py-3">
                 Select experience time
               </option>
-              <option value="0" selected={recruit?.spesificrecruitment?.experience == "0" ? true : false} className="py-3">
+              <option
+                value="0"
+                selected={
+                  recruit?.spesificrecruitment?.experience == "0" ? true : false
+                }
+                className="py-3"
+              >
                 No experience yet
               </option>
-              <option value="1" selected={recruit?.spesificrecruitment?.experience == "1" ? true : false} className="py-3">
+              <option
+                value="1"
+                selected={
+                  recruit?.spesificrecruitment?.experience == "1" ? true : false
+                }
+                className="py-3"
+              >
                 1 years
               </option>
-              <option value="2" selected={recruit?.spesificrecruitment?.experience == "2" ? true : false} className="py-3">
+              <option
+                value="2"
+                selected={
+                  recruit?.spesificrecruitment?.experience == "2" ? true : false
+                }
+                className="py-3"
+              >
                 2 years
               </option>
-              <option value="3" selected={recruit?.spesificrecruitment?.experience == "3" ? true : false} className="py-3">
+              <option
+                value="3"
+                selected={
+                  recruit?.spesificrecruitment?.experience == "3" ? true : false
+                }
+                className="py-3"
+              >
                 3 years
               </option>
-              <option value="4" selected={recruit?.spesificrecruitment?.experience == "4" ? true : false} className="py-3">
+              <option
+                value="4"
+                selected={
+                  recruit?.spesificrecruitment?.experience == "4" ? true : false
+                }
+                className="py-3"
+              >
                 4 years
               </option>
-              <option value="5" selected={recruit?.spesificrecruitment?.experience == "5" ? true : false} className="py-3">
+              <option
+                value="5"
+                selected={
+                  recruit?.spesificrecruitment?.experience == "5" ? true : false
+                }
+                className="py-3"
+              >
                 5 years
               </option>
-              <option value="more" selected={recruit?.spesificrecruitment?.experience == "more" ? true : false} className="py-3">
+              <option
+                value="more"
+                selected={
+                  recruit?.spesificrecruitment?.experience == "more"
+                    ? true
+                    : false
+                }
+                className="py-3"
+              >
                 {"> 5 years"}
               </option>
             </select>

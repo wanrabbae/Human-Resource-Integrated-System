@@ -73,6 +73,7 @@ function RecruitmentEdit() {
 
   const inAwait = async () => {
     var rec = await GetRecruitmentById(id);
+    console.log(rec);
     setRecruit(rec["result"]);
     var edu = JSON.parse(rec["result"]["spesificrecruitment"]["education"]);
     var dataedu = [];
@@ -94,6 +95,9 @@ function RecruitmentEdit() {
       // console.log();
     }
     setEditPrio(dataprio);
+
+    var skill = JSON.parse(rec["result"]["spesificrecruitment"]["skill"]);
+    setSkills(skill);
   };
 
   useEffect(() => {
@@ -108,7 +112,7 @@ function RecruitmentEdit() {
       <div className="d-flex justify-content-between">
         <div className="row">
           <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
-            Edit Recruitment {id}
+            Edit Recruitment
           </h3>
           <span
             style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}

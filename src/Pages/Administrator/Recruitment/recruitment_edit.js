@@ -292,7 +292,7 @@ function RecruitmentEdit() {
               //     setEditor(val.currentTarget.value)
               //    }}
               // id="qualification2"
-              value={recruit?.qualification}
+              initialValue={recruit?.qualification}
               onChange={(val) => {
                 setRecruit({ ...recruit, qualification: val.target.value });
               }}

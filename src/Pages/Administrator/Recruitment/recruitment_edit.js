@@ -76,23 +76,29 @@ function RecruitmentEdit() {
     setRecruit(rec["result"]);
     var edu = JSON.parse(rec["result"]["spesificrecruitment"]["education"]);
     var dataedu = [];
+    var educations = [];
     for (var i = 0; i < edu.length; i++) {
       dataedu.push({
         value: edu[i],
         label: edu[i] == "SMA" ? "SMA / SMK Sederajat" : edu[i],
       });
+      educations.push(edu[i]);
       // console.log();
     }
+    setEducation(educations);
     setEditEdu(dataedu);
     var prio = JSON.parse(rec["result"]["spesificrecruitment"]["priority"]);
     var dataprio = [];
+    var priorities = [];
     for (var i = 0; i < prio.length; i++) {
       dataprio.push({
         value: prio[i],
         label: prio[i] == "SMA" ? "SMA / SMK Sederajat" : prio[i],
       });
+      priorities.push(prio[i]);
       // console.log();
     }
+    setPriority(priorities);
     setEditPrio(dataprio);
 
     var skill = JSON.parse(rec["result"]["spesificrecruitment"]["skill"]);

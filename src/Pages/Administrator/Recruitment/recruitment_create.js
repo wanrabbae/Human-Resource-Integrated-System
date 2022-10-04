@@ -192,7 +192,7 @@ function RecruitmentCreate() {
               onChange={(val) => {}}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
-              placeholder="Placement"
+              placeholder="ex:Cilacap"
             />
           </div>
           <div>

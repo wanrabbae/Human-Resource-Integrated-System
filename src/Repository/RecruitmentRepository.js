@@ -3,9 +3,8 @@ import { endpoint } from "../Utils/constant";
 
 var AddRecruitment = async (requestBody) => {
   var res = await axios.post(`${endpoint}/addRecruitment`, requestBody);
-  if (res.status == 200) {
-    return res.data;
-  }
+
+  return res;
 };
 var EditRecruitment = async (requestBody) => {
   var res = await axios.post(`${endpoint}/updateRecruitment`, requestBody);

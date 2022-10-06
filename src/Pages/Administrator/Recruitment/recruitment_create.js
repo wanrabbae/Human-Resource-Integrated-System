@@ -36,6 +36,7 @@ function RecruitmentCreate() {
   const [spesificQua, setSpesificQua] = useState({});
   const [education, setEducation] = useState([]);
   const [priority, setPriority] = useState([]);
+  const [errorMsg, setErrorMsg] = useState();
   const editorRef = useRef(null);
   const options = [
     { value: "SMA", label: "SMA / SMK Sederajat" },
@@ -84,292 +85,331 @@ function RecruitmentCreate() {
           </span>
         </div>
       </div>
-      <div className="">
-        <div
-          className="grid gap-4 mt-1 p-4"
-          style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
-        >
-          <div>
-            <label className="block text-gray-700 text-sm mb-2" for="username">
-              Recruitment Title
-            </label>
-            <input
-              id="title"
-              style={{
-                borderRadius: "10px",
-                border: "1.5px solid #EDEDED",
-                backgroundColor: "transparent",
-                fontSize: "12px",
-                fontWeight: "500",
-              }}
-              onChange={(val) => {}}
-              className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
-              type="text"
-              placeholder="Recruitment Title Title"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 text-sm mb-2" for="username">
-              Recruitment Description
-            </label>
-            <textarea
-              id="description"
-              style={{
-                borderRadius: "10px",
-                border: "1.5px solid #EDEDED",
-                backgroundColor: "transparent",
-                fontSize: "12px",
-                fontWeight: "500",
-              }}
-              rows="3"
-              onChange={(val) => {}}
-              className="focus:ring-0 focus:ring-offset-0 form-control"
-              type="text"
-              placeholder="Recruitment description"
-            ></textarea>
-          </div>
-          <div>
-            <label className="block text-gray-700 text-sm mb-2" for="username">
-              Position
-            </label>
-            <input
-              id="position"
-              style={{
-                borderRadius: "10px",
-                border: "1.5px solid #EDEDED",
-                backgroundColor: "transparent",
-                fontSize: "12px",
-                fontWeight: "500",
-              }}
-              onChange={(val) => {}}
-              className=" focus:ring-0 focus:ring-offset-0 me-3 form-control"
-              type="text"
-              placeholder="Position"
-            />
-          </div>
-          <div className="">
-            <label className="block text-gray-700 text-sm mb-2" for="username">
-              Job Type
-            </label>
-            <select
-              style={{
-                borderRadius: "10px",
-                border: "1.5px solid #EDEDED",
-                backgroundColor: "transparent",
-                fontSize: "12px",
-                fontWeight: "500",
-              }}
-              id="type"
-              className="appearance-none w-full py-2 px-3 text-gray-700 focus:outline-none focus:border-0 focus:shadow-outline"
-            >
-              <option selected disabled className="py-3">
-                Select Job Type
-              </option>
-              <option value="Part Time" className="py-3">
-                Part Time
-              </option>
-              <option value="Full Time" className="py-3">
-                Full Time
-              </option>
-              <option value="Remote" className="py-3">
-                Remote
-              </option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-gray-700 text-sm mb-2" for="username">
-              Placement
-            </label>
-            <input
-              id="placement"
-              style={{
-                borderRadius: "10px",
-                border: "1.5px solid #EDEDED",
-                backgroundColor: "transparent",
-                fontSize: "12px",
-                fontWeight: "500",
-              }}
-              onChange={(val) => {}}
-              className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
-              type="text"
-              placeholder="ex:Cilacap"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 text-sm mb-2" for="username">
-              Job Description
-            </label>
-            <textarea
-              id="job_description"
-              style={{
-                borderRadius: "10px",
-                border: "1.5px solid #EDEDED",
-                backgroundColor: "transparent",
-                fontSize: "12px",
-                fontWeight: "500",
-              }}
-              className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
-              rows="8"
-              placeholder="Job Description"
-            ></textarea>
-          </div>
-          <div>
-            <label className="block text-gray-700 text-sm mb-2" for="username">
-              General Qualification
-            </label>
-            <Editor
-              //    onChange={(val) => {
-              //     setEditor(val.currentTarget.value)
-              //    }}
-              // id="qualification2"
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              init={{
-                height: 250,
-                menubar: false,
-                plugins: [
-                  "a11ychecker",
-                  "advlist",
-                  "advcode",
-                  "advtable",
-                  "autolink",
-                  "checklist",
-                  "export",
-                  "lists",
-                  "link",
-                  "image",
-                  "charmap",
-                  "preview",
-                  "anchor",
-                  "searchreplace",
-                  "visualblocks",
-                  "powerpaste",
-                  "fullscreen",
-                  "formatpainter",
-                  "insertdatetime",
-                  "media",
-                  "table",
-                  "help",
-                  "wordcount",
-                ],
-                toolbar:
-                  "undo redo | casechange blocks | bold italic backcolor | " +
-                  "alignleft aligncenter alignright alignjustify | " +
-                  "bullist numlist checklist outdent indent | removeformat | a11ycheck code table help",
-              }}
-            />
-          </div>
-          <div>
-            <button
-              style={{
-                borderRadius: "8px",
-                backgroundColor: "#FFF",
-                fontSize: "14px",
-                fontWeight: "500",
-                color: "#669BBC",
-              }}
-              className="btn d-flex align-items-center text-[#669BBC]"
-              onClick={() => setModal(true)}
-              type=""
-            >
-              <Plus size={15} className="me-2" weight="bold" />
-              Add Specific Qualification
-            </button>
-          </div>
-          <div className="d-flex gap-4">
-            <div className="w-full">
-              <label
-                className="block text-gray-700 text-sm mt-3 mb-2"
-                for="username"
-              >
-                Start Date
-              </label>
-              <input
-                id="publish_date"
-                style={{
-                  borderRadius: "10px",
-                  border: "1.5px solid #EDEDED",
-                  backgroundColor: "transparent",
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}
-                onChange={(val) => {}}
-                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
-                type="date"
-                placeholder="Recruitment description"
-              />
-            </div>
-            <div className="w-full">
-              <label
-                className="block text-gray-700 text-sm mt-3 mb-2"
-                for="username"
-              >
-                End Date
-              </label>
-              <input
-                id="expired_date"
-                style={{
-                  borderRadius: "10px",
-                  border: "1.5px solid #EDEDED",
-                  backgroundColor: "transparent",
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}
-                onChange={(val) => {}}
-                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
-                type="date"
-                placeholder="Recruitment description"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="m-4 gap-4 d-flex justify-content-end">
-          <Button
-            style={{
-              border: "none",
-              fontSize: "14px",
-              backgroundColor: "#ECECEC",
-              color: "#003049",
-              fontWeight: "500",
-            }}
-            className="px-3"
-            onClick={() => setModal(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            style={{
-              border: "none",
-              fontSize: "14px",
-              backgroundColor: "#0E5073",
-              color: "#FFFFFF",
-            }}
-            className="px-3"
-            onClick={async () => {
-              var requestBody = {
-                title: document.getElementById("title").value,
-                description: document.getElementById("description").value,
-                position: document.getElementById("position").value,
-                placement: document.getElementById("placement").value,
-                type: document.getElementById("type").value,
-                jobDescription:
-                  document.getElementById("job_description").value,
-                qualification: editorRef.current.getContent(),
-                publishDate: document.getElementById("publish_date").value,
-                expiredDate: document.getElementById("expired_date").value,
-                spesificQualification: spesificQua ?? {},
-              };
+      <form
+        method="POST"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          try {
+            var requestBody = {
+              title: document.getElementById("title").value,
+              description: document.getElementById("description").value,
+              position: document.getElementById("position").value,
+              placement: document.getElementById("placement").value,
+              type: document.getElementById("type").value,
+              jobDescription: document.getElementById("job_description").value,
+              qualification: editorRef.current.getContent(),
+              publishDate: document.getElementById("publish_date").value,
+              expiredDate: document.getElementById("expired_date").value,
+              spesificQualification: spesificQua ?? {},
+            };
 
-              console.log(requestBody);
-              var res = await AddRecruitment(requestBody);
-              // console.log(requestBody);
-              SwalSuccess({ message: "Success add recruitment" });
-              navigate("/recruitment");
-            }}
+            var res = await AddRecruitment(requestBody);
+
+            SwalSuccess({ message: "Success add recruitment" });
+            navigate("/recruitment");
+          } catch (error) {
+            setErrorMsg(error.response.data.message);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        }}
+      >
+        <div className="">
+          <div
+            className="grid gap-4 mt-1 p-4"
+            style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
           >
-            Create
-          </Button>
+            <span className="text-red-600 text-xs">{errorMsg}</span>
+            <div>
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Recruitment Title
+              </label>
+              <input
+                id="title"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                onChange={(val) => {}}
+                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                type="text"
+                placeholder="Recruitment Title Title"
+                required
+              />
+            </div>
+            <div>
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Recruitment Description
+              </label>
+              <textarea
+                id="description"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                required
+                rows="3"
+                onChange={(val) => {}}
+                className="focus:ring-0 focus:ring-offset-0 form-control"
+                type="text"
+                placeholder="Recruitment description"
+              ></textarea>
+            </div>
+            <div>
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Position
+              </label>
+              <input
+                id="position"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                required
+                onChange={(val) => {}}
+                className=" focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                type="text"
+                placeholder="Position"
+              />
+            </div>
+            <div className="">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Job Type
+              </label>
+              <select
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                required
+                id="type"
+                className="appearance-none w-full py-2 px-3 text-gray-700 focus:outline-none focus:border-0 focus:shadow-outline"
+              >
+                <option selected disabled className="py-3">
+                  Select Job Type
+                </option>
+                <option value="Part Time" className="py-3">
+                  Part Time
+                </option>
+                <option value="Full Time" className="py-3">
+                  Full Time
+                </option>
+                <option value="Remote" className="py-3">
+                  Remote
+                </option>
+              </select>
+            </div>
+            <div>
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Placement
+              </label>
+              <input
+                id="placement"
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                required
+                onChange={(val) => {}}
+                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                type="text"
+                placeholder="ex:Cilacap"
+              />
+            </div>
+            <div>
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Job Description
+              </label>
+              <textarea
+                id="job_description"
+                required
+                style={{
+                  borderRadius: "10px",
+                  border: "1.5px solid #EDEDED",
+                  backgroundColor: "transparent",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}
+                className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                rows="8"
+                placeholder="Job Description"
+              ></textarea>
+            </div>
+            <div>
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                General Qualification
+              </label>
+              <Editor
+                //    onChange={(val) => {
+                //     setEditor(val.currentTarget.value)
+                //    }}
+                // id="qualification2"
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                init={{
+                  height: 250,
+                  menubar: false,
+                  plugins: [
+                    "a11ychecker",
+                    "advlist",
+                    "advcode",
+                    "advtable",
+                    "autolink",
+                    "checklist",
+                    "export",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "powerpaste",
+                    "fullscreen",
+                    "formatpainter",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "help",
+                    "wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | casechange blocks | bold italic backcolor | " +
+                    "alignleft aligncenter alignright alignjustify | " +
+                    "bullist numlist checklist outdent indent | removeformat | a11ycheck code table help",
+                }}
+              />
+            </div>
+            <div>
+              <button
+                style={{
+                  borderRadius: "8px",
+                  backgroundColor: "#FFF",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  color: "#669BBC",
+                }}
+                className="btn d-flex align-items-center text-[#669BBC]"
+                onClick={() => setModal(true)}
+                type=""
+              >
+                <Plus size={15} className="me-2" weight="bold" />
+                Add Specific Qualification
+              </button>
+            </div>
+            <div className="d-flex gap-4">
+              <div className="w-full">
+                <label
+                  className="block text-gray-700 text-sm mt-3 mb-2"
+                  for="username"
+                >
+                  Start Date
+                </label>
+                <input
+                  id="publish_date"
+                  style={{
+                    borderRadius: "10px",
+                    border: "1.5px solid #EDEDED",
+                    backgroundColor: "transparent",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                  }}
+                  required
+                  onChange={(val) => {}}
+                  className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                  type="date"
+                  placeholder="Recruitment description"
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  className="block text-gray-700 text-sm mt-3 mb-2"
+                  for="username"
+                >
+                  End Date
+                </label>
+                <input
+                  id="expired_date"
+                  style={{
+                    borderRadius: "10px",
+                    border: "1.5px solid #EDEDED",
+                    backgroundColor: "transparent",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                  }}
+                  required
+                  onChange={(val) => {}}
+                  className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                  type="date"
+                  placeholder="Recruitment description"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="m-4 gap-4 d-flex justify-content-end">
+            <Button
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#ECECEC",
+                color: "#003049",
+                fontWeight: "500",
+              }}
+              className="px-3"
+              onClick={() => setModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#0E5073",
+                color: "#FFFFFF",
+              }}
+              className="px-3"
+              type="submit"
+            >
+              Create
+            </Button>
+          </div>
         </div>
-      </div>
+      </form>
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>
         <Modal.Header
           closeButton
@@ -409,6 +449,7 @@ function RecruitmentCreate() {
             /> */}
             <select
               id="type"
+              required
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               onChange={(e) =>
                 setSpesificQua({ ...spesificQua, gender: e.target.value })
@@ -458,6 +499,7 @@ function RecruitmentCreate() {
             </label>
             <select
               id="type"
+              required
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               onChange={(e) =>
                 setSpesificQua({ ...spesificQua, experience: e.target.value })
@@ -499,6 +541,7 @@ function RecruitmentCreate() {
             <div className="d-flex mb-4">
               <input
                 id="skills"
+                required
                 style={{
                   borderRadius: "5px",
                   border: "1.5px solid #EDEDED",

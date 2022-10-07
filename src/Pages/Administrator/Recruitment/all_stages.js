@@ -340,18 +340,10 @@ function AllStages() {
                 stage.map((val, i) => {
                   return (
                     <tr style={{ fontSize: "14px" }} key={i}>
-                      <td className="align-middle">
-                        {val["name"]}
-                      </td>
-                      <td className="align-middle">
-                        {val["position"]}
-                      </td>
-                      <td className="align-middle">
-                        {val["date"]}
-                      </td>
-                      <td className="align-middle">
-                        {val["phone"]}
-                      </td>
+                      <td className="align-middle">{val["name"]}</td>
+                      <td className="align-middle">{val["position"]}</td>
+                      <td className="align-middle">{val["date"]}</td>
+                      <td className="align-middle">{val["phone"]}</td>
                       <td className="align-middle">{val["stage"]}</td>
                       <td className="align-middle">
                         <span

@@ -77,7 +77,7 @@ var GetApplicantByDate = async (data) => {
   }
 };
 var GetStageByDate = async (date) => {
-  var res = await axios.get(`${endpoint}/getStage?date=${date}`);
+  var res = await axios.get(`${endpoint}/getStage?date=${date.date}`);
   if (res.status == 200) {
     return res.data;
   }

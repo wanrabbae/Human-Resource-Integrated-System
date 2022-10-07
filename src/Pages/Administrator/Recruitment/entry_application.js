@@ -71,7 +71,7 @@ function EntryApplication() {
 
       await applicant.map((app) => {
         data.push({
-          Position: app?.recruitment.position,
+          Position: app?.position,
           "Sumber Lowongan": app.source,
           "Tanggal Melamar": app.date,
           "Nama Lengkap": app.name,
@@ -289,7 +289,7 @@ function EntryApplication() {
                         <input type="checkbox" />
                       </td>
                       <td className="align-middle">
-                        {val.recruitment.position ?? " "}
+                        {val.position ?? " "}
                       </td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
@@ -505,7 +505,7 @@ function EntryApplication() {
                   </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
                   <div style={{ fontWeight: "500" }}>
-                    : {detail?.recruitment.position ?? ""}{" "}
+                    : {detail?.position ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Jurusan </div>
                   <div style={{ fontWeight: "500" }}>
@@ -731,9 +731,9 @@ function EntryApplication() {
                       index ===
                       self.findIndex(
                         (t) =>
-                          t.recruitment.position ===
-                            value.recruitment.position &&
-                          t.recruitment.position === value.recruitment.position
+                          t.position ===
+                            value.position &&
+                          t.position === value.position
                       )
                   )
                   .map((val, i) => {
@@ -742,7 +742,7 @@ function EntryApplication() {
                         <input
                           id="default-checkbox"
                           type="checkbox"
-                          value={val["recruitment"]["position"]}
+                          value={val["position"]}
                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           onChange={(e) => {
                             setPositionFilter([
@@ -755,7 +755,7 @@ function EntryApplication() {
                           for="default-checkbox"
                           class="ml-2 text-sm text-gray-900"
                         >
-                          {val["recruitment"]["position"]}
+                          {val["position"]}
                         </label>
                       </li>
                     );
@@ -932,6 +932,7 @@ function EntryApplication() {
                 gender: genderFilter,
                 studi: studiFilter,
               };
+              console.log(reqBody)
               const res = await FilterApplicant(reqBody);
               setApplicant(res.result);
             }}

@@ -61,11 +61,11 @@ function AllStages() {
 
       await getRangeData.map((stg) => {
         data.push({
-          "Nama Lengkap": stg.applicant.name,
-          Position: stg.applicant.recruitment.position,
-          "Tanggal Melamar": stg.applicant.date,
-          "Nomor Lengkap": stg.applicant.phone,
-          "Recruitment Stage": stg.name,
+          "Nama Lengkap": stg.name,
+          Position: stg.position,
+          "Tanggal Melamar": stg.date,
+          "Nomor Lengkap": stg.phone,
+          "Recruitment Stage": stg.stage,
         });
       });
 
@@ -341,18 +341,18 @@ function AllStages() {
                   return (
                     <tr style={{ fontSize: "14px" }} key={i}>
                       <td className="align-middle">
-                        {val["applicant"]["name"]}
+                        {val["name"]}
                       </td>
                       <td className="align-middle">
-                        {val["applicant"]["recruitment"]["position"]}
+                        {val["position"]}
                       </td>
                       <td className="align-middle">
-                        {val["applicant"]["date"]}
+                        {val["date"]}
                       </td>
                       <td className="align-middle">
-                        {val["applicant"]["phone"]}
+                        {val["phone"]}
                       </td>
-                      <td className="align-middle">{val["name"]}</td>
+                      <td className="align-middle">{val["stage"]}</td>
                       <td className="align-middle">
                         <span
                           className="p-2 my-3"
@@ -564,7 +564,7 @@ function AllStages() {
                         <input
                           id={val["name"]}
                           type="checkbox"
-                          value={val["applicant"]["recruitment"]["position"]}
+                          value={val["position"]}
                           onChange={(e) => {
                             position.push(e.target.value);
                           }}
@@ -574,7 +574,7 @@ function AllStages() {
                           for={val["name"]}
                           class="ml-2 text-sm text-gray-900"
                         >
-                          {val["applicant"]["recruitment"]["position"]}
+                          {val["position"]}
                         </label>
                       </li>
                     );

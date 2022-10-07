@@ -117,15 +117,15 @@ function DetailStage() {
                 stage.map((val, i) => {
                   return (
                     <tr style={{ fontSize: "14px" }} key={i}>
-                      <td className="align-middle">{val["name"]}</td>
+                      <td className="align-middle">{val["stage"]}</td>
                       <td className="align-middle">
                         {val.applicant?.recruitment?.position}
                       </td>
                       <td className="align-middle">
-                        {val["applicant"]["date"]}
+                        {val["date"]}
                       </td>
                       <td className="align-middle">
-                        {val["applicant"]["phone"]}
+                        {val["phone"]}
                       </td>
                       <td className="align-middle">
                         <span
@@ -334,7 +334,7 @@ function DetailStage() {
             className="px-3"
             onClick={async () => {
               var requestBody = {
-                name: document.getElementById("name").value,
+                stage: document.getElementById("name").value,
                 note: document.getElementById("note").value,
                 applicant_id: location.state.id,
               };

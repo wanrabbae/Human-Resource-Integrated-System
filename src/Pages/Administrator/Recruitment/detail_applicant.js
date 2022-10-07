@@ -97,7 +97,7 @@ function DetailApplicant() {
               <div style={{ fontWeight: "500" }}>: {data?.date ?? ""} </div>
               <div style={{ fontWeight: "600" }}>Position </div>
               <div style={{ fontWeight: "500" }}>
-                : {data?.recruitment.position ?? ""}{" "}
+                : {data?.position ?? ""}{" "}
               </div>
               <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
               <div style={{ fontWeight: "500" }}>: {data?.phone ?? ""} </div>

@@ -226,7 +226,7 @@ function ArchiveApplicant() {
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["name"]}</td>
                       <td className="align-middle">
-                        {val.recruitment.position ?? " "}
+                        {val.position ?? " "}
                       </td>
                       <td className="align-middle">
                         {new Date(val["createdAt"]).getFullYear() +
@@ -326,7 +326,7 @@ function ArchiveApplicant() {
                   </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
                   <div style={{ fontWeight: "500" }}>
-                    : {detail?.recruitment.position ?? ""}{" "}
+                    : {detail?.position ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
                   <div style={{ fontWeight: "500" }}>

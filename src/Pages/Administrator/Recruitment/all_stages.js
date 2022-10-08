@@ -14,6 +14,7 @@ import {
   Export,
   MagnifyingGlass,
   CaretRight,
+  ListChecks,
 } from "phosphor-react";
 import { Dropdown, Modal, Button, Badge } from "react-bootstrap";
 import {
@@ -333,6 +334,9 @@ function AllStages() {
                 <th className="align-middle " onClick={() => {}}>
                   Status <ImportExport fontSize="2px" />
                 </th>
+                <th className="align-middle " onClick={() => {}}>
+                  Action <ImportExport fontSize="2px" />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -367,6 +371,25 @@ function AllStages() {
                         >
                           {val["status"]}
                         </span>{" "}
+                      </td>
+                      <td>
+                      <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => {
+                                navigate(
+                                  "/recruitment/entry-application/detail-stage",
+                                  {
+                                    state: val,
+                                  }
+                                );
+                              }}
+                            >
+                              <ListChecks
+                                weight="bold"
+                                color="#00AE46"
+                                className="h-5 w-5"
+                              />
+                            </button>
                       </td>
                     </tr>
                   );

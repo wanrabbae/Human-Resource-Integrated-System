@@ -56,6 +56,12 @@ var GetApplicant = async () => {
     return res.data;
   }
 };
+var GetDetailApplicant = async (id) => {
+  var res = await axios.get(`${endpoint}/getApplicant?applicant_id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var GetApplicantArchive = async () => {
   var res = await axios.get(`${endpoint}/getApplicantArchive`);
   if (res.status == 200) {
@@ -176,4 +182,5 @@ export {
   GetStageByDate,
   searchStage,
   EditRecruitment,
+  GetDetailApplicant,
 };

@@ -110,7 +110,7 @@ function App() {
           element={<EntryApplication />}
         />
         <Route
-          path="/recruitment/entry-application/detail-applicant"
+          path="/recruitment/entry-application/detail-applicant/:id"
           element={<DetailApplicant />}
         />
         <Route

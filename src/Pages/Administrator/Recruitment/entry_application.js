@@ -556,11 +556,9 @@ function EntryApplication() {
               fontWeight: "500",
             }}
             className="btn d-flex align-items-center text-white"
-            onClick={() =>
-              navigate("/recruitment/entry-application/detail-applicant", {
-                state: { details: detail },
-              })
-            }
+            onClick={() => {
+              navigate(`/recruitment/entry-application/detail-applicant/${detail["id"]}`);
+            }}
             type=""
           >
             Read Detail

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   faArrowsUpDown,
   faArrowsUpDownLeftRight,
@@ -27,11 +27,19 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { GetApplicant } from "../../../Repository/RecruitmentRepository";
+import { GetApplicant, GetDetailApplicant } from "../../../Repository/RecruitmentRepository";
 
 function DetailApplicant() {
+  const { id } = useParams();
   const location = useLocation();
-  const data = location.state?.details;
+  const [dAplicant, setDApplicant] = useState([]);
+  const inAwait = async () => {
+    var rec = await GetDetailApplicant(id);
+    setDApplicant(rec);
+  };
+  useEffect(() => {
+    inAwait();
+  }, []);
 
   function monthDiff(d1, d2) {
     var months;
@@ -73,53 +81,52 @@ function DetailApplicant() {
           Personal details
         </h1>
         <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
-          <div className="col-6" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-              <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
-              <div style={{ fontWeight: "500" }}>: {data?.name ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Tanggal Lahir </div>
-              <div style={{ fontWeight: "500" }}>
-                : {data?.birthDate ?? ""}{" "}
+              <div className="col-6" style={{ fontSize: "14px" }}>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+                  <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
+                  <div style={{ fontWeight: "500" }}>: {dAplicant?.name ?? ""} </div>
+                  <div style={{ fontWeight: "600" }}>Tanggal Lahir </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {dAplicant?.birthDate ?? ""}{" "}
+                  </div>
+                  <div style={{ fontWeight: "600" }}>Jenis Kelamin </div>
+                  <div style={{ fontWeight: "500" }}>: {dAplicant?.gender ?? ""} </div>
+                  <div style={{ fontWeight: "600" }}>Usia </div>
+                  <div style={{ fontWeight: "500" }}>: {dAplicant?.age ?? ""} </div>
+                  {/* <div style={{fontWeight:'600'}}>Email  </div>
+                          <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
+                </div>
               </div>
-              <div style={{ fontWeight: "600" }}>Jenis Kelamin </div>
-              <div style={{ fontWeight: "500" }}>: {data?.gender ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Usia </div>
-              <div style={{ fontWeight: "500" }}>: {data?.age ?? ""} </div>
-              {/* <div style={{fontWeight:'600'}}>Email  </div>
-                                    <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
-            </div>
-          </div>
-          <div className="col-6" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 gap-x-3 gap-y-5">
-              <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
-              <div style={{ fontWeight: "500" }}>: {data?.source ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Tanggal Melamar </div>
-              <div style={{ fontWeight: "500" }}>: {data?.date ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Position </div>
-              <div style={{ fontWeight: "500" }}>
-                : {data?.position ?? ""}{" "}
+              <div className="col-6" style={{ fontSize: "14px" }}>
+                <div className="grid grid-cols-2 gap-x-3 gap-y-5">
+                  <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
+                  <div style={{ fontWeight: "500" }}>: {dAplicant?.source ?? ""} </div>
+                  <div style={{ fontWeight: "600" }}>Tanggal Melamar </div>
+                  <div style={{ fontWeight: "500" }}>: {dAplicant?.date ?? ""} </div>
+                  <div style={{ fontWeight: "600" }}>Position </div>
+                  <div style={{ fontWeight: "500" }}>
+                    : {dAplicant?.position ?? ""}{" "}
+                  </div>
+                  <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
+                  <div style={{ fontWeight: "500" }}>: {dAplicant?.phone ?? ""} </div>
+                </div>
               </div>
-              <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
-              <div style={{ fontWeight: "500" }}>: {data?.phone ?? ""} </div>
-            </div>
-          </div>
-        </div>
-        <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
-          <div className="col-6 mt-3" style={{ fontSize: "14px" }}>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-              <div style={{ fontWeight: "600" }}>Email </div>
-              <div style={{ fontWeight: "500" }}>: {data?.email ?? ""} </div>
-              <div style={{ fontWeight: "600" }}>Alamat KTP </div>
-              <div style={{ fontWeight: "500" }}>
-                : {data?.identityAddress ?? ""}{" "}
+            </div><div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
+                <div className="col-6 mt-3" style={{ fontSize: "14px" }}>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+                    <div style={{ fontWeight: "600" }}>Email </div>
+                    <div style={{ fontWeight: "500" }}>: {dAplicant?.email ?? ""} </div>
+                    <div style={{ fontWeight: "600" }}>Alamat KTP </div>
+                    <div style={{ fontWeight: "500" }}>
+                      : {dAplicant?.identityAddress ?? ""}{" "}
+                    </div>
+                    <div style={{ fontWeight: "600" }}>Alamat Domisili </div>
+                    <div style={{ fontWeight: "500" }}>: {dAplicant?.address ?? ""} </div>
+                    {/* <div style={{fontWeight:'600'}}>Email  </div>
+                          <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
+                  </div>
+                </div>
               </div>
-              <div style={{ fontWeight: "600" }}>Alamat Domisili </div>
-              <div style={{ fontWeight: "500" }}>: {data?.address ?? ""} </div>
-              {/* <div style={{fontWeight:'600'}}>Email  </div>
-                                    <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
-            </div>
-          </div>
-        </div>
       </div>
       <div
         className="mb-5 bg-[#F8F8F8] rounded-xl px-4 py-5"
@@ -131,7 +138,7 @@ function DetailApplicant() {
         <div className="d-flex gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
           <div className="col" style={{ fontSize: "14px" }}>
             <div className="grid grid-cols-1 gap-x-4 gap-y-2">
-              {data?.educations?.map((edu) => (
+              {dAplicant?.educations?.map((edu) => (
                 <div
                   className="py-3"
                   style={{
@@ -162,7 +169,7 @@ function DetailApplicant() {
         <div className="row gap-x-6 gap-y-1" style={{ fontSize: "14px" }}>
           <div className="col">
             <div className="grid grid-cols-1 gap-x-4 gap-y-2">
-              {data?.experience?.map((expe) => (
+              {dAplicant?.experience?.map((expe) => (
                 <div
                   className="py-2"
                   style={{
@@ -220,8 +227,8 @@ function DetailApplicant() {
               <div className="grid grid-cols-4 gap-4">
                 <div className="">
                   <div style={{ fontWeight: "600" }}>Cv Terbaru</div>
-                  {data?.applicantFile ? (
-                    <a download href={data?.applicantFile}>
+                  {dAplicant?.applicantFile ? (
+                    <a download href={dAplicant?.applicantFile}>
                       <Button
                         style={{
                           background:
@@ -239,8 +246,8 @@ function DetailApplicant() {
                 </div>
                 <div className="">
                   <div style={{ fontWeight: "600" }}>KTP</div>
-                  {data?.ktp ? (
-                    <a download href={data?.ktp}>
+                  {dAplicant?.ktp ? (
+                    <a download href={dAplicant?.ktp}>
                       <Button
                         style={{
                           background:
@@ -258,8 +265,8 @@ function DetailApplicant() {
                 </div>
                 <div className="">
                   <div style={{ fontWeight: "600" }}>Kartu Keluarga</div>
-                  {data?.kartuKeluarga ? (
-                    <a download href={data?.kartuKeluarga}>
+                  {dAplicant?.kartuKeluarga ? (
+                    <a download href={dAplicant?.kartuKeluarga}>
                       <Button
                         style={{
                           background:
@@ -277,8 +284,8 @@ function DetailApplicant() {
                 </div>
                 <div className="">
                   <div style={{ fontWeight: "600" }}>Ijazah Terakhir</div>
-                  {data?.ijazah ? (
-                    <a download href={data?.ijazah}>
+                  {dAplicant?.ijazah ? (
+                    <a download href={dAplicant?.ijazah}>
                       <Button
                         style={{
                           background:
@@ -296,8 +303,8 @@ function DetailApplicant() {
                 </div>
                 <div className="">
                   <div style={{ fontWeight: "600" }}>Transkrip Nilai</div>
-                  {data?.transkripNilai ? (
-                    <a download href={data?.transkripNilai}>
+                  {dAplicant?.transkripNilai ? (
+                    <a download href={dAplicant?.transkripNilai}>
                       <Button
                         style={{
                           background:
@@ -315,8 +322,8 @@ function DetailApplicant() {
                 </div>
                 <div className="">
                   <div style={{ fontWeight: "600" }}>Sertifikat Vaksin</div>
-                  {data?.vaccince ? (
-                    <a download href={data?.vaccince}>
+                  {dAplicant?.vaccince ? (
+                    <a download href={dAplicant?.vaccince}>
                       <Button
                         style={{
                           background:
@@ -334,8 +341,8 @@ function DetailApplicant() {
                 </div>
                 <div className="">
                   <div style={{ fontWeight: "600" }}>Portofolio</div>
-                  {data?.portfolio ? (
-                    <a download href={data?.portfolio}>
+                  {dAplicant?.portfolio ? (
+                    <a download href={dAplicant?.portfolio}>
                       <Button
                         style={{
                           background:

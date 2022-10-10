@@ -75,7 +75,7 @@ function ArchiveApplicant() {
         data.push({
           "Rejected Date": app.date,
           "Full Name": app.name,
-          Position: app.recruitment.position ?? "",
+          Position: app.position ?? "",
           "Apply Date":
             new Date(app.createdAt).getFullYear() +
             "-" +
@@ -194,23 +194,23 @@ function ArchiveApplicant() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
                   Rejected Date <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
                   Full Name <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
                   Apply Date <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Phone Number <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'180px'}} onClick={() => {}}>
                   Source of vacancies <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle pe-5" onClick={() => {}}>

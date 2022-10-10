@@ -14,6 +14,7 @@ import {
   Export,
   MagnifyingGlass,
   CaretRight,
+  ListChecks,
 } from "phosphor-react";
 import { Dropdown, Modal, Button, Badge } from "react-bootstrap";
 import {
@@ -314,24 +315,27 @@ function AllStages() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'180px'}} onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'180px'}} onClick={() => {}}>
                   Recruitment Stage <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Status <ImportExport fontSize="2px" />
+                </th>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
+                  Action <ImportExport fontSize="2px" />
                 </th>
               </tr>
             </thead>
@@ -367,6 +371,25 @@ function AllStages() {
                         >
                           {val["status"]}
                         </span>{" "}
+                      </td>
+                      <td>
+                      <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => {
+                                navigate(
+                                  "/recruitment/entry-application/detail-stage",
+                                  {
+                                    state: val,
+                                  }
+                                );
+                              }}
+                            >
+                              <ListChecks
+                                weight="bold"
+                                color="#00AE46"
+                                className="h-5 w-5"
+                              />
+                            </button>
                       </td>
                     </tr>
                   );

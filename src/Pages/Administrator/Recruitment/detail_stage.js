@@ -76,7 +76,24 @@ function DetailStage() {
               List of stage for employee recruitment
             </span>
           </div>
-          {location.state.status == "1" ? <button style={{ borderRadius: '10px', color: "white", fontSize: "14px", fontWeight: '500' }} className="bg-[#0E5073] btn d-flex align-items-center align-middle" onClick={() => setstageModal(true)} type=""><Plus className="me-2" size={20} weight="bold" />Add</button> : <></>}
+          {location.state.status == "1" ? (
+            <button
+              style={{
+                borderRadius: "10px",
+                color: "white",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="bg-[#0E5073] btn d-flex align-items-center align-middle"
+              onClick={() => setstageModal(true)}
+              type=""
+            >
+              <Plus className="me-2" size={20} weight="bold" />
+              Add
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="table-responsive">
           <table
@@ -91,23 +108,23 @@ function DetailStage() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Stage <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => { }}>
+                <th className="align-middle " onClick={() => {}}>
                   Status <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle pe-5" onClick={() => { }}>
+                <th className="align-middle pe-5" onClick={() => {}}>
                   Action
                 </th>
               </tr>
@@ -121,12 +138,8 @@ function DetailStage() {
                       <td className="align-middle">
                         {val.applicant?.recruitment?.position}
                       </td>
-                      <td className="align-middle">
-                        {val["date"]}
-                      </td>
-                      <td className="align-middle">
-                        {val["phone"]}
-                      </td>
+                      <td className="align-middle">{val["date"]}</td>
+                      <td className="align-middle">{val["phone"]}</td>
                       <td className="align-middle">
                         <span
                           className="p-2.5"
@@ -137,14 +150,14 @@ function DetailStage() {
                               val["status"] == "Success"
                                 ? "#CAFFDF"
                                 : val["status"] == "Failed"
-                                  ? "#FFE0E0"
-                                  : "#FFF0CA",
+                                ? "#FFE0E0"
+                                : "#FFF0CA",
                             color:
                               val["status"] == "Success"
                                 ? "#028F3B"
                                 : val["status"] == "Failed"
-                                  ? "#C1121F"
-                                  : "#8F5702",
+                                ? "#C1121F"
+                                : "#8F5702",
                           }}
                         >
                           {val["status"]}
@@ -152,7 +165,13 @@ function DetailStage() {
                       </td>
                       <td className="align-middle gap-2 d-flex">
                         <Dropdown>
-                          <Dropdown.Toggle disabled={location.state.status == "1" ? false : true} style={{ backgroundColor: '#CECECE', outline: '0' }} className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0" >
+                          <Dropdown.Toggle
+                            disabled={
+                              location.state.status == "1" ? false : true
+                            }
+                            style={{ backgroundColor: "#CECECE", outline: "0" }}
+                            className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0"
+                          >
                             Action
                           </Dropdown.Toggle>
                           <Dropdown.Menu>
@@ -208,13 +227,13 @@ function DetailStage() {
             </tbody>
           </table>
           <hr />
-          {location.state.status == "1" ?
+          {location.state.status == "1" ? (
             <div className="mt-4 d-flex align-center align-items-center justify-content-start">
               End Recruitment ?
               <button
                 style={{
                   borderRadius: "10px",
-                  backgroundColor: '#CAFFDF',
+                  backgroundColor: "#CAFFDF",
                   color: "#028F3B",
                   fontSize: "14px",
                   fontWeight: "500",
@@ -224,12 +243,14 @@ function DetailStage() {
                   var requestBody = {
                     id: location.state.id,
                     status: "2",
-                  }
+                  };
 
                   console.log(requestBody);
                   var data = await UpdateApplicant(requestBody);
-                  if (data['message'] == "success") {
-                    await SwalSuccess({ message: "Applicant has been accepted" });
+                  if (data["message"] == "success") {
+                    await SwalSuccess({
+                      message: "Applicant has been accepted",
+                    });
                     await inAwait();
                     navigate(-1);
                   }
@@ -241,7 +262,7 @@ function DetailStage() {
               <button
                 style={{
                   borderRadius: "10px",
-                  backgroundColor: '#FFE0E0',
+                  backgroundColor: "#FFE0E0",
                   color: "#C1121F",
                   fontSize: "14px",
                   fontWeight: "500",
@@ -251,11 +272,13 @@ function DetailStage() {
                   var requestBody = {
                     id: location.state.id,
                     status: "0",
-                  }
+                  };
                   console.log(requestBody);
                   var data = await UpdateApplicant(requestBody);
-                  if (data['message'] == "success") {
-                    await SwalSuccess({ message: "Applicant has been rejected" });
+                  if (data["message"] == "success") {
+                    await SwalSuccess({
+                      message: "Applicant has been rejected",
+                    });
                     navigate(-1);
                   }
                 }}
@@ -264,9 +287,9 @@ function DetailStage() {
                 Reject
               </button>
             </div>
-            :
+          ) : (
             <></>
-          }
+          )}
         </div>
       </div>
       <Modal show={stagemodal} size="md" onHide={() => setstageModal(false)}>
@@ -444,7 +467,7 @@ function DetailStage() {
               fontWeight: "500",
             }}
             className="btn d-flex align-items-center text-white"
-            onClick={() => { }}
+            onClick={() => {}}
             type=""
           >
             Read Detail

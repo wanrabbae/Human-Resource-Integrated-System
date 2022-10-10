@@ -160,6 +160,13 @@ var UpdateApplicant = async (requestBody) => {
   }
 };
 
+var getNotif = async () => {
+  var res = await axios.get(`${endpoint}/getNotif`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
   AddRecruitment,
   DeleteRecruitment,
@@ -183,4 +190,5 @@ export {
   searchStage,
   EditRecruitment,
   GetDetailApplicant,
+  getNotif,
 };

@@ -27,7 +27,10 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { GetApplicant, GetDetailApplicant } from "../../../Repository/RecruitmentRepository";
+import {
+  GetApplicant,
+  GetDetailApplicant,
+} from "../../../Repository/RecruitmentRepository";
 
 function DetailApplicant() {
   const { applicant_id } = useParams();
@@ -40,7 +43,6 @@ function DetailApplicant() {
   useEffect(() => {
     inAwait();
   }, []);
-  console.log(dAplicant)
 
   function monthDiff(d1, d2) {
     var months;
@@ -82,52 +84,69 @@ function DetailApplicant() {
           Personal details
         </h1>
         <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
-              <div className="col-6" style={{ fontSize: "14px" }}>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
-                  <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.name ?? ""} </div>
-                  <div style={{ fontWeight: "600" }}>Tanggal Lahir </div>
-                  <div style={{ fontWeight: "500" }}>
-                    : {dAplicant[0]?.birthDate ?? ""}{" "}
-                  </div>
-                  <div style={{ fontWeight: "600" }}>Jenis Kelamin </div>
-                  <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.gender ?? ""} </div>
-                  <div style={{ fontWeight: "600" }}>Usia </div>
-                  <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.age ?? ""} </div>
-                  {/* <div style={{fontWeight:'600'}}>Email  </div>
+          <div className="col-6" style={{ fontSize: "14px" }}>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+              <div style={{ fontWeight: "600" }}>Nama Lengkap </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.name ?? ""}{" "}
+              </div>
+              <div style={{ fontWeight: "600" }}>Tanggal Lahir </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.birthDate ?? ""}{" "}
+              </div>
+              <div style={{ fontWeight: "600" }}>Jenis Kelamin </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.gender ?? ""}{" "}
+              </div>
+              <div style={{ fontWeight: "600" }}>Usia </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.age ?? ""}{" "}
+              </div>
+              {/* <div style={{fontWeight:'600'}}>Email  </div>
                           <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
-                </div>
+            </div>
+          </div>
+          <div className="col-6" style={{ fontSize: "14px" }}>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-5">
+              <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.source ?? ""}{" "}
               </div>
-              <div className="col-6" style={{ fontSize: "14px" }}>
-                <div className="grid grid-cols-2 gap-x-3 gap-y-5">
-                  <div style={{ fontWeight: "600" }}>Sumber Lowongan </div>
-                  <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.source ?? ""} </div>
-                  <div style={{ fontWeight: "600" }}>Tanggal Melamar </div>
-                  <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.date ?? ""} </div>
-                  <div style={{ fontWeight: "600" }}>Position </div>
-                  <div style={{ fontWeight: "500" }}>
-                    : {dAplicant[0]?.position ?? ""}{" "}
-                  </div>
-                  <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
-                  <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.phone ?? ""} </div>
-                </div>
+              <div style={{ fontWeight: "600" }}>Tanggal Melamar </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.date ?? ""}{" "}
               </div>
-            </div><div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
-                <div className="col-6 mt-3" style={{ fontSize: "14px" }}>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                    <div style={{ fontWeight: "600" }}>Email </div>
-                    <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.email ?? ""} </div>
-                    <div style={{ fontWeight: "600" }}>Alamat KTP </div>
-                    <div style={{ fontWeight: "500" }}>
-                      : {dAplicant[0]?.identityAddress ?? ""}{" "}
-                    </div>
-                    <div style={{ fontWeight: "600" }}>Alamat Domisili </div>
-                    <div style={{ fontWeight: "500" }}>: {dAplicant[0]?.address ?? ""} </div>
-                    {/* <div style={{fontWeight:'600'}}>Email  </div>
+              <div style={{ fontWeight: "600" }}>Position </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.position ?? ""}{" "}
+              </div>
+              <div style={{ fontWeight: "600" }}>Nomor Telepon</div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.phone ?? ""}{" "}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="d-flex gap-x-6 gap-y-5" style={{ fontSize: "14px" }}>
+          <div className="col-6 mt-3" style={{ fontSize: "14px" }}>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+              <div style={{ fontWeight: "600" }}>Email </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.email ?? ""}{" "}
+              </div>
+              <div style={{ fontWeight: "600" }}>Alamat KTP </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.identityAddress ?? ""}{" "}
+              </div>
+              <div style={{ fontWeight: "600" }}>Alamat Domisili </div>
+              <div style={{ fontWeight: "500" }}>
+                : {dAplicant[0]?.address ?? ""}{" "}
+              </div>
+              {/* <div style={{fontWeight:'600'}}>Email  </div>
                           <div style={{fontWeight:'500'}}>: davidkurniawan@gmail.com</div> */}
-                  </div>
-                </div>
-              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         className="mb-5 bg-[#F8F8F8] rounded-xl px-4 py-5"
@@ -225,142 +244,142 @@ function DetailApplicant() {
           </div>
           <div className="w-100 my-2"></div>
           <div className="col-10" style={{ fontSize: "14px" }}>
-              <div className="grid grid-cols-4 gap-4">
-                <div className="">
-                  <div style={{ fontWeight: "600" }}>Cv Terbaru</div>
-                  {dAplicant[0]?.applicantFile ? (
-                    <a download href={dAplicant[0]?.applicantFile}>
-                      <Button
-                        style={{
-                          background:
-                            "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
-                        }}
-                        className="btn border-0 m-1 rounded text-white"
-                      >
-                        {" "}
-                        Download
-                      </Button>
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
-                <div className="">
-                  <div style={{ fontWeight: "600" }}>KTP</div>
-                  {dAplicant[0]?.ktp ? (
-                    <a download href={dAplicant[0]?.ktp}>
-                      <Button
-                        style={{
-                          background:
-                            "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
-                        }}
-                        className="btn border-0 m-1 rounded text-white"
-                      >
-                        {" "}
-                        Download
-                      </Button>
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
-                <div className="">
-                  <div style={{ fontWeight: "600" }}>Kartu Keluarga</div>
-                  {dAplicant[0]?.kartuKeluarga ? (
-                    <a download href={dAplicant[0]?.kartuKeluarga}>
-                      <Button
-                        style={{
-                          background:
-                            "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
-                        }}
-                        className="btn border-0 m-1 rounded text-white"
-                      >
-                        {" "}
-                        Download
-                      </Button>
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
-                <div className="">
-                  <div style={{ fontWeight: "600" }}>Ijazah Terakhir</div>
-                  {dAplicant[0]?.ijazah ? (
-                    <a download href={dAplicant?.ijazah}>
-                      <Button
-                        style={{
-                          background:
-                            "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
-                        }}
-                        className="btn border-0 m-1 rounded text-white"
-                      >
-                        {" "}
-                        Download
-                      </Button>
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
-                <div className="">
-                  <div style={{ fontWeight: "600" }}>Transkrip Nilai</div>
-                  {dAplicant[0]?.transkripNilai ? (
-                    <a download href={dAplicant[0]?.transkripNilai}>
-                      <Button
-                        style={{
-                          background:
-                            "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
-                        }}
-                        className="btn border-0 m-1 rounded text-white"
-                      >
-                        {" "}
-                        Download
-                      </Button>
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
-                <div className="">
-                  <div style={{ fontWeight: "600" }}>Sertifikat Vaksin</div>
-                  {dAplicant[0]?.vaccince ? (
-                    <a download href={dAplicant[0]?.vaccince}>
-                      <Button
-                        style={{
-                          background:
-                            "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
-                        }}
-                        className="btn border-0 m-1 rounded text-white"
-                      >
-                        {" "}
-                        Download
-                      </Button>
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
-                <div className="">
-                  <div style={{ fontWeight: "600" }}>Portofolio</div>
-                  {dAplicant[0]?.portfolio ? (
-                    <a download href={dAplicant[0]?.portfolio}>
-                      <Button
-                        style={{
-                          background:
-                            "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
-                        }}
-                        className="btn border-0 m-1 rounded text-white"
-                      >
-                        {" "}
-                        Download
-                      </Button>
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
+            <div className="grid grid-cols-4 gap-4">
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Cv Terbaru</div>
+                {dAplicant[0]?.applicantFile ? (
+                  <a download href={dAplicant[0]?.applicantFile}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>KTP</div>
+                {dAplicant[0]?.ktp ? (
+                  <a download href={dAplicant[0]?.ktp}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Kartu Keluarga</div>
+                {dAplicant[0]?.kartuKeluarga ? (
+                  <a download href={dAplicant[0]?.kartuKeluarga}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Ijazah Terakhir</div>
+                {dAplicant[0]?.ijazah ? (
+                  <a download href={dAplicant?.ijazah}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Transkrip Nilai</div>
+                {dAplicant[0]?.transkripNilai ? (
+                  <a download href={dAplicant[0]?.transkripNilai}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Sertifikat Vaksin</div>
+                {dAplicant[0]?.vaccince ? (
+                  <a download href={dAplicant[0]?.vaccince}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className="">
+                <div style={{ fontWeight: "600" }}>Portofolio</div>
+                {dAplicant[0]?.portfolio ? (
+                  <a download href={dAplicant[0]?.portfolio}>
+                    <Button
+                      style={{
+                        background:
+                          "linear-gradient(90.2deg, #06B6D4 0.17%, #3B82F6 99.83%)",
+                      }}
+                      className="btn border-0 m-1 rounded text-white"
+                    >
+                      {" "}
+                      Download
+                    </Button>
+                  </a>
+                ) : (
+                  "-"
+                )}
               </div>
             </div>
+          </div>
         </div>
       </div>
     </>

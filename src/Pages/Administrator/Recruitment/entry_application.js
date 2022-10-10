@@ -54,6 +54,8 @@ function EntryApplication() {
   const [positionFilter, setPositionFilter] = useState([]);
   const [studiFilter, setStudiFilter] = useState([]);
   const [genderFilter, setGenderFilter] = useState([]);
+  const [isSelectedGender, setGender] = useState([false, false,]);
+  const [isSelectedEducation, setEducation] = useState([false, false, false, false]);
 
   const [detail, setDetail] = useState();
   const inAwait = async () => {
@@ -259,23 +261,23 @@ function EntryApplication() {
                 <th className="align-middle px-3" width="10px">
                   <input type="checkbox" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Sumber Lowongan <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle pe-5" onClick={() => {}}>
+                <th className="align-middle pe-5" onClick={() => { }}>
                   Action
                 </th>
               </tr>
@@ -289,7 +291,7 @@ function EntryApplication() {
                         <input type="checkbox" />
                       </td>
                       <td className="align-middle">
-                        {val.position ?? " "}
+                        {val.position ?? val.recruitment.position}
                       </td>
                       <td className="align-middle">{val["source"]}</td>
                       <td className="align-middle">{val["date"]}</td>
@@ -465,7 +467,7 @@ function EntryApplication() {
               color: "#FFFFFF",
             }}
             className="px-3"
-            onClick={async () => {}}
+            onClick={async () => { }}
           >
             Add
           </Button>
@@ -585,12 +587,19 @@ function EntryApplication() {
         open={filter}
         anchor={"right"}
         onClose={() => {
-          setfilter(false);
+          // setfilter(false);
           setApplicantFilter({});
-          sourceFilter = [];
-          positionFilter = [];
-          studiFilter = [];
-          genderFilter = [];
+          // sourceFilter = [];
+          // positionFilter = [];
+          // studiFilter = [];
+          // genderFilter = [];
+          // setApplicantFilter({});
+          setPositionFilter([]);
+          setGender([false, false]);
+          setGenderFilter([]);
+          setSourceFilter([]);
+          setStudiFilter([]);
+          setfilter(false);
         }}
       >
         <div className="grid p-4 gap-4">
@@ -691,7 +700,11 @@ function EntryApplication() {
                           value={val["source"]}
                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           onChange={(e) => {
-                            setSourceFilter([...sourceFilter, e.target.value]);
+                            if (sourceFilter.find((data) => data == e.target.value)) {
+                              setSourceFilter(el => el.filter((ment, i) => ment !== e.target.value));
+                            } else {
+                              setSourceFilter([...sourceFilter, e.target.value]);
+                            }
                           }}
                         />
                         <label
@@ -732,7 +745,7 @@ function EntryApplication() {
                       self.findIndex(
                         (t) =>
                           t.position ===
-                            value.position &&
+                          value.position &&
                           t.position === value.position
                       )
                   )
@@ -745,10 +758,14 @@ function EntryApplication() {
                           value={val["position"]}
                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           onChange={(e) => {
-                            setPositionFilter([
-                              ...positionFilter,
-                              e.target.value,
-                            ]);
+                            if (positionFilter.find((data) => data == e.target.value)) {
+                              setPositionFilter(el => el.filter((ment, i) => ment !== e.target.value));
+                            } else {
+                              setPositionFilter([
+                                ...positionFilter,
+                                e.target.value,
+                              ]);
+                            }
                           }}
                         />
                         <label
@@ -785,10 +802,17 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value="SMA / SMK"
+                    value="SMA"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={(e) => {
-                      setStudiFilter([...studiFilter, e.target.value]);
+                      if (studiFilter.find((data) => data == e.target.value)) {
+                        setStudiFilter(el => el.filter((ment, i) => ment !== e.target.value));
+                      } else {
+                        setStudiFilter([
+                          ...studiFilter,
+                          e.target.value,
+                        ]);
+                      }
                     }}
                   />
                   <label
@@ -805,7 +829,14 @@ function EntryApplication() {
                     value="S1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={(e) => {
-                      setStudiFilter([...studiFilter, e.target.value]);
+                      if (studiFilter.find((data) => data == e.target.value)) {
+                        setStudiFilter(el => el.filter((ment, i) => ment !== e.target.value));
+                      } else {
+                        setStudiFilter([
+                          ...studiFilter,
+                          e.target.value,
+                        ]);
+                      }
                     }}
                   />
                   <label
@@ -822,7 +853,14 @@ function EntryApplication() {
                     value="S2"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={(e) => {
-                      setStudiFilter([...studiFilter, e.target.value]);
+                      if (studiFilter.find((data) => data == e.target.value)) {
+                        setStudiFilter(el => el.filter((ment, i) => ment !== e.target.value));
+                      } else {
+                        setStudiFilter([
+                          ...studiFilter,
+                          e.target.value,
+                        ]);
+                      }
                     }}
                   />
                   <label
@@ -839,7 +877,14 @@ function EntryApplication() {
                     value="S3"
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={(e) => {
-                      setStudiFilter([...studiFilter, e.target.value]);
+                      if (studiFilter.find((data) => data == e.target.value)) {
+                        setStudiFilter(el => el.filter((ment, i) => ment !== e.target.value));
+                      } else {
+                        setStudiFilter([
+                          ...studiFilter,
+                          e.target.value,
+                        ]);
+                      }
                     }}
                   />
                   <label
@@ -874,10 +919,16 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value="Perempuan"
+                    value={`${isSelectedGender[0]}`}
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={(e) => {
-                      setGenderFilter([...genderFilter, e.target.value]);
+                      isSelectedGender[0] = !isSelectedGender[0];
+                      setGender(isSelectedGender);
+                      if (isSelectedGender[0] == true) {
+                        setGenderFilter(e => [...e, "Perempuan"]);
+                      } else {
+                        setGenderFilter(e => e.filter((val, i) => val !== "Perempuan"));
+                      }
                     }}
                   />
                   <label
@@ -891,10 +942,17 @@ function EntryApplication() {
                   <input
                     id="default-checkbox"
                     type="checkbox"
-                    value="Laki - Laki"
+                    value={`${isSelectedGender[1]}`}
                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(e) => {
-                      setGenderFilter([...genderFilter, e.target.value]);
+                    onChange={(data) => {
+                      isSelectedGender[1] = !isSelectedGender[1];
+                      setGender(isSelectedGender);
+                      if (isSelectedGender[1] == true) {
+                        setGenderFilter(e => [...e, "Laki - Laki"]);
+                      } else {
+                        setGenderFilter(e => e.filter((val, i) => val !== "Laki - Laki"));
+                      }
+                      // setGenderFilter([...genderFilter, e.target.value]);
                     }}
                   />
                   <label
@@ -922,19 +980,69 @@ function EntryApplication() {
           <button
             className="btn bg-[#0E5073] text-white"
             onClick={async () => {
-              setfilter(false);
-              const reqBody = {
-                experience: applicantFilter.experience,
-                date: applicantFilter.date,
-                age: applicantFilter.age,
-                source: sourceFilter,
-                position: positionFilter,
-                gender: genderFilter,
-                studi: studiFilter,
-              };
-              console.log(reqBody)
+              var source = [];
+              var position = [];
+              applicant
+                .filter(
+                  (value, index, self) =>
+                    index ===
+                    self.findIndex(
+                      (t) =>
+                        t.position ===
+                        value.position &&
+                        t.position === value.position
+                    )
+                ).forEach((e, i) => {
+                  source.push(e['source']);
+                  position.push(e['position']);
+                });
+              var reqBody = {};
+              if (applicantFilter.date != undefined && applicantFilter.experience != undefined) {
+                reqBody = {
+                  experience: applicantFilter.experience,
+                  date: applicantFilter.date,
+                  age: applicantFilter.age,
+                  source: JSON.stringify(sourceFilter.length == 0 ? source : sourceFilter),
+                  position: JSON.stringify + (positionFilter.length == 0 ? position : positionFilter),
+                  gender: JSON.stringify(genderFilter.length == 0 ? ["Laki - Laki", "Perempuan"] : genderFilter),
+                  studi: JSON.stringify(studiFilter.length == 0 ? ["SMA", "S1", "S2", "S3"] : studiFilter),
+                };
+              } else if (applicantFilter.date != undefined) {
+                reqBody = {
+                  date: applicantFilter.date,
+                  age: applicantFilter.age,
+                  source: JSON.stringify(sourceFilter.length == 0 ? source : sourceFilter),
+                  position: JSON.stringify(positionFilter.length == 0 ? position : positionFilter),
+                  gender: JSON.stringify(genderFilter.length == 0 ? ["Laki - Laki", "Perempuan"] : genderFilter),
+                  studi: JSON.stringify(studiFilter.length == 0 ? ["SMA", "S1", "S2", "S3"] : studiFilter),
+                };
+              } else if (applicantFilter.experience != undefined) {
+                reqBody = {
+                  experience: applicantFilter.experience,
+                  age: applicantFilter.age,
+                  source: JSON.stringify(sourceFilter.length == 0 ? source : sourceFilter),
+                  position: JSON.stringify(positionFilter.length == 0 ? position : positionFilter),
+                  gender: JSON.stringify(genderFilter.length == 0 ? ["Laki - Laki", "Perempuan"] : genderFilter),
+                  studi: JSON.stringify(studiFilter.length == 0 ? ["SMA", "S1", "S2", "S3"] : studiFilter),
+                };
+              } else {
+                reqBody = {
+                  age: applicantFilter.age,
+                  source: JSON.stringify(sourceFilter.length == 0 ? source : sourceFilter),
+                  position: JSON.stringify(positionFilter.length == 0 ? position : positionFilter),
+                  gender: JSON.stringify(genderFilter.length == 0 ? ["Laki - Laki", "Perempuan"] : genderFilter),
+                  studi: JSON.stringify(studiFilter.length == 0 ? ["SMA", "S1", "S2", "S3"] : studiFilter),
+                };
+              }
               const res = await FilterApplicant(reqBody);
               setApplicant(res.result);
+              setApplicantFilter({});
+              setPositionFilter([]);
+              setSourceFilter([]);
+              setGender([false, false]);
+              setStudiFilter([]);
+              setGenderFilter([]);
+              setfilter(false);
             }}
           >
             Apply Filter

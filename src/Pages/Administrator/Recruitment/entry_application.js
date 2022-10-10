@@ -263,13 +263,13 @@ function EntryApplication() {
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'180px'}} onClick={() => {}}>
                   Sumber Lowongan <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'180px'}} onClick={() => {}}>
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
@@ -557,7 +557,7 @@ function EntryApplication() {
             }}
             className="btn d-flex align-items-center text-white"
             onClick={() => {
-              navigate(`/recruitment/entry-application/detail-applicant/${detail["id"]}`);
+              navigate(`/recruitment/entry-application/detail-applicant/${detail["applicant_id"]}`);
             }}
             type=""
           >

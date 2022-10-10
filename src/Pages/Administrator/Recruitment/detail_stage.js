@@ -56,7 +56,7 @@ function DetailStage() {
   const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
   const inAwait = async () => {
-    var rec = await GetStage(location.state.id);
+    var rec = await GetStage(location.state.applicant_id);
     setStage(rec);
   };
   useEffect(() => {
@@ -119,7 +119,7 @@ function DetailStage() {
                     <tr style={{ fontSize: "14px" }} key={i}>
                       <td className="align-middle">{val["stage"]}</td>
                       <td className="align-middle">
-                        {val.applicant?.recruitment?.position}
+                        {val.position}
                       </td>
                       <td className="align-middle">
                         {val["date"]}
@@ -160,7 +160,7 @@ function DetailStage() {
                               href="#"
                               onClick={async () => {
                                 var requestBody = {
-                                  id: val.id,
+                                  id: val.stage_id,
                                   status: "2",
                                 };
                                 var data = await updateStatusStage(requestBody);
@@ -178,7 +178,7 @@ function DetailStage() {
                               href="#"
                               onClick={async () => {
                                 var requestBody = {
-                                  id: val.id,
+                                  id: val.stage_id,
                                   status: "0",
                                 };
                                 var data = await updateStatusStage(requestBody);
@@ -222,7 +222,7 @@ function DetailStage() {
                 className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
                 onClick={async () => {
                   var requestBody = {
-                    id: location.state.id,
+                    id: location.state.applicant_id,
                     status: "2",
                   }
 
@@ -249,7 +249,7 @@ function DetailStage() {
                 className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
                 onClick={async () => {
                   var requestBody = {
-                    id: location.state.id,
+                    id: location.state.applicant_id,
                     status: "0",
                   }
                   console.log(requestBody);
@@ -336,7 +336,7 @@ function DetailStage() {
               var requestBody = {
                 stage: document.getElementById("name").value,
                 note: document.getElementById("note").value,
-                applicant_id: location.state.id,
+                applicant_id: location.state.applicant_id,
               };
               var res = await AddStage(requestBody);
               if (res == "success") {

@@ -56,6 +56,12 @@ var GetApplicant = async () => {
     return res.data;
   }
 };
+var GetDetailApplicant = async (id) => {
+  var res = await axios.get(`${endpoint}/getApplicant?applicant_id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var GetApplicantArchive = async () => {
   var res = await axios.get(`${endpoint}/getApplicantArchive`);
   if (res.status == 200) {
@@ -154,6 +160,13 @@ var UpdateApplicant = async (requestBody) => {
   }
 };
 
+var getNotif = async () => {
+  var res = await axios.get(`${endpoint}/getNotif`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
   AddRecruitment,
   DeleteRecruitment,
@@ -176,4 +189,6 @@ export {
   GetStageByDate,
   searchStage,
   EditRecruitment,
+  GetDetailApplicant,
+  getNotif,
 };

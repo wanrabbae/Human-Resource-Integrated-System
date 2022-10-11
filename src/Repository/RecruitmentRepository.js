@@ -167,6 +167,13 @@ var getNotif = async () => {
   }
 };
 
+var getEthosSource = async () => {
+  var res = await axios.get(`${endpoint}/ethos/getSource`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
   AddRecruitment,
   DeleteRecruitment,
@@ -191,4 +198,5 @@ export {
   EditRecruitment,
   GetDetailApplicant,
   getNotif,
+  getEthosSource,
 };

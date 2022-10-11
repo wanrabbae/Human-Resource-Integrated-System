@@ -315,26 +315,46 @@ function AllStages() {
                   writingMode: "horizontal-tb",
                 }}
               >
-                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
+                <th
+                  className="align-middle "
+                  style={{ minWidth: "150px" }}
+                  onClick={() => {}}
+                >
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
+                <th
+                  className="align-middle "
+                  style={{ minWidth: "150px" }}
+                  onClick={() => {}}
+                >
                   Position
                   <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " style={{minWidth:'180px'}} onClick={() => {}}>
+                <th
+                  className="align-middle "
+                  style={{ minWidth: "180px" }}
+                  onClick={() => {}}
+                >
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " style={{minWidth:'180px'}} onClick={() => {}}>
+                <th
+                  className="align-middle "
+                  style={{ minWidth: "180px" }}
+                  onClick={() => {}}
+                >
                   Recruitment Stage <ImportExport fontSize="2px" />
                 </th>
                 <th className="align-middle " onClick={() => {}}>
                   Status <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " style={{minWidth:'150px'}} onClick={() => {}}>
+                <th
+                  className="align-middle "
+                  style={{ minWidth: "150px" }}
+                  onClick={() => {}}
+                >
                   Action <ImportExport fontSize="2px" />
                 </th>
               </tr>
@@ -373,23 +393,23 @@ function AllStages() {
                         </span>{" "}
                       </td>
                       <td>
-                      <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => {
-                                navigate(
-                                  "/recruitment/entry-application/detail-stage",
-                                  {
-                                    state: val,
-                                  }
-                                );
-                              }}
-                            >
-                              <ListChecks
-                                weight="bold"
-                                color="#00AE46"
-                                className="h-5 w-5"
-                              />
-                            </button>
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            navigate(
+                              "/recruitment/entry-application/detail-stage",
+                              {
+                                state: val,
+                              }
+                            );
+                          }}
+                        >
+                          <ListChecks
+                            weight="bold"
+                            color="#00AE46"
+                            className="h-5 w-5"
+                          />
+                        </button>
                       </td>
                     </tr>
                   );
@@ -573,27 +593,37 @@ function AllStages() {
                 }}
               >
                 {stage.length > 0 ? (
-                  stage.map((val, i) => {
-                    return (
-                      <li className="items-center align-items-center">
-                        <input
-                          id={val["name"]}
-                          type="checkbox"
-                          value={val["position"]}
-                          onChange={(e) => {
-                            position.push(e.target.value);
-                          }}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label
-                          for={val["name"]}
-                          class="ml-2 text-sm text-gray-900"
-                        >
-                          {val["position"]}
-                        </label>
-                      </li>
-                    );
-                  })
+                  stage
+                    .filter(
+                      (value, index, self) =>
+                        index ===
+                        self.findIndex(
+                          (t) =>
+                            t.position === value.position &&
+                            t.position === value.position
+                        )
+                    )
+                    .map((val, i) => {
+                      return (
+                        <li className="items-center align-items-center">
+                          <input
+                            id={val["position"]}
+                            type="checkbox"
+                            value={val["position"]}
+                            onChange={(e) => {
+                              position.push(e.target.value);
+                            }}
+                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          />
+                          <label
+                            for={val["position"]}
+                            class="ml-2 text-sm text-gray-900"
+                          >
+                            {val["position"]}
+                          </label>
+                        </li>
+                      );
+                    })
                 ) : (
                   <li>No Data</li>
                 )}
@@ -620,27 +650,37 @@ function AllStages() {
                 }}
               >
                 {stage.length > 0 ? (
-                  stage.map((val, i) => {
-                    return (
-                      <li className="items-center align-items-center">
-                        <input
-                          id={val["name"]}
-                          type="checkbox"
-                          value={val["name"]}
-                          onChange={(e) => {
-                            recruitment_stage.push(e.target.value);
-                          }}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label
-                          for={val["name"]}
-                          class="ml-2 text-sm text-gray-900"
-                        >
-                          {val["name"]}
-                        </label>
-                      </li>
-                    );
-                  })
+                  stage
+                    .filter(
+                      (value, index, self) =>
+                        index ===
+                        self.findIndex(
+                          (t) =>
+                            t.position === value.position &&
+                            t.position === value.position
+                        )
+                    )
+                    .map((val, i) => {
+                      return (
+                        <li className="items-center align-items-center">
+                          <input
+                            id={val["name"]}
+                            type="checkbox"
+                            value={val["name"]}
+                            onChange={(e) => {
+                              recruitment_stage.push(e.target.value);
+                            }}
+                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          />
+                          <label
+                            for={val["name"]}
+                            class="ml-2 text-sm text-gray-900"
+                          >
+                            {val["name"]}
+                          </label>
+                        </li>
+                      );
+                    })
                 ) : (
                   <li>No Data</li>
                 )}
@@ -654,9 +694,10 @@ function AllStages() {
                 position: position,
                 recruitment_stage: recruitment_stage,
               };
-              var res = await FilterStage(reqBody);
-              setStage(res.result);
-              setfilter(false);
+              console.log(reqBody);
+              // var res = await FilterStage(reqBody);
+              // setStage(res.result);
+              // setfilter(false);
             }}
           >
             Apply Filter

@@ -132,7 +132,7 @@ var GetStageRange = async (startDate, endDate) => {
 };
 
 var FilterStage = async (data) => {
-  var res = await axios.post(`${endpoint}/getStageFilter`, data);
+  var res = await axios.post(`${endpoint}/getStageFilters`, data);
   if (res.status == 200) {
     return res.data;
   }

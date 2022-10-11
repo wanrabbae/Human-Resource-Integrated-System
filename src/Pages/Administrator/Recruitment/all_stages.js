@@ -364,11 +364,20 @@ function AllStages() {
                 stage.map((val, i) => {
                   return (
                     <tr style={{ fontSize: "14px" }} key={i}>
-                      <td className="align-middle">{val["name"]}</td>
-                      <td className="align-middle">{val["position"]}</td>
-                      <td className="align-middle">{val["date"]}</td>
-                      <td className="align-middle">{val["phone"]}</td>
-                      <td className="align-middle">{val["stage"]}</td>
+                      <td className="align-middle">
+                        {val["name"] ?? val["applicant"]["name"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["position"] ??
+                          val["applicant"]["recruitment"]["position"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["date"] ?? val["applicant"]["date"]}
+                      </td>
+                      <td className="align-middle">
+                        {val["phone"] ?? val["applicant"]["phone"]}
+                      </td>
+                      <td className="align-middle">{val["stage"] ?? ""}</td>
                       <td className="align-middle">
                         <span
                           className="p-2 my-3"
@@ -389,7 +398,7 @@ function AllStages() {
                                 : "#8F5702",
                           }}
                         >
-                          {val["status"]}
+                          {val["status"] ?? ""}
                         </span>{" "}
                       </td>
                       <td>
@@ -656,27 +665,26 @@ function AllStages() {
                         index ===
                         self.findIndex(
                           (t) =>
-                            t.position === value.position &&
-                            t.position === value.position
+                            t.stage === value.stage && t.stage === value.stage
                         )
                     )
                     .map((val, i) => {
                       return (
                         <li className="items-center align-items-center">
                           <input
-                            id={val["name"]}
+                            id={val["stage"]}
                             type="checkbox"
-                            value={val["name"]}
+                            value={val["stage"]}
                             onChange={(e) => {
                               recruitment_stage.push(e.target.value);
                             }}
                             className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           />
                           <label
-                            for={val["name"]}
+                            for={val["stage"]}
                             class="ml-2 text-sm text-gray-900"
                           >
-                            {val["name"]}
+                            {val["stage"]}
                           </label>
                         </li>
                       );
@@ -694,10 +702,10 @@ function AllStages() {
                 position: position,
                 recruitment_stage: recruitment_stage,
               };
-              console.log(reqBody);
-              // var res = await FilterStage(reqBody);
-              // setStage(res.result);
-              // setfilter(false);
+
+              var res = await FilterStage(reqBody);
+              setStage(res.result);
+              setfilter(false);
             }}
           >
             Apply Filter

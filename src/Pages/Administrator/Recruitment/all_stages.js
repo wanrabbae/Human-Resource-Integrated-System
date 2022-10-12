@@ -47,8 +47,8 @@ function AllStages() {
   const [modal, setModal] = useState(false);
   const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
-  let recruitment_stage = [];
-  let position = [];
+  let [recruitment_stage, setRecruitmentStage] = useState([]);
+  let [position, setPosition] = useState([]);
   const inAwait = async () => {
     var rec = await GetStage();
     setStage(rec);
@@ -318,14 +318,14 @@ function AllStages() {
                 <th
                   className="align-middle "
                   style={{ minWidth: "150px" }}
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   Nama Lengkap <ImportExport fontSize="2px" />
                 </th>
                 <th
                   className="align-middle "
                   style={{ minWidth: "150px" }}
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   Position
                   <ImportExport fontSize="2px" />
@@ -333,27 +333,27 @@ function AllStages() {
                 <th
                   className="align-middle "
                   style={{ minWidth: "180px" }}
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   Tanggal Melamar <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Nomor Telepon <ImportExport fontSize="2px" />
                 </th>
                 <th
                   className="align-middle "
                   style={{ minWidth: "180px" }}
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   Recruitment Stage <ImportExport fontSize="2px" />
                 </th>
-                <th className="align-middle " onClick={() => {}}>
+                <th className="align-middle " onClick={() => { }}>
                   Status <ImportExport fontSize="2px" />
                 </th>
                 <th
                   className="align-middle "
                   style={{ minWidth: "150px" }}
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   Action <ImportExport fontSize="2px" />
                 </th>
@@ -388,14 +388,14 @@ function AllStages() {
                               val["status"] == "Success"
                                 ? "#CAFFDF"
                                 : val["status"] == "Failed"
-                                ? "#FFE0E0"
-                                : "#FFF0CA",
+                                  ? "#FFE0E0"
+                                  : "#FFF0CA",
                             color:
                               val["status"] == "Success"
                                 ? "#028F3B"
                                 : val["status"] == "Failed"
-                                ? "#C1121F"
-                                : "#8F5702",
+                                  ? "#C1121F"
+                                  : "#8F5702",
                           }}
                         >
                           {val["status"] ?? ""}
@@ -558,9 +558,9 @@ function AllStages() {
         open={filter}
         anchor={"right"}
         onClose={() => {
+          setRecruitmentStage([]);
+          setPosition([]);
           setfilter(false);
-          recruitment_stage = [];
-          position = [];
         }}
       >
         <div className="grid p-4 gap-4">
@@ -620,7 +620,13 @@ function AllStages() {
                             type="checkbox"
                             value={val["position"]}
                             onChange={(e) => {
-                              position.push(e.target.value);
+                              if (position.find((data) => data == e.target.value)) {
+                                setPosition((el) =>
+                                  el.filter((ment, i) => ment !== e.target.value)
+                                );
+                              } else {
+                                setPosition([...position, e.target.value]);
+                              }
                             }}
                             className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           />
@@ -665,7 +671,7 @@ function AllStages() {
                         index ===
                         self.findIndex(
                           (t) =>
-                            t.stage === value.stage && t.stage === value.stage
+                            t.stage.toLowerCase() === value.stage.toLowerCase() && t.stage.toLowerCase() === value.stage.toLowerCase()
                         )
                     )
                     .map((val, i) => {
@@ -676,7 +682,13 @@ function AllStages() {
                             type="checkbox"
                             value={val["stage"]}
                             onChange={(e) => {
-                              recruitment_stage.push(e.target.value);
+                              if (recruitment_stage.find((data) => data == e.target.value)) {
+                                setRecruitmentStage((el) =>
+                                  el.filter((ment, i) => ment !== e.target.value)
+                                );
+                              } else {
+                                setRecruitmentStage([...recruitment_stage, e.target.value]);
+                              }
                             }}
                             className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           />
@@ -698,12 +710,41 @@ function AllStages() {
           <button
             className="btn bg-[#0E5073] text-white"
             onClick={async () => {
-              const reqBody = {
-                position: position,
-                recruitment_stage: recruitment_stage,
-              };
+              var stg = [];
+              var pst = [];
+              stage
+                .filter(
+                  (value, index, self) =>
+                    index ===
+                    self.findIndex(
+                      (t) =>
+                        t.position === value.position && t.position === value.position
+                    )
+                )
+                .map((val, i) => {
+                  pst.push(val['position']);
+                });
 
+              stage
+                .filter(
+                  (value, index, self) =>
+                    index ===
+                    self.findIndex(
+                      (t) =>
+                        t.stage.toLowerCase() === value.stage.toLowerCase() && t.stage.toLowerCase() === value.stage.toLowerCase()
+                    )
+                )
+                .map((val, i) => {
+                  stg.push(val["stage"]);
+                });
+              const reqBody = {
+                position: position.length == 0 ? pst : position,
+                recruitment_stage: recruitment_stage.length == 0 ? stg : recruitment_stage,
+              };
+              console.log(reqBody);
               var res = await FilterStage(reqBody);
+              setPosition([]);
+              setRecruitmentStage([]);
               setStage(res.result);
               setfilter(false);
             }}

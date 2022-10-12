@@ -37,6 +37,10 @@ function RecruitmentCreate() {
   const [education, setEducation] = useState([]);
   const [priority, setPriority] = useState([]);
   const [errorMsg, setErrorMsg] = useState();
+  const [errorsMessage, setErrorsMessage] = useState({
+    type: "",
+    qualification: "",
+  });
   const editorRef = useRef(null);
   const options = [
     { value: "SMA", label: "SMA / SMK Sederajat" },
@@ -90,6 +94,24 @@ function RecruitmentCreate() {
         onSubmit={async (e) => {
           e.preventDefault();
           try {
+            if (document.getElementById("type").value == "Select Job Type") {
+              setErrorsMessage({
+                ...errorsMessage,
+                type: "Please fill out this field",
+              });
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              return false;
+            } else if (
+              editorRef.current.getContent() == "" ||
+              !editorRef.current.getContent()
+            ) {
+              setErrorsMessage({
+                ...errorsMessage,
+                qualification: "Please fill out this field",
+              });
+              return false;
+            }
+
             var requestBody = {
               title: document.getElementById("title").value,
               description: document.getElementById("description").value,
@@ -221,6 +243,9 @@ function RecruitmentCreate() {
                   Remote
                 </option>
               </select>
+              <span className="text-red-600 text-xs">
+                {errorsMessage.type ?? ""}
+              </span>
             </div>
             <div>
               <label
@@ -314,9 +339,12 @@ function RecruitmentCreate() {
                     "bullist numlist checklist outdent indent | removeformat | a11ycheck code table help",
                 }}
               />
+              <span className="text-red-600 text-xs">
+                {errorsMessage.qualification ?? ""}
+              </span>
             </div>
             <div>
-              <button
+              <a
                 style={{
                   borderRadius: "8px",
                   backgroundColor: "#FFF",
@@ -324,13 +352,12 @@ function RecruitmentCreate() {
                   fontWeight: "500",
                   color: "#669BBC",
                 }}
-                className="btn d-flex align-items-center text-[#669BBC]"
+                className="btn d-flex align-items-center text-[#669BBC] cursor-pointer"
                 onClick={() => setModal(true)}
-                type=""
               >
                 <Plus size={15} className="me-2" weight="bold" />
                 Add Specific Qualification
-              </button>
+              </a>
             </div>
             <div className="d-flex gap-4">
               <div className="w-full">
@@ -391,7 +418,10 @@ function RecruitmentCreate() {
                 fontWeight: "500",
               }}
               className="px-3"
-              onClick={() => setModal(false)}
+              onClick={() => {
+                setModal(false);
+                navigate("/recruitment");
+              }}
             >
               Cancel
             </Button>

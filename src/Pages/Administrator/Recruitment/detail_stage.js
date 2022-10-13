@@ -135,9 +135,7 @@ function DetailStage() {
                   return (
                     <tr style={{ fontSize: "14px" }} key={i}>
                       <td className="align-middle">{val["stage"]}</td>
-                      <td className="align-middle">
-                        {val.position}
-                      </td>
+                      <td className="align-middle">{val.position}</td>
                       <td className="align-middle">{val["date"]}</td>
                       <td className="align-middle">{val["phone"]}</td>
                       <td className="align-middle">
@@ -302,76 +300,85 @@ function DetailStage() {
             Recruitment Stage
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="m-4">
-          <div className="">
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Stage Name <span style={{ color: "#780000" }}>*</span>
-              </label>
-              <input
-                className="appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="name"
-                type="text"
-                placeholder="Stage Name"
-              />
-            </div>
+        <form
+          method="POST"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              stage: document.getElementById("name").value,
+              note: document.getElementById("note").value,
+              applicant_id: location.state.applicant_id,
+            };
+            var res = await AddStage(requestBody);
+            if (res == "success") {
+              setstageModal(false);
+              await SwalSuccess({ message: "Success add stage" });
+              await inAwait();
+            }
+          }}
+        >
+          <Modal.Body className="m-4">
             <div className="">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Note
-              </label>
-              <textarea
-                id="note"
-                rows="4"
-                placeholder="Note here"
-                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-              ></textarea>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm mb-2"
+                  for="username"
+                >
+                  Stage Name <span style={{ color: "#780000" }}>*</span>
+                </label>
+                <input
+                  className="appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                  id="name"
+                  type="text"
+                  placeholder="Stage Name"
+                  required
+                />
+              </div>
+              <div className="">
+                <label
+                  className="block text-gray-700 text-sm mb-2"
+                  for="username"
+                >
+                  Note
+                </label>
+                <textarea
+                  id="note"
+                  rows="4"
+                  required
+                  placeholder="Note here"
+                  className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                ></textarea>
+              </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <Button
-            style={{
-              border: "none",
-              fontSize: "14px",
-              backgroundColor: "#ECECEC",
-              color: "#003049",
-            }}
-            className="px-3"
-            onClick={() => setstageModal(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            style={{
-              border: "none",
-              fontSize: "14px",
-              backgroundColor: "#0E5073",
-              color: "#FFFFFF",
-            }}
-            className="px-3"
-            onClick={async () => {
-              var requestBody = {
-                stage: document.getElementById("name").value,
-                note: document.getElementById("note").value,
-                applicant_id: location.state.applicant_id,
-              };
-              var res = await AddStage(requestBody);
-              if (res == "success") {
-                setstageModal(false);
-                await SwalSuccess({ message: "Success add stage" });
-                await inAwait();
-              }
-            }}
-          >
-            Add
-          </Button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <Button
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#ECECEC",
+                color: "#003049",
+              }}
+              className="px-3"
+              type="button"
+              onClick={() => setstageModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#0E5073",
+                color: "#FFFFFF",
+              }}
+              className="px-3"
+              type="submit"
+            >
+              Add
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal>
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>
         <Modal.Header

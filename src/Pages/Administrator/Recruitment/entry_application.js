@@ -524,7 +524,7 @@ function EntryApplication() {
                   </div>
                   <div style={{ fontWeight: "600" }}>Usia </div>
                   <div style={{ fontWeight: "500" }}>
-                    : {detail?.age ?? ""}{" "}
+                    : {detail?.applicant_id ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
                   <div style={{ fontWeight: "500" }}>
@@ -581,7 +581,7 @@ function EntryApplication() {
             className="btn d-flex align-items-center text-white"
             onClick={() => {
               navigate(
-                `/recruitment/entry-application/detail-applicant/${detail["applicant_id"]}`
+                `/recruitment/entry-application/detail-applicant/${detail?.applicant_id}`
               );
             }}
             type=""

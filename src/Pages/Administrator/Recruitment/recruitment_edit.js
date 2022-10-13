@@ -623,7 +623,7 @@ function RecruitmentEdit() {
               {skills.map((e, i) => {
                 return (
                   <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h1 className="mx-3" id="skillEdit">
+                    <h1 className="mx-3" id={e}>
                       {e}
                     </h1>
                     <button
@@ -632,8 +632,7 @@ function RecruitmentEdit() {
                         setSkills(
                           skills.filter(
                             (skl) =>
-                              skl ==
-                              document.getElementById("skillEdit").textContent
+                              skl !== document.getElementById(e).textContent
                           )
                         )
                       }

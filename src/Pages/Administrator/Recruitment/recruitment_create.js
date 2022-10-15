@@ -40,6 +40,7 @@ function RecruitmentCreate() {
   const [errorsMessage, setErrorsMessage] = useState({
     type: "",
     qualification: "",
+    skill: "",
   });
   const editorRef = useRef(null);
   const options = [
@@ -564,11 +565,11 @@ function RecruitmentCreate() {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm mt-3 mb-2"
-              for="username"
+              for="skills"
             >
               Skill
             </label>
-            <div className="d-flex mb-4">
+            <div className="d-flex mb-2">
               <input
                 id="skills"
                 required
@@ -585,16 +586,31 @@ function RecruitmentCreate() {
               />
               <button
                 onClick={() => {
+                  if (document.getElementById("skills").value == "") {
+                    setErrorsMessage({
+                      ...errorsMessage,
+                      skill: "Please fill out this field",
+                    });
+                    return false;
+                  }
                   setSkills((e) => [
                     ...e,
                     document.getElementById("skills").value,
                   ]);
+                  setErrorsMessage({ ...errorsMessage, skill: "" });
                 }}
                 className="btn bg-[#669BBC]"
               >
                 <Plus size={15} className="text-white mx-1" weight="bold" />
               </button>
             </div>
+            {errorsMessage.skill != "" || errorsMessage.skill != null ? (
+              <span className="text-red-600 text-sm mb-2">
+                {errorsMessage.skill}
+              </span>
+            ) : (
+              ""
+            )}
             <div className="d-flex flex-wrap">
               {skills.map((e, i) => {
                 return (

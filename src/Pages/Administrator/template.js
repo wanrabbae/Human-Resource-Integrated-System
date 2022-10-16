@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
+import useSWR from "swr";
 import "../../Resourse/style.css";
 import {
   AccountCircleRounded,
@@ -218,11 +219,14 @@ function Template() {
   const [notification, setNotification] = useState([]);
   const navigate = useNavigate();
 
-  const inAwait = async () => {
-    var notifs = await getNotif();
-    setNotification(notifs.result);
-    notification.length > 0 ? setRead(false) : setRead(true);
-  };
+  // const inAwait = async () => {
+  //   var notifs = await getNotif();
+  //   setNotification(notifs.result);
+  //   notification.length > 0 ? setRead(false) : setRead(true);
+  // };
+
+  const { data } = useSWR("getNotif", getNotif);
+  // setNotification(response.result);
 
   useEffect(() => {
     if (window.localStorage.getItem("users") == null) {
@@ -230,7 +234,7 @@ function Template() {
     } else {
       var data = JSON.parse(window.localStorage.getItem("users"));
       setUsers(data);
-      inAwait();
+      // inAwait();
     }
   }, []);
 
@@ -781,8 +785,8 @@ function Template() {
           <div className="d-flex align-items-center">
             <h3 className="text-xl font-semibold">Notification</h3>
           </div>
-          {notification.length > 0
-            ? notification.map((notif) => {
+          {data?.result.length > 0
+            ? data.result.map((notif, index) => {
                 return (
                   <div
                     className="grid grid-cols-6 align align-items-center p-3 bg-white rounded-lg shadow-xl cursor-pointer"
@@ -792,6 +796,7 @@ function Template() {
                       );
                       setNotif(false);
                     }}
+                    key={index}
                   >
                     <svg
                       width="20"
@@ -819,7 +824,7 @@ function Template() {
                   </div>
                 );
               })
-            : ""}
+            : "Loading..."}
           {/* <div className="grid grid-cols-6 align align-items-center p-3 bg-white rounded-lg shadow-xl">
             <svg
               width="20"

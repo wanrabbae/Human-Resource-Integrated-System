@@ -1,5 +1,6 @@
+import { InfoRounded } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
-import { TrashSimple } from "phosphor-react";
+import { TrashSimple, WarningOctagon } from "phosphor-react";
 import { Col, Modal, ModalBody, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 
@@ -51,6 +52,46 @@ function ModalDelete(props) {
   );
 }
 
+function ModalConfirmEmail(props) {
+  return (
+    <Modal size="sm" centered show={props.active}>
+      <ModalBody>
+        <center>
+          <Row>
+            <WarningOctagon
+              className="mt-3"
+              size={52}
+              weight="bold"
+              color="#C1121F"
+            />
+            <h1 className="text-[#003049] font-semibold my-2">
+              Send email to applicant
+            </h1>
+            <p className="text-[#737373] text-sm my-1 px-3">
+              Apakah anda sudah yakin dengan stage ini ? Jika sudah yakin maka
+              sistem akan mengirim email kepada applicant ini
+            </p>
+            <div className="my-3 d-flex justify-content-center">
+              <button
+                className="btn bg-[#ECECEC] font-medium mx-2 px-4 text-[#0E5073]"
+                onClick={props.close}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={props.submit}
+                className="btn bg-[#0E5073] font-medium mx-2 px-4 text-white"
+              >
+                Send
+              </button>
+            </div>
+          </Row>
+        </center>
+      </ModalBody>
+    </Modal>
+  );
+}
+
 function SwalSuccess(props) {
   return Swal.fire({
     icon: "success",
@@ -69,4 +110,10 @@ function SwalError(props) {
   });
 }
 
-export { LoadingDialog, ModalDelete, SwalSuccess, SwalError };
+export {
+  LoadingDialog,
+  ModalDelete,
+  SwalSuccess,
+  SwalError,
+  ModalConfirmEmail,
+};

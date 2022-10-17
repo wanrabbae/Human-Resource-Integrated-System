@@ -15,6 +15,7 @@ import {
   MagnifyingGlass,
   CaretRight,
   ListChecks,
+  Envelope,
   X,
 } from "phosphor-react";
 import {
@@ -44,7 +45,7 @@ import {
   UpdateApplicant,
   updateStatusStage,
 } from "../../../Repository/RecruitmentRepository";
-import { SwalSuccess } from "../../../Components/Modals";
+import { SwalSuccess, ModalConfirmEmail } from "../../../Components/Modals";
 import { Drawer } from "@mui/material";
 
 function DetailStage() {
@@ -55,6 +56,7 @@ function DetailStage() {
   const [stagemodal, setstageModal] = useState(false);
   const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
+  const [isdelete, setDelete] = useState(false);
   const inAwait = async () => {
     var rec = await GetStage(location.state.applicant_id);
     setStage(rec);
@@ -211,6 +213,12 @@ function DetailStage() {
                             </Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
+                        <Button
+                          onClick={() => setDelete(true)}
+                          className="text-dark border-0 bg-[#CECECE] hover:bg-[#CECECE] active:bg-[#CECECE] focus:bg-[#CECECE] focus:ring-0 focus:ring-offset-0 focus:outline-0 active:ring-0 active:ring-offset-0 active:outline-0"
+                        >
+                          <Envelope size={25} weight="bold" />
+                        </Button>
                       </td>
                     </tr>
                   );
@@ -487,6 +495,17 @@ function DetailStage() {
           </button>
         </Modal.Footer>
       </Modal>
+
+      <ModalConfirmEmail
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          setDelete(false);
+          SwalSuccess({ message: "Success send email!" });
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

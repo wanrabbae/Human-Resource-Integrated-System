@@ -40,8 +40,8 @@ function CostProfit() {
                             <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
                             <td className="align-middle" style={{ minWidth: "200px", }}>IT Staff</td>
                             <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
                                 <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
                             </td>
                         </tr>
                     </tbody>
@@ -181,8 +181,8 @@ function CostProfit() {
                             <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
                             <td className="align-middle" style={{ minWidth: "200px", }}>IT Staff</td>
                             <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
                                 <button onClick={() => setEditCost(!dialogEditCost)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
                             </td>
                         </tr>
                     </tbody>

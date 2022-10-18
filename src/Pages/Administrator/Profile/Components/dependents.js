@@ -36,14 +36,14 @@ function Dependents() {
                                 <td className="align-middle">12 - 12 - 2012</td>
                                 <td className="align-middle">
                                     <div className="flex flex-row gap-2">
-                                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
-                                            <Trash color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
-                                        </button>
                                         <button
                                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                                         onClick={() => setModal(true)}
                                         >
                                             <PencilSimple color="#003049" className="h-5 w-5" weight="bold" aria-hidden="true" />
+                                        </button>
+                                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                                            <Trash color="#003049" weight="bold" className="h-5 w-5" aria-hidden="true" />
                                         </button>
                                     </div>
                                 </td>

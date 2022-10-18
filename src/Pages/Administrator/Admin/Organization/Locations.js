@@ -136,19 +136,6 @@ function Locations() {
                   <td className="align-middle" style={{ minWidth: "100px" }}>
                     <button
                       onClick={() => {
-                        setDelete(true);
-                        setId(location.id);
-                      }}
-                      className="btn btn-sm mx-1"
-                      style={{
-                        backgroundColor: "#CEDFEA",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <DeleteOutline fontSize="10px" />
-                    </button>
-                    <button
-                      onClick={() => {
                         setId(location.id);
                         setEditValues(location);
                         setEditTitle(!dialogEditTitle);
@@ -160,6 +147,19 @@ function Locations() {
                       }}
                     >
                       <EditOutlined fontSize="10px" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setDelete(true);
+                        setId(location.id);
+                      }}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
                     </button>
                   </td>
                 </tr>

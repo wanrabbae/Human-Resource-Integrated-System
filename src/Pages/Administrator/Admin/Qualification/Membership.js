@@ -124,11 +124,12 @@ function Membership() {
                         borderRadius: "8px",
                       }}
                       onClick={() => {
-                        setDelete(true);
                         setId(member.id);
+                        setEditValues(member);
+                        setEditTitle(!dialogEditTitle);
                       }}
                     >
-                      <DeleteOutline fontSize="10px" />
+                      <EditOutlined fontSize="10px" />
                     </button>
                     <button
                       className="btn btn-sm mx-1"
@@ -137,12 +138,11 @@ function Membership() {
                         borderRadius: "8px",
                       }}
                       onClick={() => {
+                        setDelete(true);
                         setId(member.id);
-                        setEditValues(member);
-                        setEditTitle(!dialogEditTitle);
                       }}
                     >
-                      <EditOutlined fontSize="10px" />
+                      <DeleteOutline fontSize="10px" />
                     </button>
                   </td>
                 </tr>

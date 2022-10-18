@@ -121,19 +121,6 @@ function Languages() {
                   </td>
                   <td className="align-middle" style={{ minWidth: "100px" }}>
                     <button
-                      className="btn btn-sm mx-1"
-                      style={{
-                        backgroundColor: "#CEDFEA",
-                        borderRadius: "8px",
-                      }}
-                      onClick={() => {
-                        setDelete(true);
-                        setId(lang.id);
-                      }}
-                    >
-                      <DeleteOutline fontSize="10px" />
-                    </button>
-                    <button
                       onClick={() => {
                         setLanguagesValue(lang);
                         setEditTitle(!dialogEditTitle);
@@ -145,6 +132,19 @@ function Languages() {
                       }}
                     >
                       <EditOutlined fontSize="10px" />
+                    </button>
+                    <button
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                      onClick={() => {
+                        setDelete(true);
+                        setId(lang.id);
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
                     </button>
                   </td>
                 </tr>

@@ -130,19 +130,6 @@ function Nationalities() {
                   </td>
                   <td className="align-middle" style={{ minWidth: "100px" }}>
                     <button
-                      className="btn btn-sm mx-1"
-                      style={{
-                        backgroundColor: "#CEDFEA",
-                        borderRadius: "8px",
-                      }}
-                      onClick={() => {
-                        setDelete(true);
-                        setId(national.id);
-                      }}
-                    >
-                      <DeleteOutline fontSize="10px" />
-                    </button>
-                    <button
                       onClick={() => {
                         setNationalValue(national);
                         setEditTitle(!dialogEditTitle);
@@ -154,6 +141,19 @@ function Nationalities() {
                       }}
                     >
                       <EditOutlined fontSize="10px" />
+                    </button>
+                    <button
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                      onClick={() => {
+                        setDelete(true);
+                        setId(national.id);
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
                     </button>
                   </td>
                 </tr>

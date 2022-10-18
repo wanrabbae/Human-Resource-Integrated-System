@@ -127,19 +127,6 @@ function Unit() {
                   <td className="align-middle" style={{ minWidth: "100px" }}>
                     <button
                       onClick={() => {
-                        setDelete(true);
-                        setId(unit.id);
-                      }}
-                      className="btn btn-sm mx-1"
-                      style={{
-                        backgroundColor: "#CEDFEA",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <DeleteOutline fontSize="10px" />
-                    </button>
-                    <button
-                      onClick={() => {
                         setId(unit.id);
                         setEditValues(unit);
                         setEditTitle(!dialogEditTitle);
@@ -151,6 +138,19 @@ function Unit() {
                       }}
                     >
                       <EditOutlined fontSize="10px" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setDelete(true);
+                        setId(unit.id);
+                      }}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
                     </button>
                   </td>
                 </tr>

@@ -107,6 +107,40 @@ function GeneralInformation() {
                     </div>
                 </div>
             </div>
+                <div className="m-4 gap-4 justify-content-end" style={{
+                    display: !isEdited ? 'none' : 'flex'
+                }}>
+                    <Button
+                    style={{
+                        border: "none",
+                        fontSize: "14px",
+                        backgroundColor: "#ECECEC",
+                        color: "#003049",
+                        fontWeight: "500",
+                    }}
+                    className="px-3"
+                    onClick={() => setEdited(!isEdited)}
+                    // onClick={() => {
+                    //     // setModal(false);
+                    //     // navigate("/recruitment");
+                    // }}
+                    >
+                    Cancel
+                    </Button>
+                    <Button
+                    style={{
+                        border: "none",
+                        fontSize: "14px",
+                        backgroundColor: "#0E5073",
+                        color: "#FFFFFF",
+                    }}
+                    onClick={() => setEdited(!isEdited)}
+                    className="px-3"
+                    type="submit"
+                    >
+                    Create
+                    </Button>
+                </div>
         </div>
     );
 }

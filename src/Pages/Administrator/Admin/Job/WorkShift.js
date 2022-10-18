@@ -134,19 +134,6 @@ function WorkShift() {
                     </td>
                     <td className="align-middle" style={{ minWidth: "100px" }}>
                       <button
-                        className="btn btn-sm mx-1"
-                        style={{
-                          backgroundColor: "#CEDFEA",
-                          borderRadius: "8px",
-                        }}
-                        onClick={() => {
-                          setDelete(true);
-                          setId(val["id"]);
-                        }}
-                      >
-                        <DeleteOutline fontSize="10px" />
-                      </button>
-                      <button
                         onClick={() => {
                           setEditTitle(!dialogEditTitle);
                           setWorkShiftEdit(val);
@@ -158,6 +145,19 @@ function WorkShift() {
                         }}
                       >
                         <EditOutlined fontSize="10px" />
+                      </button>
+                      <button
+                        className="btn btn-sm mx-1"
+                        style={{
+                          backgroundColor: "#CEDFEA",
+                          borderRadius: "8px",
+                        }}
+                        onClick={() => {
+                          setDelete(true);
+                          setId(val["id"]);
+                        }}
+                      >
+                        <DeleteOutline fontSize="10px" />
                       </button>
                     </td>
                   </tr>

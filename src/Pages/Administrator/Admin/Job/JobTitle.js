@@ -146,19 +146,6 @@ function JobTitle() {
                     <td className="align-middle" style={{ minWidth: "100px" }}>
                       <button
                         onClick={() => {
-                          setDelete(true);
-                          setId(val["id"]);
-                        }}
-                        className="btn btn-sm mx-1"
-                        style={{
-                          backgroundColor: "#CEDFEA",
-                          borderRadius: "8px",
-                        }}
-                      >
-                        <DeleteOutline fontSize="10px" />
-                      </button>
-                      <button
-                        onClick={() => {
                           setId(val["id"]);
                           setEditValues(val);
                           setEditTitle(!dialogEditTitle);
@@ -170,6 +157,19 @@ function JobTitle() {
                         }}
                       >
                         <EditOutlined fontSize="10px" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setDelete(true);
+                          setId(val["id"]);
+                        }}
+                        className="btn btn-sm mx-1"
+                        style={{
+                          backgroundColor: "#CEDFEA",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        <DeleteOutline fontSize="10px" />
                       </button>
                     </td>
                   </tr>

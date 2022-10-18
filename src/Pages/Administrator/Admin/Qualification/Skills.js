@@ -122,19 +122,6 @@ function Skills() {
                   </td>
                   <td className="align-middle" style={{ minWidth: "100px" }}>
                     <button
-                      className="btn btn-sm mx-1"
-                      style={{
-                        backgroundColor: "#CEDFEA",
-                        borderRadius: "8px",
-                      }}
-                      onClick={() => {
-                        setDelete(true);
-                        setId(skill.id);
-                      }}
-                    >
-                      <DeleteOutline fontSize="10px" />
-                    </button>
-                    <button
                       onClick={() => {
                         setId(skill.id);
                         setEditValues(skill);
@@ -147,6 +134,19 @@ function Skills() {
                       }}
                     >
                       <EditOutlined fontSize="10px" />
+                    </button>
+                    <button
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                      onClick={() => {
+                        setDelete(true);
+                        setId(skill.id);
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
                     </button>
                   </td>
                 </tr>

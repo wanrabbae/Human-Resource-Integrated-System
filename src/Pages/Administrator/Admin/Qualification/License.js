@@ -121,19 +121,6 @@ function License() {
                   </td>
                   <td className="align-middle" style={{ minWidth: "100px" }}>
                     <button
-                      className="btn btn-sm mx-1"
-                      onClick={() => {
-                        setDelete(true);
-                        setId(license.id);
-                      }}
-                      style={{
-                        backgroundColor: "#CEDFEA",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      <DeleteOutline fontSize="10px" />
-                    </button>
-                    <button
                       onClick={() => {
                         setId(license.id);
                         setEditValues(license);
@@ -146,6 +133,19 @@ function License() {
                       }}
                     >
                       <EditOutlined fontSize="10px" />
+                    </button>
+                    <button
+                      className="btn btn-sm mx-1"
+                      onClick={() => {
+                        setDelete(true);
+                        setId(license.id);
+                      }}
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
                     </button>
                   </td>
                 </tr>

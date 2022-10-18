@@ -133,11 +133,12 @@ function JobCategories() {
                           borderRadius: "8px",
                         }}
                         onClick={() => {
-                          setDelete(true);
                           setId(val["id"]);
+                          setEditValues(val);
+                          setEditTitle(!dialogEditTitle);
                         }}
                       >
-                        <DeleteOutline fontSize="10px" />
+                        <EditOutlined fontSize="10px" />
                       </button>
                       <button
                         className="btn btn-sm mx-1"
@@ -146,12 +147,11 @@ function JobCategories() {
                           borderRadius: "8px",
                         }}
                         onClick={() => {
+                          setDelete(true);
                           setId(val["id"]);
-                          setEditValues(val);
-                          setEditTitle(!dialogEditTitle);
                         }}
                       >
-                        <EditOutlined fontSize="10px" />
+                        <DeleteOutline fontSize="10px" />
                       </button>
                     </td>
                   </tr>

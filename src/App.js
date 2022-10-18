@@ -10,8 +10,6 @@ import EntryApplication from "./Pages/Administrator/Recruitment/entry_applicatio
 // import Users from './Pages/Administrator/Admin/Users';
 import CustomField from "./Pages/Administrator/Employee/Configuration/CustomField";
 import Users from "./Pages/Administrator/Admin/UserManagement/Users";
-import JobTitle from "./Pages/Administrator/Admin/Job/JobTitle";
-import JobGrade from "./Pages/Administrator/Admin/Job/JobGrade";
 import EmployeeStatus from "./Pages/Administrator/Admin/Job/EmployeeStatus";
 import JobCategories from "./Pages/Administrator/Admin/Job/JobCategories";
 import ProfileTemplate from "./Pages/Administrator/Profile/profile_template";
@@ -49,6 +47,7 @@ import RecruitmentSet from "./Pages/Administrator/Recruitment/recruitment_settin
 import RecruitmentCreate from "./Pages/Administrator/Recruitment/recruitment_create";
 import ArchiveApplicant from "./Pages/Administrator/Recruitment/archive_applicant";
 import RecruitmentEdit from "./Pages/Administrator/Recruitment/recruitment_edit.js";
+import JobManagement from "./Pages/Administrator/Admin/Job/JobManagement";
 
 function App() {
   return (
@@ -67,8 +66,8 @@ function App() {
       <Route path="/admin" element={<Template />}>
         <Route index element={<Home />} />
         <Route path="/admin/userManagement/users" element={<Users />} />
-        <Route path="/admin/job/jobTitle" element={<JobTitle />} />
-        <Route path="/admin/job/jobGrade" element={<JobGrade />} />
+        <Route path="/admin/job/jobManagement" element={<JobManagement />} />
+        {/* <Route path="/admin/job/jobGrade" element={<JobGrade />} /> */}
         <Route path="/admin/job/employeeStatus" element={<EmployeeStatus />} />
         <Route path="/admin/job/jobCategories" element={<JobCategories />} />
         <Route path="/admin/job/workShift" element={<WorkShift />} />

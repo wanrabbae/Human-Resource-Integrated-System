@@ -26,7 +26,7 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Table,
   Modal,
@@ -35,38 +35,42 @@ import {
   ModalFooter,
 } from "react-bootstrap";
 import {
-  AddJobGrade,
-  DeleteJobGrade,
-  EditJobGrade,
-  GetJobGrade,
-} from "../../../../Repository/AdminRepository";
-import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
+  AddJobTittle,
+  delJobTittle,
+  EditJobTittle,
+  GetJobTittle,
+} from "../../../../../Repository/AdminRepository";
+import { ModalDelete, SwalSuccess } from "../../../../../Components/Modals";
 
-function JobGrade() {
-  const [jobgrade, setJobGrade] = useState([]);
+function JobTitle() {
+  const [jobtitle, setJobTitle] = useState([]);
   const [editValues, setEditValues] = useState();
   const inAwait = async () => {
-    var rec = await GetJobGrade();
-    setJobGrade(rec);
+    var rec = await GetJobTittle();
+    setJobTitle(rec);
   };
   useEffect(() => {
     inAwait();
   }, []);
-  const [dialogTitle, setTitle] = useState(false);
-  const [dialogEditTitle, setEditTitle] = useState(false);
+  var spesificationRef = useRef();
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [spesification, setSpesification] = useState();
+  const [dialogTitle, setTitle] = useState(false);
+  const [dialogEditTitle, setEditTitle] = useState(false);
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isdelete2, setDelete2] = useState(false);
   return (
     <>
       <div
         className="w-100 p-4"
-        style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
+        style={{ backgroundColor: "#FFFFFF", borderRadius: "15px",boxShadow:'0px 0px 3px rgba(0, 0, 0, 0.25)'}}
       >
         <h5>
-          <b>Job Grade</b>
+          <b>Job Title</b>
         </h5>
         <p>
-          <small>list of job grade</small>
+          <small>list of job title</small>
         </p>
         <br></br>
         <div className="d-flex justify-content-between">
@@ -77,6 +81,9 @@ function JobGrade() {
                 border: "1px solid #00000040",
                 borderRadius: "7px",
                 backgroundColor: "transparent",
+              }}
+              onClick={() => {
+                setDelete2(true);
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
@@ -97,7 +104,7 @@ function JobGrade() {
               variant="contained"
               startIcon={<Add />}
             >
-              Add Job Grade
+              Add Job Title
             </Button>
           </div>
         </div>
@@ -106,31 +113,36 @@ function JobGrade() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input
+                  type="checkbox"
+                  style={{ borderRadius: "2px" }}
+                  onChange={() => setCheckedAll(!isCheckedAll)}
+                />
               </th>
               <th onClick={() => {}}>
-                Grade Name <ImportExport fontSize="2px" />
+                Job Title <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Currency</th>
-              <th onClick={() => {}}>Minimum salary</th>
-              <th onClick={() => {}}>Maximum salary</th>
+              <th onClick={() => {}}>Job Description</th>
               <th onClick={() => {}}>Action</th>
             </tr>
           </thead>
           <tbody>
-            {jobgrade.length > 0 ? (
-              jobgrade.map((val) => {
+            {jobtitle.length > 0 ? (
+              jobtitle.map((val) => {
                 return (
                   <tr>
                     <td className="align-middle">
-                      <input type="checkbox" style={{ borderRadius: "2px" }} />
+                      <input
+                        type="checkbox"
+                        checked={isCheckedAll ? true : false}
+                        style={{ borderRadius: "2px" }}
+                        onChange={(e) => console.log(val["id"])}
+                      />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}
                     </td>
-                    <td className="align-middle">{val["type"]}</td>
-                    <td className="align-middle">{val["minsalary"]}</td>
-                    <td className="align-middle">{val["maxsalary"]}</td>
+                    <td className="align-middle">{val["description"]}</td>
                     <td className="align-middle" style={{ minWidth: "100px" }}>
                       <button
                         onClick={() => {
@@ -147,14 +159,14 @@ function JobGrade() {
                         <EditOutlined fontSize="10px" />
                       </button>
                       <button
+                        onClick={() => {
+                          setDelete(true);
+                          setId(val["id"]);
+                        }}
                         className="btn btn-sm mx-1"
                         style={{
                           backgroundColor: "#CEDFEA",
                           borderRadius: "8px",
-                        }}
-                        onClick={() => {
-                          setDelete(true);
-                          setId(val["id"]);
                         }}
                       >
                         <DeleteOutline fontSize="10px" />
@@ -180,49 +192,54 @@ function JobGrade() {
           className="m-4"
           style={{ borderBottomColor: "transparent" }}
         >
-          <Modal.Title>Add Job Grade</Modal.Title>
+          <Modal.Title>Add Job Title</Modal.Title>
         </Modal.Header>
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
               <div className="form-group">
                 <label className="mb-1">
-                  Job Grade <span className="text-danger">*</span>
+                  Job Title <span className="text-danger">*</span>
                 </label>
                 <input
                   className="form-control"
                   id="name"
-                  placeholder="Job grade..."
+                  placeholder="Job title..."
                 />
               </div>
             </div>
-            <div className="col-12 mb-3">
-              <h2>Currency</h2>
+            <div className="col-md-12 mb-3">
+              <div className="form-group">
+                <label className="mb-1">Job Description</label>
+                <textarea
+                  className="form-control"
+                  id="description"
+                  rows={4}
+                  placeholder="Job Description..."
+                ></textarea>
+              </div>
             </div>
             <div className="col-md-12 mb-3">
               <div className="form-group">
-                <label className="mb-1">Currency type</label>
-                <select id="type" className="form-control">
-                  <option>Select currency</option>
-                  <option value="IDR">IDR (Indonesia Rupiah)</option>
-                  <option value="USD">USD (United Stated Dollar)</option>
-                </select>
+                <label className="mb-1">Job Specification</label>
+                <input
+                  ref={spesificationRef}
+                  onChange={(val) => setSpesification(val.target.files[0])}
+                  className="form-control"
+                  type="file"
+                />
+                <small>* No more than 64 MB</small>
               </div>
             </div>
-            <div className="col-md-6 mb-3">
+            <div className="col-md-12 mb-3">
               <div className="form-group">
-                <label className="mb-1">
-                  Minimum salary <span className="text-danger">*</span>
-                </label>
-                <input id="minsalary" className="form-control" />
-              </div>
-            </div>
-            <div className="col-md-6 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Maximum salary <span className="text-danger">*</span>
-                </label>
-                <input id="maxsalary" className="form-control" />
+                <label className="mb-1">Note</label>
+                <textarea
+                  className="form-control"
+                  id="note"
+                  rows={4}
+                  placeholder="Note"
+                ></textarea>
               </div>
             </div>
           </div>
@@ -251,14 +268,13 @@ function JobGrade() {
             onClick={async () => {
               var requestBody = {
                 name: document.getElementById("name").value,
-                type: document.getElementById("type").value,
-                minsalary: document.getElementById("minsalary").value,
-                maxsalary: document.getElementById("maxsalary").value,
+                description: document.getElementById("description").value,
+                spesification: spesification,
+                note: document.getElementById("note").value,
               };
-              var res = await AddJobGrade(requestBody);
+              var res = await AddJobTittle(requestBody);
               console.log(res);
               setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add job grade" });
               inAwait();
             }}
           >
@@ -277,18 +293,19 @@ function JobGrade() {
           className="m-4"
           style={{ borderBottomColor: "transparent" }}
         >
-          <Modal.Title>Edit Job Grade</Modal.Title>
+          <Modal.Title>Edit Job Title</Modal.Title>
         </Modal.Header>
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
               <div className="form-group">
                 <label className="mb-1">
-                  Job Grade <span className="text-danger">*</span>
+                  Job Title <span className="text-danger">*</span>
                 </label>
                 <input
+                  id="nameEdit"
                   className="form-control"
-                  placeholder="Jobl grade..."
+                  placeholder="Job title..."
                   value={editValues?.name ?? null}
                   onChange={(e) =>
                     setEditValues({ ...editValues, name: e.target.value })
@@ -296,50 +313,49 @@ function JobGrade() {
                 />
               </div>
             </div>
-            <div className="col-12 mb-3">
-              <h2>Currency</h2>
+            <div className="col-md-12 mb-3">
+              <div className="form-group">
+                <label className="mb-1">Job Description</label>
+                <textarea
+                  className="form-control"
+                  id="descriptionEdit"
+                  value={editValues?.description ?? null}
+                  onChange={(e) =>
+                    setEditValues({
+                      ...editValues,
+                      description: e.target.value,
+                    })
+                  }
+                  rows={4}
+                  placeholder="Job Description..."
+                ></textarea>
+              </div>
             </div>
             <div className="col-md-12 mb-3">
               <div className="form-group">
-                <label className="mb-1">Currency type</label>
-                <select
+                <label className="mb-1">Job Specification</label>
+                <input
+                  ref={spesificationRef}
                   className="form-control"
-                  onChange={(e) =>
-                    setEditValues({ ...editValues, type: e.target.value })
-                  }
-                >
-                  <option>Select currency</option>
-                  <option value="IDR">IDR (Indonesia Rupiah)</option>
-                  <option value="USD">USD (United Stated Dollar)</option>
-                </select>
+                  onChange={(val) => setSpesification(val.target.files[0])}
+                  type="file"
+                />
+                <small>* No more than 64 MB</small>
               </div>
             </div>
-            <div className="col-md-6 mb-3">
+            <div className="col-md-12 mb-3">
               <div className="form-group">
-                <label className="mb-1">
-                  Minimum salary <span className="text-danger">*</span>
-                </label>
-                <input
+                <label className="mb-1">Note</label>
+                <textarea
                   className="form-control"
-                  value={editValues?.minsalary ?? null}
+                  id="noteEdit"
+                  rows={4}
+                  value={editValues?.note ?? null}
                   onChange={(e) =>
-                    setEditValues({ ...editValues, minsalary: e.target.value })
+                    setEditValues({ ...editValues, note: e.target.value })
                   }
-                />
-              </div>
-            </div>
-            <div className="col-md-6 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Maximum salary <span className="text-danger">*</span>
-                </label>
-                <input
-                  className="form-control"
-                  value={editValues?.maxsalary ?? null}
-                  onChange={(e) =>
-                    setEditValues({ ...editValues, maxsalary: e.target.value })
-                  }
-                />
+                  placeholder="Note"
+                ></textarea>
               </div>
             </div>
           </div>
@@ -358,6 +374,21 @@ function JobGrade() {
             Cancel
           </button>
           <button
+            onClick={async () => {
+              var requestBody = {
+                id: id,
+                name: document.getElementById("nameEdit").value,
+                description: document.getElementById("descriptionEdit").value,
+                spesification: spesification,
+                note: document.getElementById("noteEdit").value,
+              };
+
+              var res = await EditJobTittle(requestBody);
+              console.log(res);
+              setEditTitle(!dialogEditTitle);
+              SwalSuccess({ message: "Success edit job title" });
+              inAwait();
+            }}
             className="btn"
             style={{
               backgroundColor: "#0E5073",
@@ -365,39 +396,35 @@ function JobGrade() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                id: editValues.id,
-                name: editValues.name,
-                type: editValues.type,
-                minsalary: editValues.minsalary,
-                maxsalary: editValues.maxsalary,
-              };
-              var res = await EditJobGrade(requestBody);
-              setEditTitle(!dialogEditTitle);
-              SwalSuccess({ message: "Success edit job grade" });
-              inAwait();
-            }}
           >
             Submit
           </button>
         </Modal.Footer>
       </Modal>
-
       <ModalDelete
         close={() => {
           setDelete(false);
         }}
         submit={() => {
-          DeleteJobGrade(id);
+          delJobTittle(id);
           setDelete(false);
           inAwait();
-          SwalSuccess({ message: "Success delete job grade" });
+          SwalSuccess({ message: "Success delete job title" });
         }}
         active={isdelete}
+      />
+      <ModalDelete
+        close={() => {
+          setDelete2(false);
+        }}
+        submit={() => {
+          setDelete2(false);
+          SwalSuccess({ message: "Success delete job title" });
+        }}
+        active={isdelete2}
       />
     </>
   );
 }
 
-export default JobGrade;
+export default JobTitle;

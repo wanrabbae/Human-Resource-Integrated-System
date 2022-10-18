@@ -68,8 +68,8 @@ function Template() {
         show: true,
         body: [
           {
-            nama: "Job Title",
-            link: "/admin/job/jobTitle",
+            nama: "Job Management",
+            link: "/admin/job/jobManagement",
           },
           {
             nama: "Job Grade",
@@ -316,7 +316,7 @@ function Template() {
                   <>
                     <div
                       hidden={val.show}
-                      className="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+                      className="z-50 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
                       style={{ position: "absolute", left: "16em" }}
                     >
                       <ul
@@ -404,7 +404,7 @@ function Template() {
                   <>
                     <div
                       id={`drop${index}`}
-                      className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+                      className="hidden z-50 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
                       style={{ position: "absolute", left: "16em" }}
                     >
                       <ul
@@ -519,7 +519,7 @@ function Template() {
                   <>
                     <div
                       id={`timeManagement${index}`}
-                      className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+                      className="hidden z-50 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
                       style={{ position: "absolute", left: "16em" }}
                     >
                       <ul

@@ -67,7 +67,7 @@ function ProfileTemplate() {
             <div className="" >
                 <div className="d-flex flex-nowrap" style={{backgroundColor:'white',borderRadius:'15px'}}>
                     <aside
-                    className="p-4 flex-shrink-0 w-3/12 z-10"
+                    className="p-4 flex-shrink-0 w-3/12 z-0"
                     style={{
                         backgroundColor: "#FFFFFF",
                         borderTopLeftRadius: "15px",

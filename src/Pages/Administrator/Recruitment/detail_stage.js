@@ -45,7 +45,7 @@ import {
   UpdateApplicant,
   updateStatusStage,
 } from "../../../Repository/RecruitmentRepository";
-import { SwalSuccess, ModalConfirmEmail } from "../../../Components/Modals";
+import { SwalSuccess, ModalConfirmEmail, ModalConfirmApplicant } from "../../../Components/Modals";
 import { Drawer } from "@mui/material";
 
 function DetailStage() {
@@ -57,6 +57,7 @@ function DetailStage() {
   const [stage, setStage] = useState([]);
   const [detail, setDetail] = useState();
   const [isdelete, setDelete] = useState(false);
+  const [isAccept, setAccept] = useState(false);
   const inAwait = async () => {
     var rec = await GetStage(location.state.applicant_id);
     setStage(rec);
@@ -505,6 +506,16 @@ function DetailStage() {
           SwalSuccess({ message: "Success send email!" });
         }}
         active={isdelete}
+      />
+      <ModalConfirmApplicant
+        close={() => {
+          setAccept(false);
+        }}
+        submit={() => {
+          setAccept(false);
+          SwalSuccess({ message: "Success Accept Applicant!" });
+        }}
+        active={isAccept}
       />
     </>
   );

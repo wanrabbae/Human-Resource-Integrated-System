@@ -91,6 +91,82 @@ function ModalConfirmEmail(props) {
     </Modal>
   );
 }
+function ModalConfirmApplicant(props) {
+  return (
+    <Modal size="sm" centered show={props.active}>
+      <ModalBody>
+        <center>
+          <Row>
+            <WarningOctagon
+              className="mt-3"
+              size={52}
+              weight="bold"
+              color="#C1121F"
+            />
+            <h1 className="text-[#003049] font-semibold my-2">
+              Accept Applicant
+            </h1>
+            <p className="text-[#737373] text-sm my-1 px-3">
+              Apakah anda sudah yakin ingin menerima pelamar ini?
+            </p>
+            <div className="my-3 d-flex justify-content-center">
+              <button
+                className="btn bg-[#ECECEC] font-medium mx-2 px-4 text-[#0E5073]"
+                onClick={props.close}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={props.submit}
+                className="btn bg-[#0E5073] font-medium mx-2 px-4 text-white"
+              >
+                Send
+              </button>
+            </div>
+          </Row>
+        </center>
+      </ModalBody>
+    </Modal>
+  );
+}
+function ModalRejectApplicant(props) {
+  return (
+    <Modal size="sm" centered show={props.active}>
+      <ModalBody>
+        <center>
+          <Row>
+            <WarningOctagon
+              className="mt-3"
+              size={52}
+              weight="bold"
+              color="#C1121F"
+            />
+            <h1 className="text-[#003049] font-semibold my-2">
+              Reject Applicant
+            </h1>
+            <p className="text-[#737373] text-sm my-1 px-3">
+              Apakah anda sudah yakin ingin menolak pelamar ini?
+            </p>
+            <div className="my-3 d-flex justify-content-center">
+              <button
+                className="btn bg-[#ECECEC] font-medium mx-2 px-4 text-[#0E5073]"
+                onClick={props.close}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={props.submit}
+                className="btn bg-[#0E5073] font-medium mx-2 px-4 text-white"
+              >
+                Send
+              </button>
+            </div>
+          </Row>
+        </center>
+      </ModalBody>
+    </Modal>
+  );
+}
 
 function SwalSuccess(props) {
   return Swal.fire({
@@ -116,4 +192,6 @@ export {
   SwalSuccess,
   SwalError,
   ModalConfirmEmail,
+  ModalConfirmApplicant,
+  ModalRejectApplicant
 };

@@ -72,16 +72,8 @@ function Template() {
             link: "/admin/job/jobManagement",
           },
           {
-            nama: "Job Grade",
-            link: "/admin/job/jobGrade",
-          },
-          {
             nama: "Employee Status",
             link: "/admin/job/employeeStatus",
-          },
-          {
-            nama: "Job Categories",
-            link: "/admin/job/jobCategories",
           },
           {
             nama: "Work Shift",

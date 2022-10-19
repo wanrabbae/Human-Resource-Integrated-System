@@ -192,54 +192,35 @@ function JobLevel() {
           className="m-4"
           style={{ borderBottomColor: "transparent" }}
         >
-          <Modal.Title>Add Job Title</Modal.Title>
+          <Modal.Title>Add Job Level</Modal.Title>
         </Modal.Header>
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
               <div className="form-group">
                 <label className="mb-1">
-                  Job Title <span className="text-danger">*</span>
+                  Level Name <span className="text-danger">*</span>
                 </label>
                 <input
                   className="form-control"
                   id="name"
-                  placeholder="Job title..."
+                  placeholder="Level Name..."
                 />
               </div>
             </div>
             <div className="col-md-12 mb-3">
               <div className="form-group">
-                <label className="mb-1">Job Description</label>
-                <textarea
+                <label className="mb-1">Job Grade</label>
+                <select
                   className="form-control"
-                  id="description"
-                  rows={4}
-                  placeholder="Job Description..."
-                ></textarea>
-              </div>
-            </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">Job Specification</label>
-                <input
-                  ref={spesificationRef}
-                  onChange={(val) => setSpesification(val.target.files[0])}
-                  className="form-control"
-                  type="file"
-                />
-                <small>* No more than 64 MB</small>
-              </div>
-            </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">Note</label>
-                <textarea
-                  className="form-control"
-                  id="note"
-                  rows={4}
-                  placeholder="Note"
-                ></textarea>
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, type: e.target.value })
+                  }
+                >
+                  <option>Select Job Grade</option>
+                  <option value="IDR">XV</option>
+                  <option value="USD">I-III</option>
+                </select>
               </div>
             </div>
           </div>
@@ -293,69 +274,35 @@ function JobLevel() {
           className="m-4"
           style={{ borderBottomColor: "transparent" }}
         >
-          <Modal.Title>Edit Job Title</Modal.Title>
+          <Modal.Title>Edit Job Level</Modal.Title>
         </Modal.Header>
         <Modal.Body className="mx-4">
-          <div className="row">
+        <div className="row">
             <div className="col-md-12 mb-3">
               <div className="form-group">
                 <label className="mb-1">
-                  Job Title <span className="text-danger">*</span>
+                  Level Name <span className="text-danger">*</span>
                 </label>
                 <input
-                  id="nameEdit"
                   className="form-control"
-                  placeholder="Job title..."
-                  value={editValues?.name ?? null}
-                  onChange={(e) =>
-                    setEditValues({ ...editValues, name: e.target.value })
-                  }
+                  id="name"
+                  placeholder="Level Name..."
                 />
               </div>
             </div>
             <div className="col-md-12 mb-3">
               <div className="form-group">
-                <label className="mb-1">Job Description</label>
-                <textarea
+                <label className="mb-1">Job Grade</label>
+                <select
                   className="form-control"
-                  id="descriptionEdit"
-                  value={editValues?.description ?? null}
                   onChange={(e) =>
-                    setEditValues({
-                      ...editValues,
-                      description: e.target.value,
-                    })
+                    setEditValues({ ...editValues, type: e.target.value })
                   }
-                  rows={4}
-                  placeholder="Job Description..."
-                ></textarea>
-              </div>
-            </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">Job Specification</label>
-                <input
-                  ref={spesificationRef}
-                  className="form-control"
-                  onChange={(val) => setSpesification(val.target.files[0])}
-                  type="file"
-                />
-                <small>* No more than 64 MB</small>
-              </div>
-            </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">Note</label>
-                <textarea
-                  className="form-control"
-                  id="noteEdit"
-                  rows={4}
-                  value={editValues?.note ?? null}
-                  onChange={(e) =>
-                    setEditValues({ ...editValues, note: e.target.value })
-                  }
-                  placeholder="Note"
-                ></textarea>
+                >
+                  <option>Select Job Grade</option>
+                  <option value="IDR">XV</option>
+                  <option value="USD">I-III</option>
+                </select>
               </div>
             </div>
           </div>

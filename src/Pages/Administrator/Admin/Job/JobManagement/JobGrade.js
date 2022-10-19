@@ -57,6 +57,7 @@ function JobGrade() {
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isMulti, setMulti] = useState(true);
   return (
     <>
       <div
@@ -191,11 +192,57 @@ function JobGrade() {
                   Job Grade <span className="text-danger">*</span>
                 </label>
                 <input
+                  disabled={!isMulti}
                   className="form-control"
                   id="name"
                   placeholder="Job grade..."
                 />
               </div>
+            </div>
+            <div className="flex items-center mb-3">
+              <input id="checked-checkbox" onClick={() => setMulti(!isMulti)} type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"/>
+              <label for="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customize grade range</label>
+            </div>
+            <div className="mb-3" style={{display: !isMulti ? 'block' : 'none'}}>
+              <div className="col-md-4 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                  Number of Ranges Used
+                  </label>
+                  <input
+                    className="form-control"
+                    type="number"
+                    id="name"
+                    placeholder="Job grade..."
+                    style={{
+                      borderRadius: '0.25rem',
+                      border: '1px solid #ced4da'
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="w-100"></div>
+              <div className="grid gap-3 grid-rows-1 grid-cols-8">
+                {[1,2,3].map((val) => {
+                  return (
+                      <div className="mb-3">
+                        <div className="form-group" style={{width:'70px'}}>
+                          <label className="mb-1 text-sm">
+                          {val} Range
+                          </label>
+                          <input
+                            className="form-control "
+                            id="name"
+                            style={{
+                              borderRadius: '0.25rem',
+                              border: '1px solid #ced4da'
+                            }}
+                          />
+                        </div>
+                      </div>
+                  )
+                })} 
+              </div>    
             </div>
             <div className="col-12 mb-3">
               <h2>Currency</h2>
@@ -296,6 +343,51 @@ function JobGrade() {
                   }
                 />
               </div>
+            </div>
+            <div className="flex items-center mb-3">
+              <input id="checked-checkbox" onClick={() => setMulti(!isMulti)} type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"/>
+              <label for="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customize grade range</label>
+            </div>
+            <div className="mb-3" style={{display: !isMulti ? 'block' : 'none'}}>
+              <div className="col-md-4 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                  Number of Ranges Used
+                  </label>
+                  <input
+                    className="form-control"
+                    type="number"
+                    id="name"
+                    placeholder="Job grade..."
+                    style={{
+                      borderRadius: '0.25rem',
+                      border: '1px solid #ced4da'
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="w-100"></div>
+              <div className="grid gap-3 grid-rows-1 grid-cols-8">
+                {[1,2,3].map((val) => {
+                  return (
+                      <div className="mb-3">
+                        <div className="form-group" style={{width:'70px'}}>
+                          <label className="mb-1 text-sm">
+                          {val} Range
+                          </label>
+                          <input
+                            className="form-control "
+                            id="name"
+                            style={{
+                              borderRadius: '0.25rem',
+                              border: '1px solid #ced4da'
+                            }}
+                          />
+                        </div>
+                      </div>
+                  )
+                })} 
+              </div>    
             </div>
             <div className="col-12 mb-3">
               <h2>Currency</h2>

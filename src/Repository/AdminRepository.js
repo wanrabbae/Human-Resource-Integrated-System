@@ -62,6 +62,18 @@ var delJobTittle = async (id) => {
     return res.data;
   }
 };
+var GetJobLevel = async () => {
+  var res = await axios.get(`${endpoint}/getJobLevel`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var GetJobPosition = async () => {
+  var res = await axios.get(`${endpoint}/getJobPosition`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var GetJobGrade = async () => {
   var res = await axios.get(`${endpoint}/getJobGrade`);
   if (res.status == 200) {
@@ -272,4 +284,6 @@ export {
   AddCompanyLocation,
   EditCompanyLocation,
   deleteCompanyLocation,
+  GetJobLevel,
+  GetJobPosition
 };

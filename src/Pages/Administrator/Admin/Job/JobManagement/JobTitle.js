@@ -122,7 +122,7 @@ function JobTitle() {
               <th onClick={() => {}}>
                 Job Title <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Job Description</th>
+              <th onClick={() => {}}>Grade</th>
               <th onClick={() => {}}>Action</th>
             </tr>
           </thead>
@@ -142,7 +142,7 @@ function JobTitle() {
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}
                     </td>
-                    <td className="align-middle">{val["description"]}</td>
+                    <td className="align-middle">{val.jobgrade?.name}</td>
                     <td className="align-middle" style={{ minWidth: "100px" }}>
                       <button
                         onClick={() => {

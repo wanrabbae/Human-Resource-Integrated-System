@@ -38,16 +38,17 @@ import {
   AddJobTittle,
   delJobTittle,
   EditJobTittle,
+  GetJobPosition,
   GetJobTittle,
 } from "../../../../../Repository/AdminRepository";
 import { ModalDelete, SwalSuccess } from "../../../../../Components/Modals";
 
 function JobPosition() {
-  const [jobtitle, setJobTitle] = useState([]);
+  const [jobposition, setJobPosition] = useState([]);
   const [editValues, setEditValues] = useState();
   const inAwait = async () => {
-    var rec = await GetJobTittle();
-    setJobTitle(rec);
+    var rec = await GetJobPosition();
+    setJobPosition(rec["result"]);
   };
   useEffect(() => {
     inAwait();
@@ -127,8 +128,8 @@ function JobPosition() {
             </tr>
           </thead>
           <tbody>
-            {jobtitle.length > 0 ? (
-              jobtitle.map((val) => {
+            {jobposition.length > 0 ? (
+              jobposition.map((val) => {
                 return (
                   <tr>
                     <td className="align-middle">
@@ -142,7 +143,7 @@ function JobPosition() {
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}
                     </td>
-                    <td className="align-middle">{val["description"]}</td>
+                    <td className="align-middle">{val.jobgrade?.name}</td>
                     <td className="align-middle" style={{ minWidth: "100px" }}>
                       <button
                         onClick={() => {

@@ -38,16 +38,17 @@ import {
   AddJobTittle,
   delJobTittle,
   EditJobTittle,
+  GetJobLevel,
   GetJobTittle,
 } from "../../../../../Repository/AdminRepository";
 import { ModalDelete, SwalSuccess } from "../../../../../Components/Modals";
 
 function JobLevel() {
-  const [jobtitle, setJobTitle] = useState([]);
+  const [joblevel, setJobLevel] = useState([]);
   const [editValues, setEditValues] = useState();
   const inAwait = async () => {
-    var rec = await GetJobTittle();
-    setJobTitle(rec);
+    var rec = await GetJobLevel();
+    setJobLevel(rec);
   };
   useEffect(() => {
     inAwait();
@@ -127,8 +128,8 @@ function JobLevel() {
             </tr>
           </thead>
           <tbody>
-            {jobtitle.length > 0 ? (
-              jobtitle.map((val) => {
+            {joblevel.length > 0 ? (
+              joblevel.map((val) => {
                 return (
                   <tr>
                     <td className="align-middle">
@@ -142,7 +143,7 @@ function JobLevel() {
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}
                     </td>
-                    <td className="align-middle">{val["description"]}</td>
+                    <td className="align-middle">{val.jobgrade?.name}</td>
                     <td className="align-middle" style={{ minWidth: "100px" }}>
                       <button
                         onClick={() => {

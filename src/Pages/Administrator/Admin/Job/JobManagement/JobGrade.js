@@ -59,20 +59,25 @@ function JobGrade() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [isMulti, setMulti] = useState(true);
+  const [rangeValues, setRangeValues] = useState([]);
 
   const addGrade = async (e) => {
     e.preventDefault();
+    let rangeValue = [];
+    await range.map((r) => rangeValue.push(document.getElementById(r).value));
     var requestBody = {
-      name: document.getElementById("name").value,
+      name:
+        isMulti == true
+          ? document.getElementById("name").value
+          : rangeValue[0] + "-" + rangeValue[rangeValue.length - 1],
       type: document.getElementById("type").value,
       minsalary: document.getElementById("minsalary").value,
       maxsalary: document.getElementById("maxsalary").value,
     };
-    // var res = await AddJobGrade(requestBody);
-    console.log(requestBody);
+    var res = await AddJobGrade(requestBody);
     setTitle(!dialogTitle);
     SwalSuccess({ message: "Success add job grade" });
-    // inAwait();
+    inAwait();
     console.log("TEST");
   };
 
@@ -287,12 +292,15 @@ function JobGrade() {
                           </label>
                           <input
                             className="form-control "
-                            id="name"
+                            id={val}
                             style={{
                               borderRadius: "0.25rem",
                               border: "1px solid #ced4da",
                             }}
                             required
+                            // onChange={(e) =>
+                            //   setRangeValues([...rangeValues, e.target.value])
+                            // }
                           />
                         </div>
                       </div>

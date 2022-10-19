@@ -316,7 +316,7 @@ function JobGrade() {
                   <label className="mb-1">Currency type</label>
                   <select required id="type" className="form-control">
                     <option>Select currency</option>
-                    <option value="IDR">IDR (Indonesia Rupiah)</option>
+                    <option  value="IDR">IDR (Indonesia Rupiah)</option>
                     <option value="USD">USD (United Stated Dollar)</option>
                   </select>
                 </div>
@@ -466,8 +466,8 @@ function JobGrade() {
                   }
                 >
                   <option>Select currency</option>
-                  <option value="IDR">IDR (Indonesia Rupiah)</option>
-                  <option value="USD">USD (United Stated Dollar)</option>
+                  <option selected={editValues?.type == "IDR" ? true : false} value="IDR">IDR (Indonesia Rupiah)</option>
+                  <option selected={editValues?.type == "USD" ? true : false} value="USD">USD (United Stated Dollar)</option>
                 </select>
               </div>
             </div>

@@ -74,8 +74,44 @@ var GetJobLevel = async () => {
     return res.data;
   }
 };
+var AddJobLevel = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addJobLevel`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditJobLevel = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateJobLevel`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var DeleteJobLevel = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteJobLevel?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var GetJobPosition = async () => {
   var res = await axios.get(`${endpoint}/getJobPosition`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddJobPosition = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addJobPosition`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var UpdateJobPosition = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateJobPosition`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var DelJobPosition = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteJobPosition?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
@@ -292,5 +328,11 @@ export {
   deleteCompanyLocation,
   GetJobLevel,
   GetJobPosition,
-  GetInfo
+  GetInfo,
+  AddJobLevel,
+  EditJobLevel,
+  DeleteJobLevel,
+  AddJobPosition,
+  DelJobPosition,
+  UpdateJobPosition
 };

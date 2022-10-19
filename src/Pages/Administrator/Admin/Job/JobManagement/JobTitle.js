@@ -217,6 +217,7 @@ function JobTitle() {
                 <label className="mb-1">Job Grade</label>
                 <select
                   className="form-control"
+                  id="grade_id"
                   onChange={(e) =>
                     setEditValues({ ...editValues, type: e.target.value })
                   }
@@ -258,12 +259,11 @@ function JobTitle() {
             onClick={async () => {
               var requestBody = {
                 name: document.getElementById("name").value,
-                description: document.getElementById("description").value,
-                spesification: spesification,
-                note: document.getElementById("note").value,
+                grade_id: document.getElementById("grade_id").value,
               };
               var res = await AddJobTittle(requestBody);
               console.log(res);
+              SwalSuccess({ message: "Success add job title" });
               setTitle(!dialogTitle);
               inAwait();
             }}
@@ -293,7 +293,7 @@ function JobTitle() {
                   Job Title <span className="text-danger">*</span>
                 </label>
                 <input
-                  id="nameEdit"
+                  id="name"
                   className="form-control"
                   placeholder="Job title..."
                   value={editValues?.name ?? null}
@@ -308,13 +308,19 @@ function JobTitle() {
                 <label className="mb-1">Job Grade</label>
                 <select
                   className="form-control"
+                  id="grade_id"
                   onChange={(e) =>
-                    setEditValues({ ...editValues, type: e.target.value })
+                    setEditValues({ ...editValues, grade_id: e.target.value })
                   }
                 >
                   <option>Select Job Grade</option>
-                  <option value="IDR">XV</option>
-                  <option value="USD">I-III</option>
+                  {
+                    jobgrade.map((val) => {
+                      return (
+                        <option selected={editValues?.grade_id == val.id ? true : false } value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
@@ -337,10 +343,8 @@ function JobTitle() {
             onClick={async () => {
               var requestBody = {
                 id: id,
-                name: document.getElementById("nameEdit").value,
-                description: document.getElementById("descriptionEdit").value,
-                spesification: spesification,
-                note: document.getElementById("noteEdit").value,
+                name: document.getElementById("name").value,
+                grade_id: document.getElementById("grade_id").value,
               };
 
               var res = await EditJobTittle(requestBody);

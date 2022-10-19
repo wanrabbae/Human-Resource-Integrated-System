@@ -35,8 +35,11 @@ import {
   ModalFooter,
 } from "react-bootstrap";
 import {
+  AddJobLevel,
   AddJobTittle,
+  DeleteJobLevel,
   delJobTittle,
+  EditJobLevel,
   EditJobTittle,
   GetJobGrade,
   GetJobLevel,
@@ -218,15 +221,16 @@ function JobLevel() {
                 <label className="mb-1">Job Grade</label>
                 <select
                   className="form-control"
+                  id="grade_id"
                   onChange={(e) =>
-                    setEditValues({ ...editValues, type: e.target.value })
+                    setEditValues({ ...editValues, grade_id: e.target.value })
                   }
                 >
                   <option>Select Job Grade</option>
                   {
                     jobgrade.map((val) => {
                       return (
-                        <option value={val.id}>{val.name}</option>
+                        <option selected={editValues?.grade_id == val.id ? true : false } value={val.id}>{val.name}</option>
                       )
                     })
                   }
@@ -259,13 +263,12 @@ function JobLevel() {
             onClick={async () => {
               var requestBody = {
                 name: document.getElementById("name").value,
-                description: document.getElementById("description").value,
-                spesification: spesification,
-                note: document.getElementById("note").value,
+                grade_id: document.getElementById("grade_id").value,
               };
-              var res = await AddJobTittle(requestBody);
+              var res = await AddJobLevel(requestBody);
               console.log(res);
               setTitle(!dialogTitle);
+              SwalSuccess({ message: "Success Add job level" });
               inAwait();
             }}
           >
@@ -294,6 +297,10 @@ function JobLevel() {
                   Level Name <span className="text-danger">*</span>
                 </label>
                 <input
+                  value={editValues?.name ?? null}
+                  onChange={(e) =>
+                    setEditValues({ ...editValues, name: e.target.value })
+                  }
                   className="form-control"
                   id="name"
                   placeholder="Level Name..."
@@ -305,13 +312,19 @@ function JobLevel() {
                 <label className="mb-1">Job Grade</label>
                 <select
                   className="form-control"
+                  id="grade_id"
                   onChange={(e) =>
-                    setEditValues({ ...editValues, type: e.target.value })
+                    setEditValues({ ...editValues, grade_id: e.target.value })
                   }
                 >
                   <option>Select Job Grade</option>
-                  <option value="IDR">XV</option>
-                  <option value="USD">I-III</option>
+                  {
+                    jobgrade.map((val) => {
+                      return (
+                        <option selected={editValues?.grade_id == val.id ? true : false } value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
@@ -334,16 +347,14 @@ function JobLevel() {
             onClick={async () => {
               var requestBody = {
                 id: id,
-                name: document.getElementById("nameEdit").value,
-                description: document.getElementById("descriptionEdit").value,
-                spesification: spesification,
-                note: document.getElementById("noteEdit").value,
+                name: document.getElementById("name").value,
+                grade_id: document.getElementById("grade_id").value,
               };
 
-              var res = await EditJobTittle(requestBody);
+              var res = await EditJobLevel(requestBody);
               console.log(res);
               setEditTitle(!dialogEditTitle);
-              SwalSuccess({ message: "Success edit job title" });
+              SwalSuccess({ message: "Success edit job level" });
               inAwait();
             }}
             className="btn"
@@ -363,10 +374,10 @@ function JobLevel() {
           setDelete(false);
         }}
         submit={() => {
-          delJobTittle(id);
+          DeleteJobLevel(id);
           setDelete(false);
           inAwait();
-          SwalSuccess({ message: "Success delete job title" });
+          SwalSuccess({ message: "Success delete job level" });
         }}
         active={isdelete}
       />
@@ -376,7 +387,7 @@ function JobLevel() {
         }}
         submit={() => {
           setDelete2(false);
-          SwalSuccess({ message: "Success delete job title" });
+          SwalSuccess({ message: "Success delete job level" });
         }}
         active={isdelete2}
       />

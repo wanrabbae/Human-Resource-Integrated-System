@@ -38,16 +38,20 @@ import {
   AddJobTittle,
   delJobTittle,
   EditJobTittle,
+  GetJobGrade,
   GetJobTittle,
 } from "../../../../../Repository/AdminRepository";
 import { ModalDelete, SwalSuccess } from "../../../../../Components/Modals";
 
 function JobTitle() {
   const [jobtitle, setJobTitle] = useState([]);
+  const [jobgrade, setJobGrade] = useState([]);
   const [editValues, setEditValues] = useState();
   const inAwait = async () => {
     var rec = await GetJobTittle();
     setJobTitle(rec);
+    var grd = await GetJobGrade();
+    setJobGrade(grd);
   };
   useEffect(() => {
     inAwait();
@@ -218,8 +222,13 @@ function JobTitle() {
                   }
                 >
                   <option>Select Job Grade</option>
-                  <option value="IDR">XV</option>
-                  <option value="USD">I-III</option>
+                  {
+                    jobgrade.map((val) => {
+                      return (
+                        <option value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>

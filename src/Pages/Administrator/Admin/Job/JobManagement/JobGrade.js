@@ -46,6 +46,7 @@ import { ModalDelete, SwalSuccess } from "../../../../../Components/Modals";
 function JobGrade() {
   const [jobgrade, setJobGrade] = useState([]);
   const [editValues, setEditValues] = useState();
+  const [range, setRange] = useState([]);
   const inAwait = async () => {
     var rec = await GetJobGrade();
     setJobGrade(rec);
@@ -58,11 +59,37 @@ function JobGrade() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [isMulti, setMulti] = useState(true);
+  const [rangeValues, setRangeValues] = useState([]);
+
+  const addGrade = async (e) => {
+    e.preventDefault();
+    let rangeValue = [];
+    await range.map((r) => rangeValue.push(document.getElementById(r).value));
+    var requestBody = {
+      name:
+        isMulti == true
+          ? document.getElementById("name").value
+          : rangeValue[0] + "-" + rangeValue[rangeValue.length - 1],
+      type: document.getElementById("type").value,
+      minsalary: document.getElementById("minsalary").value,
+      maxsalary: document.getElementById("maxsalary").value,
+    };
+    var res = await AddJobGrade(requestBody);
+    setTitle(!dialogTitle);
+    SwalSuccess({ message: "Success add job grade" });
+    inAwait();
+    console.log("TEST");
+  };
+
   return (
     <>
       <div
         className="w-100 p-4"
-        style={{ backgroundColor: "#FFFFFF", borderRadius: "15px",boxShadow:'0px 0px 3px rgba(0, 0, 0, 0.25)'}}
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderRadius: "15px",
+          boxShadow: "0px 0px 3px rgba(0, 0, 0, 0.25)",
+        }}
       >
         <h5>
           <b>Job Grade</b>
@@ -184,135 +211,162 @@ function JobGrade() {
         >
           <Modal.Title>Add Job Grade</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Job Grade <span className="text-danger">*</span>
-                </label>
-                <input
-                  disabled={!isMulti}
-                  className="form-control"
-                  id="name"
-                  placeholder="Job grade..."
-                />
-              </div>
-            </div>
-            <div className="flex items-center mb-3">
-              <input id="checked-checkbox" onClick={() => setMulti(!isMulti)} type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"/>
-              <label for="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customize grade range</label>
-            </div>
-            <div className="mb-3" style={{display: !isMulti ? 'block' : 'none'}}>
-              <div className="col-md-4 mb-3">
+        <form onSubmit={(e) => addGrade(e)}>
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 mb-3">
                 <div className="form-group">
                   <label className="mb-1">
-                  Number of Ranges Used
+                    Job Grade <span className="text-danger">*</span>
                   </label>
                   <input
+                    disabled={!isMulti}
                     className="form-control"
-                    type="number"
                     id="name"
                     placeholder="Job grade..."
-                    style={{
-                      borderRadius: '0.25rem',
-                      border: '1px solid #ced4da'
-                    }}
+                    required
                   />
                 </div>
               </div>
-              <div className="w-100"></div>
-              <div className="grid gap-3 grid-rows-1 grid-cols-8">
-                {[1,2,3].map((val) => {
-                  return (
+              <div className="flex items-center mb-3">
+                <input
+                  id="checked-checkbox"
+                  onClick={() => setMulti(!isMulti)}
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"
+                  required
+                />
+                <label
+                  for="checked-checkbox"
+                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Customize grade range
+                </label>
+              </div>
+              <div
+                className="mb-3"
+                style={{ display: !isMulti ? "block" : "none" }}
+              >
+                <div className="col-md-4 mb-3">
+                  <div className="form-group">
+                    <label className="mb-1">Number of Ranges Used</label>
+                    <input
+                      className="form-control"
+                      type="number"
+                      required
+                      id="name2"
+                      onChange={() => {
+                        var value = parseInt(
+                          document.getElementById("name2").value
+                        );
+                        let data = [];
+
+                        if (value == NaN || !value || value == "") {
+                          console.log("asd");
+                          setRange([]);
+                        } else {
+                          for (let i = 0; i < value; i++) {
+                            data.push(i);
+                            setRange(data);
+                          }
+                          console.log(range);
+                        }
+                      }}
+                      placeholder="Job grade..."
+                      style={{
+                        borderRadius: "0.25rem",
+                        border: "1px solid #ced4da",
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="w-100"></div>
+                <div className="grid gap-3 grid-rows-1 grid-cols-8">
+                  {range.map((val) => {
+                    return (
                       <div className="mb-3">
-                        <div className="form-group" style={{width:'70px'}}>
+                        <div className="form-group" style={{ width: "70px" }}>
                           <label className="mb-1 text-sm">
-                          {val} Range
+                            {val + 1} Range
                           </label>
                           <input
                             className="form-control "
-                            id="name"
+                            id={val}
                             style={{
-                              borderRadius: '0.25rem',
-                              border: '1px solid #ced4da'
+                              borderRadius: "0.25rem",
+                              border: "1px solid #ced4da",
                             }}
+                            required
+                            // onChange={(e) =>
+                            //   setRangeValues([...rangeValues, e.target.value])
+                            // }
                           />
                         </div>
                       </div>
-                  )
-                })} 
-              </div>    
-            </div>
-            <div className="col-12 mb-3">
-              <h2>Currency</h2>
-            </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">Currency type</label>
-                <select id="type" className="form-control">
-                  <option>Select currency</option>
-                  <option value="IDR">IDR (Indonesia Rupiah)</option>
-                  <option value="USD">USD (United Stated Dollar)</option>
-                </select>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="col-12 mb-3">
+                <h2>Currency</h2>
+              </div>
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">Currency type</label>
+                  <select required id="type" className="form-control">
+                    <option>Select currency</option>
+                    <option value="IDR">IDR (Indonesia Rupiah)</option>
+                    <option value="USD">USD (United Stated Dollar)</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Minimum salary <span className="text-danger">*</span>
+                  </label>
+                  <input required id="minsalary" className="form-control" />
+                </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Maximum salary <span className="text-danger">*</span>
+                  </label>
+                  <input required id="maxsalary" className="form-control" />
+                </div>
               </div>
             </div>
-            <div className="col-md-6 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Minimum salary <span className="text-danger">*</span>
-                </label>
-                <input id="minsalary" className="form-control" />
-              </div>
-            </div>
-            <div className="col-md-6 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Maximum salary <span className="text-danger">*</span>
-                </label>
-                <input id="maxsalary" className="form-control" />
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#00000010",
-              border: "1px solid transparent",
-              color: "#0E5073",
-              width: "100px",
-            }}
-            onClick={() => setTitle(!dialogTitle)}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-                type: document.getElementById("type").value,
-                minsalary: document.getElementById("minsalary").value,
-                maxsalary: document.getElementById("maxsalary").value,
-              };
-              var res = await AddJobGrade(requestBody);
-              console.log(res);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add job grade" });
-              inAwait();
-            }}
-          >
-            Add
-          </button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#00000010",
+                border: "1px solid transparent",
+                color: "#0E5073",
+                width: "100px",
+              }}
+              type="button"
+              onClick={() => setTitle(!dialogTitle)}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              type="submit"
+            >
+              Add
+            </button>
+          </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal
@@ -345,49 +399,59 @@ function JobGrade() {
               </div>
             </div>
             <div className="flex items-center mb-3">
-              <input id="checked-checkbox" onClick={() => setMulti(!isMulti)} type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"/>
-              <label for="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customize grade range</label>
+              <input
+                id="checked-checkbox"
+                onClick={() => setMulti(!isMulti)}
+                type="checkbox"
+                value=""
+                className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"
+              />
+              <label
+                for="checked-checkbox"
+                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Customize grade range
+              </label>
             </div>
-            <div className="mb-3" style={{display: !isMulti ? 'block' : 'none'}}>
+            <div
+              className="mb-3"
+              style={{ display: !isMulti ? "block" : "none" }}
+            >
               <div className="col-md-4 mb-3">
                 <div className="form-group">
-                  <label className="mb-1">
-                  Number of Ranges Used
-                  </label>
+                  <label className="mb-1">Number of Ranges Used</label>
                   <input
                     className="form-control"
                     type="number"
                     id="name"
                     placeholder="Job grade..."
                     style={{
-                      borderRadius: '0.25rem',
-                      border: '1px solid #ced4da'
+                      borderRadius: "0.25rem",
+                      border: "1px solid #ced4da",
                     }}
                   />
                 </div>
               </div>
               <div className="w-100"></div>
               <div className="grid gap-3 grid-rows-1 grid-cols-8">
-                {[1,2,3].map((val) => {
+                {[1, 2, 3].map((val) => {
                   return (
-                      <div className="mb-3">
-                        <div className="form-group" style={{width:'70px'}}>
-                          <label className="mb-1 text-sm">
-                          {val} Range
-                          </label>
-                          <input
-                            className="form-control "
-                            id="name"
-                            style={{
-                              borderRadius: '0.25rem',
-                              border: '1px solid #ced4da'
-                            }}
-                          />
-                        </div>
+                    <div className="mb-3">
+                      <div className="form-group" style={{ width: "70px" }}>
+                        <label className="mb-1 text-sm">{val} Range</label>
+                        <input
+                          className="form-control "
+                          id="name"
+                          style={{
+                            borderRadius: "0.25rem",
+                            border: "1px solid #ced4da",
+                          }}
+                        />
                       </div>
-                  )
-                })} 
-              </div>    
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <div className="col-12 mb-3">
               <h2>Currency</h2>

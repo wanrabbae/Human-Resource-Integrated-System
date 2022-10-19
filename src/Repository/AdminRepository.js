@@ -7,6 +7,12 @@ var GetUser = async () => {
     return res.data;
   }
 };
+var GetInfo = async () => {
+  var res = await axios.get(`${endpoint}/getInfo`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 
 var AddUser = async (data) => {
   var res = await axios.post(`${endpoint}/addUser`, data);
@@ -285,5 +291,6 @@ export {
   EditCompanyLocation,
   deleteCompanyLocation,
   GetJobLevel,
-  GetJobPosition
+  GetJobPosition,
+  GetInfo
 };

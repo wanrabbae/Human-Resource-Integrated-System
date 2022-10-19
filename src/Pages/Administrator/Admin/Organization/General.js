@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { GetInfo } from "../../../../Repository/AdminRepository";
 
 const { Edit, Save } = require("@mui/icons-material");
 const { IconButton, Button } = require("@mui/material");
 
 function GeneralInformation() {
     const [isEdited, setEdited] = useState(false);
+    const [ginfo, setGinfo] = useState([]);
+    const [editValues, setEditValues] = useState();
+    const inAwait = async () => {
+        var rec = await GetInfo();
+        setGinfo(rec["result"]);
+    };
+    useEffect(() => {
+        inAwait();
+    }, []);
     return (
         <div className="p-4" style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}>
             <div className="d-flex justify-content-between align-items-center pb-3">
@@ -16,28 +26,60 @@ function GeneralInformation() {
             </div>
             <hr></hr>
             <div className="row mt-3">
+                <div className="flex">
+                    <label >
+                    Company Logo 
+                    </label>
+                    <label className="cursor-pointer" for="Clogo">
+                        <input
+                        id="Clogo"
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => setGinfo(e.target.files[0])}
+                        />
+                        <img for="Clogo" src={isEdited === true ? ginfo.image : "https://cdn.discordapp.com/attachments/990841636386897971/1032185565300391996/Group_1000004810.png"} alt="Company Logo" style={{maxWidth:'150px'}}/>
+                    </label>
+                </div>
+                <div className="w-100">
+                </div>
                 <div className="col-md-7 my-3">
                     <div className="form-group">
                         <label>Organization name</label>
-                        <input value="PT. Ethos Kreatif Indonesia" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                            value={ginfo.organization_name}
+                            onChange={(val) => {
+                                setGinfo({ ...ginfo, organization_name: val.target.value });
+                              }}
+                            disabled={!isEdited} 
+                            className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-5 my-3">
                     <div className="form-group">
                         <label>Number of employee</label>
-                        <input disabled className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input value={ginfo.countEmployee} disabled className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Registration Number</label>
-                        <input value="123-ETS/2010" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.register_number}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, register_number: val.target.value });
+                          }}
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Tax ID</label>
-                        <input disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input disabled={!isEdited}
+                        value={ginfo.tax_id}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, tax_id: val.target.value });
+                          }}
+                        className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-12 my-3">
@@ -46,19 +88,34 @@ function GeneralInformation() {
                 <div className="col-md-4 my-3">
                     <div className="form-group">
                         <label>Phone</label>
-                        <input value="081283293212" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.phone}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, phone: val.target.value });
+                          }}
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-4 my-3">
                     <div className="form-group">
                         <label>Fax</label>
-                        <input value="081283293212" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.fax}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, fax: val.target.value });
+                          }}
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-4 my-3">
                     <div className="form-group">
                         <label>Email</label>
-                        <input value="ethoskreatif@yahoo.com" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.email}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, email: val.target.value });
+                          }}
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-12 my-3">
@@ -67,43 +124,78 @@ function GeneralInformation() {
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Address 1</label>
-                        <input value="Jl. kalibaru cirebon" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.address_1}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, address_1: val.target.value });
+                          }}
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Address 2</label>
-                        <input value="" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.address_2}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, address_2: val.target.value });
+                          }} 
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>City</label>
-                        <input value="Cilacap" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.city}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, city: val.target.value });
+                          }} 
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Province</label>
-                        <input value="Jawa Tengah" disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.province}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, province: val.target.value });
+                          }} 
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Postal Code</label>
-                        <input disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.postal_code}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, postal_code: val.target.value });
+                          }} 
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Country</label>
-                        <input disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
+                        <input 
+                        value={ginfo.country}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, country: val.target.value });
+                          }} 
+                        disabled={!isEdited} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white " />
                     </div>
                 </div>
                 <div className="col-md-6 my-3">
                     <div className="form-group">
                         <label>Notes</label>
-                        <textarea disabled={!isEdited} rows={4} style={{ backgroundColor: !isEdited ? "#00000005" : "#FFFFFF" }} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"></textarea>
+                        <textarea 
+                        value={ginfo.notes}
+                        onChange={(val) => {
+                            setGinfo({ ...ginfo, notes: val.target.value });
+                          }}
+                        disabled={!isEdited} rows={4} style={{ backgroundColor: !isEdited ? "#00000005" : "#FFFFFF" }} className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"></textarea>
                     </div>
                 </div>
             </div>

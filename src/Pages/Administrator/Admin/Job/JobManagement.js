@@ -49,6 +49,7 @@ import JobGrade from "./JobManagement/JobGrade";
 import JobTitle from "./JobManagement/JobTitle";
 import JobPosition from "./JobManagement/JobPosition";
 import JobLevel from "./JobManagement/JobLevel";
+import { Eye, FileArrowUp } from "phosphor-react";
 
 function JobManagement() {
   const [jobtitle, setJobTitle] = useState([]);
@@ -76,13 +77,33 @@ function JobManagement() {
   };
   return (
     <>
-    <div className="p-4">
-      <h5>
-          <b>Job Management</b>
-        </h5>
-        <p>
-          <small>list of job management </small>
-        </p>
+    <div className="p-4 d-flex justify-content-between">
+      <div className="">
+        <h5>
+            <b>Job Management</b>
+          </h5>
+          <p>
+            <small>list of job management </small>
+          </p>
+      </div>
+      <button
+            style={{
+              borderRadius: "10px",
+              border: "1.5px solid #A9A9A9",
+              color: "#003049",
+              fontSize: "14px",
+              fontWeight: "600",
+              backgroundColor:'#F9F9F9'
+            }}
+            className="me-3 btn d-flex align-items-center"
+            onClick={() => {
+              window.location.href = "/admin/job/jobManagement/bulkUploud";
+            }}
+            type=""
+          >
+            <FileArrowUp className="me-2" color="#003049" size={16} weight="fill" />
+            Bulk Upload
+          </button>
     </div>
       <div
         className="w-100 p-4"

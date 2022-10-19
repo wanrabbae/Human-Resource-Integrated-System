@@ -299,6 +299,18 @@ function Users() {
                 />
               </div>
             </div>
+            <div className="col-12 mb-3">
+              <div className="form-group">
+                    <label className="mb-1">
+                    Assigned to Location
+                    </label>
+                    <input
+                      className="form-control"
+                      id="asignto"
+                      placeholder="Your Password..."
+                    />
+                  </div>
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
@@ -438,6 +450,18 @@ function Users() {
                   }
                 />
               </div>
+            </div>
+            <div className="col-12 mb-3">
+              <div className="form-group">
+                    <label className="mb-1">
+                    Assigned to Location
+                    </label>
+                    <input
+                      className="form-control"
+                      id="asignto"
+                      placeholder="Your Password..."
+                    />
+                  </div>
             </div>
             <div className="col-12 mb-3">
               <label>

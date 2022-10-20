@@ -46,6 +46,7 @@ import { getNotif } from "../../Repository/RecruitmentRepository";
 
 function Template() {
   const [isOpen, setOpen] = useState([false, false, false]);
+  const [isHidden, setHidden] = useState(true);
   const [notif, setNotif] = useState(false);
   const [isRead, setRead] = useState(false);
   const [users, setUsers] = useState({});
@@ -54,7 +55,7 @@ function Template() {
       {
         nama: "User Management",
         click: null,
-        show: true,
+        show: isHidden,
         body: [
           {
             nama: "Users",
@@ -65,7 +66,7 @@ function Template() {
       {
         nama: "Job",
         click: null,
-        show: true,
+        show: isHidden,
         body: [
           {
             nama: "Job Management",
@@ -88,7 +89,7 @@ function Template() {
       {
         nama: "Organization",
         click: null,
-        show: true,
+        show: isHidden,
         body: [
           {
             nama: "General Information",
@@ -111,7 +112,7 @@ function Template() {
       {
         nama: "Qualifications",
         click: null,
-        show: true,
+        show: isHidden,
         body: [
           {
             nama: "Skills",
@@ -138,7 +139,7 @@ function Template() {
       {
         nama: "Nationalities",
         click: "/admin/nationalities",
-        show: true,
+        show: isHidden,
         body: [],
       },
     ],
@@ -146,7 +147,7 @@ function Template() {
       {
         nama: "Configuration",
         click: null,
-        show: true,
+        show: isHidden,
         body: [
           {
             nama: "Optional Fields",
@@ -173,13 +174,13 @@ function Template() {
       {
         nama: "Employee List",
         click: "/employee/employee-list",
-        show: true,
+        show: isHidden,
         body: [],
       },
       {
         nama: "Report",
         click: "/employee/report",
-        show: true,
+        show: isHidden,
         body: [],
       },
     ],
@@ -187,7 +188,7 @@ function Template() {
       {
         nama: "Attendance",
         click: null,
-        show: true,
+        show: isHidden,
         body: [
           {
             nama: "My Attendance",
@@ -202,7 +203,7 @@ function Template() {
       {
         nama: "Schedule",
         click: "/timeManagement/schedule",
-        show: true,
+        show: isHidden,
         body: [],
       },
     ],
@@ -319,6 +320,11 @@ function Template() {
                           return (
                             <li>
                               <Link
+                                onClick={() =>
+                                  isOpen[0] == false
+                                    ? setOpen([true, false, false])
+                                    : setOpen([false, false, false])
+                                }
                                 key={i}
                                 to={e.link}
                                 className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

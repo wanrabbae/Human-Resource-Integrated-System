@@ -32,8 +32,8 @@ import {
 } from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
 import { ModalDelete } from "../../../../Components/Modals";
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
 
 function WorkShift() {
   var array = [
@@ -65,7 +65,7 @@ function WorkShift() {
   const [isEmp, setEmp] = useState(false);
   const [isPosi, setPosi] = useState(false);
   //   const [workshiftIds, setWorkShiftIds] = useState([]);
-  const [radioValue, setRadioValue] = useState('1');
+  const [radioValue, setRadioValue] = useState("1");
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   return (
@@ -234,38 +234,50 @@ function WorkShift() {
                 <div>
                   <div className="grid w-50 grid-cols-2 space-x-2 mb-2 bg-[#F0F0F3] rounded-xl p-1.5">
                     <div>
-                      <input type="radio" name="option" id="1" className="peer hidden" checked={isEmp}
-                        onChange={async() => {
-                          setEmp(true)
-                          setPosi(false)
+                      <input
+                        type="radio"
+                        name="option"
+                        id="1"
+                        className="peer hidden"
+                        checked={isEmp}
+                        onChange={async () => {
+                          setEmp(true);
+                          setPosi(false);
                         }}
                       />
                       <label
                         for="1"
                         className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
-                        >Employee
+                      >
+                        Employee
                       </label>
                     </div>
 
-                    <div> 
-                      <input type="radio" name="option" id="2" class="peer hidden" checked={isPosi}
-                        onChange={ async () => {
-                          setPosi(true)
-                          setEmp(false)
+                    <div>
+                      <input
+                        type="radio"
+                        name="option"
+                        id="2"
+                        class="peer hidden"
+                        checked={isPosi}
+                        onChange={async () => {
+                          setPosi(true);
+                          setEmp(false);
                         }}
                       />
                       <label
                         for="2"
                         className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
-                        >Position
-                        </label>
+                      >
+                        Position
+                      </label>
                     </div>
                   </div>
                 </div>
                 <select
-                style={{
-                  display: isEmp ? "block" : !isPosi ? "none" : "none"
-                }}
+                  style={{
+                    display: isEmp ? "block" : !isPosi ? "none" : "none",
+                  }}
                   onChange={(val) =>
                     setSelected((current) => [...current, val.target.value])
                   }
@@ -279,9 +291,9 @@ function WorkShift() {
                   })}
                 </select>
                 <select
-                style={{
-                  display: isPosi ? "block" : !isEmp ? "none" : "none"
-                }}
+                  style={{
+                    display: isPosi ? "block" : !isEmp ? "none" : "none",
+                  }}
                   onChange={(val) =>
                     setSelected((current) => [...current, val.target.value])
                   }
@@ -354,6 +366,7 @@ function WorkShift() {
                 end: document.getElementById("end").value,
                 employee_ids: selected,
               };
+              // console.log(requestBody);
               var res = await AddWorkShift(requestBody);
               setTitle(!dialogTitle);
               setSelected([]);

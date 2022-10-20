@@ -66,6 +66,7 @@ function WorkShift() {
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [posisi, setPosisi] = useState([]);
   const [isEmp, setEmp] = useState(false);
   const [isPosi, setPosi] = useState(false);
   //   const [workshiftIds, setWorkShiftIds] = useState([]);
@@ -183,7 +184,15 @@ function WorkShift() {
         </Table>
       </div>
 
-      <Modal show={dialogTitle} size="lg" onHide={() => setTitle(!dialogTitle)}>
+      <Modal
+        show={dialogTitle}
+        size="lg"
+        onHide={() => {
+          setSelected([]);
+          setPosisi([]);
+          setTitle(!dialogTitle);
+        }}
+      >
         <Modal.Header
           closeButton
           className="m-4"
@@ -299,20 +308,18 @@ function WorkShift() {
                     display: isPosi ? "block" : !isEmp ? "none" : "none",
                   }}
                   onChange={(val) =>
-                    setSelected((current) => [...current, val.target.value])
+                    setPosisi((current) => [...current, val.target.value])
                   }
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Search Position</option>
                   {jobposition.map((val) => {
-                    return (
-                      <option value={val.id}>{val.name}</option>
-                    );
+                    return <option value={val.id}>{val.name}</option>;
                   })}
                 </select>
               </div>
               <div className="d-flex flex-wrap justify-content-start mt-3">
-                {selected.map((value) => (
+                {posisi.map((value) => (
                   <div
                     className="px-2 d-flex align-items-center my-2 mr-3"
                     style={{
@@ -324,9 +331,7 @@ function WorkShift() {
                     {value}
                     <button
                       onClick={() => {
-                        return setSelected(
-                          selected.filter((val) => val !== value)
-                        );
+                        return setPosisi(posisi.filter((val) => val !== value));
                       }}
                       className="btn btn-sm"
                       style={{ color: "#00000030" }}
@@ -350,6 +355,7 @@ function WorkShift() {
             }}
             onClick={() => {
               setSelected([]);
+              setPosisi([]);
               setTitle(!dialogTitle);
             }}
           >
@@ -369,8 +375,8 @@ function WorkShift() {
                 start: document.getElementById("start").value,
                 end: document.getElementById("end").value,
                 employee_ids: selected,
+                position_ids: posisi,
               };
-              // console.log(requestBody);
               var res = await AddWorkShift(requestBody);
               setTitle(!dialogTitle);
               setSelected([]);
@@ -451,7 +457,7 @@ function WorkShift() {
               </div>
             </div>
             <div className="col-md-12 my-3">
-            <div className="form-group">
+              <div className="form-group">
                 <label className="mb-1">Assign To</label>
                 <div>
                   <div className="grid w-50 grid-cols-2 space-x-2 mb-2 bg-[#F0F0F3] rounded-xl p-1.5">
@@ -523,9 +529,7 @@ function WorkShift() {
                 >
                   <option>Search Position</option>
                   {jobposition.map((val) => {
-                    return (
-                      <option value={val.id}>{val.name}</option>
-                    );
+                    return <option value={val.id}>{val.name}</option>;
                   })}
                 </select>
               </div>

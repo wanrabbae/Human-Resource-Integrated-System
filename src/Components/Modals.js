@@ -171,7 +171,7 @@ function ModalRejectApplicant(props) {
 function SwalSuccess(props) {
   return Swal.fire({
     icon: "success",
-    title: props.message ?? "Enter your message",
+    title: props.message ?? "Successfuly",
     showConfirmButton: false,
     timer: 2000,
   });
@@ -180,7 +180,7 @@ function SwalSuccess(props) {
 function SwalError(props) {
   Swal.fire({
     icon: "error",
-    title: props.message ?? "Enter your message",
+    title: props.message ?? "Something went wrong",
     showConfirmButton: false,
     timer: 2000,
   });
@@ -193,5 +193,5 @@ export {
   SwalError,
   ModalConfirmEmail,
   ModalConfirmApplicant,
-  ModalRejectApplicant
+  ModalRejectApplicant,
 };

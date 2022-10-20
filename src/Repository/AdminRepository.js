@@ -246,6 +246,36 @@ var AddProfit = async (requestBody) => {
     return res.data;
   }
 };
+var EditProfit = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateProfit`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var deleteProfit = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteProfit?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddCost = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addCost`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var EditCost = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateCost`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var deleteCost = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteCost?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var EditUnit = async (requestBody) => {
   var res = await axios.post(`${endpoint}/updateUnit`, requestBody);
   if (res.status == 200) {
@@ -318,6 +348,7 @@ var updateInformation = async (data) => {
     return res.data;
   }
 };
+
 export {
   GetUser,
   GetApplicant,
@@ -349,6 +380,11 @@ export {
   getProfit,
   getCost,
   AddProfit,
+  EditProfit,
+  deleteProfit,
+  AddCost,
+  EditCost,
+  deleteCost,
   deleteUnit,
   EditUnit,
   getLicense,

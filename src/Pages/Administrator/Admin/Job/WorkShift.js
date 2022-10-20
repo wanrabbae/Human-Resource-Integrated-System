@@ -32,6 +32,8 @@ import {
 } from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
 import { ModalDelete } from "../../../../Components/Modals";
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 function WorkShift() {
   var array = [
@@ -57,10 +59,17 @@ function WorkShift() {
   useEffect(() => {
     inAwait();
   }, []);
+  const radios = [
+    { name: 'Employee', value: '1' },
+    { name: 'Position', value: '2' },
+  ];
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [isEmp, setEmp] = useState(false);
+  const [isPosi, setPosi] = useState(false);
   //   const [workshiftIds, setWorkShiftIds] = useState([]);
+  const [radioValue, setRadioValue] = useState('1');
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   return (
@@ -225,14 +234,64 @@ function WorkShift() {
             </div>
             <div className="col-md-12 my-3">
               <div className="form-group">
-                <label className="mb-1">Assign Employee</label>
+                <label className="mb-1">Assign To</label>
+                <div>
+                  <div className="grid w-50 grid-cols-2 space-x-2 mb-2 bg-[#F0F0F3] rounded-xl p-1.5">
+                    <div>
+                      <input type="radio" name="option" id="1" className="peer hidden" checked={isEmp}
+                        onChange={async() => {
+                          setEmp(true)
+                          setPosi(false)
+                        }}
+                      />
+                      <label
+                        for="1"
+                        className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
+                        >Employee
+                      </label>
+                    </div>
+
+                    <div> 
+                      <input type="radio" name="option" id="2" class="peer hidden" checked={isPosi}
+                        onChange={ async () => {
+                          setPosi(true)
+                          setEmp(false)
+                        }}
+                      />
+                      <label
+                        for="2"
+                        className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
+                        >Position
+                        </label>
+                    </div>
+                  </div>
+                </div>
                 <select
+                style={{
+                  display: isEmp ? "block" : !isPosi ? "none" : "none"
+                }}
                   onChange={(val) =>
                     setSelected((current) => [...current, val.target.value])
                   }
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Search Employee</option>
+                  {employee.map((val) => {
+                    return (
+                      <option value={val["id"]}>{val["firstName"]}</option>
+                    );
+                  })}
+                </select>
+                <select
+                style={{
+                  display: isPosi ? "block" : !isEmp ? "none" : "none"
+                }}
+                  onChange={(val) =>
+                    setSelected((current) => [...current, val.target.value])
+                  }
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option>Search Position</option>
                   {employee.map((val) => {
                     return (
                       <option value={val["id"]}>{val["firstName"]}</option>

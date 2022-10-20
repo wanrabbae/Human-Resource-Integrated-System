@@ -321,6 +321,7 @@ function Users() {
                 <input
                   className="form-control"
                   id="password"
+                  type={"password"}
                   placeholder="Your Password..."
                 />
               </div>
@@ -333,6 +334,7 @@ function Users() {
                 <input
                   className="form-control"
                   id="confirmPassword"
+                  type={"password"}
                   placeholder="Confirm Password..."
                 />
               </div>
@@ -343,7 +345,7 @@ function Users() {
                 <input
                   className="form-control"
                   id="asignto"
-                  placeholder="Your Password..."
+                  placeholder="Search location"
                 />
               </div>
             </div>
@@ -373,10 +375,11 @@ function Users() {
             onClick={async () => {
               var requestBody = {
                 role: document.getElementById("role").value,
-                name: employeeName.employeeName,
+                employee_id: employeeName.employeeName,
                 status: document.getElementById("status").value,
                 username: document.getElementById("username").value,
                 password: document.getElementById("password").value,
+                location: document.getElementById("asignto").value,
               };
               await AddUser(requestBody);
               setUser(false);
@@ -492,8 +495,8 @@ function Users() {
                 <label className="mb-1">Assigned to Location</label>
                 <input
                   className="form-control"
-                  id="asignto"
-                  placeholder="Your Password..."
+                  id="asigntoEdit"
+                  placeholder="Search location"
                 />
               </div>
             </div>
@@ -523,6 +526,7 @@ function Users() {
                     <input
                       className="form-control"
                       id="passwordEdit"
+                      type={"password"}
                       placeholder="Your Password..."
                     />
                   </div>
@@ -535,6 +539,7 @@ function Users() {
                     <input
                       className="form-control"
                       id="confirmPasswordEdit"
+                      type={"password"}
                       placeholder="Confirm Password..."
                     />
                   </div>
@@ -570,10 +575,11 @@ function Users() {
               var requestBody = {
                 id: editUserData.id,
                 role: document.getElementById("roleEdit")?.value,
-                name: employeeName.employeeName,
+                employee_id: employeeName.employeeName,
                 status: document.getElementById("statusEdit")?.value,
                 username: document.getElementById("usernameEdit")?.value,
                 password: document.getElementById("passwordEdit")?.value,
+                location: document.getElementById("asigntoEdit").value,
               };
               await EditUser(requestBody);
               setEditUser(false);

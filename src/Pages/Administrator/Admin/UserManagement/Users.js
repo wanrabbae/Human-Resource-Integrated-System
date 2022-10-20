@@ -41,7 +41,9 @@ import {
   AddUser,
   DeleteUser,
   EditUser,
+  FilterUser,
   GetUser,
+  SearchUser,
 } from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
 import Select from "react-select";
@@ -53,7 +55,6 @@ function Users() {
   const [employeeNames, setEmployeeNames] = useState([]);
   const inAwait = async () => {
     var rec = await GetUser();
-    console.log(rec);
     var dataEmployeeName = await GetEmployeeName();
     setEmployeeNames(dataEmployeeName);
     setUserManagement(rec["result"]);
@@ -72,6 +73,18 @@ function Users() {
     employeeName: "",
   });
 
+  const searchUser = async (keyword) => {
+    const data = await SearchUser(keyword);
+    setUserManagement(data.result);
+  };
+
+  const filterUser = async (data2) => {
+    const data = await FilterUser(data2);
+    console.log(data);
+    setUserManagement(data.result);
+    setFilter(!dialogFilter);
+  };
+
   return (
     <>
       <div className="w-100 bg-light p-4" style={{ borderRadius: "10px" }}>
@@ -85,7 +98,10 @@ function Users() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              onClick={() => setFilter(!dialogFilter)}
+              onClick={() => {
+                inAwait();
+                setFilter(!dialogFilter);
+              }}
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -99,7 +115,29 @@ function Users() {
             </Button>
           </div>
           <div className="d-flex">
-            <TextFieldSearch />
+            <div
+              className="d-flex align-items-center py-2 px-1 justify-content-between"
+              style={{
+                border: "1px solid #00000050",
+                width: "auto",
+                borderRadius: "7px",
+              }}
+            >
+              <Search className="mx-2" style={{ color: "#00000050" }} />
+
+              <input
+                className="mr-2"
+                onChange={(e) => searchUser(e.target.value)}
+                placeholder="Search by Employee Name"
+                style={{
+                  width: "auto",
+                  fontSize: "12px",
+                  backgroundColor: "transparent",
+                  border: "none",
+                  outline: "none",
+                }}
+              />
+            </div>
             <div className="mx-2"></div>
             <Button
               onClick={() => {
@@ -301,15 +339,13 @@ function Users() {
             </div>
             <div className="col-12 mb-3">
               <div className="form-group">
-                    <label className="mb-1">
-                    Assigned to Location
-                    </label>
-                    <input
-                      className="form-control"
-                      id="asignto"
-                      placeholder="Your Password..."
-                    />
-                  </div>
+                <label className="mb-1">Assigned to Location</label>
+                <input
+                  className="form-control"
+                  id="asignto"
+                  placeholder="Your Password..."
+                />
+              </div>
             </div>
           </div>
         </Modal.Body>
@@ -453,15 +489,13 @@ function Users() {
             </div>
             <div className="col-12 mb-3">
               <div className="form-group">
-                    <label className="mb-1">
-                    Assigned to Location
-                    </label>
-                    <input
-                      className="form-control"
-                      id="asignto"
-                      placeholder="Your Password..."
-                    />
-                  </div>
+                <label className="mb-1">Assigned to Location</label>
+                <input
+                  className="form-control"
+                  id="asignto"
+                  placeholder="Your Password..."
+                />
+              </div>
             </div>
             <div className="col-12 mb-3">
               <label>
@@ -569,16 +603,20 @@ function Users() {
             <div className="col-md-12">
               <div className="form-group">
                 <label>User Role</label>
-                <select className="form-control">
+                <select id="roleFilter" className="form-control">
                   <option>Select user role</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
                 </select>
               </div>
             </div>
             <div className="col-md-12">
               <div className="form-group">
                 <label>Status</label>
-                <select className="form-control">
+                <select id="statusFilter" className="form-control">
                   <option>Select status</option>
+                  <option value="Enable">Enable</option>
+                  <option value="Disable">Disable</option>
                 </select>
               </div>
             </div>
@@ -605,6 +643,12 @@ function Users() {
               color: "#FFFFFF",
               width: "100px",
             }}
+            onClick={() =>
+              filterUser({
+                role: document.getElementById("roleFilter").value,
+                status: document.getElementById("statusFilter").value,
+              })
+            }
           >
             Submit
           </button>

@@ -35,6 +35,20 @@ var EditUser = async (data) => {
   }
 };
 
+var SearchUser = async (keyword) => {
+  var res = await axios.get(`${endpoint}/getUser?keyword=${keyword}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var FilterUser = async (data) => {
+  var res = await axios.post(`${endpoint}/filterUser`, data);
+  if (res.data.status == 200) {
+    return res.data;
+  }
+};
+
 var GetApplicant = async () => {
   var res = await axios.get(`${endpoint}/getApplicant`);
   if (res.status == 200) {
@@ -294,6 +308,16 @@ var deleteCompanyLocation = async (id) => {
     return res.data;
   }
 };
+var updateInformation = async (data) => {
+  var res = await axios.post(`${endpoint}/updateInfo`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 export {
   GetUser,
   GetApplicant,
@@ -304,6 +328,8 @@ export {
   AddUser,
   DeleteUser,
   EditUser,
+  SearchUser,
+  FilterUser,
   GetJobGrade,
   AddJobGrade,
   DeleteJobGrade,
@@ -341,5 +367,6 @@ export {
   DeleteJobLevel,
   AddJobPosition,
   DelJobPosition,
-  UpdateJobPosition
+  UpdateJobPosition,
+  updateInformation,
 };

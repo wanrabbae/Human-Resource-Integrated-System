@@ -214,14 +214,20 @@ var deleteWorkShift = async (id) => {
     return res.data;
   }
 };
-var getUnit = async () => {
-  var res = await axios.get(`${endpoint}/getUnit`);
+var getProfit = async () => {
+  var res = await axios.get(`${endpoint}/getProfit`);
   if (res.status == 200) {
-    return res.data.result;
+    return res.data;
   }
 };
-var AddUnit = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addUnit`, requestBody);
+var getCost = async () => {
+  var res = await axios.get(`${endpoint}/getCost`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var AddProfit = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addProfit`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
@@ -314,8 +320,9 @@ export {
   AddWorkShift,
   deleteWorkShift,
   EditWorkShift,
-  getUnit,
-  AddUnit,
+  getProfit,
+  getCost,
+  AddProfit,
   deleteUnit,
   EditUnit,
   getLicense,

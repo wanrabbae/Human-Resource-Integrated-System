@@ -59,10 +59,6 @@ function WorkShift() {
   useEffect(() => {
     inAwait();
   }, []);
-  const radios = [
-    { name: 'Employee', value: '1' },
-    { name: 'Position', value: '2' },
-  ];
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [selected, setSelected] = useState([]);

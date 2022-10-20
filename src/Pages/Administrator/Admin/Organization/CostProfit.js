@@ -1,11 +1,26 @@
 
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Close, Delete, DeleteOutline, EditOutlined, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { Table, Modal, ModalBody, ModalHeader, ModalFooter, Form } from "react-bootstrap";
+import { getCost, GetJobPosition, getProfit } from "../../../../Repository/AdminRepository";
 
 function CostProfit() {
+    const [profit, setProfit] = useState([]);
+    const [cost, setGCost] = useState([]);
+    const [jobposition, setJobPosition] = useState([]);
+    const inAwait = async () => {
+        var rec = await getProfit();
+        setProfit(rec["result"]);
+        var cost = await getCost();
+        setGCost(cost["result"]);
+        var jpos = await GetJobPosition();
+        setJobPosition(jpos["result"]);
+      };
+      useEffect(() => {
+        inAwait();
+      }, []);
     const [dialogTitle, setTitle] = useState(false);
     const [dialogEditTitle, setEditTitle] = useState(false);
     const [dialogCost, setCost] = useState(false);
@@ -31,19 +46,31 @@ function CostProfit() {
                     <thead>
                         <tr style={{ backgroundColor: "#EBF7FF" }}>
                             <th width="10px"><input type="checkbox" style={{ borderRadius: "2px", }} /></th>
-                            <th onClick={() => { }}>Job Title <ImportExport fontSize="2px" /></th>
+                            <th onClick={() => { }}>Profit Employee <ImportExport fontSize="2px" /></th>
                             <th onClick={() => { }}>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
-                            <td className="align-middle" style={{ minWidth: "200px", }}>IT Staff</td>
-                            <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                        {profit.length > 0 ? (
+                            profit.map((val) => {
+                                return (
+                                    <tr>
+                                        <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                                        <td className="align-middle" style={{ minWidth: "200px", }}>{val["name"]}</td>
+                                        <td className="align-middle" style={{ minWidth: "100px", }}>
+                                            <button onClick={() => setEditTitle(!dialogEditTitle)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                            <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        ) : (
+                            <td>
+                                <div className="d-flex justify-content-center align-middle text-center">
+                                No Data
+                                </div>
                             </td>
-                        </tr>
+                        )}
                     </tbody>
                 </Table>
             </div>
@@ -62,10 +89,14 @@ function CostProfit() {
                             <div className="form-group">
                                 <label className="mb-1">Employee Position <span className="text-danger">*</span></label>
                                 <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected disabled>Select Employee Position</option>
-                                    <option>Advertising</option>
-                                    <option>IT Development</option>
-                                    <option>CS</option>
+                                    <option selected disabled>Select Job Position</option>
+                                    {
+                                        jobposition.map((val)=> {
+                                            return (
+                                                <option value={val.name}>{val.name}</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -114,13 +145,14 @@ function CostProfit() {
                             <div className="form-group">
                                 <label className="mb-1">Employee Position <span className="text-danger">*</span></label>
                                 <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option>Select Employee Position</option>
-                                    <option>IT Manager</option>
-                                    <option>IT Staff</option>
-                                    <option>Content Specialist</option>
-                                    <option>QA Engineering</option>
-                                    <option>Sales and Marketing</option>
-
+                                <option selected disabled>Select Job Position</option>
+                                    {
+                                        jobposition.map((val)=> {
+                                            return (
+                                                <option value={val.name}>{val.name}</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -172,19 +204,33 @@ function CostProfit() {
                     <thead>
                         <tr style={{ backgroundColor: "#EBF7FF" }}>
                             <th width="10px"><input type="checkbox" style={{ borderRadius: "2px", }} /></th>
-                            <th onClick={() => { }}>Profit Employee <ImportExport fontSize="2px" /></th>
+                            <th onClick={() => { }}>Cost Employee<ImportExport fontSize="2px" /></th>
                             <th onClick={() => { }}>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
-                            <td className="align-middle" style={{ minWidth: "200px", }}>IT Staff</td>
-                            <td className="align-middle" style={{ minWidth: "100px", }}>
-                                <button onClick={() => setEditCost(!dialogEditCost)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
-                                <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
-                            </td>
-                        </tr>
+                        {
+                            cost.length > 0 ? (
+                                cost.map((val) => {
+                                    return (
+                                    <tr>
+                                        <td className="align-middle"><input type="checkbox" style={{ borderRadius: "2px", }} /></td>
+                                        <td className="align-middle" style={{ minWidth: "200px", }}>{val.name}</td>
+                                        <td className="align-middle" style={{ minWidth: "100px", }}>
+                                            <button onClick={() => setEditCost(!dialogEditCost)} className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><EditOutlined fontSize="10px" /></button>
+                                            <button className="btn btn-sm mx-1" style={{ backgroundColor: "#CEDFEA", borderRadius: "8px", }}><DeleteOutline fontSize="10px" /></button>
+                                        </td>
+                                    </tr>
+                                    )
+                                })
+                            ) : (
+                                <td>
+                                    <div className="d-flex justify-content-center align-middle text-center">
+                                    No Data
+                                    </div>
+                                </td>
+                            )
+                        }
                     </tbody>
                 </Table>
             </div>
@@ -204,10 +250,14 @@ function CostProfit() {
                             <div className="form-group">
                                 <label className="mb-1">Employee Position <span className="text-danger">*</span></label>
                                 <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected disabled>Select Employee Position</option>
-                                    <option>Advertising</option>
-                                    <option>IT Development</option>
-                                    <option>CS</option>
+                                <option selected disabled>Select Job Position</option>
+                                    {
+                                        jobposition.map((val)=> {
+                                            return (
+                                                <option value={val.name}>{val.name}</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -256,7 +306,14 @@ function CostProfit() {
                             <div className="form-group">
                                 <label className="mb-1">Employee Position <span className="text-danger">*</span></label>
                                 <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option>Select Employee Position</option>
+                                <option selected disabled>Select Job Position</option>
+                                    {
+                                        jobposition.map((val)=> {
+                                            return (
+                                                <option value={val.name}>{val.name}</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                             </div>
                         </div>

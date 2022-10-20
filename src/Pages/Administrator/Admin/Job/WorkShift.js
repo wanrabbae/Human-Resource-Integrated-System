@@ -28,6 +28,7 @@ import {
   AddWorkShift,
   deleteWorkShift,
   EditWorkShift,
+  GetJobPosition,
   getWorkShift,
 } from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
@@ -50,11 +51,14 @@ function WorkShift() {
   const [workshift, setWorkShift] = useState([]);
   const [employee, setEmployee] = useState([]);
   const [workshiftEdit, setWorkShiftEdit] = useState();
+  const [jobposition, setJobPosition] = useState([]);
   const inAwait = async () => {
     var emp = await GetEmployeeName();
     var rec = await getWorkShift();
     setWorkShift(rec);
     setEmployee(emp);
+    var jpos = await GetJobPosition();
+    setJobPosition(jpos["result"]);
   };
   useEffect(() => {
     inAwait();
@@ -300,9 +304,9 @@ function WorkShift() {
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Search Position</option>
-                  {employee.map((val) => {
+                  {jobposition.map((val) => {
                     return (
-                      <option value={val["id"]}>{val["firstName"]}</option>
+                      <option value={val.id}>{val.name}</option>
                     );
                   })}
                 </select>
@@ -447,9 +451,55 @@ function WorkShift() {
               </div>
             </div>
             <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">Assign Employee</label>
+            <div className="form-group">
+                <label className="mb-1">Assign To</label>
+                <div>
+                  <div className="grid w-50 grid-cols-2 space-x-2 mb-2 bg-[#F0F0F3] rounded-xl p-1.5">
+                    <div>
+                      <input
+                        type="radio"
+                        name="option"
+                        id="1"
+                        className="peer hidden"
+                        checked={isEmp}
+                        onChange={async () => {
+                          setEmp(true);
+                          setPosi(false);
+                        }}
+                      />
+                      <label
+                        for="1"
+                        className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
+                      >
+                        Employee
+                      </label>
+                    </div>
+
+                    <div>
+                      <input
+                        type="radio"
+                        name="option"
+                        id="2"
+                        class="peer hidden"
+                        checked={isPosi}
+                        onChange={async () => {
+                          setPosi(true);
+                          setEmp(false);
+                        }}
+                      />
+                      <label
+                        for="2"
+                        className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
+                      >
+                        Position
+                      </label>
+                    </div>
+                  </div>
+                </div>
                 <select
+                  style={{
+                    display: isEmp ? "block" : !isPosi ? "none" : "none",
+                  }}
                   onChange={(val) =>
                     setSelected((current) => [...current, val.target.value])
                   }
@@ -459,6 +509,22 @@ function WorkShift() {
                   {employee.map((val) => {
                     return (
                       <option value={val["id"]}>{val["firstName"]}</option>
+                    );
+                  })}
+                </select>
+                <select
+                  style={{
+                    display: isPosi ? "block" : !isEmp ? "none" : "none",
+                  }}
+                  onChange={(val) =>
+                    setSelected((current) => [...current, val.target.value])
+                  }
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option>Search Position</option>
+                  {jobposition.map((val) => {
+                    return (
+                      <option value={val.id}>{val.name}</option>
                     );
                   })}
                 </select>

@@ -3,7 +3,7 @@ import { DeleteOutlineOutlined, CreateOutlined } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import { useCallback, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Tree, { useTreeState, treeHandlers, } from "react-hyper-tree";
+import Tree, { useTreeState, treeHandlers } from "react-hyper-tree";
 import classNames from "classnames";
 import ChevronDown from "react-multiselect-checkboxes/lib/ChevronDown";
 import { ArrowDown, ArrowUp, CaretUp, CaretDown,TreeStructure } from "phosphor-react";
@@ -23,16 +23,16 @@ function StructureOrganization() {
     var allStructure = await getStructure(1);
     setData(structure);
     setStruct(allStructure);
-  }
+  };
   useEffect(() => {
     loadData();
-  }, [])
+  }, []);
 
   const { required, handlers } = useTreeState({
-    id: 'tree',
+    id: "tree",
     data: data,
     defaultOpened: true,
-  })
+  });
 
   const renderNode = useCallback(({
     node,
@@ -141,8 +141,7 @@ function StructureOrganization() {
             className="bg-[#0E5073] hover:bg-[#003049] text-white flex items-center px-2 py-1 rounded-md"
             onClick={() => setModalAdd(true)}
           >
-            <AddIcon className="text-white h-5 w-5" aria-hidden="true" />{" "}
-            Add
+            <AddIcon className="text-white h-5 w-5" aria-hidden="true" /> Add
           </button>
         </p>
         <Tree
@@ -395,17 +394,23 @@ function StructureOrganization() {
           <div className="grid grid-cols-1 gap-3 mt-3">
             <div className="w-full">
               <label className="text-xs">Job Position</label>
-              <select id="job_position" className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+              <select
+                id="job_position"
+                className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              >
                 <option className="py-3" hidden>
                   Select
                 </option>
-                {
-                  allStruct.map((e, i) => {
-                    return (
-                      <option className="py-3" value={JSON.stringify([e?.id, e?.position['name']])}>{e?.position['name']}</option>
-                    );
-                  })
-                }
+                {allStruct.map((e, i) => {
+                  return (
+                    <option
+                      className="py-3"
+                      value={JSON.stringify([e?.id, e?.position["name"]])}
+                    >
+                      {e?.position["name"]}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="w-full">

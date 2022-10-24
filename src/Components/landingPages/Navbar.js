@@ -13,19 +13,19 @@ function Navbar() {
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
 
-  const pathname = window.location.pathname
+  const pathname = window.location.pathname;
 
   useEffect(() => {
     if (window.localStorage.getItem("users") != null) {
       window.location.href = "/dashboard";
-    };
+    }
   }, []);
   return (
     <>
       <nav className="bg-white shadow-md px-2 sm:px-4 py-1 rounded dark:bg-gray-900">
         <div className="flex flex-wrap justify-between mx-5">
           <a to="#" className="flex items-center">
-          <img src={lg} />
+            <img src={lg} />
           </a>
           <button
             data-collapse-toggle="navbar-default"
@@ -53,7 +53,7 @@ function Navbar() {
             <div className="flex gap-20">
               <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
-                  { pathname === '/' ? 
+                  {pathname === "/" ? (
                     <Link
                       to="/"
                       className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
@@ -61,7 +61,7 @@ function Navbar() {
                     >
                       Home
                     </Link>
-                  :
+                  ) : (
                     <Link
                       to="/"
                       className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
@@ -69,42 +69,41 @@ function Navbar() {
                     >
                       Home
                     </Link>
-                  
-                  }
+                  )}
                 </li>
                 <li>
-                { pathname === '/feature' ? 
-                  <Link
-                    to="/feature"
-                    className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  >
-                    Features
-                  </Link>
-                  :
-                  <Link
-                  to="/feature"
-                  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Features
-                </Link>
-                }
+                  {pathname === "/feature" ? (
+                    <Link
+                      to="/feature"
+                      className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Features
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/feature"
+                      className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Features
+                    </Link>
+                  )}
                 </li>
                 <li>
-                { pathname === '/pricing' ? 
-                  <Link
-                    to="/pricing"
-                    className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  >
-                    Pricing
-                  </Link>
-                  :
-                  <Link
-                  to="/pricing"
-                  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Pricing
-                </Link>
-              }
+                  {pathname === "/pricing" ? (
+                    <Link
+                      to="/pricing"
+                      className="block py-2 pr-4 pl-3 text-[#790001] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Pricing
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/pricing"
+                      className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Pricing
+                    </Link>
+                  )}
                 </li>
               </ul>
               <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-4 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -135,7 +134,14 @@ function Navbar() {
       {/* start:modal login */}
       <Modal show={modalLogin} size="md" onHide={() => setModalLogin(false)}>
         <Modal.Body className="flex flex-col gap-3 m-4">
-          <Alert show={message != null ? true : false} variant="danger" onClose={() => { setMessage(null) }} dismissible>
+          <Alert
+            show={message != null ? true : false}
+            variant="danger"
+            onClose={() => {
+              setMessage(null);
+            }}
+            dismissible
+          >
             {message}
           </Alert>
           <div className="self-center">
@@ -164,7 +170,7 @@ function Navbar() {
           <button
             onClick={async () => {
               var requestBody = {
-                username: document.getElementById('username').value,
+                username: document.getElementById("username").value,
                 password: document.getElementById("password").value,
               };
               setModalLogin(false);
@@ -172,11 +178,12 @@ function Navbar() {
               var data = await PostLogin(requestBody);
               setLoading(false);
               setModalLogin(true);
-              if (data['message'] != "Success") {
+              if (data["message"] != "Success") {
                 setMessage("Wrong username or password");
               } else {
-                var toJson = JSON.stringify(data['data']);
+                var toJson = JSON.stringify(data["data"]);
                 window.localStorage.setItem("users", toJson);
+                window.localStorage.setItem("token", data["token"]);
                 window.location.href = "/dashboard";
               }
             }}

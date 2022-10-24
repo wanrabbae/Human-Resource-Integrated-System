@@ -100,7 +100,7 @@ function Schedule() {
                   <td className="align-middle">{schedule.employeeId}</td>
                   <td className="align-middle">{schedule.date}</td>
                   <td className="align-middle">Sales and Marketing</td>
-                  <td className="align-middle">Home Schedule</td>
+                  <td className="align-middle">{schedule.schedule}</td>
                 </tr>
               ))
             ) : (

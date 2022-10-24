@@ -394,6 +394,7 @@ function Template() {
                   <>
                     <div
                       id={`drop${index}`}
+                      // hidden={val.show}
                       className="hidden z-50 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
                       style={{ position: "absolute", left: "16em" }}
                     >
@@ -405,6 +406,11 @@ function Template() {
                           return (
                             <li>
                               <Link
+                                onClick={() =>
+                                  isOpen[1] == false
+                                  ? setOpen([true, false, false])
+                                  : setOpen([false, false, false])
+                                }
                                 key={i}
                                 to={e.link}
                                 className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -520,6 +526,11 @@ function Template() {
                           return (
                             <li>
                               <Link
+                                onClick={() =>
+                                  isOpen[2] == false
+                                  ? setOpen([true, false, false])
+                                  : setOpen([false, false, false])
+                                }
                                 key={i}
                                 to={e.link}
                                 className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

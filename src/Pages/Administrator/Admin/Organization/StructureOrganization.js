@@ -3,7 +3,8 @@ import { DeleteOutlineOutlined, CreateOutlined } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import { useCallback, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Tree, { useTreeState,treeHandlers, } from "react-hyper-tree";
+import Tree, { useTreeState, treeHandlers } from "react-hyper-tree";
+import className from "classnames";
 
 function StructureOrganization() {
   const [isSelected, setSelected] = useState(false);
@@ -11,71 +12,68 @@ function StructureOrganization() {
 
   const data = {
     id: 1,
-    name: 'Parent 1',
+    name: "Parent 1",
     children: [
       {
         id: 2,
-        name: 'Child 1',
-        bg:'#A9F0FF',
+        name: "Child 1",
+        bg: "#A9F0FF",
         children: [
           {
             id: 5,
-            bg:'#EBE7FF',
-            name: 'Child 1__1',
+            bg: "#EBE7FF",
+            name: "Child 1__1",
           },
           {
             id: 6,
-            name: 'Child 1__2',
+            name: "Child 1__2",
           },
           {
             id: 7,
-            name: 'Child 1__3',
+            name: "Child 1__3",
           },
           {
             id: 8,
-            name: 'Child 1__3',
+            name: "Child 1__3",
           },
         ],
       },
     ],
-  }
+  };
 
   const { required, handlers } = useTreeState({
-    id: 'tree',
+    id: "tree",
     data: data,
     defaultOpened: true,
-  })
-  
-  const renderNode = useCallback(({
-    node,
-    onToggle,
-  }) => (
-    <div className="tree-node" key={node.data.title}>
-                <div
-                  onClick={onToggle}
-                  className={className({
-                    'tree-icon': true,
-                    'empty-icon': !node.hasChildren(),
-                    [node.options.opened
-                      ? 'close-icon'
-                      : 'open-icon']: node.hasChildren(),
-                  })}
-                />
-                <div
-                className="mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center"
-                  // className={classnames({
-                  //   'node-content-wrapper': true,
-                  //   'node-selected': node.isSelected(),
-                  // })}
-                >
-                  <div className="titles">
-                    <div className="node-title">
-                      {node.data.name}
-                    </div>
-                  </div>
-                </div>
+  });
+
+  const renderNode = useCallback(
+    ({ node, onToggle }) => (
+      <div className="tree-node" key={node.data.title}>
+        <div
+          onClick={onToggle}
+          className={className({
+            "tree-icon": true,
+            "empty-icon": !node.hasChildren(),
+            [node.options.opened ? "close-icon" : "open-icon"]:
+              node.hasChildren(),
+          })}
+        />
+        <div
+          className="mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center"
+          // className={classnames({
+          //   'node-content-wrapper': true,
+          //   'node-selected': node.isSelected(),
+          // })}
+        >
+          <div className="titles">
+            <div className="node-title">{node.data.name}</div>
           </div>
-  ), [])
+        </div>
+      </div>
+    ),
+    []
+  );
   return (
     <>
       <div
@@ -103,25 +101,25 @@ function StructureOrganization() {
         </div>
         <hr></hr>
         <Tree
-                  {...required}
-                  {...handlers}
-                  horizontalLineStyles={{
-                    stroke: '#737373',
-                    strokeWidth: 1,
-                  }}
-                  verticalLineStyles={{
-                    stroke: '#737373',
-                    strokeWidth: 1,
-                  }}
-                  draggable={false}
-                  depthGap={35}
-                  disableLines={false}
-                  disableHorizontalLines={false}
-                  disableVerticalLines={false}
-                  verticalLineTopOffset={-5}
-                  verticalLineOffset={10}
-                  renderNode={renderNode}
-              />
+          {...required}
+          {...handlers}
+          horizontalLineStyles={{
+            stroke: "#737373",
+            strokeWidth: 1,
+          }}
+          verticalLineStyles={{
+            stroke: "#737373",
+            strokeWidth: 1,
+          }}
+          draggable={false}
+          depthGap={35}
+          disableLines={false}
+          disableHorizontalLines={false}
+          disableVerticalLines={false}
+          verticalLineTopOffset={-5}
+          verticalLineOffset={10}
+          renderNode={renderNode}
+        />
         {/* <div onClick={() => { }} className="mt-3 py-2 px-3 w-100 border-2 p-2 border-[#00000020] rounded-xl">
                     Organization
                 </div> */}

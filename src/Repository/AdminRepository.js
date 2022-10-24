@@ -348,9 +348,23 @@ var updateInformation = async (data) => {
     return res.data;
   }
 };
+var getStructure = async (data = 0) => {
+  if (data == 1) {
+    var res = await axios.get(`${endpoint}/getStructure?ket=1`);
+    if (res.status == 200) {
+      return res.data;
+    }
+  } else {
+    var res = await axios.get(`${endpoint}/getStructure`);
+    if (res.status == 200) {
+      return res.data;
+    }
+  }
+}
 
 export {
   GetUser,
+  getStructure,
   GetApplicant,
   GetJobTittle,
   AddJobTittle,

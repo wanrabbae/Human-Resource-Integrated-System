@@ -1,45 +1,32 @@
 import { Button, FormControlLabel, Switch } from "@mui/material";
 import { DeleteOutlineOutlined, CreateOutlined } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Tree, { useTreeState, treeHandlers } from "react-hyper-tree";
-import className from "classnames";
+import classNames from "classnames";
+import ChevronDown from "react-multiselect-checkboxes/lib/ChevronDown";
+import { ArrowDown, ArrowUp } from "phosphor-react";
+import { getStructure } from "../../../../Repository/AdminRepository";
+import { removeSpace } from "../../../../Constant/utils";
 
 function StructureOrganization() {
   const [isSelected, setSelected] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [allStruct, setStruct] = useState([]);
 
-  const data = {
-    id: 1,
-    name: "Parent 1",
-    children: [
-      {
-        id: 2,
-        name: "Child 1",
-        bg: "#A9F0FF",
-        children: [
-          {
-            id: 5,
-            bg: "#EBE7FF",
-            name: "Child 1__1",
-          },
-          {
-            id: 6,
-            name: "Child 1__2",
-          },
-          {
-            id: 7,
-            name: "Child 1__3",
-          },
-          {
-            id: 8,
-            name: "Child 1__3",
-          },
-        ],
-      },
-    ],
+  const [data, setData] = useState([]);
+  const loadData = async () => {
+    var structure = await getStructure();
+    var allStructure = await getStructure(1);
+    setData(structure);
+    setStruct(allStructure);
   };
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const { required, handlers } = useTreeState({
     id: "tree",
@@ -50,24 +37,85 @@ function StructureOrganization() {
   const renderNode = useCallback(
     ({ node, onToggle }) => (
       <div className="tree-node" key={node.data.title}>
-        <div
-          onClick={onToggle}
-          className={className({
-            "tree-icon": true,
-            "empty-icon": !node.hasChildren(),
-            [node.options.opened ? "close-icon" : "open-icon"]:
-              node.hasChildren(),
-          })}
-        />
-        <div
-          className="mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center"
-          // className={classnames({
-          //   'node-content-wrapper': true,
-          //   'node-selected': node.isSelected(),
-          // })}
-        >
-          <div className="titles">
-            <div className="node-title">{node.data.name}</div>
+        <div className="d-flex align-items-center">
+          {node.data.children.length >= 1 ? (
+            node.options.opened ? (
+              <button
+                className="btn btn-sm btn-danger mt-3 mr-3"
+                onClick={onToggle}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-chevron-down"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </button>
+            ) : (
+              <button
+                className="btn btn-sm btn-danger mt-3 mr-3"
+                onClick={onToggle}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-chevron-up"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
+                  />
+                </svg>
+              </button>
+            )
+          ) : (
+            <div className="px-4"></div>
+          )}
+          <div
+            className="mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center"
+
+            // className={classnames({
+            //   'node-content-wrapper': true,
+            //   'node-selected': node.isSelected(),
+            // })}
+          >
+            <div className="titles">
+              <div className="node-title">{node.data.position.name}</div>
+            </div>
+            {isSelected == true ? (
+              <div className="flex space-x-3">
+                <button
+                  className="bg-[#FFFFFF] flex items-center px-2 py-1 rounded-lg"
+                  //   onClick={() => setModalAdd(true)}
+                >
+                  <DeleteOutlineOutlined
+                    className="text-[#003049] h-5 w-5"
+                    aria-hidden="true"
+                  />
+                </button>
+                <button
+                  className="bg-[#FFFFFF] flex items-center px-2 py-1 rounded-lg"
+                  //   onClick={() => setModalAdd(true)}
+                >
+                  <CreateOutlined
+                    className="text-[#003049] h-5 w-5"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
@@ -100,6 +148,15 @@ function StructureOrganization() {
           />
         </div>
         <hr></hr>
+        <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
+          <span className="">Organization</span>
+          <button
+            className="bg-[#0E5073] hover:bg-[#003049] text-white flex items-center px-2 py-1 rounded-md"
+            onClick={() => setModalAdd(true)}
+          >
+            <AddIcon className="text-white h-5 w-5" aria-hidden="true" /> Add
+          </button>
+        </p>
         <Tree
           {...required}
           {...handlers}
@@ -123,7 +180,7 @@ function StructureOrganization() {
         {/* <div onClick={() => { }} className="mt-3 py-2 px-3 w-100 border-2 p-2 border-[#00000020] rounded-xl">
                     Organization
                 </div> */}
-        <ul>
+        {/* <ul>
           <li className="">
             <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
               <span className="">Organization</span>
@@ -143,7 +200,7 @@ function StructureOrganization() {
                     <div className="flex space-x-3">
                       <button
                         className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                        //   onClick={() => setModalAdd(true)}
+                      //   onClick={() => setModalAdd(true)}
                       >
                         <DeleteOutlineOutlined
                           className="text-[#003049] h-5 w-5"
@@ -152,7 +209,7 @@ function StructureOrganization() {
                       </button>
                       <button
                         className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                        //   onClick={() => setModalAdd(true)}
+                      //   onClick={() => setModalAdd(true)}
                       >
                         <CreateOutlined
                           className="text-[#003049] h-5 w-5"
@@ -181,7 +238,7 @@ function StructureOrganization() {
                         <div className="flex space-x-3">
                           <button
                             className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                            //   onClick={() => setModalAdd(true)}
+                          //   onClick={() => setModalAdd(true)}
                           >
                             <DeleteOutlineOutlined
                               className="text-[#003049] h-5 w-5"
@@ -190,7 +247,7 @@ function StructureOrganization() {
                           </button>
                           <button
                             className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                            //   onClick={() => setModalAdd(true)}
+                          //   onClick={() => setModalAdd(true)}
                           >
                             <CreateOutlined
                               className="text-[#003049] h-5 w-5"
@@ -219,7 +276,7 @@ function StructureOrganization() {
                             <div className="flex space-x-3">
                               <button
                                 className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                                //   onClick={() => setModalAdd(true)}
+                              //   onClick={() => setModalAdd(true)}
                               >
                                 <DeleteOutlineOutlined
                                   className="text-[#003049] h-5 w-5"
@@ -228,7 +285,7 @@ function StructureOrganization() {
                               </button>
                               <button
                                 className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                                //   onClick={() => setModalAdd(true)}
+                              //   onClick={() => setModalAdd(true)}
                               >
                                 <CreateOutlined
                                   className="text-[#003049] h-5 w-5"
@@ -257,7 +314,7 @@ function StructureOrganization() {
                             <div className="flex space-x-3">
                               <button
                                 className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                                //   onClick={() => setModalAdd(true)}
+                              //   onClick={() => setModalAdd(true)}
                               >
                                 <DeleteOutlineOutlined
                                   className="text-[#003049] h-5 w-5"
@@ -266,7 +323,7 @@ function StructureOrganization() {
                               </button>
                               <button
                                 className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                                //   onClick={() => setModalAdd(true)}
+                              //   onClick={() => setModalAdd(true)}
                               >
                                 <CreateOutlined
                                   className="text-[#003049] h-5 w-5"
@@ -297,7 +354,7 @@ function StructureOrganization() {
                         <div className="flex space-x-3">
                           <button
                             className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                            //   onClick={() => setModalAdd(true)}
+                          //   onClick={() => setModalAdd(true)}
                           >
                             <DeleteOutlineOutlined
                               className="text-[#003049] h-5 w-5"
@@ -306,7 +363,7 @@ function StructureOrganization() {
                           </button>
                           <button
                             className="bg-[#CEDFEA] hover:bg-[#9EB6C6] flex items-center px-2 py-1 rounded-md"
-                            //   onClick={() => setModalAdd(true)}
+                          //   onClick={() => setModalAdd(true)}
                           >
                             <CreateOutlined
                               className="text-[#003049] h-5 w-5"
@@ -332,7 +389,7 @@ function StructureOrganization() {
               </li>
             </ul>
           </li>
-        </ul>
+        </ul> */}
       </div>
       {/* Modal Add */}
       <Modal show={modalAdd} size="lg" onHide={() => setModalAdd(false)}>
@@ -348,57 +405,71 @@ function StructureOrganization() {
         <Modal.Body className="mx-4">
           <div className="grid grid-cols-1 gap-3 mt-3">
             <div className="w-full">
-              <label className="text-xs">ID</label>
+              <label className="text-xs">Job Position</label>
+              <select
+                id="job_position"
+                className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              >
+                <option className="py-3" hidden>
+                  Select
+                </option>
+                {allStruct.map((e, i) => {
+                  return (
+                    <option
+                      className="py-3"
+                      value={JSON.stringify([e?.id, e?.position["name"]])}
+                    >
+                      {e?.position["name"]}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Structure ID</label>
               <input
-                onChange={(val) => {}}
+                id="id"
+                readOnly
+                value={id}
+                onChange={(val) => setId(val.target.value)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder="ID..."
               />
             </div>
             <div className="w-full">
-              <label className="text-xs">Unit</label>
-              <select className="appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3" hidden>
-                  Select
-                </option>
-                <option className="py-3">Division</option>
-                <option className="py-3">Department</option>
-                <option className="py-3">Sub Department</option>
-                <option className="py-3">Section</option>
-                <option className="py-3">Sub Section</option>
-              </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Name</label>
+              <label className="text-xs">Color</label>
               <input
-                onChange={(val) => {}}
+                id="color"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="text"
-                placeholder="Organization name..."
-                readOnly
+                type="color"
               />
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Description</label>
-              <textarea
-                onChange={(val) => {}}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Description..."
-                rows="5"
-              ></textarea>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
           <button
-            onClick={() => setModalAdd(false)}
+            onClick={() => {
+              setModalAdd(false);
+            }}
             type="button"
             className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
           >
             Cancel
           </button>
           <button
+            onClick={() => {
+              var getJob = document.getElementById("job_position").value;
+              var color = document.getElementById("color").value;
+              var jobPos = JSON.parse(getJob);
+              const requestBody = {
+                position_id: jobPos[0] == 0 ? null : jobPos[0],
+                structure_id: id,
+                color: color,
+              };
+
+              console.log(requestBody);
+            }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
           >

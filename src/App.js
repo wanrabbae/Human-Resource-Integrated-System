@@ -48,6 +48,7 @@ import ArchiveApplicant from "./Pages/Administrator/Recruitment/archive_applican
 import RecruitmentEdit from "./Pages/Administrator/Recruitment/recruitment_edit.js";
 import JobManagement from "./Pages/Administrator/Admin/Job/JobManagement";
 import BulkUploud from "./Pages/Administrator/Admin/Job/BulkUploud";
+import ChartStructure from "./Pages/Administrator/Admin/Organization/ChartStructure";
 
 function App() {
   return (
@@ -85,6 +86,10 @@ function App() {
         <Route
           path="/admin/organization/structureOrganization"
           element={<StructureOrganization />}
+        />
+        <Route
+          path="/admin/organization/ChartStructureOrganization"
+          element={<ChartStructure />}
         />
         <Route path="/admin/qualifications/skills" element={<Skills />} />
         <Route

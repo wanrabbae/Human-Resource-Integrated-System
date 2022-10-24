@@ -15,4 +15,11 @@ var GetEmployeeName = async () => {
   }
 };
 
-export { GetEmployee, GetEmployeeName };
+var GetReportMeth = async () => {
+  var res = await axios.get(`${endpoint}/getReportMethod`);
+  if (res.data.status == 200) {
+    return res.data;
+  }
+};
+
+export { GetEmployee, GetEmployeeName, GetReportMeth };

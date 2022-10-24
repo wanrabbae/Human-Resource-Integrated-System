@@ -150,14 +150,6 @@ function Template() {
         show: isHidden,
         body: [
           {
-            nama: "Optional Fields",
-            link: "/employee/optional-field",
-          },
-          {
-            nama: "Custom Fields",
-            link: "/employee/custom-field",
-          },
-          {
             nama: "Data Import",
             link: "/employee/data-import",
           },

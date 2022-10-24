@@ -1,10 +1,19 @@
 import { Button } from "@mui/material";
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import { ModalDelete } from "../../../../Components/Modals";
+import { GetReportMeth } from "../../../../Repository/EmployeeRepository";
 
 function ReportingMethods() {
+  const [reportingMeth, setReportingMeth] = useState(false);
+  const inAwait = async () => {
+    var rec = await GetReportMeth();
+    setReportingMeth(rec["result"]);
+  };
+  useEffect (() => {
+    inAwait();
+  }, []);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [isdelete, setDelete] = useState(false);
@@ -14,7 +23,7 @@ function ReportingMethods() {
         <div className="flex flex-row justify-between items-center">
           <div>
             <h1>Reporting Methods</h1>
-            <p className="text-xs text-gray-400">2 Record Found</p>
+            <p className="text-xs text-gray-400">{reportingMeth.length} Record Found</p>
           </div>
           <button
             className="bg-[#0E5073] hover:bg[#003049] text-white flex items-center p-2 rounded-md"
@@ -38,30 +47,40 @@ function ReportingMethods() {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Direct
-                </th>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    onClick={() => {
-                      setDelete(true);
-                    }}>
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => setModalEdit(true)}
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              {
+                reportingMeth.length > 0 ? (
+                  reportingMeth.map((val) => {
+                    return (
+                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th
+                          scope="row"
+                          className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                          {val.name}
+                        </th>
+                        <td className="py-4 px-6">
+                          <div className="flex flex-row justify-end gap-3">
+                            <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setDelete(true);
+                            }}>
+                              <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                            </button>
+                            <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => setModalEdit(true)}
+                            >
+                              <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })
+                ) : (
+                  ""
+                )
+              }
             </tbody>
           </table>
         </div>

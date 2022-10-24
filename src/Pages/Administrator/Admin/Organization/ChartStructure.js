@@ -6,11 +6,11 @@ import { Modal } from "react-bootstrap";
 import Tree, { useTreeState, treeHandlers, } from "react-hyper-tree";
 import classNames from "classnames";
 import ChevronDown from "react-multiselect-checkboxes/lib/ChevronDown";
-import { ArrowDown, ArrowUp, CaretUp, CaretDown,TreeStructure } from "phosphor-react";
+import { ArrowDown, ArrowUp, CaretUp, CaretDown,TreeStructure, Export } from "phosphor-react";
 import { getStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
 
-function StructureOrganization() {
+function ChartStructure() {
   const [isSelected, setSelected] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [name, setName] = useState("");
@@ -99,43 +99,33 @@ function StructureOrganization() {
         <div className="d-flex justify-content-between align-items-center pb-3">
           <div>
             <h2 className="text-lg">
-              <b>Structure Organization</b>
+              <b>Organizational Structure chart</b>
             </h2>
             <h6 className="text-[#00000030] text-xs">
-              Organizational structure of the company
+            Organizational structure chart overview
             </h6>
           </div>
           <div className="flex">
-            <button
+          <button
               style={{
-                borderRadius: "7px",
-                border: "1px solid #CACACA",
-                color: "#003049",
+                borderRadius: "10px",
+                color: "white",
                 fontSize: "14px",
                 fontWeight: "500",
               }}
-              className="ms-3 btn d-flex align-items-center"
+              className="ms-3 bg-[#0E5073] btn d-flex align-items-center"
               onClick={() => {
-                window.location.href = "/admin/organization/ChartStructureOrganization";
+                // exportExcel();
               }}
               type=""
             >
-              <TreeStructure className="me-2" size={20} color="#003049" />
-              See Chart 
+              <Export className="me-2" size={15} weight="bold" />
+              Export
             </button>
-            <FormControlLabel
-              value={isSelected}
-              control={<Switch color="primary" />}
-              label="Edit"
-              labelPlacement="start"
-              onChange={(val) => {
-                setSelected(!isSelected);
-              }}
-            />
           </div>
         </div>
         <hr></hr>
-        <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
+        {/* <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
           <span className="">PT Ethos Kreatif Indonesia</span>
           <button
             className="bg-[#0E5073] hover:bg-[#003049] text-white flex items-center px-2 py-1 rounded-md"
@@ -161,11 +151,11 @@ function StructureOrganization() {
           gapMode="padding"
           disableLines={false}
           disableHorizontalLines={false}
-          disableVerticalLines={false}
+          disableVerticalLines={false}s
           verticalLineTopOffset={-4}
           verticalLineOffset={18}
           renderNode={renderNode}
-        />
+        /> */}
         {/* <div onClick={() => { }} className="mt-3 py-2 px-3 w-100 border-2 p-2 border-[#00000020] rounded-xl">
                     Organization
                 </div> */}
@@ -464,4 +454,4 @@ function StructureOrganization() {
   );
 }
 
-export default StructureOrganization;
+export default ChartStructure;

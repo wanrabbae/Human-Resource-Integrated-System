@@ -6,7 +6,7 @@ import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import { GetReportMeth,AddReportMeth,DelReportMeth,UpdateReportMeth } from "../../../../Repository/EmployeeRepository";
 
 function ReportingMethods() {
-  const [reportingMeth, setReportingMeth] = useState(false);
+  const [reportingMeth, setReportingMeth] = useState();
   const [id, setId] = useState();
   const [editValues, setEditValues] = useState();
   const inAwait = async () => {

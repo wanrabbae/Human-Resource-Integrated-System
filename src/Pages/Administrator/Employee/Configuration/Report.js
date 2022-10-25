@@ -73,7 +73,7 @@ function Report() {
                 <th scope="col" className="py-3 px-6 w-36">
                   Name
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-3 px-6 text-end">
                   Action
                 </th>
               </tr>
@@ -139,7 +139,7 @@ function Report() {
               placeholder="Type here"
             />
           </div>
-          <label className="text-xsfont-bold">Selection Criteria</label>
+          <label className="mt-4 font-semibold">Selection Criteria</label>
           <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Criteria</label>
@@ -170,7 +170,7 @@ function Report() {
               </select>
             </div>
           </div>
-          <label className="text-xs font-bold">Display Fields</label>
+          <label className="mt-4 font-semibold">Display Fields</label>
           <div className="grid grid-cols-2 gap-3">
             <div className="w-full">
               <label className="text-xs">Select Display Field Group</label>
@@ -198,65 +198,6 @@ function Report() {
                   />
                 </button>
               </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-6 gap-2">
-            <div>
-              <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
-                <TrashIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="col-span-3 flex flex-col gap-2">
-              <h4>Personal</h4>
-              <div className="flex flex-wrap">
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-span-2">
-              <label
-                for="default-toggle"
-                className="inline-flex relative items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  value=""
-                  id="default-toggle"
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Include Header
-                </span>
-              </label>
             </div>
           </div>
         </Modal.Body>

@@ -8,6 +8,13 @@ var GetAttendance = async()=>{
   }
 }
 
+var GetAttendanceByDate = async (date) => {
+  var res = await axios.get(`${endpoint}/getAttendance?date=${date}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 var GetEmployeeRecord = async()=>{
   var res = await axios.get(`${endpoint}/getEmployeeRecord`);
   if (res.status == 200) {
@@ -15,11 +22,24 @@ var GetEmployeeRecord = async()=>{
   }
 }
 
+var GetEmployeeRecByDate = async (date) => {
+  var res = await axios.get(`${endpoint}/getEmployeeRecord?date=${date}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 
 var GetSchedule = async () => {
   var res = await axios.get(`${endpoint}/getSchedule`);
   if (res.status == 200) {
     return res.data.result;
+  }
+};
+
+var GetScheduleByDate = async (date) => {
+  var res = await axios.get(`${endpoint}/getSchedule?date=${date}`);
+  if (res.status == 200) {
+    return res.data;
   }
 };
 
@@ -44,4 +64,4 @@ var DeleteSchedule = async (id) => {
   }
 };
 
-export { GetSchedule, AddSchedule, EditSchedule, DeleteSchedule, GetAttendance, GetEmployeeRecord };
+export { GetSchedule, AddSchedule, EditSchedule, DeleteSchedule, GetAttendance, GetEmployeeRecord, GetAttendanceByDate, GetEmployeeRecByDate, GetScheduleByDate };

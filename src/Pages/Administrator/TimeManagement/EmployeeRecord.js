@@ -43,7 +43,7 @@ import {
 import Select from "react-select";
 import { TextFieldSearch } from "../../../Components/TextField";
 import { GetEmployeeName } from "../../../Repository/EmployeeRepository";
-import { GetEmployeeRecord } from "../../../Repository/TimeManagementRepository";
+import { GetEmployeeRecByDate, GetEmployeeRecord } from "../../../Repository/TimeManagementRepository";
 
 function EmployeeRecord() {
   const [dialogUser, setUser] = useState(false);
@@ -76,6 +76,13 @@ function EmployeeRecord() {
             <input
               type="date"
               className="bg-light-50 border border-gray-300 text-[#00000030] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onClick={() => inAwait()}
+              onChange={async (e) => {
+                console.log(e.target.value,)
+                const res = await GetEmployeeRecByDate(e.target.value);
+                console.log(res);
+                setEmployeeRecord(res);
+              }}
             />
           </div>
           <div className="d-flex">
@@ -131,7 +138,7 @@ function EmployeeRecord() {
           <tbody>
             {employeeRecord.length > 0 ? (
               employeeRecord.map((value, index) => (
-                <tr>
+                <tr key={index}>
                   <td className="align-middle">
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>

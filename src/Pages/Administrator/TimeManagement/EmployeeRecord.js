@@ -135,7 +135,7 @@ function EmployeeRecord() {
                   <td className="align-middle">
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>
-                  <td className="align-middle">{value.employeeId}</td>
+                  <td className="align-middle">{value.employee.firstName} {value.employee.lastName}</td>
                   <td className="align-middle">{value.date}</td>
                   <td className="align-middle">{value.checkIn}</td>
                   <td className="align-middle">{value.noteCheckIn}</td>

@@ -97,7 +97,7 @@ function Schedule() {
                   <td className="align-middle">
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>
-                  <td className="align-middle">{schedule.employeeId}</td>
+                  <td className="align-middle">{schedule.employee.firstName} {schedule.employee.lastName}</td>
                   <td className="align-middle">{schedule.date}</td>
                   <td className="align-middle">Sales and Marketing</td>
                   <td className="align-middle">{schedule.schedule}</td>

@@ -1,19 +1,24 @@
-import { Button } from "@mui/material";
 import { React, useEffect, useState } from "react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
-import { Modal, Table } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
-import { GetReportMeth,AddReportMeth,DelReportMeth,UpdateReportMeth } from "../../../../Repository/EmployeeRepository";
+import {
+  GetReportMeth,
+  AddReportMeth,
+  DelReportMeth,
+  UpdateReportMeth,
+} from "../../../../Repository/EmployeeRepository";
 
 function ReportingMethods() {
-  const [reportingMeth, setReportingMeth] = useState();
+  const [reportingMeth, setReportingMeth] = useState([]);
   const [id, setId] = useState();
   const [editValues, setEditValues] = useState();
   const inAwait = async () => {
     var rec = await GetReportMeth();
     setReportingMeth(rec["result"]);
+    console.log(rec);
   };
-  useEffect (() => {
+  useEffect(() => {
     inAwait();
   }, []);
   const [modalAdd, setModalAdd] = useState(false);
@@ -25,7 +30,9 @@ function ReportingMethods() {
         <div className="flex flex-row justify-between items-center">
           <div>
             <h1>Reporting Methods</h1>
-            <p className="text-xs text-gray-400">{reportingMeth.length} Record Found</p>
+            <p className="text-xs text-gray-400">
+              {reportingMeth.length} Record Found
+            </p>
           </div>
           <button
             className="bg-[#0E5073] hover:bg[#003049] text-white flex items-center p-2 rounded-md"
@@ -49,46 +56,53 @@ function ReportingMethods() {
               </tr>
             </thead>
             <tbody>
-              {
-                reportingMeth.length > 0 ? (
-                  reportingMeth.map((val) => {
-                    return (
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th
-                          scope="row"
-                          className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                          {val.name}
-                        </th>
-                        <td className="py-4 px-6">
-                          <div className="flex flex-row justify-end gap-3">
-                            <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+              {reportingMeth.length > 0 ? (
+                reportingMeth.map((val) => {
+                  return (
+                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th
+                        scope="row"
+                        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        {val.name}
+                      </th>
+                      <td className="py-4 px-6">
+                        <div className="flex flex-row justify-end gap-3">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                             onClick={() => {
                               setDelete(true);
                               setId(val["id"]);
                               console.log(id);
-                            }}>
-                              <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                            </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => {
-                                setModalEdit(true)
-                                setId(val["id"]);
-                                setEditValues(val);
-                              }}
-                            >
-                              <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    )
-                  })
-                ) : (
-                  ""
-                )
-              }
+                            }}
+                          >
+                            <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setModalEdit(true);
+                              setId(val["id"]);
+                              setEditValues(val);
+                            }}
+                          >
+                            <PencilIcon
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <td>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
+                  </div>
+                </td>
+              )}
             </tbody>
           </table>
         </div>
@@ -122,16 +136,16 @@ function ReportingMethods() {
             Cancel
           </button>
           <button
-          onClick={async () => {
-            var requestBody = {
-              name: document.getElementById("name").value,
-            };
-            var res = await AddReportMeth(requestBody);
+            onClick={async () => {
+              var requestBody = {
+                name: document.getElementById("name").value,
+              };
+              var res = await AddReportMeth(requestBody);
               console.log(res);
               SwalSuccess({ message: "Success add Reporting Method" });
               setModalAdd(!modalAdd);
               inAwait();
-          }}
+            }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
           >
@@ -177,10 +191,10 @@ function ReportingMethods() {
                 name: document.getElementById("name").value,
               };
               var res = await UpdateReportMeth(requestBody);
-                console.log(res);
-                setModalEdit(!modalEdit);
-                SwalSuccess({ message: "Success Update Reporting Method" });
-                inAwait();
+              console.log(res);
+              setModalEdit(!modalEdit);
+              SwalSuccess({ message: "Success Update Reporting Method" });
+              inAwait();
             }}
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
           >

@@ -3,12 +3,20 @@ import { DeleteOutlineOutlined, CreateOutlined } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import { useCallback, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Tree, { useTreeState, treeHandlers, } from "react-hyper-tree";
+import { useTreeState, treeHandlers } from "react-hyper-tree";
 import classNames from "classnames";
 import ChevronDown from "react-multiselect-checkboxes/lib/ChevronDown";
-import { ArrowDown, ArrowUp, CaretUp, CaretDown,TreeStructure, Export } from "phosphor-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  CaretUp,
+  CaretDown,
+  TreeStructure,
+  Export,
+} from "phosphor-react";
 import { getStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
+import { Tree } from "react-tree-graph";
 
 function ChartStructure() {
   const [isSelected, setSelected] = useState(false);
@@ -23,73 +31,80 @@ function ChartStructure() {
     var allStructure = await getStructure(1);
     setData(structure);
     setStruct(allStructure);
-  }
+    console.log(structure);
+  };
   useEffect(() => {
     loadData();
-  }, [])
+  }, []);
 
-  const { required, handlers } = useTreeState({
-    id: 'tree',
-    data: data,
-    defaultOpened: true,
-  })
+  const data2 = {
+    name: "Parent",
+    children: [
+      {
+        name: "Child One",
+      },
+      {
+        name: "Child Two",
+      },
+    ],
+  };
 
-  const renderNode = useCallback(({
-    node,
-    onToggle,
-  }) => (
-    <div className="tree-node" key={node.data.title}>
-      <div className="d-flex align-items-center">
-        <div className="align-center align-items-center">
-          {
-            node.data.children.length >= 1 ?
-              node.options.opened
-                ?
-                <button className="p-2.5 bg-[#C1121F] rounded-xl mt-3 mr-3" onClick={onToggle}><CaretUp color="white" size={16} weight="fill" /></button>
-                : <button className="p-2.5 bg-[#C1121F] rounded-xl mt-3 mr-3" onClick={onToggle}><CaretDown color="white" size={16} weight="fill" /></button> : <div className="px-4"></div>
-          }
-        </div>
-        <div
-          className="mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center"
+  // const renderNode = useCallback(({
+  //   node,
+  //   onToggle,
+  // }) => (
+  //   <div className="tree-node" key={node.data.title}>
+  //     <div className="d-flex align-items-center">
+  //       <div className="align-center align-items-center">
+  //         {
+  //           node.data.children.length >= 1 ?
+  //             node.options.opened
+  //               ?
+  //               <button className="p-2.5 bg-[#C1121F] rounded-xl mt-3 mr-3" onClick={onToggle}><CaretUp color="white" size={16} weight="fill" /></button>
+  //               : <button className="p-2.5 bg-[#C1121F] rounded-xl mt-3 mr-3" onClick={onToggle}><CaretDown color="white" size={16} weight="fill" /></button> : <div className="px-4"></div>
+  //         }
+  //       </div>
+  //       <div
+  //         className="mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center"
 
-        // className={classnames({
-        //   'node-content-wrapper': true,
-        //   'node-selected': node.isSelected(),
-        // })}
-        >
-          <div className="titles">
-            <div className="node-title">
-              {node.data.position.name}
-            </div>
-          </div>
-          {node.data.isSelected == true ? (
-            <div className="flex space-x-3">
-              <button
-                className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
-              //   onClick={() => setModalAdd(true)}
-              >
-                <DeleteOutlineOutlined
-                  className="text-[#003049] h-5 w-5"
-                  aria-hidden="true"
-                />
-              </button>
-              <button
-                className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
-              //   onClick={() => setModalAdd(true)}
-              >
-                <CreateOutlined
-                  className="text-[#003049] h-5 w-5"
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-      </div>
-    </div>
-  ), [])
+  //       // className={classnames({
+  //       //   'node-content-wrapper': true,
+  //       //   'node-selected': node.isSelected(),
+  //       // })}
+  //       >
+  //         <div className="titles">
+  //           <div className="node-title">
+  //             {node.data.position.name}
+  //           </div>
+  //         </div>
+  //         {node.data.isSelected == true ? (
+  //           <div className="flex space-x-3">
+  //             <button
+  //               className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
+  //             //   onClick={() => setModalAdd(true)}
+  //             >
+  //               <DeleteOutlineOutlined
+  //                 className="text-[#003049] h-5 w-5"
+  //                 aria-hidden="true"
+  //               />
+  //             </button>
+  //             <button
+  //               className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
+  //             //   onClick={() => setModalAdd(true)}
+  //             >
+  //               <CreateOutlined
+  //                 className="text-[#003049] h-5 w-5"
+  //                 aria-hidden="true"
+  //               />
+  //             </button>
+  //           </div>
+  //         ) : (
+  //           <></>
+  //         )}
+  //       </div>
+  //     </div>
+  //   </div>
+  // ), [])
   return (
     <>
       <div
@@ -102,11 +117,11 @@ function ChartStructure() {
               <b>Organizational Structure chart</b>
             </h2>
             <h6 className="text-[#00000030] text-xs">
-            Organizational structure chart overview
+              Organizational structure chart overview
             </h6>
           </div>
           <div className="flex">
-          <button
+            <button
               style={{
                 borderRadius: "10px",
                 color: "white",
@@ -125,6 +140,9 @@ function ChartStructure() {
           </div>
         </div>
         <hr></hr>
+        <div className="mt-2 p-4 bg-[#F3F3F3]" style={{ borderRadius: "5px" }}>
+          <Tree data={data2} height={400} width={400} />
+        </div>
         {/* <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
           <span className="">PT Ethos Kreatif Indonesia</span>
           <button
@@ -385,17 +403,23 @@ function ChartStructure() {
           <div className="grid grid-cols-1 gap-3 mt-3">
             <div className="w-full">
               <label className="text-xs">Job Position</label>
-              <select id="job_position" className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+              <select
+                id="job_position"
+                className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              >
                 <option className="py-3" hidden>
                   Select
                 </option>
-                {
-                  allStruct.map((e, i) => {
-                    return (
-                      <option className="py-3" value={JSON.stringify([e?.id, e?.position['name']])}>{e?.position['name']}</option>
-                    );
-                  })
-                }
+                {allStruct.map((e, i) => {
+                  return (
+                    <option
+                      className="py-3"
+                      value={JSON.stringify([e?.id, e?.position["name"]])}
+                    >
+                      {e?.position["name"]}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="w-full">

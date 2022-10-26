@@ -3,18 +3,23 @@ import { React, useEffect, useState } from "react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
-import { AddTermReason, DelTermReason, GetTermReason, UpdateTermReason } from "../../../../Repository/EmployeeRepository";
+import {
+  AddTermReason,
+  DelTermReason,
+  GetTermReason,
+  UpdateTermReason,
+} from "../../../../Repository/EmployeeRepository";
 
 function TerminationReasons() {
-  const [termReason, setTermReason] = useState();
+  const [termReason, setTermReason] = useState([]);
   const [id, setId] = useState();
   const [editValues, setEditValues] = useState();
   const inAwait = async () => {
     var rec = await GetTermReason();
     setTermReason(rec["result"]);
-    console.log(rec)
+    console.log(rec);
   };
-  useEffect (() => {
+  useEffect(() => {
     inAwait();
   }, []);
   const [modalAdd, setModalAdd] = useState(false);
@@ -50,10 +55,9 @@ function TerminationReasons() {
               </tr>
             </thead>
             <tbody>
-              {
-                termReason.length > 0 ? (
-                  termReason.map((val) => {
-                    return (
+              {termReason.length > 0 ? (
+                termReason.map((val) => {
+                  return (
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                       <th
                         scope="row"
@@ -63,37 +67,40 @@ function TerminationReasons() {
                       </th>
                       <td className="py-2 px-6">
                         <div className="flex flex-row justify-end gap-3">
-                          <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setDelete(true);
-                            setId(val["id"]);
-                          }}
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setDelete(true);
+                              setId(val["id"]);
+                            }}
                           >
                             <TrashIcon className="h-5 w-5" aria-hidden="true" />
                           </button>
                           <button
                             className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                             onClick={() => {
-                              setModalEdit(true)
+                              setModalEdit(true);
                               setId(val["id"]);
                               setEditValues(val);
                             }}
                           >
-                            <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                            <PencilIcon
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
                           </button>
                         </div>
                       </td>
                     </tr>
-                    )
-                  })
-                ) : (
-                  <td>
-                    <div className="d-flex justify-content-center align-middle text-center">
-                      No Data
-                    </div>
-                  </td>
-                )
-              }
+                  );
+                })
+              ) : (
+                <td>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
+                  </div>
+                </td>
+              )}
             </tbody>
           </table>
         </div>
@@ -132,10 +139,10 @@ function TerminationReasons() {
                 name: document.getElementById("name").value,
               };
               var res = await AddTermReason(requestBody);
-                console.log(res);
-                SwalSuccess({ message: "Success add termination reason" });
-                setModalAdd(!modalAdd);
-                inAwait();
+              console.log(res);
+              SwalSuccess({ message: "Success add termination reason" });
+              setModalAdd(!modalAdd);
+              inAwait();
             }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
@@ -183,10 +190,10 @@ function TerminationReasons() {
                 name: document.getElementById("name").value,
               };
               var res = await UpdateTermReason(requestBody);
-                console.log(res);
-                setModalEdit(!modalEdit);
-                SwalSuccess({ message: "Success Update termination reason" });
-                inAwait();
+              console.log(res);
+              setModalEdit(!modalEdit);
+              SwalSuccess({ message: "Success Update termination reason" });
+              inAwait();
             }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"

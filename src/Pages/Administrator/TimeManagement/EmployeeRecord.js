@@ -43,17 +43,20 @@ import {
 import Select from "react-select";
 import { TextFieldSearch } from "../../../Components/TextField";
 import { GetEmployeeName } from "../../../Repository/EmployeeRepository";
+import { GetEmployeeRecord } from "../../../Repository/TimeManagementRepository";
 
 function EmployeeRecord() {
   const [dialogUser, setUser] = useState(false);
   const [dialogDetailUser, setDetailUser] = useState(false);
   const [employeeNames, setEmployeeNames] = useState([]);
-  const [employeeName, setEmployeeName] = useState({
+  const [employeeRecord, setEmployeeRecord] = useState({
     employeeName: "",
   });
   const inAwait = async () => {
     var dataEmployeeName = await GetEmployeeName();
+    var dataEmployeeRecord = await GetEmployeeRecord();
     setEmployeeNames(dataEmployeeName);
+    setEmployeeRecord(dataEmployeeRecord);
   };
   useEffect(() => {
     inAwait();
@@ -104,7 +107,7 @@ function EmployeeRecord() {
               <th onClick={() => {}} style={{ minWidth: "20em" }}>
                 Employee Name <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Date <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}} style={{ minWidth: "10em" }}>
@@ -126,27 +129,42 @@ function EmployeeRecord() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="align-middle">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
-              </td>
-              <td className="align-middle">Faris Hasyim</td>
-              <td className="align-middle">27/03/2022</td>
-              <td className="align-middle">07:40</td>
-              <td className="align-middle">Hanacaraka Datasawala</td>
-              <td className="align-middle">16:20</td>
-              <td className="align-middle">Hanacaraka Datasawala</td>
-              <td className="align-middle">10 h 55 m</td>
-              <td className="align-middle">
-                <button
-                  onClick={() => setDetailUser(!dialogDetailUser)}
-                  className="btn btn-sm mx-1"
-                  style={{ backgroundColor: "#CEDFEA", borderRadius: "8px" }}
-                >
-                  <VisibilityOutlined fontSize="10px" />
-                </button>
-              </td>
-            </tr>
+            {employeeRecord.length > 0 ? (
+              employeeRecord.map((value, index) => (
+                <tr>
+                  <td className="align-middle">
+                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                  </td>
+                  <td className="align-middle">{value.employeeId}</td>
+                  <td className="align-middle">{value.date}</td>
+                  <td className="align-middle">{value.checkIn}</td>
+                  <td className="align-middle">{value.noteCheckIn}</td>
+                  <td className="align-middle">{value.checkOut}</td>
+                  <td className="align-middle">{value.noteCheckOut}</td>
+                  <td className="align-middle">{value.duration}</td>
+                  <td className="align-middle">
+                    <button
+                      onClick={() => setDetailUser(!dialogDetailUser)}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <VisibilityOutlined fontSize="10px" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={10}>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
+                  </div>
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>
@@ -195,7 +213,7 @@ function EmployeeRecord() {
                   id="selectedEmployee"
                   isLoading={true}
                   onChange={(val) =>
-                    setEmployeeName({ employeeName: val.value })
+                    setEmployeeNames({ employeeName: val.value })
                   }
                   isFocused="appearance-none border-0 outline-0"
                   className="appearance-none"

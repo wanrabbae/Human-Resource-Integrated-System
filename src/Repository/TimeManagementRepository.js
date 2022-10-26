@@ -1,6 +1,21 @@
 import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
+var GetAttendance = async()=>{
+  var res = await axios.get(`${endpoint}/getAttendance`);
+  if (res.status == 200) {
+    return res.data;
+  }
+}
+
+var GetEmployeeRecord = async()=>{
+  var res = await axios.get(`${endpoint}/getEmployeeRecord`);
+  if (res.status == 200) {
+    return res.data;
+  }
+}
+
+
 var GetSchedule = async () => {
   var res = await axios.get(`${endpoint}/getSchedule`);
   if (res.status == 200) {
@@ -29,4 +44,4 @@ var DeleteSchedule = async (id) => {
   }
 };
 
-export { GetSchedule, AddSchedule, EditSchedule, DeleteSchedule };
+export { GetSchedule, AddSchedule, EditSchedule, DeleteSchedule, GetAttendance, GetEmployeeRecord };

@@ -42,6 +42,7 @@ var DelReportMeth = async (id) => {
 
 var GetTermReason = async () => {
   var res = await axios.get(`${endpoint}/getTerminate`);
+  console.log(res);
   if (res.data.status == 200) {
     return res.data;
   }

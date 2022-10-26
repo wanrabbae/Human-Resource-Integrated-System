@@ -12,7 +12,7 @@ function TerminationReasons() {
   const inAwait = async () => {
     var rec = await GetTermReason();
     setTermReason(rec["result"]);
-    console.log(termReason)
+    console.log(rec)
   };
   useEffect (() => {
     inAwait();
@@ -26,7 +26,7 @@ function TerminationReasons() {
         <div className="flex flex-row justify-between items-center">
           <div>
             <h1>Termination Reasons</h1>
-            <p className="text-xs text-gray-400">{termReason.length} Record Found</p>
+            <p className="text-xs text-gray-400">Record Found</p>
           </div>
           <button
             className="bg-[#0E5073] hover:bg[#003049] text-white flex items-center p-2 rounded-md"
@@ -87,7 +87,11 @@ function TerminationReasons() {
                     )
                   })
                 ) : (
-                  ""
+                  <td>
+                    <div className="d-flex justify-content-center align-middle text-center">
+                      No Data
+                    </div>
+                  </td>
                 )
               }
             </tbody>

@@ -1,7 +1,6 @@
-import { Button } from "@mui/material";
 import { React, useEffect, useState } from "react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
-import { Modal, Table } from "react-bootstrap";
+import { Modal, } from "react-bootstrap";
 import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import { GetReportMeth,AddReportMeth,DelReportMeth,UpdateReportMeth } from "../../../../Repository/EmployeeRepository";
 
@@ -12,6 +11,7 @@ function ReportingMethods() {
   const inAwait = async () => {
     var rec = await GetReportMeth();
     setReportingMeth(rec["result"]);
+    console.log(rec)
   };
   useEffect (() => {
     inAwait();
@@ -50,7 +50,7 @@ function ReportingMethods() {
             </thead>
             <tbody>
               {
-                reportingMeth.length > 0 ? (
+                reportingMeth?.length > 0 ? (
                   reportingMeth.map((val) => {
                     return (
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -86,7 +86,11 @@ function ReportingMethods() {
                     )
                   })
                 ) : (
-                  ""
+                  <td>
+                    <div className="d-flex justify-content-center align-middle text-center">
+                      No Data
+                    </div>
+                  </td>
                 )
               }
             </tbody>

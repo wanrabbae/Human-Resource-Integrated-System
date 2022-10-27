@@ -49,6 +49,8 @@ import RecruitmentEdit from "./Pages/Administrator/Recruitment/recruitment_edit.
 import JobManagement from "./Pages/Administrator/Admin/Job/JobManagement";
 import BulkUploud from "./Pages/Administrator/Admin/Job/BulkUploud";
 import ChartStructure from "./Pages/Administrator/Admin/Organization/ChartStructure";
+import Calendar from "./Pages/Administrator/TimeManagement/Calendar";
+import Cal from "./Pages/Administrator/TimeManagement/Calendar";
 
 function App() {
   return (
@@ -146,6 +148,7 @@ function App() {
           element={<EmployeeRecord />}
         />
         <Route path="/timeManagement/schedule" element={<Schedule />} />
+        <Route path="/timeManagement/calendar" element={<Cal />} />
       </Route>
       <Route path="/employee" element={<Template />}>
         <Route path="/employee/optional-field" index element={<Optionals />} />

@@ -1,12 +1,12 @@
 import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
-var GetAttendance = async()=>{
+var GetAttendance = async () => {
   var res = await axios.get(`${endpoint}/getAttendance`);
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 
 var GetAttendanceByDate = async (date) => {
   var res = await axios.get(`${endpoint}/getAttendance?date=${date}`);
@@ -15,17 +15,35 @@ var GetAttendanceByDate = async (date) => {
   }
 };
 
-var GetEmployeeRecord = async()=>{
+var AddAttendance = async (data) => {
+  var res = await axios.post(`${endpoint}/addAttendance`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+var GetEmployeeRecord = async () => {
   var res = await axios.get(`${endpoint}/getEmployeeRecord`);
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 
 var GetEmployeeRecByDate = async (date) => {
   var res = await axios.get(`${endpoint}/getEmployeeRecord?date=${date}`);
   if (res.status == 200) {
     return res.data;
+  }
+};
+
+var AddEmployeeRecord = async (data) => {
+  var res = await axios.post(`${endpoint}/addEmployeeRecord`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
   }
 };
 
@@ -64,4 +82,16 @@ var DeleteSchedule = async (id) => {
   }
 };
 
-export { GetSchedule, AddSchedule, EditSchedule, DeleteSchedule, GetAttendance, GetEmployeeRecord, GetAttendanceByDate, GetEmployeeRecByDate, GetScheduleByDate };
+export {
+  GetSchedule,
+  AddSchedule,
+  EditSchedule,
+  DeleteSchedule,
+  GetAttendance,
+  GetEmployeeRecord,
+  GetAttendanceByDate,
+  GetEmployeeRecByDate,
+  GetScheduleByDate,
+  AddAttendance,
+  AddEmployeeRecord
+};

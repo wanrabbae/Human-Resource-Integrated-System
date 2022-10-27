@@ -16,7 +16,7 @@ import {
 } from "phosphor-react";
 import { getStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
-import { Tree } from "react-tree-graph";
+import { Tree, TreeNode } from "react-organizational-chart";
 
 function ChartStructure() {
   const [isSelected, setSelected] = useState(false);
@@ -31,7 +31,7 @@ function ChartStructure() {
     var allStructure = await getStructure(1);
     setData(structure);
     setStruct(allStructure);
-    console.log(structure);
+    console.log(data);
   };
   useEffect(() => {
     loadData();
@@ -141,7 +141,77 @@ function ChartStructure() {
         </div>
         <hr></hr>
         <div className="mt-2 p-4 bg-[#F3F3F3]" style={{ borderRadius: "5px" }}>
-          <Tree data={data2} height={400} width={400} />
+          {
+            data.length > 0 ? (
+              data.map((val) => {
+                <Tree
+                lineWidth={'2px'}
+                lineColor={'green'}
+                lineBorderRadius={'10px'}      
+                label={<div>{val.position.name}</div>}>
+                  {
+                    data.children.length > 0 ? (
+                      <TreeNode label={<div>{val.position.name}</div>}>
+                        {
+                          data.children.length > 0 ? (
+                            <TreeNode label={<div>{val.position.name}</div>}>
+                              {
+                                data.children.length > 0 ? (
+                                  <TreeNode label={<div>{val.position.name}</div>}>
+                                    {
+                                      data.children.length > 0 ? (
+                                        <TreeNode label={<div>{val.position.name}</div>}>
+                                          {
+                                            data.children.length > 0 ? (
+                                              <TreeNode label={<div>{val.position.name}</div>}>
+                                                {
+                                                  data.children.length > 0 ? (
+                                                    <TreeNode label={<div>{val.position.name}</div>}>
+                                                      {
+                                                        data.children.length > 0 ? (
+                                                          <TreeNode label={<div>{val.position.name}</div>}>
+                                                            <TreeNode label={<div>{val.position.name}</div>} />
+                                                          </TreeNode>
+                                                        ) : (
+                                                          <TreeNode label={<div>{val.position.name}</div>}/>
+                                                        )
+                                                      }
+                                                    </TreeNode>
+                                                  ) : (
+                                                    <TreeNode label={<div>{val.position.name}</div>}/>
+                                                  )
+                                                }
+                                              </TreeNode>
+                                            ) : (
+                                              <TreeNode label={<div>{val.position.name}</div>}/>
+                                            )
+                                          }
+                                        </TreeNode>
+                                      ) : (
+                                        <TreeNode label={<div>{val.position.name}</div>}/>
+                                      )
+                                    }
+                                  </TreeNode>
+                                ) : (
+                                  <TreeNode label={<div>{val.position.name}</div>}/>
+                                )
+                              }
+                            </TreeNode>
+                          ) : (
+                            <TreeNode label={<div>{val.position.name}</div>}/>
+                          )
+                        }
+                      </TreeNode>
+                    ) : (
+                      <TreeNode label={<div>{val.position.name}</div>}/>
+                    )
+                  }
+                </Tree>
+              })
+            ) : (
+              ""
+            )
+          }
         </div>
         {/* <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
           <span className="">PT Ethos Kreatif Indonesia</span>

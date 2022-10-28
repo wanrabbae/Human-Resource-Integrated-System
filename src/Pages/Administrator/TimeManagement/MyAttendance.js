@@ -43,20 +43,45 @@ import {
   ModalFooter,
 } from "react-bootstrap";
 import { TextFieldSearch } from "../../../Components/TextField";
-import { GetAttendance } from "../../../Repository/TimeManagementRepository";
+import {
+  AddAttendance,
+  GetAttendance,
+  GetAttendanceByDate,
+  GetEmployeeProfile,
+} from "../../../Repository/TimeManagementRepository";
 
 function MyAttendance() {
   const [dialogUser, setUser] = useState(false);
   const [dialogDetailUser, setDetailUser] = useState(false);
   const [dataAttendance, setDataAttendance] = useState([]);
-
+  const [time, setTime] = useState([]);
+  const [note, setNote] = useState([]);
+  const [detail, setDetail] = useState([]);
+  const [dataProfile, setDataProfile] = useState([]);
   const inAwait = async () => {
     var dataA = await GetAttendance();
     setDataAttendance(dataA);
+    var profile = await GetEmployeeProfile(token);
+    console.log(profile.result.employee)
+    setDataProfile(profile.result.employee)
   };
+  const token = window.localStorage.getItem("token");
+  // console.log(token)
+
   useEffect(() => {
     inAwait();
   }, []);
+
+  const postData = async () => {
+    var requestBody = {
+      checkIn: time,
+      noteCheckIn: note,
+    };
+    setUser(false);
+    inAwait();
+    var res = await AddAttendance(requestBody);
+    console.log(res);
+  };
   return (
     <>
       <div className="w-100 bg-[#FFFFFF] p-4 rounded-t-xl">
@@ -72,6 +97,13 @@ function MyAttendance() {
             <input
               type="date"
               className="bg-light-50 border border-gray-300 text-[#00000030] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onClick={() => inAwait()}
+              onChange={async (e) => {
+                console.log(e.target.value);
+                const res = await GetAttendanceByDate(e.target.value);
+                console.log(res);
+                setDataAttendance(res);
+              }}
             />
           </div>
           <div className="d-flex">
@@ -122,38 +154,42 @@ function MyAttendance() {
             </tr>
           </thead>
           <tbody>
-          {dataAttendance.length > 0 ? (
+            {dataAttendance.length > 0 ? (
               dataAttendance.map((value, index) => (
-              <tr key={index}>
-                <td className="align-middle">
-                  <input type="checkbox" style={{ borderRadius: "2px" }} />
-                </td>
-                <td className="align-middle">{value.date}</td>
-                <td className="align-middle">{value.checkIn}</td>
-                <td className="align-middle">{value.noteCheckIn}</td>
-                <td className="align-middle">{value.checkOut}</td>
-                <td className="align-middle">{value.noteCheckOut}</td>
-                <td className="align-middle">{value.duration}</td>
-                <td className="align-middle">
-                  <button
-                    onClick={() => setDetailUser(!dialogDetailUser)}
-                    className="btn btn-sm mx-1"
-                    style={{
-                      backgroundColor: "#CEDFEA",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <VisibilityOutlined fontSize="10px" />
-                  </button>
-                </td>
-              </tr>))
+                <tr key={index}>
+                  <td className="align-middle">
+                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                  </td>
+                  <td className="align-middle">{value.date}</td>
+                  <td className="align-middle">{value.checkIn}</td>
+                  <td className="align-middle">{value.noteCheckIn}</td>
+                  <td className="align-middle">{value.checkOut}</td>
+                  <td className="align-middle">{value.noteCheckOut}</td>
+                  <td className="align-middle">{value.duration}</td>
+                  <td className="align-middle">
+                    <button
+                      onClick={() => {
+                        setDetail(value);
+                        setDetailUser(!dialogDetailUser);
+                      }}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <VisibilityOutlined fontSize="10px" />
+                    </button>
+                  </td>
+                </tr>
+              ))
             ) : (
-                <tr>
-              <td colSpan={8}>
-                <div className="d-flex justify-content-center align-middle text-center">
-                  No Data
-                </div>
-              </td>
+              <tr>
+                <td colSpan={8}>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
+                  </div>
+                </td>
               </tr>
             )}
           </tbody>
@@ -184,7 +220,6 @@ function MyAttendance() {
           </button>
         </div>
       </div>
-
       <Modal show={dialogUser} size="lg" onHide={() => setUser(!dialogUser)}>
         <Modal.Header
           closeButton
@@ -193,57 +228,62 @@ function MyAttendance() {
         >
           <Modal.Title>Check In / Out</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">Time</label>
-                <input
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  type="time"
-                  placeholder="Select Time"
-                />
+        <form onSubmit={postData}>
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">Time</label>
+                  <input
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="time"
+                    placeholder="Select Time"
+                    onChange={(e) => setTime(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Note <span className="text-danger">*</span>
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="Note check in / out here"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    onChange={(e) => setNote(e.target.value)}
+                    required
+                  ></textarea>
+                </div>
               </div>
             </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Employee Name <span className="text-danger">*</span>
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="Note check in / out here"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#737373",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            onClick={() => setUser(!dialogUser)}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-          >
-            Add
-          </button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#737373",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              onClick={() => setUser(!dialogUser)}
+            >
+              Cancel
+            </button>
+            <input
+              type="submit"
+              value="submit"
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+            />
+          </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal
@@ -263,13 +303,13 @@ function MyAttendance() {
             <h3 className="font-bold mb-3">Attendance Information</h3>
             <div className="row">
               <div className="col-md-6 mb-2">
-                Employee Name : Akhamad Triaji
+                Employee Name : {dataProfile.firstName} {dataProfile.lastName}
               </div>
               <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
-              <div className="col-md-6 mb-2">Job Title : IT Manager</div>
-              <div className="col-md-6 mb-2">Work Shift : General Shift</div>
+              <div className="col-md-6 mb-2">Job Title : {dataProfile.jobtitle.name}</div>
+              <div className="col-md-6 mb-2">Work Shift : {dataProfile.workshift.name}</div>
               <div className="col-md-6 mb-2">
-                Company Location : Ethos Pusat
+                Company Location : {dataProfile.location}
               </div>
             </div>
           </div>
@@ -277,7 +317,7 @@ function MyAttendance() {
             <div className="col-md-6 border-r-2">
               <div className="row">
                 <div className="col-6 font-bold">Clock In</div>
-                <div className="col-6 font-bold">07.40</div>
+                <div className="col-6 font-bold">{detail.checkIn}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">
@@ -319,7 +359,7 @@ function MyAttendance() {
             <div className="col-md-6 border-l-2">
               <div className="row">
                 <div className="col-6 font-bold">Clock Out</div>
-                <div className="col-6 font-bold">07.40</div>
+                <div className="col-6 font-bold">{detail.checkOut}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">

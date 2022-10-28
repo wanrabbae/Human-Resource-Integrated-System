@@ -43,15 +43,22 @@ import {
 import Select from "react-select";
 import { TextFieldSearch } from "../../../Components/TextField";
 import { GetEmployeeName } from "../../../Repository/EmployeeRepository";
-import { GetEmployeeRecord } from "../../../Repository/TimeManagementRepository";
+import {
+  AddEmployeeRecord,
+  GetEmployeeRecByDate,
+  GetEmployeeRecord,
+} from "../../../Repository/TimeManagementRepository";
 
 function EmployeeRecord() {
   const [dialogUser, setUser] = useState(false);
   const [dialogDetailUser, setDetailUser] = useState(false);
   const [employeeNames, setEmployeeNames] = useState([]);
-  const [employeeRecord, setEmployeeRecord] = useState({
-    employeeName: "",
-  });
+  const [employeeId, setEmployeeId] = useState([{
+    employeeId: "",
+  }]);
+  const [time, setTime] = useState([]);
+  const [note, setNote] = useState([]);
+  const [employeeRecord, setEmployeeRecord] = useState([]);
   const inAwait = async () => {
     var dataEmployeeName = await GetEmployeeName();
     var dataEmployeeRecord = await GetEmployeeRecord();
@@ -61,6 +68,19 @@ function EmployeeRecord() {
   useEffect(() => {
     inAwait();
   }, []);
+  const postData = async () => {
+    var requestBody = {
+      employeeId: employeeId.employeeId,
+      checkIn: time,
+      noteCheckIn: note,
+    };
+    console.log(requestBody);
+    setUser(false);
+    inAwait();
+    var res = await AddEmployeeRecord(requestBody);
+    console.log(res);
+  };
+  // console.log(employeeId);
   return (
     <>
       <div className="w-100 bg-light p-4 rounded-t-xl">
@@ -76,6 +96,13 @@ function EmployeeRecord() {
             <input
               type="date"
               className="bg-light-50 border border-gray-300 text-[#00000030] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onClick={() => inAwait()}
+              onChange={async (e) => {
+                console.log(e.target.value);
+                const res = await GetEmployeeRecByDate(e.target.value);
+                console.log(res);
+                setEmployeeRecord(res);
+              }}
             />
           </div>
           <div className="d-flex">
@@ -131,11 +158,13 @@ function EmployeeRecord() {
           <tbody>
             {employeeRecord.length > 0 ? (
               employeeRecord.map((value, index) => (
-                <tr>
+                <tr key={index}>
                   <td className="align-middle">
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>
-                  <td className="align-middle">{value.employeeId}</td>
+                  <td className="align-middle">
+                    {value.employee.firstName} {value.employee.lastName}
+                  </td>
                   <td className="align-middle">{value.date}</td>
                   <td className="align-middle">{value.checkIn}</td>
                   <td className="align-middle">{value.noteCheckIn}</td>
@@ -202,80 +231,82 @@ function EmployeeRecord() {
         >
           <Modal.Title>Check In / Out</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Employee Name <span className="text-danger">*</span>
-                </label>
-                <Select
-                  id="selectedEmployee"
-                  isLoading={true}
-                  onChange={(val) =>
-                    setEmployeeNames({ employeeName: val.value })
-                  }
-                  isFocused="appearance-none border-0 outline-0"
-                  className="appearance-none"
-                  classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
-                  options={employeeNames.map((val) => {
-                    return {
-                      value: val.id,
-                      label: val.firstName + " " + val.lastName,
-                    };
-                  })}
-                />
+        <form onSubmit={postData}>
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Employee Name <span className="text-danger">*</span>
+                  </label>
+                  <Select
+                    id="selectedEmployee"
+                    isLoading={true}
+                    onChange={(val) => setEmployeeId({ employeeId: val.value })}
+                    isFocused="appearance-none border-0 outline-0"
+                    className="appearance-none"
+                    classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
+                    options={employeeNames.map((val) => {
+                      return {
+                        value: val.id,
+                        label: val.firstName + " " + val.lastName,
+                      };
+                    })}
+                  />
+                </div>
+              </div>
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">Time</label>
+                  <input
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="time"
+                    placeholder="Select Time"
+                    onChange={(e) => setTime(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Note <span className="text-danger">*</span>
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="Note check in / out here"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) => setNote(e.target.value)}
+                  ></textarea>
+                </div>
               </div>
             </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">Time</label>
-                <input
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  type="time"
-                  placeholder="Select Time"
-                />
-              </div>
-            </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Employee Name <span className="text-danger">*</span>
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="Note check in / out here"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#737373",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            onClick={() => setUser(!dialogUser)}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-          >
-            Add
-          </button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#737373",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              onClick={() => setUser(!dialogUser)}
+            >
+              Cancel
+            </button>
+            <input
+              type="submit"
+              value="submit"
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+            />
+          </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

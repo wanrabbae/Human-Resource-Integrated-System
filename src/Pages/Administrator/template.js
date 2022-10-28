@@ -198,6 +198,12 @@ function Template() {
         show: isHidden,
         body: [],
       },
+      {
+        nama: "Calendar",
+        click: "/timeManagement/calendar",
+        show: isHidden,
+        body: [],
+      },
     ],
   ]);
   const [show, setShow] = useState(false);

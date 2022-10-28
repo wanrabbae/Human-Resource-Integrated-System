@@ -11,6 +11,7 @@ import {
   DeleteSchedule,
   GetSchedule,
   AddSchedule,
+  GetScheduleByDate,
 } from "../../../Repository/TimeManagementRepository";
 
 function Schedule() {
@@ -28,8 +29,10 @@ function Schedule() {
     var dataSchedules = await GetSchedule();
     var dataEmployeeName = await GetEmployeeName();
     setEmployeeNames(dataEmployeeName);
+    // console.log(dataSchedules[0].employee.jobtitle.name);
     setSchedules(dataSchedules);
   };
+  // console.log(schedules)
   useEffect(() => {
     inAwait();
   }, []);
@@ -48,6 +51,13 @@ function Schedule() {
             <input
               type="date"
               className="bg-light-50 border border-gray-300 text-[#00000030] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onClick={() => inAwait()}
+              onChange={async (e) => {
+                console.log(e.target.value);
+                const res = await GetScheduleByDate(e.target.value);
+                console.log(res.result);
+                setSchedules(res.result);
+              }}
             />
           </div>
           <div className="d-flex">
@@ -92,23 +102,27 @@ function Schedule() {
           </thead>
           <tbody>
             {schedules.length > 0 ? (
-              schedules.map((schedule) => (
-                <tr>
+              schedules.map((schedule, index) => (
+                <tr key={index}>
                   <td className="align-middle">
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>
-                  <td className="align-middle">{schedule.employeeId}</td>
+                  <td className="align-middle">
+                    {schedule.employee.firstName} {schedule.employee.lastName}
+                  </td>
                   <td className="align-middle">{schedule.date}</td>
-                  <td className="align-middle">Sales and Marketing</td>
+                  <td className="align-middle">{schedule.employee.jobtitle.name}</td>
                   <td className="align-middle">{schedule.schedule}</td>
                 </tr>
               ))
             ) : (
-              <td>
-                <div className="d-flex justify-content-center align-middle text-center">
-                  No Data
-                </div>
-              </td>
+              <tr>
+                <td>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
+                  </div>
+                </td>
+              </tr>
             )}
           </tbody>
         </Table>

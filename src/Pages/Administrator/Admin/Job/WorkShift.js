@@ -303,6 +303,31 @@ function WorkShift() {
                     );
                   })}
                 </select>
+                <div className="d-flex flex-wrap justify-content-start mt-3">
+                  {selected.map((value) => (
+                    <div
+                      className="px-2 d-flex align-items-center my-2 mr-3"
+                      style={{
+                        backgroundColor: "#00000030",
+                        color: "#00000050",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {value}
+                      <button
+                        onClick={() => {
+                          return setSelected(
+                            selected.filter((val) => val !== value)
+                          );
+                        }}
+                        className="btn btn-sm"
+                        style={{ color: "#00000030" }}
+                      >
+                        <Close />
+                      </button>
+                    </div>
+                  ))}
+                </div>
                 <select
                   style={{
                     display: isPosi ? "block" : !isEmp ? "none" : "none",
@@ -380,6 +405,7 @@ function WorkShift() {
               var res = await AddWorkShift(requestBody);
               setTitle(!dialogTitle);
               setSelected([]);
+              setPosisi([]);
               inAwait();
             }}
           >
@@ -391,7 +417,11 @@ function WorkShift() {
       <Modal
         show={dialogEditTitle}
         size="lg"
-        onHide={() => setEditTitle(!dialogEditTitle)}
+        onHide={() => {
+          setSelected([]);
+          setPosisi([]);
+          setEditTitle(!dialogEditTitle);
+        }}
       >
         <Modal.Header
           closeButton
@@ -573,6 +603,7 @@ function WorkShift() {
             }}
             onClick={() => {
               setSelected([]);
+              setPosisi([]);
               setEditTitle(!dialogEditTitle);
             }}
           >
@@ -597,6 +628,7 @@ function WorkShift() {
               var res = await EditWorkShift(requestBody);
               setEditTitle(!dialogEditTitle);
               setSelected([]);
+              setPosisi([]);
               inAwait();
             }}
           >

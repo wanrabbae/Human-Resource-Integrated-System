@@ -43,14 +43,17 @@ import {
   GetJobGrade,
   GetJobPosition,
   GetJobTittle,
+  getStructure,
   UpdateJobPosition,
 } from "../../../../../Repository/AdminRepository";
 import { ModalDelete, SwalSuccess } from "../../../../../Components/Modals";
+import { positions } from "@mui/system";
 
 function JobPosition() {
   const [jobposition, setJobPosition] = useState([]);
   const [jobgrade, setJobGrade] = useState([]);
   const [editValues, setEditValues] = useState();
+  const [allStruct, setStruct] = useState([]);
   const inAwait = async () => {
     var rec = await GetJobPosition();
     setJobPosition(rec["result"]);
@@ -72,7 +75,7 @@ function JobPosition() {
     <>
       <div
         className="w-100 p-4"
-        style={{ backgroundColor: "#FFFFFF", borderRadius: "15px",boxShadow:'0px 0px 3px rgba(0, 0, 0, 0.25)'}}
+        style={{ backgroundColor: "#FFFFFF", borderRadius: "15px", boxShadow: '0px 0px 3px rgba(0, 0, 0, 0.25)' }}
       >
         <h5>
           <b>Job Position</b>
@@ -127,11 +130,11 @@ function JobPosition() {
                   onChange={() => setCheckedAll(!isCheckedAll)}
                 />
               </th>
-              <th onClick={() => {}}>
-              Position Name <ImportExport fontSize="2px" />
+              <th onClick={() => { }}>
+                Position Name <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Grade</th>
-              <th onClick={() => {}}>Action</th>
+              <th onClick={() => { }}>Grade</th>
+              <th onClick={() => { }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -213,7 +216,7 @@ function JobPosition() {
                   className="form-control"
                   id="name"
                   placeholder="Job title..."
-                  
+
                 />
               </div>
             </div>
@@ -226,7 +229,7 @@ function JobPosition() {
                   className="form-control"
                   id="job_id"
                   placeholder="Job title..."
-                  
+
                 />
               </div>
             </div>
@@ -244,13 +247,34 @@ function JobPosition() {
                   {
                     jobgrade.map((val) => {
                       return (
-                        <option selected={val?.grade_id == val.id ? true : false } value={val.id}>{val.name}</option>
+                        <option selected={val?.grade_id == val.id ? true : false} value={val.id}>{val.name}</option>
                       )
                     })
                   }
                 </select>
               </div>
             </div>
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Relation Code</label>
+            <select
+              id="relation_code"
+              className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+            >
+              <option className="py-3" hidden>
+                Select
+              </option>
+              {jobposition.map((e, i) => {
+                return (
+                  <option
+                    className="py-3"
+                    value={e?.job_id}
+                  >
+                    {`${e?.name} | ${e?.job_id}`}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
@@ -279,6 +303,7 @@ function JobPosition() {
                 name: document.getElementById("name").value,
                 job_id: document.getElementById("job_id").value,
                 grade_id: document.getElementById("grade_id").value,
+                relation_code: document.getElementById("relation_code").value,
               };
               var res = await AddJobPosition(requestBody);
               console.log(res);
@@ -352,7 +377,7 @@ function JobPosition() {
                   {
                     jobgrade.map((val) => {
                       return (
-                        <option selected={editValues?.grade_id == val.id ? true : false } value={val.id}>{val.name}</option>
+                        <option selected={editValues?.grade_id == val.id ? true : false} value={val.id}>{val.name}</option>
                       )
                     })
                   }

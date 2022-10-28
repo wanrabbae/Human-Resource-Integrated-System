@@ -362,7 +362,24 @@ var getStructure = async (data = 0) => {
   }
 }
 
+
+var getCodeStructure = async (id) => {
+  var res = await axios.get(`${endpoint}/getCodeStructure?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+}
+
+var addStructure = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addStructure`, requestBody);
+  if (res.status == 200) {
+    return res.data
+  }
+}
+
 export {
+  addStructure,
+  getCodeStructure,
   GetUser,
   getStructure,
   GetApplicant,

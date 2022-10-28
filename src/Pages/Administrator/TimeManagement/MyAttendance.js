@@ -47,6 +47,7 @@ import {
   AddAttendance,
   GetAttendance,
   GetAttendanceByDate,
+  GetEmployeeProfile,
 } from "../../../Repository/TimeManagementRepository";
 
 function MyAttendance() {
@@ -55,11 +56,18 @@ function MyAttendance() {
   const [dataAttendance, setDataAttendance] = useState([]);
   const [time, setTime] = useState([]);
   const [note, setNote] = useState([]);
-
+  const [detail, setDetail] = useState([]);
+  const [dataProfile, setDataProfile] = useState([]);
   const inAwait = async () => {
     var dataA = await GetAttendance();
     setDataAttendance(dataA);
+    var profile = await GetEmployeeProfile(token);
+    console.log(profile.result.employee)
+    setDataProfile(profile.result.employee)
   };
+  const token = window.localStorage.getItem("token");
+  // console.log(token)
+
   useEffect(() => {
     inAwait();
   }, []);
@@ -160,7 +168,10 @@ function MyAttendance() {
                   <td className="align-middle">{value.duration}</td>
                   <td className="align-middle">
                     <button
-                      onClick={() => setDetailUser(!dialogDetailUser)}
+                      onClick={() => {
+                        setDetail(value);
+                        setDetailUser(!dialogDetailUser);
+                      }}
                       className="btn btn-sm mx-1"
                       style={{
                         backgroundColor: "#CEDFEA",
@@ -292,13 +303,13 @@ function MyAttendance() {
             <h3 className="font-bold mb-3">Attendance Information</h3>
             <div className="row">
               <div className="col-md-6 mb-2">
-                Employee Name : Akhamad Triaji
+                Employee Name : {dataProfile.firstName} {dataProfile.lastName}
               </div>
               <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
-              <div className="col-md-6 mb-2">Job Title : IT Manager</div>
-              <div className="col-md-6 mb-2">Work Shift : General Shift</div>
+              <div className="col-md-6 mb-2">Job Title : {dataProfile.jobtitle.name}</div>
+              <div className="col-md-6 mb-2">Work Shift : {dataProfile.workshift.name}</div>
               <div className="col-md-6 mb-2">
-                Company Location : Ethos Pusat
+                Company Location : {dataProfile.location}
               </div>
             </div>
           </div>
@@ -306,7 +317,7 @@ function MyAttendance() {
             <div className="col-md-6 border-r-2">
               <div className="row">
                 <div className="col-6 font-bold">Clock In</div>
-                <div className="col-6 font-bold">07.40</div>
+                <div className="col-6 font-bold">{detail.checkIn}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">
@@ -348,7 +359,7 @@ function MyAttendance() {
             <div className="col-md-6 border-l-2">
               <div className="row">
                 <div className="col-6 font-bold">Clock Out</div>
-                <div className="col-6 font-bold">07.40</div>
+                <div className="col-6 font-bold">{detail.checkOut}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">

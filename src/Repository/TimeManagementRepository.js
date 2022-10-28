@@ -82,6 +82,17 @@ var DeleteSchedule = async (id) => {
   }
 };
 
+var GetEmployeeProfile = async (auth) => {
+  var res = await axios.get(`${endpoint}/getProfile`, {
+    headers: {
+      Authorization: auth,
+    },
+  });
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
   GetSchedule,
   AddSchedule,
@@ -93,5 +104,6 @@ export {
   GetEmployeeRecByDate,
   GetScheduleByDate,
   AddAttendance,
-  AddEmployeeRecord
+  AddEmployeeRecord,
+  GetEmployeeProfile,
 };

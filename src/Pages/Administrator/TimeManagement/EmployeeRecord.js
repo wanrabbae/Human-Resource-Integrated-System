@@ -56,6 +56,8 @@ function EmployeeRecord() {
   const [employeeId, setEmployeeId] = useState([{
     employeeId: "",
   }]);
+  const [detail, setDetail] = useState([]);
+  const [detailEmployee, setDetailEmployee] = useState([]);
   const [time, setTime] = useState([]);
   const [note, setNote] = useState([]);
   const [employeeRecord, setEmployeeRecord] = useState([]);
@@ -80,7 +82,7 @@ function EmployeeRecord() {
     var res = await AddEmployeeRecord(requestBody);
     console.log(res);
   };
-  // console.log(employeeId);
+  // console.log(detail);
   return (
     <>
       <div className="w-100 bg-light p-4 rounded-t-xl">
@@ -173,7 +175,11 @@ function EmployeeRecord() {
                   <td className="align-middle">{value.duration}</td>
                   <td className="align-middle">
                     <button
-                      onClick={() => setDetailUser(!dialogDetailUser)}
+                      onClick={() => {
+                        setDetail(value.employee);
+                        setDetailEmployee(value.employee.jobtitle);
+                        setDetailUser(!dialogDetailUser);
+                      }}
                       className="btn btn-sm mx-1"
                       style={{
                         backgroundColor: "#CEDFEA",
@@ -326,10 +332,10 @@ function EmployeeRecord() {
             <h3 className="font-bold mb-3">Attendance Information</h3>
             <div className="row">
               <div className="col-md-6 mb-2">
-                Employee Name : Akhamad Triaji
+                Employee Name : {detail.firstName} {detail.lastName}
               </div>
               <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
-              <div className="col-md-6 mb-2">Job Title : IT Manager</div>
+              <div className="col-md-6 mb-2">Job Title : {detailEmployee.name}</div>
               <div className="col-md-6 mb-2">Work Shift : General Shift</div>
               <div className="col-md-6 mb-2">
                 Company Location : Ethos Pusat

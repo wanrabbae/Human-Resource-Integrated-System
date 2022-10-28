@@ -29,8 +29,10 @@ function Schedule() {
     var dataSchedules = await GetSchedule();
     var dataEmployeeName = await GetEmployeeName();
     setEmployeeNames(dataEmployeeName);
+    // console.log(dataSchedules[0].employee.jobtitle.name);
     setSchedules(dataSchedules);
   };
+  // console.log(schedules)
   useEffect(() => {
     inAwait();
   }, []);
@@ -109,7 +111,7 @@ function Schedule() {
                     {schedule.employee.firstName} {schedule.employee.lastName}
                   </td>
                   <td className="align-middle">{schedule.date}</td>
-                  <td className="align-middle">Sales and Marketing</td>
+                  <td className="align-middle">{schedule.employee.jobtitle.name}</td>
                   <td className="align-middle">{schedule.schedule}</td>
                 </tr>
               ))

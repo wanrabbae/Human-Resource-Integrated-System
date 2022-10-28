@@ -6,8 +6,8 @@ import { Modal } from "react-bootstrap";
 import Tree, { useTreeState, treeHandlers } from "react-hyper-tree";
 import classNames from "classnames";
 import ChevronDown from "react-multiselect-checkboxes/lib/ChevronDown";
-import { ArrowDown, ArrowUp, CaretUp, CaretDown,TreeStructure } from "phosphor-react";
-import { getStructure } from "../../../../Repository/AdminRepository";
+import { ArrowDown, ArrowUp, CaretUp, CaretDown, TreeStructure } from "phosphor-react";
+import { addStructure, getCodeStructure, GetJobPosition, getStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
 
 function StructureOrganization() {
@@ -15,10 +15,13 @@ function StructureOrganization() {
   const [modalAdd, setModalAdd] = useState(false);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
+  const [jobPosition, setJobPosition] = useState([]);
   const [allStruct, setStruct] = useState([]);
 
   const [data, setData] = useState([]);
   const loadData = async () => {
+    var rec = await GetJobPosition();
+    setJobPosition(rec["result"]);
     var structure = await getStructure();
     var allStructure = await getStructure(1);
     setData(structure);
@@ -50,8 +53,8 @@ function StructureOrganization() {
           }
         </div>
         <div
-          className="mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center"
-
+          className={`mt-3 py-2.5 px-3 w-full shadow-md rounded-xl flex justify-between items-center`}
+          style={{ backgroundColor: `${node.data.color.toUpperCase()}` }}
         // className={classnames({
         //   'node-content-wrapper': true,
         //   'node-selected': node.isSelected(),
@@ -121,7 +124,7 @@ function StructureOrganization() {
               type=""
             >
               <TreeStructure className="me-2" size={20} color="#003049" />
-              See Chart 
+              See Chart
             </button>
             <FormControlLabel
               value={isSelected}
@@ -397,17 +400,22 @@ function StructureOrganization() {
               <select
                 id="job_position"
                 className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={async (val) => {
+                  var res = await getCodeStructure(val.target.value);
+                  setId(res['result']);
+                }}
               >
                 <option className="py-3" hidden>
                   Select
                 </option>
-                {allStruct.map((e, i) => {
+                {jobPosition.map((e, i) => {
                   return (
                     <option
+                      key={e['id']}
                       className="py-3"
-                      value={JSON.stringify([e?.id, e?.position["name"]])}
+                      value={e['id']}
                     >
-                      {e?.position["name"]}
+                      {e['name']}
                     </option>
                   );
                 })}
@@ -439,6 +447,7 @@ function StructureOrganization() {
           <button
             onClick={() => {
               setModalAdd(false);
+              setId("");
             }}
             type="button"
             className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
@@ -446,17 +455,22 @@ function StructureOrganization() {
             Cancel
           </button>
           <button
-            onClick={() => {
-              var getJob = document.getElementById("job_position").value;
+            onClick={async () => {
+              var id_position = document.getElementById("job_position").value;
               var color = document.getElementById("color").value;
-              var jobPos = JSON.parse(getJob);
               const requestBody = {
-                position_id: jobPos[0] == 0 ? null : jobPos[0],
+                position_id: id_position,
                 structure_id: id,
                 color: color,
               };
-
-              console.log(requestBody);
+              var data = await addStructure(requestBody);
+              if (data['status'] == 400) {
+                alert("Parent tidak ditemukan, harap tambahkan terlebih dahulu");
+              } else {
+                setId("");
+                setModalAdd(false);
+                await loadData();
+              }
             }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"

@@ -23,7 +23,7 @@ const getProfile = async () => {
 };
 
 const getEmergencyContact = async () => {
-  var res = await api.get(`${endpoint}/getProfile`);
+  var res = await api.get(`${endpoint}/mobile/profile/emergencyContact`);
   if (res.status == 200) {
     return res.data;
   } else {

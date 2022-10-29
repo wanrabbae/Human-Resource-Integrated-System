@@ -65,7 +65,7 @@ function ContactDetail({ data }) {
         <div className="mb-4">
           <span style={{ fontWeight: "600" }}>Contact Detail</span>
         </div>
-        {/* <form> */}
+        <form onSubmit={postData}>
           <div className="row mb-4">
             <div className="col">
               <label
@@ -236,9 +236,9 @@ function ContactDetail({ data }) {
             </div>
           </div>
           <div className="d-flex justify-content-end mt-4">
-            <button
-              // type="submit"
-              // value="submit"
+          <input
+              type="submit"
+              value="submit"
               className="btn"
               style={{
                 border: "none",
@@ -246,23 +246,9 @@ function ContactDetail({ data }) {
                 backgroundColor: "#0E5073",
                 color: "#FFFFFF",
               }}
-              onClick={postData}
-            >
-              submit
-            </button>
-            {/* <Button
-              style={{
-                border: "none",
-                fontSize: "14px",
-                backgroundColor: "#0E5073",
-                color: "#FFFFFF",
-              }}
-              className="px-4"
-            >
-              Save
-            </Button> */}
+            />
           </div>
-        {/* </form> */}
+        </form>
       </div>
     </>
   );

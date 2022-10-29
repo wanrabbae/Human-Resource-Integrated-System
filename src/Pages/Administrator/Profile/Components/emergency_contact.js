@@ -1,13 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal,Table } from "react-bootstrap";
 import Select from 'react-select';
 import { Trash, PencilSimple, Plus } from "phosphor-react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import { Add, AlignVerticalCenter, ArrowUpwardTwoTone, Delete, Filter, Filter1, FilterCenterFocus, FilterList, ImportExport, Search } from "@mui/icons-material";
+import { getEmergencyContact } from "../../../../Repository/ProfileRepository";
 
 function EmergencyContact() {
     const [modal, setModal] = useState(false);
     const [modalAdd, setModalAdd] = useState(false);
+
+    const inAwait = async () => {
+        var data = await getEmergencyContact();
+        console.log(data.result);
+        // setNationalities(data);
+      };
+    
+      useEffect(() => {
+        inAwait();
+      }, []);
+    
     return (
         <>
             <div >

@@ -22,6 +22,15 @@ const getProfile = async () => {
   }
 };
 
+const getEmergencyContact = async () => {
+  var res = await api.get(`${endpoint}/getProfile`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const updateProfile = async (data) => {
   var res = await api.post(`${endpoint}/updateProfile`, data);
   if (res.status == 200) {
@@ -29,4 +38,4 @@ const updateProfile = async (data) => {
   }
 };
 
-export { getProfile, updateProfile };
+export { getProfile, updateProfile, getEmergencyContact };

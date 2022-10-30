@@ -15,23 +15,66 @@ import {
   ImportExport,
   Search,
 } from "@mui/icons-material";
-import { getEmergencyContact } from "../../../../Repository/ProfileRepository";
+import {
+  addEmergencyContact,
+  deleteEmergencyContact,
+  getEmergencyContact,
+  updateEmergencyContact,
+} from "../../../../Repository/ProfileRepository";
 
 function EmergencyContact() {
   const [modal, setModal] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
+  const [id, setId] = useState([]);
   const [emergencyContact, setEmergencyContact] = useState([]);
+  const [name, setName] = useState([]);
+  const [relationship, setRelationship] = useState([]);
+  const [phone, setPhone] = useState([]);
+  const [mobilePhone, setMobilePhone] = useState([]);
+  const [editId, setEditId] = useState([]);
+  const [editName, setEditName] = useState([]);
+  const [editRelationship, setEditRelationship] = useState([]);
+  const [editPhone, setEditPhone] = useState([]);
+  const [editMobilePhone, setEditMobilePhone] = useState([]);
 
   const inAwait = async () => {
     var data = await getEmergencyContact();
-    console.log(data.result);
     setEmergencyContact(data.result);
   };
 
   useEffect(() => {
     inAwait();
-  }, []);
+  }, [inAwait]);
 
+  const postDataAdd = async () => {
+    var requestBody = {
+      name: name,
+      relationship: relationship,
+      phone: phone,
+      mobilePhone: mobilePhone,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalAdd(false);
+    var res = await addEmergencyContact(requestBody);
+    console.log(res);
+  };
+  const postDataEdit = async () => {
+    var requestBody = {
+      id: editId,
+      name: editName,
+      relationship: editRelationship,
+      phone: editPhone,
+      mobilePhone: editMobilePhone,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModal(false);
+    var res = await updateEmergencyContact(requestBody);
+    console.log(res);
+  };
+
+  // console.log(id);
   return (
     <>
       <div>
@@ -103,7 +146,14 @@ function EmergencyContact() {
                     <div className="flex flex-row gap-2">
                       <button
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        onClick={() => setModal(true)}
+                        onClick={() => {
+                          setEditId(val.id);
+                          setEditName(val.name);
+                          setEditPhone(val.phone);
+                          setEditMobilePhone(val.mobilePhone);
+                          setEditRelationship(val.relationship);
+                          setModal(true);
+                        }}
                       >
                         <PencilSimple
                           color="#003049"
@@ -112,7 +162,14 @@ function EmergencyContact() {
                           aria-hidden="true"
                         />
                       </button>
-                      <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                      <button
+                        className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                        onclick={()=>{setId(val.id)}
+                          // inAwait();
+                          // var res = await deleteEmergencyContact(val.id);
+                          // console.log(res)
+                        }
+                      >
                         <Trash
                           color="#003049"
                           weight="bold"
@@ -123,7 +180,7 @@ function EmergencyContact() {
                     </div>
                   </td>
                 </tr>
-            ))}
+              ))}
             </tbody>
           </table>
         </div>
@@ -148,11 +205,12 @@ function EmergencyContact() {
                 Name
               </label>
               <input
-                value="Kim Woo Bin"
+                value={editName}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
                 placeholder="Username"
+                onChange={(e) => setEditName(e.target.value)}
               />
             </div>
             <div className="col">
@@ -163,10 +221,11 @@ function EmergencyContact() {
                 Relationship
               </label>
               <input
-                value="Husband"
+                value={editRelationship}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
+                onChange={(e) => setEditRelationship(e.target.value)}
               />
             </div>
           </div>
@@ -183,6 +242,8 @@ function EmergencyContact() {
                 id="username"
                 type="text"
                 placeholder=""
+                value={editPhone}
+                onChange={(e) => setEditPhone(e.target.value)}
               />
             </div>
             <div className="col">
@@ -193,11 +254,12 @@ function EmergencyContact() {
                 Mobile
               </label>
               <input
-                value="081234567809"
+                value={editMobilePhone}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 placeholder="ex : 0812xxxxxxxx"
                 id="username"
                 type="text"
+                onChange={(e) => setEditMobilePhone(e.target.value)}
               />
             </div>
           </div>
@@ -223,8 +285,9 @@ function EmergencyContact() {
               color: "#FFFFFF",
             }}
             className="px-3"
+            onClick={postDataEdit}
           >
-            Create
+            Update
           </Button>
         </Modal.Footer>
       </Modal>
@@ -251,7 +314,8 @@ function EmergencyContact() {
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
-                placeholder="Contact name..."
+                placeholder="Username"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="col">
@@ -265,6 +329,7 @@ function EmergencyContact() {
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
+                onChange={(e) => setRelationship(e.target.value)}
               />
             </div>
           </div>
@@ -281,6 +346,7 @@ function EmergencyContact() {
                 id="username"
                 type="text"
                 placeholder=""
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div className="col">
@@ -295,6 +361,7 @@ function EmergencyContact() {
                 placeholder="ex : 0812xxxxxxxx"
                 id="username"
                 type="text"
+                onChange={(e) => setMobilePhone(e.target.value)}
               />
             </div>
           </div>
@@ -320,6 +387,7 @@ function EmergencyContact() {
               color: "#FFFFFF",
             }}
             className="px-3"
+            onClick={postDataAdd}
           >
             Create
           </Button>

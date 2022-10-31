@@ -51,6 +51,7 @@ import BulkUploud from "./Pages/Administrator/Admin/Job/BulkUploud";
 import ChartStructure from "./Pages/Administrator/Admin/Organization/ChartStructure";
 import Calendar from "./Pages/Administrator/TimeManagement/Calendar";
 import Cal from "./Pages/Administrator/TimeManagement/Calendar";
+import Maintenance from "./Pages/Administrator/Maintenance/maintenance";
 
 function App() {
   return (
@@ -149,6 +150,9 @@ function App() {
         />
         <Route path="/timeManagement/schedule" element={<Schedule />} />
         <Route path="/timeManagement/calendar" element={<Cal />} />
+      </Route>
+      <Route path="/maintenance" element={<Template />}>
+        <Route path="/maintenance" element={<Maintenance />}/>
       </Route>
       <Route path="/employee" element={<Template />}>
         <Route path="/employee/optional-field" index element={<Optionals />} />

@@ -65,5 +65,21 @@ var DelTermReason = async (id) => {
     return res.data;
   }
 };
+var AddEmployee = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addEmployee`, requestBody, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  if (res.status == 200) {
+    return res.data;
+  }
+}
+var DeleteEmployee = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteEmployee?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+}
 
-export { GetEmployee, GetEmployeeName, GetReportMeth,AddReportMeth,DelReportMeth,UpdateReportMeth,GetTermReason,AddTermReason,DelTermReason,UpdateTermReason };
+export { DeleteEmployee, AddEmployee, GetEmployee, GetEmployeeName, GetReportMeth, AddReportMeth, DelReportMeth, UpdateReportMeth, GetTermReason, AddTermReason, DelTermReason, UpdateTermReason };

@@ -17,7 +17,8 @@ import {
   Search,
 } from "@mui/icons-material";
 import {
-    addEducation,
+  addEducation,
+  addLincense,
   addWorkExperience,
   getEducation,
   getLanguage,
@@ -41,11 +42,11 @@ function Qualification() {
   const [endDate, setEndDate] = useState([]);
   const [comment, setComment] = useState([]);
 
-//   console.log(companyName);
-//   console.log(jobTitle);
-//   console.log(startDate);
-//   console.log(endDate);
-//   console.log(comment);
+  //   console.log(companyName);
+  //   console.log(jobTitle);
+  //   console.log(startDate);
+  //   console.log(endDate);
+  //   console.log(comment);
 
   const [skill, setSkill] = useState([]);
 
@@ -58,17 +59,21 @@ function Qualification() {
   const [endDateEdu, setEndDateEdu] = useState([]);
   const [gpa, setGpa] = useState([]);
 
-  console.log(level)
-  console.log(institute)
-  console.log(major)
-  console.log(year)
-  console.log(startDateEdu)
-  console.log(endDateEdu)
-  console.log(gpa)
-
+  console.log(level);
+  console.log(institute);
+  console.log(major);
+  console.log(year);
+  console.log(startDateEdu);
+  console.log(endDateEdu);
+  console.log(gpa);
 
   const [language, setLanguage] = useState([]);
+
   const [license, setLicense] = useState([]);
+  const [licenseType, setLicenseType] = useState([]);
+  const [licenseNumber, setLicenseNumber] = useState([]);
+  const [issuedDate, setIssuedDate] = useState([]);
+  const [expiryDate, setExpiryDate] = useState([]);
 
   const inAwait = async () => {
     var dataWorkExperience = await getWorkExperience();
@@ -121,6 +126,20 @@ function Qualification() {
     inAwait();
     setModalAddEducation(false);
     var res = await addEducation(requestBody);
+    console.log(res);
+  };
+
+  const postDataLicense = async () => {
+    var requestBody = {
+      licenseType: licenseType,
+      issuedDate: issuedDate,
+      expiryDate: expiryDate,
+      licenseNumber: licenseNumber
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalAddLisence(false);
+    var res = await addLincense(requestBody);
     console.log(res);
   };
 
@@ -1041,10 +1060,13 @@ function Qualification() {
               >
                 License Type <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3">Select</option>
-                <option className="py-3">Junior Web Programming </option>
-                <option className="py-3">Senior Data Analyst</option>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setLicenseType(e.target.value)}
+              >
+                <option hidden className="py-3">Select</option>
+                <option value="Junior Web Programming" className="py-3">Junior Web Programming </option>
+                <option value="Senior Data Analyst" className="py-3">Senior Data Analyst</option>
               </select>
             </div>
             <div className="mb-4">
@@ -1058,7 +1080,8 @@ function Qualification() {
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
-                placeholder="Institute name..."
+                placeholder="Institute License Number..."
+                onChange={(e) => setLicenseNumber(e.target.value)}
               />
             </div>
           </div>
@@ -1068,13 +1091,13 @@ function Qualification() {
                 className="block text-gray-700 text-sm mb-2"
                 for="username"
               >
-                Start Date <span style={{ color: "#780000" }}>*</span>
+                Issued Date <span style={{ color: "#780000" }}>*</span>
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="date"
-                placeholder="Username"
+                onChange={(e) => setIssuedDate(e.target.value)}
               />
             </div>
             <div className="col">
@@ -1082,13 +1105,13 @@ function Qualification() {
                 className="block text-gray-700 text-sm mb-2"
                 for="username"
               >
-                End Date <span style={{ color: "#780000" }}>*</span>
+                Expiry Date <span style={{ color: "#780000" }}>*</span>
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="date"
-                placeholder="Username"
+                onChange={(e) => setExpiryDate(e.target.value)}
               />
             </div>
           </div>
@@ -1114,6 +1137,7 @@ function Qualification() {
               color: "#FFFFFF",
             }}
             className="px-4"
+            onClick={postDataLicense}
           >
             Add
           </Button>

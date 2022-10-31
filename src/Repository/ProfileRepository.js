@@ -149,6 +149,15 @@ const getLincense = async () => {
   }
 };
 
+const addLincense = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/license`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 export {
   getProfile,
   updateProfile,
@@ -166,4 +175,5 @@ export {
   getLincense,
   addWorkExperience,
   addEducation,
+  addLincense
 };

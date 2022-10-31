@@ -65,7 +65,7 @@ function MyAttendance() {
     console.log(profile.result.employee)
     setDataProfile(profile.result.employee)
   };
-  const token = window.localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   // console.log(token)
 
   useEffect(() => {
@@ -306,8 +306,8 @@ function MyAttendance() {
                 Employee Name : {dataProfile.firstName} {dataProfile.lastName}
               </div>
               <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
-              <div className="col-md-6 mb-2">Job Title : {dataProfile.jobtitle.name}</div>
-              <div className="col-md-6 mb-2">Work Shift : {dataProfile.workshift.name}</div>
+              <div className="col-md-6 mb-2">Job Title : {dataProfile?.jobtitle?.name}</div>
+              <div className="col-md-6 mb-2">Work Shift : {dataProfile?.workshift?.name}</div>
               <div className="col-md-6 mb-2">
                 Company Location : {dataProfile.location}
               </div>

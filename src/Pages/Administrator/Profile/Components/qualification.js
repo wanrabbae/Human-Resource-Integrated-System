@@ -17,6 +17,8 @@ import {
   Search,
 } from "@mui/icons-material";
 import {
+    addEducation,
+  addWorkExperience,
   getEducation,
   getLanguage,
   getLincense,
@@ -33,8 +35,38 @@ function Qualification() {
   const [modalAddLisence, setModalAddLisence] = useState(false);
 
   const [workExperience, setWorkExperience] = useState([]);
+  const [companyName, setCompanyName] = useState([]);
+  const [jobTitle, setJobTitle] = useState([]);
+  const [startDate, setStartDate] = useState([]);
+  const [endDate, setEndDate] = useState([]);
+  const [comment, setComment] = useState([]);
+
+//   console.log(companyName);
+//   console.log(jobTitle);
+//   console.log(startDate);
+//   console.log(endDate);
+//   console.log(comment);
+
   const [skill, setSkill] = useState([]);
+
   const [education, setEducation] = useState([]);
+  const [level, setLevel] = useState([]);
+  const [institute, setInstitute] = useState([]);
+  const [major, setMajor] = useState([]);
+  const [year, setYear] = useState([]);
+  const [startDateEdu, setStartDateEdu] = useState([]);
+  const [endDateEdu, setEndDateEdu] = useState([]);
+  const [gpa, setGpa] = useState([]);
+
+  console.log(level)
+  console.log(institute)
+  console.log(major)
+  console.log(year)
+  console.log(startDateEdu)
+  console.log(endDateEdu)
+  console.log(gpa)
+
+
   const [language, setLanguage] = useState([]);
   const [license, setLicense] = useState([]);
 
@@ -59,6 +91,38 @@ function Qualification() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const postDataAddWorkExp = async () => {
+    var requestBody = {
+      companyName: companyName,
+      jobTitle: jobTitle,
+      startDate: startDate,
+      endDate: endDate,
+      comment: comment,
+    };
+    console.log(requestBody);
+    inAwait();
+    // setModalAddWExperience(false);
+    // var res = await addWorkExperience(requestBody);
+    // console.log(res);
+  };
+
+  const postDataEducation = async () => {
+    var requestBody = {
+      level: level,
+      institute: institute,
+      major: major,
+      year: year,
+      gap: gpa,
+      startDate: startDateEdu,
+      endDate: endDateEdu,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalAddEducation(false);
+    var res = await addEducation(requestBody);
+    console.log(res);
+  };
 
   return (
     <>
@@ -149,7 +213,7 @@ function Qualification() {
                   workExperience.map((val, index) => (
                     <tr key={index} style={{ fontSize: "14px" }}>
                       <td className="align-middle">{val.companyName}</td>
-                      <td className="align-middle">{val.jobtitle.name}</td>
+                      <td className="align-middle">{val.jobtitle?.name}</td>
                       <td className="align-middle">{val.startDate}</td>
                       <td className="align-middle">{val.endDate}</td>
                       <td className="align-middle">{val.comment}</td>
@@ -515,6 +579,7 @@ function Qualification() {
                 id="username"
                 type="text"
                 placeholder="Company name.."
+                onChange={(e) => setCompanyName(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -529,6 +594,7 @@ function Qualification() {
                 id="username"
                 type="text"
                 placeholder="Job title.."
+                onChange={(e) => setJobTitle(e.target.value)}
               />
             </div>
           </div>
@@ -545,6 +611,7 @@ function Qualification() {
                 id="username"
                 type="date"
                 placeholder="Username"
+                onChange={(e) => setStartDate(e.target.value)}
               />
             </div>
             <div className="col">
@@ -559,6 +626,7 @@ function Qualification() {
                 id="username"
                 type="date"
                 placeholder="Username"
+                onChange={(e) => setEndDate(e.target.value)}
               />
             </div>
           </div>
@@ -573,6 +641,7 @@ function Qualification() {
               <textarea
                 rows="4"
                 className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setComment(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -598,6 +667,7 @@ function Qualification() {
               color: "#FFFFFF",
             }}
             className="px-4"
+            // onClick={postDataAddWorkExp}
           >
             Add
           </Button>
@@ -712,10 +782,19 @@ function Qualification() {
               >
                 Level <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3">Select</option>
-                <option className="py-3">High School</option>High School
-                <option className="py-3">Bachelor's Degree</option>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setLevel(e.target.value)}
+              >
+                <option hidden className="py-3">
+                  Select
+                </option>
+                <option value="High School" className="py-3">
+                  High School
+                </option>
+                <option value="Bachelor's Degree" className="py-3">
+                  Bachelor's Degree
+                </option>
               </select>
             </div>
             <div className="mb-4">
@@ -730,6 +809,7 @@ function Qualification() {
                 id="username"
                 type="text"
                 placeholder="Institute name..."
+                onChange={(e) => setInstitute(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -744,6 +824,7 @@ function Qualification() {
                 id="username"
                 type="text"
                 placeholder="Specialization in Education...."
+                onChange={(e) => setMajor(e.target.value)}
               />
             </div>
           </div>
@@ -760,6 +841,7 @@ function Qualification() {
                 id="username"
                 type="text"
                 placeholder="Type for hints..."
+                onChange={(e) => setYear(e.target.value)}
               />
             </div>
             <div className="col mb-4">
@@ -773,6 +855,7 @@ function Qualification() {
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
+                onChange={(e) => setGpa(e.target.value)}
               />
             </div>
             <div className="w-100"></div>
@@ -788,6 +871,7 @@ function Qualification() {
                 id="username"
                 type="date"
                 placeholder="Username"
+                onChange={(e) => setStartDateEdu(e.target.value)}
               />
             </div>
             <div className="col">
@@ -802,6 +886,7 @@ function Qualification() {
                 id="username"
                 type="date"
                 placeholder="Username"
+                onChange={(e) => setEndDateEdu(e.target.value)}
               />
             </div>
           </div>
@@ -827,6 +912,7 @@ function Qualification() {
               color: "#FFFFFF",
             }}
             className="px-4"
+            onClick={postDataEducation}
           >
             Add
           </Button>

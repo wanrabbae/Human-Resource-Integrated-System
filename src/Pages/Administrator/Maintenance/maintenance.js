@@ -42,7 +42,9 @@ import {
     ModalHeader,
     ModalFooter,
   } from "react-bootstrap";
+import { SwalSuccess } from "../../../Components/Modals";
   import { TextFieldSearch } from "../../../Components/TextField";
+import { postMaintenance } from "../../../Repository/MaintenanceRepository";
   import {
     AddAttendance,
     GetAttendance,
@@ -51,6 +53,7 @@ import {
   } from "../../../Repository/TimeManagementRepository";
   
   function Maintenance() {
+    const [isMaintain, setMaintain] = useState(false);
     return (
       <>
       <div className="align-items-center align-center d-flex justify-content-center ">
@@ -58,7 +61,7 @@ import {
             <div style={{fontWeight:'500'}} className="text-[#5C5C5C] align-center text-center">
             Confirm as Admin
             </div>
-            <div className="grid gap-y-2 my-3 align-center">
+            <div className="my-3 align-center">
                 <p className="text-[#A8A8A8] text-sm" style={{textAlign:'justify',fontWeight:'400'}}>You have requested to access a critical Administrator function in OrangeHRM and are required to validate your credentials below</p>
                 <div className='my-4'>
                     <label className="block text-gray-700 text-sm mb-2" for="username">
@@ -70,7 +73,7 @@ import {
                     <label className="block text-gray-700 text-sm mb-2" for="username">
                     Password
                     </label>
-                    <input className=" appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="username" type="text" placeholder="password"/>
+                    <input className=" appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" id="password" type="password" placeholder="password"/>
                 </div>
             </div>
             <div className="d-flex justify-content-end">
@@ -94,6 +97,15 @@ import {
                             color: "#FFFFFF",
                         }}
                         className="px-4"
+                        onClick={async () => {
+                          var requestBody = {
+                            username: document.getElementById("username").value,
+                            password: document.getElementById("password").value,
+                          };
+                          var res = await postMaintenance(requestBody);
+                          console.log(res);
+                          SwalSuccess({ message: "Success Turn On Maintenance" });
+                        }}
                     >
                         Confirm
                     </Button>

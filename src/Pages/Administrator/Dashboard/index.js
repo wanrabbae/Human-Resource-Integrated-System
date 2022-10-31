@@ -5,6 +5,9 @@ import d1 from "../../../Resourse/img/d1.png";
 import d2 from "../../../Resourse/img/d2.png";
 import d3 from "../../../Resourse/img/d3.png";
 import d4 from "../../../Resourse/img/d4.png";
+import { GetDashboard } from "../../../Repository/DashboardRepository";
+import { useEffect } from "react";
+import { useState } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -36,6 +39,59 @@ export const data = {
 };
 
 function Dashboard() {
+  const [totalEmployee, setTotalEmployee] = useState([]);
+  const [totalNewEmployee, setTotalNewEmployee] = useState([]);
+  const [totalAppliedEmployee, setTotalAppliedEmployee] = useState([]);
+  const [female, setFemale] = useState([]);
+  const [male, setMale] = useState([]);
+  const [employeeJobTitleData, setEmployeeJobTitleData] = useState([]);
+
+  const inAwait = async () => {
+    var data = await GetDashboard();
+    console.log(data.result);
+    setTotalEmployee(data.result.totalEmployee);
+    setTotalNewEmployee(data.result.totalNewEmployee);
+    setTotalAppliedEmployee(data.result.totalAppliedEmployee);
+    setTotalAppliedEmployee(data.result.totalAppliedEmployee);
+    setFemale(data.result.employeeGender.female);
+    setMale(data.result.employeeGender.male);
+    setEmployeeJobTitleData(data.result.employeeJobTitleData);
+  };
+
+  const persentase = (data1, data2) => {
+    var persent = ((data1 / (data1 + data2)) * 100).toFixed(2);
+    return persent;
+  };
+
+  // console.log(Object.keys(employeeJobTitleData).length)
+  console.log(employeeJobTitleData.length);
+  var array = [];
+  for (let index = 0; index < employeeJobTitleData.length; index++) {
+    array[index] = employeeJobTitleData[index].count;
+  }
+
+  var arrayColor = ["#003049", "#FDF0D5", "#780000", "#C1121F", "#669BBC"];
+  var color = [];
+  console.log(arrayColor[0]);
+  var x = -1;
+  for (let index = 0; index < employeeJobTitleData.length; index++) {
+    x++;
+    if (x > 4) {
+      x = 0;
+    }
+    color[index] = arrayColor[x];
+  }
+  console.log(array);
+
+  // console.log(totalEmployee)
+  // console.log(totalNewEmployee)
+  // console.log(totalAppliedEmployee)
+  // console.log(female)
+
+  useEffect(() => {
+    inAwait();
+  }, []);
+
   return (
     <>
       <div className="m-0">
@@ -50,7 +106,7 @@ function Dashboard() {
                 <h1 className="text-gray-200 font-semibold uppercase">
                   Total employees
                 </h1>
-                <h1 className="text-white">7,482,120</h1>
+                <h1 className="text-white">{totalEmployee}</h1>
               </div>
               <img className="rounded-lg" src={d1} />
             </div>
@@ -59,7 +115,7 @@ function Dashboard() {
                 <h1 className="text-gray-200 font-semibold uppercase">
                   New employees
                 </h1>
-                <h1 className="text-white">7,482,120</h1>
+                <h1 className="text-white">{totalNewEmployee}</h1>
               </div>
               <img className="rounded-lg" src={d4} />
             </div>
@@ -68,7 +124,7 @@ function Dashboard() {
                 <h1 className="text-gray-200 font-semibold uppercase">
                   Applied employees
                 </h1>
-                <h1 className="text-white">7,482,120</h1>
+                <h1 className="text-white">{totalAppliedEmployee}</h1>
               </div>
               <img className="rounded-lg" src={d2} />
             </div>
@@ -142,14 +198,8 @@ function Dashboard() {
                     datasets: [
                       {
                         label: "Job Title",
-                        data: [1, 4, 8, 10, 44],
-                        backgroundColor: [
-                          "#003049",
-                          "#FDF0D5",
-                          "#780000",
-                          "#C1121F",
-                          "#669BBC",
-                        ],
+                        data: array,
+                        backgroundColor: color,
                       },
                     ],
                   }}
@@ -157,14 +207,16 @@ function Dashboard() {
               </div>
             </div>
             <div className="flex flex-row flex-wrap gap-5">
-              <div className="flex gap-3 items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 bg-[#003049]"></div>
-                  <p className="text-gray-400 text-xs">CEO</p>
+              {employeeJobTitleData.map((val, index) => (
+                <div className="flex gap-3 items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className='w-1 h-1' style={{backgroundColor: color[index]}}></div>
+                    <p className="text-gray-400 text-xs">{val.name}</p>
+                  </div>
+                  <p className="text-gray-700 text-xs">{val.count}</p>
                 </div>
-                <p className="text-gray-700 text-xs">1</p>
-              </div>
-              <div className="flex gap-3 items-center justify-between">
+              ))}
+              {/* <div className="flex gap-3 items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-[#FDF0D5]"></div>
                   <p className="text-gray-400 text-xs">Manager</p>
@@ -191,7 +243,7 @@ function Dashboard() {
                   <p className="text-gray-400 text-xs">Staff</p>
                 </div>
                 <p className="text-gray-700 text-xs">44</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -204,7 +256,7 @@ function Dashboard() {
                   datasets: [
                     {
                       label: "Gender",
-                      data: [38, 31],
+                      data: [female, male],
                       backgroundColor: ["#EEE5FF", "#8950FC"],
                     },
                   ],
@@ -276,8 +328,8 @@ function Dashboard() {
                   <div className="flex flex-col">
                     <p className="text-gray-400 text-xs">Male</p>
                     <div className="flex flex-row gap-5 justify-between text-gray-600">
-                      <p className="text-xs">31</p>
-                      <p className="text-xs">44.9%</p>
+                      <p className="text-xs">{male}</p>
+                      <p className="text-xs">{persentase(male, female)} %</p>
                     </div>
                   </div>
                 </div>
@@ -349,8 +401,8 @@ function Dashboard() {
                   <div className="flex flex-col">
                     <p className="text-gray-400 text-xs">Female</p>
                     <div className="flex flex-row gap-5 justify-between text-gray-600">
-                      <p className="text-xs">38</p>
-                      <p className="text-xs">55.1%</p>
+                      <p className="text-xs">{female}</p>
+                      <p className="text-xs">{persentase(female, male)} %</p>
                     </div>
                   </div>
                 </div>

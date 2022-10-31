@@ -87,6 +87,51 @@ const updateProfile = async (data) => {
   }
 };
 
+const getWorkExperience = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/experience`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getSkill = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/skill`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getEducation = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/education`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getLanguage = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/language`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getLincense = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/license`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 export {
   getProfile,
   updateProfile,
@@ -96,5 +141,10 @@ export {
   deleteEmergencyContact,
   getDependents,
   addDependent,
-  updateDependent
+  updateDependent,
+  getWorkExperience,
+  getSkill,
+  getEducation,
+  getLanguage,
+  getLincense,
 };

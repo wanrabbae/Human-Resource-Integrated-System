@@ -113,6 +113,15 @@ const getSkill = async () => {
   }
 };
 
+const addSkill = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/skill`,data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const getEducation = async (data) => {
   var res = await api.get(`${endpoint}/mobile/profile/education`);
   if (res.status == 200) {
@@ -175,5 +184,5 @@ export {
   getLincense,
   addWorkExperience,
   addEducation,
-  addLincense
+  addLincense,addSkill
 };

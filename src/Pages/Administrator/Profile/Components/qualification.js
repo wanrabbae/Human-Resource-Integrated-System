@@ -19,6 +19,7 @@ import {
 import {
   addEducation,
   addLincense,
+  addSkill,
   addWorkExperience,
   getEducation,
   getLanguage,
@@ -27,6 +28,8 @@ import {
   getWorkExperience,
 } from "../../../../Repository/ProfileRepository";
 import { useEffect } from "react";
+import { GetJobTittle } from "../../../../Repository/AdminRepository";
+import { GetSkills } from "../../../../Repository/SkillsRepository";
 
 function Qualification() {
   const [modalAddWExperience, setModalAddWExperience] = useState(false);
@@ -42,13 +45,20 @@ function Qualification() {
   const [endDate, setEndDate] = useState([]);
   const [comment, setComment] = useState([]);
 
-  //   console.log(companyName);
-  //   console.log(jobTitle);
-  //   console.log(startDate);
-  //   console.log(endDate);
-  //   console.log(comment);
+  // console.log(companyName);
+  // console.log(jobTitle);
+  // console.log(startDate);
+  // console.log(endDate);
+  // console.log(comment);
 
   const [skill, setSkill] = useState([]);
+  const [skillId, setSkillId] = useState([]);
+  const [yearsOfExperience, setYearsOfExperience] = useState([]);
+  const [commentSkill, setCommentSkill] = useState([]);
+
+  console.log(skillId);
+  // console.log(yearsOfExperience)
+  // console.log(commentSkill)
 
   const [education, setEducation] = useState([]);
   const [level, setLevel] = useState([]);
@@ -59,13 +69,13 @@ function Qualification() {
   const [endDateEdu, setEndDateEdu] = useState([]);
   const [gpa, setGpa] = useState([]);
 
-  console.log(level);
-  console.log(institute);
-  console.log(major);
-  console.log(year);
-  console.log(startDateEdu);
-  console.log(endDateEdu);
-  console.log(gpa);
+  // console.log(level);
+  // console.log(institute);
+  // console.log(major);
+  // console.log(year);
+  // console.log(startDateEdu);
+  // console.log(endDateEdu);
+  // console.log(gpa);
 
   const [language, setLanguage] = useState([]);
 
@@ -74,6 +84,9 @@ function Qualification() {
   const [licenseNumber, setLicenseNumber] = useState([]);
   const [issuedDate, setIssuedDate] = useState([]);
   const [expiryDate, setExpiryDate] = useState([]);
+
+  const [datajobTitle, setDataJobTitle] = useState([]);
+  const [dataSkill, setDataSkill] = useState([]);
 
   const inAwait = async () => {
     var dataWorkExperience = await getWorkExperience();
@@ -91,7 +104,12 @@ function Qualification() {
     var dataLicense = await getLincense();
     setLicense(dataLicense.result);
     // console.log(dataLicense.result);
+    var dataJob = await GetJobTittle();
+    setDataJobTitle(dataJob);
+    var dataSkill = await GetSkills();
+    setDataSkill(dataSkill);
   };
+  console.log(skill);
 
   useEffect(() => {
     inAwait();
@@ -107,9 +125,22 @@ function Qualification() {
     };
     console.log(requestBody);
     inAwait();
-    // setModalAddWExperience(false);
-    // var res = await addWorkExperience(requestBody);
-    // console.log(res);
+    setModalAddWExperience(false);
+    var res = await addWorkExperience(requestBody);
+    console.log(res);
+  };
+
+  const postDataSkill = async () => {
+    var requestBody = {
+      skill_id: skillId,
+      yearsOfExperience: yearsOfExperience,
+      comment: commentSkill,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalAddSkill(false);
+    var res = await addSkill(requestBody);
+    console.log(res);
   };
 
   const postDataEducation = async () => {
@@ -134,7 +165,7 @@ function Qualification() {
       licenseType: licenseType,
       issuedDate: issuedDate,
       expiryDate: expiryDate,
-      licenseNumber: licenseNumber
+      licenseNumber: licenseNumber,
     };
     console.log(requestBody);
     inAwait();
@@ -309,7 +340,7 @@ function Qualification() {
                 {skill ? (
                   skill.map((val, index) => (
                     <tr key={index} style={{ fontSize: "14px" }}>
-                      <td className="align-middle">{val.skill.name}</td>
+                      <td className="align-middle">{val.skill?.name}</td>
                       <td className="align-middle">{val.yearsOfExperience}</td>
                     </tr>
                   ))
@@ -608,13 +639,17 @@ function Qualification() {
               >
                 Job Title<span style={{ color: "#780000" }}>*</span>
               </label>
-              <input
-                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Job title.."
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setJobTitle(e.target.value)}
-              />
+              >
+                <option className="py-3">Select</option>
+                {datajobTitle.map((val, index) => (
+                  <option key={index} value={val.id} className="py-3">
+                    {val.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="row mb-4">
@@ -686,7 +721,7 @@ function Qualification() {
               color: "#FFFFFF",
             }}
             className="px-4"
-            // onClick={postDataAddWorkExp}
+            onClick={postDataAddWorkExp}
           >
             Add
           </Button>
@@ -715,12 +750,20 @@ function Qualification() {
               >
                 Skill <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3">Select</option>
-                <option className="py-3">Graphic Designer</option>
-                <option className="py-3">UI UX Designer</option>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setSkillId(e.target.value)}
+              >
+                <option hidden className="py-3">
+                  Select Skill
+                </option>
+                {dataSkill.map((val, index) => (
+                  <option value={val.id} key={index} className="py-3">
+                    {val.name}
+                  </option>
+                ))}
               </select>
-              Graphic Designer
+              {/* Graphic Designer */}
             </div>
             <div className="mb-4">
               <label
@@ -734,6 +777,7 @@ function Qualification() {
                 id="username"
                 type="text"
                 placeholder="Year of Experience"
+                onChange={(e) => setYearsOfExperience(e.target.value)}
               />
             </div>
           </div>
@@ -748,6 +792,7 @@ function Qualification() {
               <textarea
                 rows="4"
                 className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setCommentSkill(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -773,6 +818,7 @@ function Qualification() {
               color: "#FFFFFF",
             }}
             className="px-4"
+            onClick={postDataSkill}
           >
             Add
           </Button>
@@ -1064,9 +1110,15 @@ function Qualification() {
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setLicenseType(e.target.value)}
               >
-                <option hidden className="py-3">Select</option>
-                <option value="Junior Web Programming" className="py-3">Junior Web Programming </option>
-                <option value="Senior Data Analyst" className="py-3">Senior Data Analyst</option>
+                <option hidden className="py-3">
+                  Select
+                </option>
+                <option value="Junior Web Programming" className="py-3">
+                  Junior Web Programming{" "}
+                </option>
+                <option value="Senior Data Analyst" className="py-3">
+                  Senior Data Analyst
+                </option>
               </select>
             </div>
             <div className="mb-4">

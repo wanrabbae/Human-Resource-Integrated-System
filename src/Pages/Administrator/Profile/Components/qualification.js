@@ -18,6 +18,7 @@ import {
 } from "@mui/icons-material";
 import {
   addEducation,
+  addLanguage,
   addLincense,
   addSkill,
   addWorkExperience,
@@ -30,6 +31,7 @@ import {
 import { useEffect } from "react";
 import { GetJobTittle } from "../../../../Repository/AdminRepository";
 import { GetSkills } from "../../../../Repository/SkillsRepository";
+import { GetLanguages } from "../../../../Repository/LanguagesRepository";
 
 function Qualification() {
   const [modalAddWExperience, setModalAddWExperience] = useState(false);
@@ -56,7 +58,7 @@ function Qualification() {
   const [yearsOfExperience, setYearsOfExperience] = useState([]);
   const [commentSkill, setCommentSkill] = useState([]);
 
-  console.log(skillId);
+  // console.log(skillId);
   // console.log(yearsOfExperience)
   // console.log(commentSkill)
 
@@ -78,6 +80,15 @@ function Qualification() {
   // console.log(gpa);
 
   const [language, setLanguage] = useState([]);
+  const [languageId, setLanguageId] = useState([]);
+  const [fluency, setFluency] = useState([]);
+  const [competency, setCompetency] = useState([]);
+  const [commentLanguage, setCommentLanguage] = useState([]);
+
+  console.log(languageId);
+  console.log(fluency);
+  console.log(competency);
+  console.log(commentLanguage);
 
   const [license, setLicense] = useState([]);
   const [licenseType, setLicenseType] = useState([]);
@@ -87,6 +98,7 @@ function Qualification() {
 
   const [datajobTitle, setDataJobTitle] = useState([]);
   const [dataSkill, setDataSkill] = useState([]);
+  const [dataLanguage, setDataLanguage] = useState([]);
 
   const inAwait = async () => {
     var dataWorkExperience = await getWorkExperience();
@@ -108,8 +120,10 @@ function Qualification() {
     setDataJobTitle(dataJob);
     var dataSkill = await GetSkills();
     setDataSkill(dataSkill);
+    var language = await GetLanguages();
+    setDataLanguage(language);
   };
-  console.log(skill);
+  // console.log(skill);
 
   useEffect(() => {
     inAwait();
@@ -157,6 +171,20 @@ function Qualification() {
     inAwait();
     setModalAddEducation(false);
     var res = await addEducation(requestBody);
+    console.log(res);
+  };
+
+  const postDataLanguage = async () => {
+    var requestBody = {
+      language_id: languageId,
+      fluency: fluency,
+      competency, competency,
+      comment: commentLanguage,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalAddLanguage(false);
+    var res = await addLanguage(requestBody);
     console.log(res);
   };
 
@@ -1004,12 +1032,20 @@ function Qualification() {
                 className="block text-gray-700 text-sm mb-2"
                 for="username"
               >
-                Skill <span style={{ color: "#780000" }}>*</span>
+                Language <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3">Select</option>
-                <option className="py-3">Indonesian</option>
-                <option className="py-3">Korean</option>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setLanguageId(e.target.value)}
+              >
+                <option hidden className="py-3">
+                  Select Language
+                </option>
+                {dataLanguage.map((val, index) => (
+                  <option value={val.id} key={index} className="py-3">
+                    {val.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-4">
@@ -1019,11 +1055,22 @@ function Qualification() {
               >
                 Fluency <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3">Select</option>
-                <option className="py-3">Writting</option>
-                <option className="py-3">Speaking</option>
-                <option className="py-3">Reading</option>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setFluency(e.target.value)}
+              >
+                <option hidden className="py-3">
+                  Select Fluency
+                </option>
+                <option value="Writting" className="py-3">
+                  Writting
+                </option>
+                <option value="Speaking" className="py-3">
+                  Speaking
+                </option>
+                <option value="Reading" className="py-3">
+                  Reading
+                </option>
               </select>
             </div>
             <div className="mb-4">
@@ -1033,12 +1080,25 @@ function Qualification() {
               >
                 Competency <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3">Select</option>
-                <option className="py-3">Poor</option>
-                <option className="py-3">Basic</option>
-                <option className="py-3">Good</option>
-                <option className="py-3">Mother Tongue</option>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setCompetency(e.target.value)}
+              >
+                <option hidden className="py-3">
+                  Select Competency
+                </option>
+                <option value="Poor" className="py-3">
+                  Poor
+                </option>
+                <option value="Basic" className="py-3">
+                  Basic
+                </option>
+                <option value="Good" className="py-3">
+                  Good
+                </option>
+                <option value="Mother Tongue" className="py-3">
+                  Mother Tongue
+                </option>
               </select>
             </div>
           </div>
@@ -1053,6 +1113,7 @@ function Qualification() {
               <textarea
                 rows="4"
                 className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setCommentLanguage(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -1078,6 +1139,7 @@ function Qualification() {
               color: "#FFFFFF",
             }}
             className="px-4"
+            onClick={postDataLanguage}
           >
             Add
           </Button>

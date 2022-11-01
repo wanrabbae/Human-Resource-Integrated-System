@@ -96,7 +96,7 @@ const getWorkExperience = async () => {
   }
 };
 const addWorkExperience = async (data) => {
-  var res = await api.post(`${endpoint}/mobile/profile/experience`,data);
+  var res = await api.post(`${endpoint}/mobile/profile/experience`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -114,7 +114,7 @@ const getSkill = async () => {
 };
 
 const addSkill = async (data) => {
-  var res = await api.post(`${endpoint}/mobile/profile/skill`,data);
+  var res = await api.post(`${endpoint}/mobile/profile/skill`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -142,6 +142,15 @@ const addEducation = async (data) => {
 
 const getLanguage = async () => {
   var res = await api.get(`${endpoint}/mobile/profile/language`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const addLanguage = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/language`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -184,5 +193,7 @@ export {
   getLincense,
   addWorkExperience,
   addEducation,
-  addLincense,addSkill
+  addLincense,
+  addSkill,
+  addLanguage,
 };

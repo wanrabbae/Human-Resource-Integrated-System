@@ -1,0 +1,281 @@
+import { useEffect, useState } from "react";
+import { Plus,Eye,FileText,DotsThreeOutline,MagnifyingGlass,FunnelSimple,DotsThreeOutlineVertical ,ArrowRight } from "phosphor-react";
+import { Button, Modal,Table } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import ReactSelect from "react-select";
+// import faker from 'faker';
+import { components } from "react-select";
+import { GetDoc } from "../../../Repository/DocumentRepository";
+  
+  
+
+
+function DetailDocument() {
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        BarElement,
+        Title,
+        Tooltip,
+        Legend
+      );
+    const [modal, setModal] = useState(false);
+    const options = {
+        responsive: true,
+        plugins: {
+            legend:{
+                display:false,
+            }
+        },
+        scales: {
+            x: {
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+                grid: {
+                  display: false,
+                },
+              },
+            },
+      };
+      
+    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep','Okt','Nov','Des'];
+      
+    const data = {
+        labels,
+        datasets: [
+          {
+            label: 'Document',
+            data:[80,30,90,100,80,90,110,40,20,90,100,60],
+            backgroundColor: '#780000',
+            borderRadius:'20px'
+          },
+        ],
+      };
+    const Option = (props) => {
+        return (
+          <div>
+            <components.Option {...props}>
+                <Form.Check 
+                    type="checkbox"
+                    checked={props.isSelected}
+                    onChange={() => null}
+                    id="default-checkbox"
+                    label={props.label}
+                /> 
+            </components.Option>
+          </div>
+        );
+    };
+    const showTo = [
+        { value: "1", label: "Manager" },
+        { value: "2", label: "Human Resources" },
+        { value: "3", label: "Sales Acquisition" },
+        { value: "4", label: "Sales External" },
+        { value: "5", label: "Sales Research and Media Social" },
+        { value: "6", label: "Advertiser" },
+        { value: "7", label: "Finance" },
+        { value: "8", label: "Support and Analyst" },
+        { value: "9", label: "Information and Technology Development" },
+    ];
+    
+    const [editUserData, setEditUserData] = useState();
+    const [Doc, setDoc] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetDoc();
+        setDoc(rec["result"]);
+    };
+    useEffect(() => {
+        inAwait();
+    }, []);
+    
+    return(
+        <>
+            <div className="container-fluid mb-4">
+                <div className="mt-5 p-5 row justify-content-around flex-wrap" style={{backgroundColor:'white',borderRadius:'10px'}}>
+                    <div className="px-4 pb-4 mb-4 pt-2" style={{borderRadius:'10px',border:'0',borderLeft:'15px solid #780000',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <input style={{border:'0',outline:'none',borderBottom:'1px solid #EDEDED',backgroundColor:'transparent',fontSize:"20px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 w-50 " type="text" placeholder="Document Title"/>
+                        <input style={{border:'0',outline:'none',borderBottom:'1px solid #EDEDED',backgroundColor:'transparent',fontSize:"12px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="text" placeholder="Document description"/>
+                    </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 1
+                        </div>
+                        <div>
+                            <Form.Check 
+                                type="radio"
+                                id="res"
+                                label="Option 1"
+                            />
+                            <Form.Check 
+                                type="radio"
+                                id="res"
+                                label="Option 2"
+                            />
+                            <Form.Check 
+                                type="radio"
+                                id="res"
+                                label="Option 3"
+                            />
+                        </div>
+                    </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 2
+                        </div>
+                        <div>
+                            <Form.Check 
+                                type="checkbox"
+                                id="res"
+                                label="Option 1"
+                            />
+                            <Form.Check 
+                                type="checkbox"
+                                id="res"
+                                label="Option 2"
+                            />
+                            <Form.Check 
+                                type="checkbox"
+                                id="res"
+                                label="Option 3"
+                            />
+                        </div>
+                    </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 2
+                        </div>
+                        <div>
+                            <input style={{border:'0',outline:'none',borderBottom:'1px solid #EDEDED',backgroundColor:'transparent',fontSize:"12px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="text" placeholder="Short Answer"/>
+                        </div>
+                    </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 3
+                        </div>
+                        <div>
+                            <textarea style={{border:'0',outline:'none',borderBottom:'1px solid #EDEDED',backgroundColor:'transparent',fontSize:"12px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="text" placeholder="Paragraph"></textarea>
+                        </div>
+                    </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 4
+                        </div>
+                        <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                            <option className="py-3" hidden>
+                            Select
+                            </option>
+                            <option className="py-3">Contract Not Renewed</option>
+                            <option className="py-3">Deceased</option>
+                            <option className="py-3">Dismised</option>
+                            <option className="py-3">Laid-off</option>
+                            <option className="py-3">Other</option>
+                        </select>
+                    </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 5
+                        </div>
+                        <input onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="file" placeholder="Short Answer"/>
+                    </div>
+                </div>
+            </div>
+            <Modal show={modal} size="lg"  onHide={() => setModal(false)}>
+                <Modal.Header  closeButton className="mx-4 mt-4"
+                    style={{ borderBottomColor: "transparent", }}>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                    Create Document Management System
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="mx-4">
+                    <div className="px-4 pb-4 mb-4 pt-2" style={{borderRadius:'10px',border:'0',borderLeft:'15px solid #780000',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <input style={{border:'0',outline:'none',borderBottom:'1px solid #EDEDED',backgroundColor:'transparent',fontSize:"20px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 w-50 " type="text" placeholder="Document Title"/>
+                        <input style={{border:'0',outline:'none',borderBottom:'1px solid #EDEDED',backgroundColor:'transparent',fontSize:"12px",fontWeight:'500'}} onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="text" placeholder="Document description"/>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col-5">
+                            <input onChange={(val)=>{}} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline" type="text" placeholder="Field Name"/>
+                        </div>
+                        <div className="col-3">
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Field Type</option>
+                                <option className="py-3">Short Answer</option>
+                                <option className="py-3">Paragraph</option>
+                                <option className="py-3">Multiple Choice</option>
+                                <option className="py-3">Check Box</option>
+                                <option className="py-3">Dropdown</option>
+                                <option className="py-3">Upload File</option>
+                                <option className="py-3">Date</option>
+                                <option className="py-3">Time</option>
+                            </select>
+                        </div>
+                        <div className="col-3">
+                            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                                <option className="py-3">Data Type</option>
+                                <option className="py-3">String</option>
+                                <option className="py-3">Interger</option>
+                                <option className="py-3">File</option>
+                            </select>
+                        </div>
+                        <div className="col">
+                            <button type="submit" className="rounded leading-tight p-2 btn bg-[#669BBC]"><Plus size={18} weight="bold" color="white" /></button>
+                        </div>
+                    </div>
+                        <div className=''>
+                            <label className="block text-gray-700 text-sm mb-2" for="username">
+                            Show To
+                            </label>
+                                <ReactSelect
+                                options={showTo}
+                                isMulti
+                                closeMenuOnSelect={false}
+                                hideSelectedOptions={false}
+                                components={{
+                                    Option
+                                }}
+                                />
+                        </div>
+                </Modal.Body>
+                <Modal.Footer className="m-4" style={{borderTop:'0'}}>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#ECECEC",
+                            color: "#003049",
+                        }}
+                        className="px-3"
+                        onClick={() => setModal(false)}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        style={{
+                            border:'none',
+                            fontSize:'14px',
+                            backgroundColor: "#0E5073",
+                            color: "#FFFFFF",
+                        }}
+                        className="px-3"
+                    >
+                        Create
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    )
+    
+}
+export default DetailDocument;

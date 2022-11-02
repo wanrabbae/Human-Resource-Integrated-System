@@ -157,6 +157,15 @@ const addEducation = async (data) => {
   }
 };
 
+const updateEducation = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/education`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const getLanguage = async () => {
   var res = await api.get(`${endpoint}/mobile/profile/language`);
   if (res.status == 200) {
@@ -175,6 +184,15 @@ const addLanguage = async (data) => {
   }
 };
 
+const editLanguage = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/language`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const getLincense = async () => {
   var res = await api.get(`${endpoint}/mobile/profile/license`);
   if (res.status == 200) {
@@ -186,6 +204,14 @@ const getLincense = async () => {
 
 const addLincense = async (data) => {
   var res = await api.post(`${endpoint}/mobile/profile/license`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const updateLincense = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/license`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -234,9 +260,12 @@ export {
   addWorkExperience,
   updateWorkExperience,
   addEducation,
+  updateEducation,
   addLincense,
+  updateLincense,
   addSkill,
   addLanguage,
+  editLanguage,
   getJob,
   updateJob,
 };

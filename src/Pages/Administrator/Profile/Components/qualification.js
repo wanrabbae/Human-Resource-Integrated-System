@@ -22,11 +22,14 @@ import {
   addLincense,
   addSkill,
   addWorkExperience,
+  editLanguage,
   getEducation,
   getLanguage,
   getLincense,
   getSkill,
   getWorkExperience,
+  updateEducation,
+  updateLincense,
   updateSkill,
   updateWorkExperience,
 } from "../../../../Repository/ProfileRepository";
@@ -41,8 +44,11 @@ function Qualification() {
   const [modalAddSkill, setModalAddSkill] = useState(false);
   const [modalEditSkill, setModalEditSkill] = useState(false);
   const [modalAddLanguage, setModalAddLanguage] = useState(false);
+  const [modalEditLanguage, setModalEditLanguage] = useState(false);
   const [modalAddEducation, setModalAddEducation] = useState(false);
+  const [modalEditEducation, setModalEditEducation] = useState(false);
   const [modalAddLisence, setModalAddLisence] = useState(false);
+  const [modalEditLisence, setModalEditLisence] = useState(false);
 
   const [workExperience, setWorkExperience] = useState([]);
   const [companyName, setCompanyName] = useState([]);
@@ -87,20 +93,34 @@ function Qualification() {
   const [startDateEdu, setStartDateEdu] = useState([]);
   const [endDateEdu, setEndDateEdu] = useState([]);
   const [gpa, setGpa] = useState([]);
+  const [idEdu, setidEdu] = useState([]);
+  const [editLevel, setEditLevel] = useState([]);
+  const [editInstitute, setEditInstitute] = useState([]);
+  const [editMajor, setEditMajor] = useState([]);
+  const [editYear, setEditYear] = useState([]);
+  const [editStartDateEdu, setEditStartDateEdu] = useState([]);
+  const [editEndDateEdu, setEditEndDateEdu] = useState([]);
+  const [editGpa, setEditGpa] = useState([]);
 
-  // console.log(level);
-  // console.log(institute);
-  // console.log(major);
-  // console.log(year);
-  // console.log(startDateEdu);
-  // console.log(endDateEdu);
-  // console.log(gpa);
+  // console.log(editLevel);
+  // console.log(editInstitute);
+  // console.log(editMajor);
+  // console.log(editYear);
+  // console.log(editStartDateEdu);
+  // console.log(editEndDateEdu);
+  // console.log(editGpa);
 
   const [language, setLanguage] = useState([]);
   const [languageId, setLanguageId] = useState([]);
   const [fluency, setFluency] = useState([]);
   const [competency, setCompetency] = useState([]);
   const [commentLanguage, setCommentLanguage] = useState([]);
+  const [idLanguage, setIdLanguage] = useState([]);
+  const [editLanguageId, setEditLanguageId] = useState([]);
+  const [editLanguageName, setEditLanguageName] = useState([]);
+  const [editFluency, setEditFluency] = useState([]);
+  const [editCompetency, setEditCompetency] = useState([]);
+  const [editCommentLanguage, setEditCommentLanguage] = useState([]);
 
   // console.log(languageId);
   // console.log(fluency);
@@ -112,6 +132,11 @@ function Qualification() {
   const [licenseNumber, setLicenseNumber] = useState([]);
   const [issuedDate, setIssuedDate] = useState([]);
   const [expiryDate, setExpiryDate] = useState([]);
+  const [idLicense, setidLicense] = useState([]);
+  const [editLicenseType, setEditLicenseType] = useState([]);
+  const [editLicenseNumber, setEditLicenseNumber] = useState([]);
+  const [editIssuedDate, setEditIssuedDate] = useState([]);
+  const [editExpiryDate, setEditExpiryDate] = useState([]);
 
   const [datajobTitle, setDataJobTitle] = useState([]);
   const [dataSkill, setDataSkill] = useState([]);
@@ -221,17 +246,50 @@ function Qualification() {
     console.log(res);
   };
 
+  const postDataEditEducation = async () => {
+    var requestBody = {
+      id: idEdu,
+      level: editLevel,
+      institute: editInstitute,
+      major: editMajor,
+      year: editYear,
+      gap: editGpa,
+      startDate: editStartDateEdu,
+      endDate: editEndDateEdu,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalEditEducation(false);
+    var res = await updateEducation(requestBody);
+    console.log(res);
+  };
+
   const postDataLanguage = async () => {
     var requestBody = {
       language_id: languageId,
       fluency: fluency,
-      competency, competency,
+      competency: competency,
       comment: commentLanguage,
     };
     console.log(requestBody);
     inAwait();
     setModalAddLanguage(false);
     var res = await addLanguage(requestBody);
+    console.log(res);
+  };
+
+  const postDataEditLanguage = async () => {
+    var requestBody = {
+      id: idLanguage,
+      language_id: editLanguageId,
+      fluency: editFluency,
+      competency: editCompetency,
+      comment: editCommentLanguage,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalEditLanguage(false);
+    var res = await editLanguage(requestBody);
     console.log(res);
   };
 
@@ -246,6 +304,21 @@ function Qualification() {
     inAwait();
     setModalAddLisence(false);
     var res = await addLincense(requestBody);
+    console.log(res);
+  };
+
+  const postDataEditLicense = async () => {
+    var requestBody = {
+      id: idLicense,
+      licenseType: editLicenseType,
+      issuedDate: editIssuedDate,
+      expiryDate: editExpiryDate,
+      licenseNumber: editLicenseNumber,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalEditLisence(false);
+    var res = await updateLincense(requestBody);
     console.log(res);
   };
 
@@ -561,6 +634,9 @@ function Qualification() {
                   <th className="align-middle " onClick={() => {}}>
                     GPA/Score <ImportExport fontSize="2px" />
                   </th>
+                  <th className="align-middle " onClick={() => {}}>
+                    Action <ImportExport fontSize="2px" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -570,6 +646,41 @@ function Qualification() {
                       <td className="align-middle">{val.level}</td>
                       <td className="align-middle">{val.year}</td>
                       <td className="align-middle">{val.gap}</td>
+                      <td className="align-middle">
+                      <div className="flex flex-row gap-2">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setidEdu(val.id)
+                            setEditLevel(val.level)
+                            setEditYear(val.year)
+                            setEditGpa(val.gap)
+                            setEditInstitute(val.institute)
+                            setEditMajor(val.major)
+                            setEditStartDateEdu(val.startDate)
+                            setEditEndDateEdu(val.endDate)
+                            setModalEditEducation(true);
+                          }}
+                        >
+                          <PencilSimple
+                            color="#003049"
+                            className="h-5 w-5"
+                            weight="bold"
+                            aria-hidden="true"
+                          />
+                        </button>
+                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                        // onclick={()=>setId(val.id)}
+                        >
+                          <Trash
+                            color="#003049"
+                            weight="bold"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </div>
+                    </td>
                     </tr>
                   ))
                 ) : (
@@ -653,6 +764,39 @@ function Qualification() {
                       <td className="align-middle">{val.fluency}</td>
                       <td className="align-middle">{val.competency}</td>
                       <td className="align-middle">{val.comment}</td>
+                      <td className="align-middle">
+                      <div className="flex flex-row gap-2">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setIdLanguage(val.id)
+                            setEditLanguageId(val.language.id)
+                            setEditLanguageName(val.language.name)
+                            setEditFluency(val.fluency)
+                            setEditCompetency(val.competency)
+                            setEditCommentLanguage(val.comment)
+                            setModalEditLanguage(true);
+                          }}
+                        >
+                          <PencilSimple
+                            color="#003049"
+                            className="h-5 w-5"
+                            weight="bold"
+                            aria-hidden="true"
+                          />
+                        </button>
+                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                        // onclick={()=>setId(val.id)}
+                        >
+                          <Trash
+                            color="#003049"
+                            weight="bold"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </div>
+                    </td>
                     </tr>
                   ))
                 ) : (
@@ -723,6 +867,9 @@ function Qualification() {
                   <th className="align-middle " onClick={() => {}}>
                     ExpiryDate <ImportExport fontSize="2px" />
                   </th>
+                  <th className="align-middle " onClick={() => {}}>
+                    Action <ImportExport fontSize="2px" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -732,6 +879,38 @@ function Qualification() {
                       <td className="align-middle">{val.licenseType}</td>
                       <td className="align-middle">{val.issuedDate}</td>
                       <td className="align-middle">{val.expiryDate}</td>
+                      <td className="align-middle">
+                      <div className="flex flex-row gap-2">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setidLicense(val.id)
+                            setEditLicenseType(val.licenseType)
+                            setEditIssuedDate(val.issuedDate)
+                            setEditExpiryDate(val.expiryDate)
+                            setEditLicenseNumber(val.licenseNumber)
+                            setModalEditLisence(true);
+                          }}
+                        >
+                          <PencilSimple
+                            color="#003049"
+                            className="h-5 w-5"
+                            weight="bold"
+                            aria-hidden="true"
+                          />
+                        </button>
+                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                        // onclick={()=>setId(val.id)}
+                        >
+                          <Trash
+                            color="#003049"
+                            weight="bold"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </div>
+                    </td>
                     </tr>
                   ))
                 ) : (
@@ -1364,6 +1543,173 @@ function Qualification() {
         </Modal.Footer>
       </Modal>
       <Modal
+        show={modalEditEducation}
+        size="lg"
+        onHide={() => setModalEditEducation(false)}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Educations
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="mb-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Level <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setEditLevel(e.target.value)}
+              >
+                <option hidden value={editLevel} className="py-3">
+                {editLevel != null
+                    ? editLevel
+                    : "Select Level"}
+                </option>
+                <option value="High School" className="py-3">
+                  High School
+                </option>
+                <option value="Bachelor's Degree" className="py-3">
+                  Bachelor's Degree
+                </option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Institute
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Institute name..."
+                value={editInstitute}
+                onChange={(e) => setEditInstitute(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Major/Specialization
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Specialization in Education...."
+                value={editMajor}
+                onChange={(e) => setEditMajor(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Year <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Type for hints..."
+                value={editYear}
+                onChange={(e) => setEditYear(e.target.value)}
+              />
+            </div>
+            <div className="col mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                GPA <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                value={editGpa}
+                onChange={(e) => setEditGpa(e.target.value)}
+              />
+            </div>
+            <div className="w-100"></div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Start Date <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="date"
+                placeholder="Username"
+                value={editStartDateEdu}
+                onChange={(e) => setEditStartDateEdu(e.target.value)}
+              />
+            </div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                End Date <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="date"
+                placeholder="Username"
+                value={editEndDateEdu}
+                onChange={(e) => setEditEndDateEdu(e.target.value)}
+              />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModalEditEducation(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-4"
+            onClick={postDataEditEducation}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
         show={modalAddLanguage}
         size="lg"
         onHide={() => setModalAddLanguage(false)}
@@ -1498,6 +1844,147 @@ function Qualification() {
         </Modal.Footer>
       </Modal>
       <Modal
+        show={modalEditLanguage}
+        size="lg"
+        onHide={() => setModalEditLanguage(false)}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Language
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="mb-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Language <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setEditLanguageId(e.target.value)}
+              >
+                <option value={editLanguageId} hidden className="py-3">
+                {editLanguageName != null
+                    ? editLanguageName
+                    : "Select Language"}
+                </option>
+                {dataLanguage.map((val, index) => (
+                  <option value={val.id} key={index} className="py-3">
+                    {val.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Fluency <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setEditFluency(e.target.value)}
+              >
+                <option hidden className="py-3">
+                {editFluency != null
+                    ? editFluency
+                    : "Select Fluency"}
+                </option>
+                <option value="Writting" className="py-3">
+                  Writting
+                </option>
+                <option value="Speaking" className="py-3">
+                  Speaking
+                </option>
+                <option value="Reading" className="py-3">
+                  Reading
+                </option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Competency <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setEditCompetency(e.target.value)}
+              >
+                <option hidden className="py-3">
+                {editCompetency != null
+                    ? editCompetency
+                    : "Select Relationship"}
+                </option>
+                <option value="Poor" className="py-3">
+                  Poor
+                </option>
+                <option value="Basic" className="py-3">
+                  Basic
+                </option>
+                <option value="Good" className="py-3">
+                  Good
+                </option>
+                <option value="Mother Tongue" className="py-3">
+                  Mother Tongue
+                </option>
+              </select>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Comment
+              </label>
+              <textarea
+                rows="4"
+                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                value={editCommentLanguage}
+                onChange={(e) => setEditCommentLanguage(e.target.value)}
+              ></textarea>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModalEditLanguage(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-4"
+            onClick={postDataEditLanguage}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
         show={modalAddLisence}
         size="lg"
         onHide={() => setModalAddLisence(false)}
@@ -1606,6 +2093,123 @@ function Qualification() {
             onClick={postDataLicense}
           >
             Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={modalEditLisence}
+        size="lg"
+        onHide={() => setModalEditLisence(false)}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Lisence
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="mb-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                License Type <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setEditLicenseType(e.target.value)}
+              >
+                <option hidden value={editLicenseType} className="py-3">
+                {editLicenseType != null
+                    ? editLicenseType
+                    : "Select Relationship"}
+                </option>
+                <option value="Junior Web Programming" className="py-3">
+                  Junior Web Programming{" "}
+                </option>
+                <option value="Senior Data Analyst" className="py-3">
+                  Senior Data Analyst
+                </option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                License Number <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Institute License Number..."
+                value={editLicenseNumber}
+                onChange={(e) => setEditLicenseNumber(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Issued Date <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="date"
+                value={editIssuedDate}
+                onChange={(e) => setEditIssuedDate(e.target.value)}
+              />
+            </div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Expiry Date <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="date"
+                value={editExpiryDate}
+                onChange={(e) => setEditExpiryDate(e.target.value)}
+              />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModalEditLisence(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-4"
+            onClick={postDataEditLicense}
+          >
+            Update
           </Button>
         </Modal.Footer>
       </Modal>

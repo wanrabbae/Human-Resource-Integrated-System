@@ -127,10 +127,10 @@ function EmployeeList() {
                     {employee.lastName}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.jobtitle_id}
+                    {employee?.jobtitle_id ?? ""}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.employeestatus_id}
+                    {employee?.employeestatus_id ?? ""}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {employee.otherId}

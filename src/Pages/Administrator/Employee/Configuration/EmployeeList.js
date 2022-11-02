@@ -8,14 +8,15 @@ import {
   DeleteEmployee,
   GetEmployee,
 } from "../../../../Repository/EmployeeRepository";
-import { ModalDelete } from "../../../../Components/Modals";
 import {
+  AddUser,
   GetEmployeeStatus,
   GetJobGrade,
   GetJobLevel,
   GetJobPosition,
   GetJobTittle,
 } from "../../../../Repository/AdminRepository";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 
 function EmployeeList() {
   const [modalAdd, setModalAdd] = useState(false);
@@ -29,6 +30,7 @@ function EmployeeList() {
   const [jobLevel, setJobLevel] = useState([]);
   const [jobPosition, setJobPosition] = useState([]);
   const [isdelete, setDelete] = useState(false);
+  const [id, setId] = useState();
   const [controller, setController] = useState({});
   const [profilePict, setProfilePict] = useState(null);
 
@@ -141,10 +143,7 @@ function EmployeeList() {
                   id
                 </th>
                 <th scope="col" className="py-3 px-6 w-72 turncate">
-                  first name
-                </th>
-                <th scope="col" className="py-3 px-6 w-72">
-                  last name
+                  Name
                 </th>
                 <th scope="col" className="py-3 px-6 w-96 turncate">
                   job title
@@ -167,10 +166,7 @@ function EmployeeList() {
                     {employee.id}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.firstName}
-                  </td>
-                  <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee.lastName}
+                    {employee.firstName + " " + employee.lastName}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {employee.jobtitle?.name}
@@ -184,11 +180,9 @@ function EmployeeList() {
                   <td className="py-4 px-6">
                     <div className="flex flex-row justify-end gap-3">
                       <button
-                        onClick={async () => {
-                          var data = await DeleteEmployee(employee.id);
-                          console.log(data);
-                          await inAwait();
-                          alert("Data has been deleted");
+                        onClick={() => {
+                          setDelete(true);
+                          setId(employee.id);
                         }}
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                       >
@@ -815,7 +809,7 @@ function EmployeeList() {
                       })
                     }
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="text"
+                    type="password"
                     placeholder=""
                   />
                 </div>
@@ -830,7 +824,7 @@ function EmployeeList() {
                       })
                     }
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="text"
+                    type="password"
                     placeholder=""
                   />
                 </div>
@@ -842,7 +836,7 @@ function EmployeeList() {
                     <input
                       id="default-radio-1"
                       type="radio"
-                      value={true}
+                      value={"Enable"}
                       onChange={(val) =>
                         setController({
                           ...controller,
@@ -869,7 +863,7 @@ function EmployeeList() {
                           status: val.target.value,
                         })
                       }
-                      value={false}
+                      value={"Disable"}
                       name="default-radio"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
@@ -914,13 +908,24 @@ function EmployeeList() {
               formData.append("joblevel_id", controller.joblevel_id);
               formData.append("jobposition_id", controller.jobposition_id);
               formData.append("location", controller.location);
-
               var data = await AddEmployee(formData);
+              if (show) {
+                await AddUser({
+                  role: "user",
+                  employee_id: data.data.id, //BELUM
+                  status: controller.status,
+                  username: controller.username,
+                  password: controller.password,
+                  location: controller.location,
+                });
+                console.log("SUCCESS CREATE USER");
+              }
+
               if (data.message == "Success") {
-                alert("Add Employee Success");
                 await inAwait();
                 setModalAdd(false);
                 setController({});
+                SwalSuccess({ message: "Success add employee" });
                 setProfilePict(null);
               }
             }}
@@ -1351,6 +1356,12 @@ function EmployeeList() {
       <ModalDelete
         close={() => {
           setDelete(false);
+        }}
+        submit={() => {
+          DeleteEmployee(id);
+          inAwait();
+          setDelete(false);
+          SwalSuccess({ message: "Success delete employee" });
         }}
         active={isdelete}
       />

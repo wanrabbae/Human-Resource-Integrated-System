@@ -44,11 +44,41 @@ const updateEmergencyContact = async (data) => {
   }
 };
 const deleteEmergencyContact = async (id) => {
-  var res = await api.delete(`${endpoint}/mobile/profile/emergencyContact?id=${id}`);
+  var res = await api.delete(
+    `${endpoint}/mobile/profile/emergencyContact?id=${id}`
+  );
   if (res.status == 200) {
     return res.data;
   }
 };
+
+const getDependents = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/dependent`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const addDependent = async (data) => {
+  var res = await api.post(`${endpoint}/addDependent`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+const updateDependent = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/dependent`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+// const deleteEmergencyContact = async (id) => {
+//   var res = await api.delete(`${endpoint}/mobile/profile/emergencyContact?id=${id}`);
+//   if (res.status == 200) {
+//     return res.data;
+//   }
+// };
 
 const updateProfile = async (data) => {
   var res = await api.post(`${endpoint}/updateProfile`, data);
@@ -57,4 +87,123 @@ const updateProfile = async (data) => {
   }
 };
 
-export { getProfile, updateProfile, getEmergencyContact, addEmergencyContact, updateEmergencyContact, deleteEmergencyContact };
+const getWorkExperience = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/experience`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const addWorkExperience = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/experience`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getSkill = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/skill`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const addSkill = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/skill`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getEducation = async (data) => {
+  var res = await api.get(`${endpoint}/mobile/profile/education`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const addEducation = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/education`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getLanguage = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/language`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const addLanguage = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/language`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getLincense = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/license`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const addLincense = async (data) => {
+  var res = await api.post(`${endpoint}/mobile/profile/license`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const getJob = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/job`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+export {
+  getProfile,
+  updateProfile,
+  getEmergencyContact,
+  addEmergencyContact,
+  updateEmergencyContact,
+  deleteEmergencyContact,
+  getDependents,
+  addDependent,
+  updateDependent,
+  getWorkExperience,
+  getSkill,
+  getEducation,
+  getLanguage,
+  getLincense,
+  addWorkExperience,
+  addEducation,
+  addLincense,
+  addSkill,
+  addLanguage,
+  getJob
+};

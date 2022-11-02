@@ -90,7 +90,10 @@ function Schedule() {
                 Employee Name <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
-                Date <ImportExport fontSize="2px" />
+                Start Date <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => {}}>
+                End Date <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
                 Job Title <ImportExport fontSize="2px" />
@@ -110,8 +113,11 @@ function Schedule() {
                   <td className="align-middle">
                     {schedule.employee.firstName} {schedule.employee.lastName}
                   </td>
-                  <td className="align-middle">{schedule.date}</td>
-                  <td className="align-middle">{schedule.employee.jobtitle.name}</td>
+                  <td className="align-middle">{schedule.startDate}</td>
+                  <td className="align-middle">{schedule.endDate}</td>
+                  <td className="align-middle">
+                    {schedule.employee.jobtitle.name}
+                  </td>
                   <td className="align-middle">{schedule.schedule}</td>
                 </tr>
               ))
@@ -186,7 +192,7 @@ function Schedule() {
                 />
               </div>
             </div>
-            <div className="col-md-6 mb-3">
+            <div className="col-md-12 mb-3">
               <div className="form-group">
                 <label className="mb-1">
                   Schedule <span className="text-danger">*</span>
@@ -201,16 +207,30 @@ function Schedule() {
                 </select>
               </div>
             </div>
-            <div className="col-md-6 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Effective Date <span className="text-danger">*</span>
-                </label>
-                <input
-                  id="date"
-                  type="date"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Start Date <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    id="date1"
+                    type="date"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    End Date <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    id="date2"
+                    type="date"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -239,7 +259,8 @@ function Schedule() {
             onClick={async () => {
               var requestBody = {
                 employeeId: employeeName.employeeName,
-                date: document.getElementById("date").value,
+                startDate: document.getElementById("date1").value,
+                endDate: document.getElementById("date2").value,
                 schedule: document.getElementById("schedule").value,
               };
               var res = await AddSchedule(requestBody);

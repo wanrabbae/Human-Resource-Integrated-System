@@ -7,11 +7,13 @@ import Tree, { useTreeState, treeHandlers } from "react-hyper-tree";
 import classNames from "classnames";
 import ChevronDown from "react-multiselect-checkboxes/lib/ChevronDown";
 import { ArrowDown, ArrowUp, CaretUp, CaretDown, TreeStructure } from "phosphor-react";
-import { addStructure, getCodeStructure, GetJobPosition, getStructure } from "../../../../Repository/AdminRepository";
+import { addStructure, deleteStructure, getCodeStructure, GetJobPosition, getStructure, updateStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
 
 function StructureOrganization() {
   const [isSelected, setSelected] = useState(false);
+  const [isEdited, setEdited] = useState(false);
+  const [controllerEdited, setController] = useState({});
   const [modalAdd, setModalAdd] = useState(false);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -62,37 +64,47 @@ function StructureOrganization() {
         >
           <div className="titles">
             <div className="node-title">
-              {node.data.position.name}
+              {isSelected == true ? `${node.data.position.name} ${node.data.structure_id}` : node.data.position.name}
             </div>
           </div>
-          {node.data.isSelected == true ? (
-            <div className="flex space-x-3">
-              <button
-                className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
-              //   onClick={() => setModalAdd(true)}
-              >
-                <DeleteOutlineOutlined
-                  className="text-[#003049] h-5 w-5"
-                  aria-hidden="true"
-                />
-              </button>
-              <button
-                className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
-              //   onClick={() => setModalAdd(true)}
-              >
-                <CreateOutlined
-                  className="text-[#003049] h-5 w-5"
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
-          ) : (
-            <></>
-          )}
+          <div className="flex space-x-3" style={{ display: `${isSelected == false ? "none" : ""}` }}>
+            <button
+              className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
+              onClick={async () => {
+                var data = await deleteStructure(node.data.id);
+                if (data.status == 200) {
+                  await loadData();
+                  alert(data.message);
+                }
+              }}
+            >
+              <DeleteOutlineOutlined
+                className="text-[#003049] h-5 w-5"
+                aria-hidden="true"
+              />
+            </button>
+            <button
+              className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
+              onClick={() => {
+                setController({
+                  id: node.data.id,
+                  position_id: node.data.position.id,
+                  structure_id: node.data.structure_id,
+                  color: node.data.color,
+                });
+                setEdited(true);
+              }}
+            >
+              <CreateOutlined
+                className="text-[#003049] h-5 w-5"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  ), [])
+  ), [isSelected])
   return (
     <>
       <div
@@ -132,7 +144,7 @@ function StructureOrganization() {
               label="Edit"
               labelPlacement="start"
               onChange={(val) => {
-                setSelected(!isSelected);
+                setSelected(!isSelected)
               }}
             />
           </div>
@@ -470,6 +482,107 @@ function StructureOrganization() {
                 setId("");
                 setModalAdd(false);
                 await loadData();
+              }
+            }}
+            type="button"
+            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+          >
+            Add
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal Update */}
+      <Modal show={isEdited} size="lg" onHide={() => setEdited(false)}>
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Update Organization Unit
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="grid grid-cols-1 gap-3 mt-3">
+            <div className="w-full">
+              <label className="text-xs">Job Position</label>
+              <select
+                disabled
+                id="job_position"
+                className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={async (val) => {
+                  var res = await getCodeStructure(val.target.value);
+                  setController({ ...controllerEdited, position_id: val.target.value, structure_id: res.result });
+
+                }}
+              >
+                <option className="py-3" hidden>
+                  Select
+                </option>
+                {jobPosition.map((e, i) => {
+                  return (
+                    <option
+                      key={e['id']}
+                      className="py-3"
+                      value={e['id']}
+                      selected={controllerEdited.position_id == e['id'] ? true : false}
+                    >
+                      {e['name']}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Structure ID</label>
+              <input
+                id="id"
+                readOnly
+                value={controllerEdited.structure_id}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="ID..."
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Color</label>
+              <input
+                value={controllerEdited.color}
+                id="color"
+                onChange={(v) => setController({ ...controllerEdited, color: v.target.value })}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="color"
+              />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <button
+            onClick={() => {
+              setEdited(false);
+              setController({});
+            }}
+            type="button"
+            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={async () => {
+              const requestBody = {
+                id: controllerEdited.id,
+                position_id: controllerEdited.position_id,
+                structure_id: controllerEdited.structure_id,
+                color: controllerEdited.color,
+              };
+              var data = await updateStructure(requestBody);
+              if (data.status == 200) {
+                await loadData();
+                setEdited(false);
+                setController({});
+              } else {
+                alert("Pastikan parent sudah dimasukan");
               }
             }}
             type="button"

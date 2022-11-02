@@ -3,26 +3,54 @@ import { React, useEffect, useState } from "react";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import profile from "../../../../Resourse/img/default-profile.png";
-import { GetEmployee } from "../../../../Repository/EmployeeRepository";
+import {
+  AddEmployee,
+  DeleteEmployee,
+  GetEmployee,
+} from "../../../../Repository/EmployeeRepository";
 import { ModalDelete } from "../../../../Components/Modals";
+import {
+  GetEmployeeStatus,
+  GetJobGrade,
+  GetJobLevel,
+  GetJobPosition,
+  GetJobTittle,
+} from "../../../../Repository/AdminRepository";
 
 function EmployeeList() {
   const [modalAdd, setModalAdd] = useState(false);
+  const [modalUpdate, setModalUpdate] = useState(false);
   const [modalFilter, setModalFilter] = useState(false);
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [jobTitle, setJobTitle] = useState([]);
+  const [employeeStatus, setEmployeeStatus] = useState([]);
+  const [jobGrade, setJobGrade] = useState([]);
+  const [jobLevel, setJobLevel] = useState([]);
+  const [jobPosition, setJobPosition] = useState([]);
   const [isdelete, setDelete] = useState(false);
+  const [controller, setController] = useState({});
+  const [profilePict, setProfilePict] = useState(null);
 
   const inAwait = async () => {
     var dataEmployees = await GetEmployee();
+    var _jobTitle = await GetJobTittle();
+    var _employeeStatus = await GetEmployeeStatus();
+    var _jobGrade = await GetJobGrade();
+    var _jobLevel = await GetJobLevel();
+    var _jobPosition = await GetJobPosition();
+    // console.log(_jobPosition);
+    setJobPosition(_jobPosition["result"]);
+    setJobLevel(_jobLevel);
+    setJobGrade(_jobGrade);
+    setJobTitle(_jobTitle);
+    setEmployeeStatus(_employeeStatus);
     setEmployees(dataEmployees);
   };
 
   useEffect(() => {
     inAwait();
   }, []);
-
-  console.log(employees);
 
   return (
     <>
@@ -79,7 +107,25 @@ function EmployeeList() {
             </div>
             <button
               className="bg-[#0E5073] hover:bg-[#003049] text-white flex items-center px-2 py-1 rounded-md"
-              onClick={() => setModalAdd(true)}
+              onClick={() => {
+                setController({
+                  image: "",
+                  firstName: "",
+                  joinDate: "",
+                  jobtitle_id: "",
+                  employeestatus_id: "",
+                  jobgrade_id: "",
+                  joblevel_id: "",
+                  jobposition_id: "",
+                  location: "",
+                  otherId: "",
+                  username: "",
+                  password: "",
+                  confirm: "",
+                  status: null,
+                });
+                setModalAdd(true);
+              }}
             >
               <PlusIcon className="text-white 5 w-5" aria-hidden="true" /> Add
               Employee
@@ -101,7 +147,7 @@ function EmployeeList() {
                   last name
                 </th>
                 <th scope="col" className="py-3 px-6 w-96 turncate">
-                  job tittle
+                  job title
                 </th>
                 <th scope="col" className="py-3 px-6 w-96">
                   employee status
@@ -127,25 +173,33 @@ function EmployeeList() {
                     {employee.lastName}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee?.jobtitle_id ?? ""}
+                    {employee.jobtitle?.name}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {employee?.employeestatus_id ?? ""}
+                    {employee.employeestatus?.name}
                   </td>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {employee.otherId}
                   </td>
                   <td className="py-4 px-6">
                     <div className="flex flex-row justify-end gap-3">
-                      <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                      <button
+                        onClick={async () => {
+                          var data = await DeleteEmployee(employee.id);
+                          console.log(data);
+                          await inAwait();
+                          alert("Data has been deleted");
+                        }}
+                        className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                      >
                         <TrashIcon className="h-5 w-5" aria-hidden="true" />
                       </button>
-                      <a
-                        href="/admin/profile"
+                      <button
+                        onClick={() => {}}
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                       >
                         <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                      </a>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -518,7 +572,15 @@ function EmployeeList() {
         </div>
       </div>
       {/* Modal Add */}
-      <Modal show={modalAdd} size="lg" onHide={() => setModalAdd(false)}>
+      <Modal
+        show={modalAdd}
+        size="lg"
+        onHide={() => {
+          setModalAdd(false);
+          setController({});
+          setProfilePict(null);
+        }}
+      >
         <Modal.Header
           closeButton
           className="mx-4 mt-4"
@@ -530,13 +592,36 @@ function EmployeeList() {
         </Modal.Header>
         <Modal.Body className="mx-4">
           <div>
-            <img src={profile} className="rounded-full"></img>
+            <label htmlFor="imagePicker">
+              <img
+                src={profilePict ?? profile}
+                className="rounded-full w-20 h-20"
+                style={{ objectFit: "fill" }}
+              ></img>
+            </label>
+            <input
+              type="file"
+              id="imagePicker"
+              multiple={false}
+              hidden
+              onChange={(val) => {
+                var url = URL.createObjectURL(val.currentTarget.files[0]);
+                setProfilePict(url);
+                setController({
+                  ...controller,
+                  image: val.currentTarget.files[0],
+                });
+              }}
+            />
           </div>
           <div className="grid grid-cols-2 gap-3 mt-3">
             <div className="w-full">
               <label className="text-xs">Employee Full Name</label>
               <input
-                onChange={(val) => {}}
+                onChange={(val) => {
+                  setController({ ...controller, firstName: val.target.value });
+                }}
+                value={controller?.firstName}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder="First Name"
@@ -554,6 +639,7 @@ function EmployeeList() {
             <div className="w-full">
               <label className="text-xs">Employee ID</label>
               <input
+                readOnly
                 onChange={(val) => {}}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
@@ -564,90 +650,107 @@ function EmployeeList() {
             <div className="w-full">
               <label className="text-xs">Joined Date</label>
               <input
-                onChange={(val) => {}}
+                onChange={(val) => {
+                  setController({ ...controller, joinDate: val.target.value });
+                }}
+                value={controller.joinDate}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="date"
                 placeholder=""
               />
             </div>
             <div className="w-full">
-              <label className="text-xs">Job Title</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>--Select--</option>
-                <option>GA</option>
-                <option>ADV RISET</option>
-                <option>SENIOR TREASURY</option>
-                <option>ADV AKUISISI TIKTOK</option>
-                <option>DS-S</option>
-                <option>ADV MP</option>
-                <option>MKT-S</option>
-                <option>PACKER Koord</option>
-                <option>ADV AKUISISI</option>
-                <option>DATA ANALYST</option>
-              </select>
-            </div>
-            <div className="w-full">
               <label className="text-xs">Employee Status</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    employeestatus_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
                 <option hidden>--Select--</option>
-                <option>Fulltime-Permanent</option>
-                <option>Fulltime-Contract</option>
-                <option>Fulltime-Probation</option>
-                <option>Part-Time Contract</option>
-                <option>Part-Time Internship</option>
+                {employeeStatus.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
               </select>
             </div>
             <div className="w-full">
-              <label className="text-xs">Job Category</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <label className="text-xs">Job Grade</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    jobgrade_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
                 <option hidden>--Select--</option>
-                <option>Officials and Managers</option>
-                <option>Sales Workers</option>
-                <option>Technicians</option>
-                <option>Service Workers</option>
+                {jobGrade.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
               </select>
             </div>
             <div className="w-full">
-              <label className="text-xs">Division</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <label className="text-xs">Job Level</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    joblevel_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
                 <option hidden>--Select--</option>
-                <option>HR/GA & F/A/T</option>
-                <option>MKT & SALES</option>
-                <option>BISDEV & COMMERS</option>
+                {jobLevel.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
               </select>
             </div>
             <div className="w-full">
-              <label className="text-xs">Department</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <label className="text-xs">Job Title</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    jobtitle_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
                 <option hidden>--Select--</option>
-                <option>HR/GA</option>
-                <option>DS-S</option>
-                <option>HR/GA & F/A/T</option>
-                <option>MKT-S</option>
-                <option>SCM</option>
-                <option>STD/SD</option>
+                {jobTitle.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
               </select>
             </div>
             <div className="w-full">
-              <label className="text-xs">Section</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <label className="text-xs">Job Position</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    jobposition_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
                 <option hidden>--Select--</option>
-                <option>GA</option>
-                <option>DS RISET NC</option>
-                <option>F/A/T</option>
-                <option>DS AKUISISI</option>
-                <option>DS-S</option>
-                <option>DS MP</option>
-                <option>MKT-S</option>
-                <option>FULFILLMENT</option>
-                <option>DS AKUISISI</option>
-                <option>SIM</option>
+                {jobPosition.map((e, i) => {
+                  return <option value={e.id}>{e?.name}</option>;
+                })}
               </select>
             </div>
+            <div className="w-full"></div>
             <div className="w-full">
               <label className="text-xs">Location</label>
               <input
-                onChange={(val) => {}}
+                onChange={(val) =>
+                  setController({ ...controller, location: val.target.value })
+                }
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder="ex : California"
@@ -664,7 +767,16 @@ function EmployeeList() {
                 value=""
                 id="default-toggle"
                 className="sr-only peer"
-                onClick={() => setShow((prev) => !prev)}
+                onClick={() => {
+                  setShow((prev) => !prev);
+                  setController({
+                    ...controller,
+                    username: "",
+                    password: "",
+                    confirm: "",
+                    status: null,
+                  });
+                }}
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
               <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -678,7 +790,13 @@ function EmployeeList() {
                 <div className="w-full">
                   <label className="text-xs">Username</label>
                   <input
-                    onChange={(val) => {}}
+                    value={controller.username}
+                    onChange={(val) =>
+                      setController({
+                        ...controller,
+                        username: val.target.value,
+                      })
+                    }
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     type="text"
                     placeholder=""
@@ -689,7 +807,13 @@ function EmployeeList() {
                 <div className="w-full">
                   <label className="text-xs">Password</label>
                   <input
-                    onChange={(val) => {}}
+                    value={controller.password}
+                    onChange={(val) =>
+                      setController({
+                        ...controller,
+                        password: val.target.value,
+                      })
+                    }
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     type="text"
                     placeholder=""
@@ -698,7 +822,13 @@ function EmployeeList() {
                 <div className="w-full">
                   <label className="text-xs">Confirm Password</label>
                   <input
-                    onChange={(val) => {}}
+                    value={controller.confirm}
+                    onChange={(val) =>
+                      setController({
+                        ...controller,
+                        confirm: val.target.value,
+                      })
+                    }
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     type="text"
                     placeholder=""
@@ -712,7 +842,13 @@ function EmployeeList() {
                     <input
                       id="default-radio-1"
                       type="radio"
-                      value=""
+                      value={true}
+                      onChange={(val) =>
+                        setController({
+                          ...controller,
+                          status: val.target.value,
+                        })
+                      }
                       name="default-radio"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
@@ -727,7 +863,13 @@ function EmployeeList() {
                     <input
                       id="default-radio-2"
                       type="radio"
-                      value=""
+                      onChange={(val) =>
+                        setController({
+                          ...controller,
+                          status: val.target.value,
+                        })
+                      }
+                      value={false}
                       name="default-radio"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
@@ -745,13 +887,404 @@ function EmployeeList() {
         </Modal.Body>
         <Modal.Footer className="m-4">
           <button
-            onClick={() => setModalAdd(false)}
+            onClick={() => {
+              setModalAdd(false);
+              setController({});
+              setProfilePict(null);
+            }}
             type="button"
             className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
           >
             Cancel
           </button>
           <button
+            onClick={async () => {
+              var formData = new FormData();
+              formData.append("image", controller.image);
+              formData.append("firstName", controller.firstName);
+              formData.append("lastName", "");
+              formData.append("employeeId", "GENERATE001");
+              formData.append("joinedDate", controller.joinDate);
+              formData.append("jobtitle_id", controller.jobtitle_id);
+              formData.append(
+                "employeestatus_id",
+                controller.employeestatus_id
+              );
+              formData.append("jobgrade_id", controller.jobgrade_id);
+              formData.append("joblevel_id", controller.joblevel_id);
+              formData.append("jobposition_id", controller.jobposition_id);
+              formData.append("location", controller.location);
+
+              var data = await AddEmployee(formData);
+              if (data.message == "Success") {
+                alert("Add Employee Success");
+                await inAwait();
+                setModalAdd(false);
+                setController({});
+                setProfilePict(null);
+              }
+            }}
+            type="button"
+            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+          >
+            Create
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal Update */}
+      <Modal
+        show={modalUpdate}
+        size="lg"
+        onHide={() => {
+          setModalUpdate(false);
+          setController({});
+          setProfilePict(null);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Update Employee
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div>
+            <label htmlFor="imagePicker">
+              <img
+                src={profilePict ?? profile}
+                className="rounded-full w-20 h-20"
+                style={{ objectFit: "fill" }}
+              ></img>
+            </label>
+            <input
+              type="file"
+              id="imagePicker"
+              multiple={false}
+              hidden
+              onChange={(val) => {
+                var url = URL.createObjectURL(val.currentTarget.files[0]);
+                setProfilePict(url);
+                setController({
+                  ...controller,
+                  image: val.currentTarget.files[0],
+                });
+              }}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-3 mt-3">
+            <div className="w-full">
+              <label className="text-xs">Employee Full Name</label>
+              <input
+                onChange={(val) => {
+                  setController({ ...controller, firstName: val.target.value });
+                }}
+                value={controller?.firstName}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="First Name"
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs"></label>
+              <input
+                onChange={(val) => {}}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="Last Name"
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Employee ID</label>
+              <input
+                readOnly
+                onChange={(val) => {}}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder=""
+                // readOnly
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Joined Date</label>
+              <input
+                onChange={(val) => {
+                  setController({ ...controller, joinDate: val.target.value });
+                }}
+                value={controller.joinDate}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="date"
+                placeholder=""
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Employee Status</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    employeestatus_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option hidden>--Select--</option>
+                {employeeStatus.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Job Grade</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    jobgrade_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option hidden>--Select--</option>
+                {jobGrade.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Job Level</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    joblevel_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option hidden>--Select--</option>
+                {jobLevel.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Job Title</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    jobtitle_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option hidden>--Select--</option>
+                {jobTitle.map((e, i) => {
+                  return <option value={e.id}>{e.name}</option>;
+                })}
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Job Position</label>
+              <select
+                onChange={(val) =>
+                  setController({
+                    ...controller,
+                    jobposition_id: val.target.value,
+                  })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option hidden>--Select--</option>
+                {jobPosition.map((e, i) => {
+                  return <option value={e.id}>{e?.name}</option>;
+                })}
+              </select>
+            </div>
+            <div className="w-full"></div>
+            <div className="w-full">
+              <label className="text-xs">Location</label>
+              <input
+                onChange={(val) =>
+                  setController({ ...controller, location: val.target.value })
+                }
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="ex : California"
+              />
+            </div>
+          </div>
+          <div className="mt-3">
+            <label
+              for="default-toggle"
+              className="inline-flex relative items-center cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                value=""
+                id="default-toggle"
+                className="sr-only peer"
+                onClick={() => {
+                  setShow((prev) => !prev);
+                  setController({
+                    ...controller,
+                    username: "",
+                    password: "",
+                    confirm: "",
+                    status: null,
+                  });
+                }}
+              />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Create Login Details
+              </span>
+            </label>
+          </div>
+          {show && (
+            <div className="mt-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="w-full">
+                  <label className="text-xs">Username</label>
+                  <input
+                    value={controller.username}
+                    onChange={(val) =>
+                      setController({
+                        ...controller,
+                        username: val.target.value,
+                      })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="text"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <div className="w-full">
+                  <label className="text-xs">Password</label>
+                  <input
+                    value={controller.password}
+                    onChange={(val) =>
+                      setController({
+                        ...controller,
+                        password: val.target.value,
+                      })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="text"
+                    placeholder=""
+                  />
+                </div>
+                <div className="w-full">
+                  <label className="text-xs">Confirm Password</label>
+                  <input
+                    value={controller.confirm}
+                    onChange={(val) =>
+                      setController({
+                        ...controller,
+                        confirm: val.target.value,
+                      })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="text"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 mt-3">
+                <label className="text-xs">Status</label>
+                <div className="flex flex-row gap-5">
+                  <div className="flex items-center mb-4">
+                    <input
+                      id="default-radio-1"
+                      type="radio"
+                      value={true}
+                      onChange={(val) =>
+                        setController({
+                          ...controller,
+                          status: val.target.value,
+                        })
+                      }
+                      name="default-radio"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                    <label
+                      for="default-radio-1"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Enable
+                    </label>
+                  </div>
+                  <div className="flex items-center mb-4">
+                    <input
+                      id="default-radio-2"
+                      type="radio"
+                      onChange={(val) =>
+                        setController({
+                          ...controller,
+                          status: val.target.value,
+                        })
+                      }
+                      value={false}
+                      name="default-radio"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                    <label
+                      for="default-radio-2"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Disable
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <button
+            onClick={() => {
+              setModalUpdate(false);
+              setController({});
+              setProfilePict(null);
+            }}
+            type="button"
+            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={async () => {
+              var formData = new FormData();
+              formData.append("image", controller.image);
+              formData.append("firstName", controller.firstName);
+              formData.append("lastName", "");
+              formData.append("employeeId", "GENERATE001");
+              formData.append("joinedDate", controller.joinDate);
+              formData.append("jobtitle_id", controller.jobtitle_id);
+              formData.append(
+                "employeestatus_id",
+                controller.employeestatus_id
+              );
+              formData.append("jobgrade_id", controller.jobgrade_id);
+              formData.append("joblevel_id", controller.joblevel_id);
+              formData.append("jobposition_id", controller.jobposition_id);
+              formData.append("location", controller.location);
+
+              // var data = await AddEmployee(formData);
+              // if (data.message == "Success") {
+              //   alert("Add Employee Success");
+              //   await inAwait();
+              //   setModalUpdate(false);
+              //   setController({});
+              //   setProfilePict(null);
+              // }
+            }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
           >

@@ -362,6 +362,12 @@ var getStructure = async (data = 0) => {
   }
 }
 
+var deleteStructure = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteStructure?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+}
 
 var getCodeStructure = async (id) => {
   var res = await axios.get(`${endpoint}/getCodeStructure?id=${id}`);
@@ -377,7 +383,16 @@ var addStructure = async (requestBody) => {
   }
 }
 
+var updateStructure = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateStructure`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+}
+
 export {
+  updateStructure,
+  deleteStructure,
   addStructure,
   getCodeStructure,
   GetUser,

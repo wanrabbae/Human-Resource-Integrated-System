@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Plus,Eye,FileText,DotsThreeOutline,MagnifyingGlass,FunnelSimple,DotsThreeOutlineVertical ,ArrowRight } from "phosphor-react";
 import { Button, Modal,Table } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
@@ -15,6 +15,7 @@ import { Bar } from 'react-chartjs-2';
 import ReactSelect from "react-select";
 // import faker from 'faker';
 import { components } from "react-select";
+import { GetDoc } from "../../../Repository/DocumentRepository";
   
   
 
@@ -88,8 +89,18 @@ function DocumentManagement() {
         { value: "7", label: "Finance" },
         { value: "8", label: "Support and Analyst" },
         { value: "9", label: "Information and Technology Development" },
-      ];
-      
+    ];
+    
+    const [editUserData, setEditUserData] = useState();
+    const [Doc, setDoc] = useState([]);
+    const inAwait = async () => {
+        var rec = await GetDoc();
+        setDoc(rec["result"]);
+    };
+    useEffect(() => {
+        inAwait();
+    }, []);
+    
     return(
         <>
             <div className="d-flex justify-content-between">
@@ -131,24 +142,41 @@ function DocumentManagement() {
                         <button style={{borderRadius:'10px',border:'1.5px solid #CACACA',color:"#0E5073",fontSize:"14px",fontWeight:'500'}} className=" btn d-flex align-items-center" type=""><FunnelSimple  className="me-2" size={15} weight="bold" />Filter</button>
                     </div>
                     <div className="grid grid-cols-5 gap-4">
-                        <div className="px-3 py-4" style={{backgroundColor:'#669BBC',borderRadius:'10px',fontWeight:'600'}}>
-                            <div>
-                                <div className="d-flex justify-content-end mb-2 ">
-                                    <a href="" className="ms-auto">
-                                        <DotsThreeOutlineVertical size={20} weight="fill" color="white"/>
-                                    </a>
-                                </div>
-                                <h3 className="mb-2" style={{fontSize:"20px",fontWeight:'600',color:'white'}}>Time Off</h3>
-                                <p className="mb-2" style={{fontSize:"12px",fontWeight:'400',color:"white",lineHeight:'15px'}}>Provide a description of the time off here</p>
-                                <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to 5 Role</h3>
-                                <div className="d-flex justify-content-end mt-3 ">
-                                    <a href="" className="ms-auto">
-                                        <ArrowRight size={30} weight="bold" color="white"/>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="px-3 py-4" style={{backgroundColor:'#669BBC',borderRadius:'10px',fontWeight:'600'}}>
+                        { Doc.length > 0 ? (
+                            Doc.map((val) => {
+                                return (
+                                    <div className="px-3 py-4" style={{backgroundColor:'#669BBC',borderRadius:'10px',fontWeight:'600'}}>
+                                        <div>
+                                            <div className="d-flex justify-content-end mb-2 ">
+                                                <a href="" className="ms-auto">
+                                                    <DotsThreeOutlineVertical size={20} weight="fill" color="white"/>
+                                                </a>
+                                            </div>
+                                            <h3 className="mb-2" style={{fontSize:"20px",fontWeight:'600',color:'white'}}>{val.title}</h3>
+                                            <p className="mb-2" style={{fontSize:"12px",fontWeight:'400',color:"white",lineHeight:'15px'}}>{val.description}</p>
+                                            <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to  Role</h3>
+                                            {/* <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to {JSON.parse(val.delegated_to).length} Role</h3> */}
+                                            <div className="d-flex justify-content-end mt-3 ">
+                                                <a 
+                                                href="#"
+                                                onClick={
+                                                    () => {
+                                                        window.location.href = "/document-management/detail";
+                                                      }
+                                                }
+                                                className="ms-auto">
+                                                    <ArrowRight size={30} weight="bold" color="white"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                            ) : (
+                                ""
+                            )
+                        }
+                        {/* <div className="px-3 py-4" style={{backgroundColor:'#669BBC',borderRadius:'10px',fontWeight:'600'}}>
                             <div>
                                 <div className="d-flex justify-content-end mb-2 ">
                                     <a href="" className="ms-auto">
@@ -232,7 +260,7 @@ function DocumentManagement() {
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

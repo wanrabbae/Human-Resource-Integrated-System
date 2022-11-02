@@ -27,6 +27,8 @@ import {
   getLincense,
   getSkill,
   getWorkExperience,
+  updateSkill,
+  updateWorkExperience,
 } from "../../../../Repository/ProfileRepository";
 import { useEffect } from "react";
 import { GetJobTittle } from "../../../../Repository/AdminRepository";
@@ -35,7 +37,9 @@ import { GetLanguages } from "../../../../Repository/LanguagesRepository";
 
 function Qualification() {
   const [modalAddWExperience, setModalAddWExperience] = useState(false);
+  const [modalEditExperience, setModalEditExperience] = useState(false);
   const [modalAddSkill, setModalAddSkill] = useState(false);
+  const [modalEditSkill, setModalEditSkill] = useState(false);
   const [modalAddLanguage, setModalAddLanguage] = useState(false);
   const [modalAddEducation, setModalAddEducation] = useState(false);
   const [modalAddLisence, setModalAddLisence] = useState(false);
@@ -46,9 +50,17 @@ function Qualification() {
   const [startDate, setStartDate] = useState([]);
   const [endDate, setEndDate] = useState([]);
   const [comment, setComment] = useState([]);
+  const [editIdWorkExp, setEditIdWorkExp] = useState([]);
+  const [editCompanyName, setEditCompanyName] = useState([]);
+  const [editJobTitleId, setEditJobTitleId] = useState([]);
+  const [editJobTitleName, setEditJobTitleName] = useState([]);
+  const [editStartDate, setEditStartDate] = useState([]);
+  const [editEndDate, setEditEndDate] = useState([]);
+  const [editComment, setEditComment] = useState([]);
 
-  // console.log(companyName);
-  // console.log(jobTitle);
+  // console.log(workExperience);
+  // console.log(editJobTitleId);
+  // console.log(editJobTitleName);
   // console.log(startDate);
   // console.log(endDate);
   // console.log(comment);
@@ -57,6 +69,11 @@ function Qualification() {
   const [skillId, setSkillId] = useState([]);
   const [yearsOfExperience, setYearsOfExperience] = useState([]);
   const [commentSkill, setCommentSkill] = useState([]);
+  const [editIdSkill, setEditIdSkill] = useState([]);
+  const [editSkillId, setEditSkillId] = useState([]);
+  const [editSkillName, setEditSkillName] = useState([]);
+  const [editYearsOfExperience, setEditYearsOfExperience] = useState([]);
+  const [editCommentSkill, setEditCommentSkill] = useState([]);
 
   // console.log(skillId);
   // console.log(yearsOfExperience)
@@ -85,10 +102,10 @@ function Qualification() {
   const [competency, setCompetency] = useState([]);
   const [commentLanguage, setCommentLanguage] = useState([]);
 
-  console.log(languageId);
-  console.log(fluency);
-  console.log(competency);
-  console.log(commentLanguage);
+  // console.log(languageId);
+  // console.log(fluency);
+  // console.log(competency);
+  // console.log(commentLanguage);
 
   const [license, setLicense] = useState([]);
   const [licenseType, setLicenseType] = useState([]);
@@ -144,6 +161,22 @@ function Qualification() {
     console.log(res);
   };
 
+  const postDataEditWorkExp = async () => {
+    var requestBody = {
+      id: editIdWorkExp,
+      companyName: editCompanyName,
+      jobTitle: editJobTitleId,
+      startDate: editStartDate,
+      endDate: editEndDate,
+      comment: editComment,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalEditExperience(false);
+    var res = await updateWorkExperience(requestBody);
+    console.log(res);
+  };
+
   const postDataSkill = async () => {
     var requestBody = {
       skill_id: skillId,
@@ -154,6 +187,20 @@ function Qualification() {
     inAwait();
     setModalAddSkill(false);
     var res = await addSkill(requestBody);
+    console.log(res);
+  };
+
+  const postDataEditSkill = async () => {
+    var requestBody = {
+      id: editIdSkill,
+      skill_id: editSkillId,
+      yearsOfExperience: editYearsOfExperience,
+      comment: editCommentSkill,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModalEditSkill(false);
+    var res = await updateSkill(requestBody);
     console.log(res);
   };
 
@@ -284,6 +331,9 @@ function Qualification() {
                   <th className="align-middle " onClick={() => {}}>
                     Comment <ImportExport fontSize="2px" />
                   </th>
+                  <th className="align-middle " onClick={() => {}}>
+                    Action <ImportExport fontSize="2px" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -295,6 +345,40 @@ function Qualification() {
                       <td className="align-middle">{val.startDate}</td>
                       <td className="align-middle">{val.endDate}</td>
                       <td className="align-middle">{val.comment}</td>
+                      <td className="align-middle">
+                      <div className="flex flex-row gap-2">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setEditIdWorkExp(val.id)
+                            setEditCompanyName(val.companyName)
+                            setEditJobTitleId(val.jobTitle?.id)
+                            setEditJobTitleName(val.jobTitle?.name)
+                            setEditStartDate(val.startDate)
+                            setEditEndDate(val.endDate)
+                            setEditComment(val.comment)
+                            setModalEditExperience(true);
+                          }}
+                        >
+                          <PencilSimple
+                            color="#003049"
+                            className="h-5 w-5"
+                            weight="bold"
+                            aria-hidden="true"
+                          />
+                        </button>
+                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                        // onclick={()=>setId(val.id)}
+                        >
+                          <Trash
+                            color="#003049"
+                            weight="bold"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </div>
+                    </td>
                     </tr>
                   ))
                 ) : (
@@ -362,6 +446,9 @@ function Qualification() {
                   <th className="align-middle " onClick={() => {}}>
                     Year of Experience <ImportExport fontSize="2px" />
                   </th>
+                  <th className="align-middle " onClick={() => {}}>
+                    Action <ImportExport fontSize="2px" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -370,6 +457,38 @@ function Qualification() {
                     <tr key={index} style={{ fontSize: "14px" }}>
                       <td className="align-middle">{val.skill?.name}</td>
                       <td className="align-middle">{val.yearsOfExperience}</td>
+                      <td className="align-middle">
+                      <div className="flex flex-row gap-2">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setEditIdSkill(val.id)
+                            setEditSkillId(val.skill.id)
+                            setEditSkillName(val.skill.name)
+                            setEditYearsOfExperience(val.yearsOfExperience)
+                            setEditCommentSkill(val.comment)
+                            setModalEditSkill(true);
+                          }}
+                        >
+                          <PencilSimple
+                            color="#003049"
+                            className="h-5 w-5"
+                            weight="bold"
+                            aria-hidden="true"
+                          />
+                        </button>
+                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                        // onclick={()=>setId(val.id)}
+                        >
+                          <Trash
+                            color="#003049"
+                            weight="bold"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </div>
+                    </td>
                     </tr>
                   ))
                 ) : (
@@ -756,6 +875,138 @@ function Qualification() {
         </Modal.Footer>
       </Modal>
       <Modal
+        show={modalEditExperience}
+        size="lg"
+        onHide={() => setModalEditExperience(false)}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Work Experience
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="mb-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Comany Name <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Company name.."
+                value={editCompanyName}
+                onChange={(e) => setEditCompanyName(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Job Title<span style={{ color: "#780000" }}>*</span>
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setEditJobTitleId(e.target.value)}
+              >
+                <option value={editJobTitleId} hidden className="py-3">{editJobTitleName != null
+                    ? editJobTitleName
+                    : "Select Job Title"}</option>
+                {datajobTitle.map((val, index) => (
+                  <option key={index} value={val.id} className="py-3">
+                    {val.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="row mb-4">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Start Date <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="date"
+                placeholder="Username"
+                value={editStartDate}
+                onChange={(e) => setEditStartDate(e.target.value)}
+              />
+            </div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                End Date <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="date"
+                placeholder="Username"
+                value={editEndDate}
+                onChange={(e) => setEditEndDate(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Comment
+              </label>
+              <textarea
+                rows="4"
+                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                value={editComment}
+                onChange={(e) => setEditComment(e.target.value)}
+              ></textarea>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModalEditExperience(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-4"
+            onClick={postDataEditWorkExp}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
         show={modalAddSkill}
         size="lg"
         onHide={() => setModalAddSkill(false)}
@@ -847,6 +1098,107 @@ function Qualification() {
             }}
             className="px-4"
             onClick={postDataSkill}
+          >
+            Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={modalEditSkill}
+        size="lg"
+        onHide={() => setModalEditSkill(false)}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Skill
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div className="mb-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Skill <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                value={editSkillId}
+                onChange={(e) => setEditSkillId(e.target.value)}
+              >
+                <option hidden value={editSkillId} className="py-3">{editSkillName != null
+                    ? editSkillName
+                    : "Select SKill"}
+                </option>
+                {dataSkill.map((val, index) => (
+                  <option value={val.id} key={index} className="py-3">
+                    {val.name}
+                  </option>
+                ))}
+              </select>
+              {/* Graphic Designer */}
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Year of Experience
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Year of Experience"
+                value={editYearsOfExperience}
+                onChange={(e) => setEditYearsOfExperience(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Comment
+              </label>
+              <textarea
+                rows="4"
+                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                value={editCommentSkill}
+                onChange={(e) => setEditCommentSkill(e.target.value)}
+              ></textarea>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4" style={{ borderTopColor: "transparent" }}>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => setModalEditSkill(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-4"
+            onClick={postDataEditSkill}
           >
             Add
           </Button>

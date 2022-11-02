@@ -103,6 +103,14 @@ const addWorkExperience = async (data) => {
     return res;
   }
 };
+const updateWorkExperience = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/experience`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
 
 const getSkill = async () => {
   var res = await api.get(`${endpoint}/mobile/profile/skill`);
@@ -115,6 +123,15 @@ const getSkill = async () => {
 
 const addSkill = async (data) => {
   var res = await api.post(`${endpoint}/mobile/profile/skill`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const updateSkill = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/skill`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -210,10 +227,12 @@ export {
   updateDependent,
   getWorkExperience,
   getSkill,
+  updateSkill,
   getEducation,
   getLanguage,
   getLincense,
   addWorkExperience,
+  updateWorkExperience,
   addEducation,
   addLincense,
   addSkill,

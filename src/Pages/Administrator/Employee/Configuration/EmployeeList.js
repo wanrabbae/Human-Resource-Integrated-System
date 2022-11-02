@@ -7,6 +7,7 @@ import {
   AddEmployee,
   DeleteEmployee,
   GetEmployee,
+  UpdateEmployee,
 } from "../../../../Repository/EmployeeRepository";
 import {
   AddUser,
@@ -189,7 +190,27 @@ function EmployeeList() {
                         <TrashIcon className="h-5 w-5" aria-hidden="true" />
                       </button>
                       <button
-                        onClick={() => {}}
+                        onClick={() => {
+                          setController({
+                            image: null,
+                            firstName: employee.firstName,
+                            joinDate: employee.joinDate,
+                            jobtitle_id: employee.jobtitle_id,
+                            employeestatus_id: employee.employeestatus_id,
+                            jobgrade_id: employee.jobgrade_id,
+                            joblevel_id: employee.joblevel_id,
+                            jobposition_id: employee.jobposition_id,
+                            location: employee.location,
+                            otherId: employee.otherId,
+                            username: "",
+                            password: "",
+                            confirm: "",
+                            status: null,
+                            id: employee.id,
+                          });
+                          setProfilePict(employee.image);
+                          setModalUpdate(true);
+                        }}
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                       >
                         <PencilIcon className="h-5 w-5" aria-hidden="true" />
@@ -624,7 +645,7 @@ function EmployeeList() {
             <div className="w-full">
               <label className="text-xs"></label>
               <input
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder="Last Name"
@@ -634,11 +655,11 @@ function EmployeeList() {
               <label className="text-xs">Employee ID</label>
               <input
                 readOnly
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder=""
-                // readOnly
+              // readOnly
               />
             </div>
             <div className="w-full">
@@ -996,7 +1017,7 @@ function EmployeeList() {
             <div className="w-full">
               <label className="text-xs"></label>
               <input
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder="Last Name"
@@ -1006,11 +1027,11 @@ function EmployeeList() {
               <label className="text-xs">Employee ID</label>
               <input
                 readOnly
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder=""
-                // readOnly
+              // readOnly
               />
             </div>
             <div className="w-full">
@@ -1038,7 +1059,7 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {employeeStatus.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
+                  return <option selected={controller.employeestatus_id == e.id ? true : false} value={e.id}>{e.name}</option>;
                 })}
               </select>
             </div>
@@ -1055,7 +1076,7 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobGrade.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
+                  return <option selected={controller.jobgrade_id == e.id ? true : false} value={e.id}>{e.name}</option>;
                 })}
               </select>
             </div>
@@ -1072,7 +1093,7 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobLevel.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
+                  return <option selected={controller.joblevel_id == e.id ? true : false} value={e.id}>{e.name}</option>;
                 })}
               </select>
             </div>
@@ -1089,7 +1110,7 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobTitle.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
+                  return <option selected={controller.jobtitle_id == e.id ? true : false} value={e.id}>{e.name}</option>;
                 })}
               </select>
             </div>
@@ -1106,7 +1127,7 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobPosition.map((e, i) => {
-                  return <option value={e.id}>{e?.name}</option>;
+                  return <option selected={controller.jobposition_id == e.id ? true : false} value={e.id}>{e?.name}</option>;
                 })}
               </select>
             </div>
@@ -1114,6 +1135,7 @@ function EmployeeList() {
             <div className="w-full">
               <label className="text-xs">Location</label>
               <input
+                value={controller.location}
                 onChange={(val) =>
                   setController({ ...controller, location: val.target.value })
                 }
@@ -1266,6 +1288,7 @@ function EmployeeList() {
           <button
             onClick={async () => {
               var formData = new FormData();
+              formData.append("id", controller.id);
               formData.append("image", controller.image);
               formData.append("firstName", controller.firstName);
               formData.append("lastName", "");
@@ -1274,26 +1297,27 @@ function EmployeeList() {
               formData.append("jobtitle_id", controller.jobtitle_id);
               formData.append(
                 "employeestatus_id",
-                controller.employeestatus_id
+                controller.employeestatus_id,
               );
               formData.append("jobgrade_id", controller.jobgrade_id);
               formData.append("joblevel_id", controller.joblevel_id);
               formData.append("jobposition_id", controller.jobposition_id);
               formData.append("location", controller.location);
 
-              // var data = await AddEmployee(formData);
-              // if (data.message == "Success") {
-              //   alert("Add Employee Success");
-              //   await inAwait();
-              //   setModalUpdate(false);
-              //   setController({});
-              //   setProfilePict(null);
-              // }
+              // console.log(controller);
+              var data = await UpdateEmployee(formData);
+              if (data.message == "Success update employee") {
+                alert("Update employee has been success");
+                await inAwait();
+                setModalUpdate(false);
+                setController({});
+                setProfilePict(null);
+              }
             }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
           >
-            Create
+            Update
           </button>
         </Modal.Footer>
       </Modal>

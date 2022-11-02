@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import Select from "react-select";
-import { getJob } from "../../../../Repository/ProfileRepository";
+import { getJob, updateJob } from "../../../../Repository/ProfileRepository";
 
 function Job() {
   const [modal, setModal] = useState(false);
@@ -11,16 +11,36 @@ function Job() {
 
   const [contractStart, setContractStart] = useState([])
   const [contractEnd, setContractEnd] = useState([])
-  const [contractDetails, setContractDetails] = useState([])
+  const [contractFile, setContractFile] = useState([])
+
+  console.log(contractStart)
+  console.log(contractEnd)
+  console.log(contractFile)
 
   const inAwait = async () => {
     var data = await getJob();
     setJob(data.result);
+    setContractStart(data.result.contractStart)
+    setContractEnd(data.result.contractEnd)
+    setContractFile(data.result.contractFile)
   };
 
   useEffect(() => {
     inAwait();
   }, []);
+
+  const postData = async () => {
+    var requestBody = {
+      contractStart: contractStart,
+      contractEnd: contractEnd,
+      contractFile: contractFile,
+    };
+    console.log(requestBody);
+    inAwait();
+    setModal(false);
+    var res = await updateJob(requestBody);
+    console.log(res);
+  };
   return (
     <>
       <div>
@@ -210,6 +230,7 @@ function Job() {
                     className="block text-sm w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     id="file_input"
                     type="file"
+                    onChange={(e)=>setContractFile(e.target.files[0])}
                   />
                 </div>
               </div>
@@ -232,6 +253,7 @@ function Job() {
                 color: "#FFFFFF",
               }}
               className="px-4"
+              onClick={postData}
             >
               Save
             </Button>

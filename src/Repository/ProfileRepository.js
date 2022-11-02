@@ -185,6 +185,19 @@ const getJob = async () => {
   }
 };
 
+const updateJob = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/job`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 export {
   getProfile,
   updateProfile,
@@ -205,5 +218,6 @@ export {
   addLincense,
   addSkill,
   addLanguage,
-  getJob
+  getJob,
+  updateJob,
 };

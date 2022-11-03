@@ -22,9 +22,13 @@ import {
   updateEmergencyContact,
 } from "../../../../Repository/ProfileRepository";
 
+import { ModalDelete } from "../../../../Components/Modals";
+
 function EmergencyContact() {
   const [modal, setModal] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
+  const [isdelete, setDelete] = useState(false);
+
   const [id, setId] = useState([]);
   const [emergencyContact, setEmergencyContact] = useState([]);
   const [name, setName] = useState([]);
@@ -164,11 +168,10 @@ function EmergencyContact() {
                       </button>
                       <button
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        onclick={()=>{setId(val.id)}
-                          // inAwait();
-                          // var res = await deleteEmergencyContact(val.id);
-                          // console.log(res)
-                        }
+                        onClick={() => {
+                          setId(val.id);
+                          setDelete(true);
+                        }}
                       >
                         <Trash
                           color="#003049"
@@ -393,6 +396,17 @@ function EmergencyContact() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          deleteEmergencyContact(id);
+          inAwait();
+          setDelete(false);
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

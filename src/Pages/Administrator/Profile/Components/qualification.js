@@ -22,6 +22,12 @@ import {
   addLincense,
   addSkill,
   addWorkExperience,
+  deleteEducation,
+  deleteLanguage,
+  deleteLicense,
+  deleteLincense,
+  deleteSkill,
+  deleteWorkExperience,
   editLanguage,
   getEducation,
   getLanguage,
@@ -37,6 +43,7 @@ import { useEffect } from "react";
 import { GetJobTittle } from "../../../../Repository/AdminRepository";
 import { GetSkills } from "../../../../Repository/SkillsRepository";
 import { GetLanguages } from "../../../../Repository/LanguagesRepository";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function Qualification() {
   const [modalAddWExperience, setModalAddWExperience] = useState(false);
@@ -49,6 +56,14 @@ function Qualification() {
   const [modalEditEducation, setModalEditEducation] = useState(false);
   const [modalAddLisence, setModalAddLisence] = useState(false);
   const [modalEditLisence, setModalEditLisence] = useState(false);
+
+  const [isdeleteWork, setDeleteWork] = useState(false);
+  const [isdeleteSkill, setDeleteSkill] = useState(false);
+  const [isdeleteEdu, setDeleteEdu] = useState(false);
+  const [isdeleteLanguage, setDeleteLanguage] = useState(false);
+  const [isdeleteLicense, setDeleteLicense] = useState(false);
+
+  const [id, setId] = useState([]);
 
   const [workExperience, setWorkExperience] = useState([]);
   const [companyName, setCompanyName] = useState([]);
@@ -419,39 +434,43 @@ function Qualification() {
                       <td className="align-middle">{val.endDate}</td>
                       <td className="align-middle">{val.comment}</td>
                       <td className="align-middle">
-                      <div className="flex flex-row gap-2">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setEditIdWorkExp(val.id)
-                            setEditCompanyName(val.companyName)
-                            setEditJobTitleId(val.jobTitle?.id)
-                            setEditJobTitleName(val.jobTitle?.name)
-                            setEditStartDate(val.startDate)
-                            setEditEndDate(val.endDate)
-                            setEditComment(val.comment)
-                            setModalEditExperience(true);
-                          }}
-                        >
-                          <PencilSimple
-                            color="#003049"
-                            className="h-5 w-5"
-                            weight="bold"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        // onclick={()=>setId(val.id)}
-                        >
-                          <Trash
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                    </td>
+                        <div className="flex flex-row gap-2">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setEditIdWorkExp(val.id);
+                              setEditCompanyName(val.companyName);
+                              setEditJobTitleId(val.jobTitle?.id);
+                              setEditJobTitleName(val.jobTitle?.name);
+                              setEditStartDate(val.startDate);
+                              setEditEndDate(val.endDate);
+                              setEditComment(val.comment);
+                              setModalEditExperience(true);
+                            }}
+                          >
+                            <PencilSimple
+                              color="#003049"
+                              className="h-5 w-5"
+                              weight="bold"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setId(val.id);
+                              setDeleteWork(true);
+                            }}
+                          >
+                            <Trash
+                              color="#003049"
+                              weight="bold"
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -531,37 +550,41 @@ function Qualification() {
                       <td className="align-middle">{val.skill?.name}</td>
                       <td className="align-middle">{val.yearsOfExperience}</td>
                       <td className="align-middle">
-                      <div className="flex flex-row gap-2">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setEditIdSkill(val.id)
-                            setEditSkillId(val.skill.id)
-                            setEditSkillName(val.skill.name)
-                            setEditYearsOfExperience(val.yearsOfExperience)
-                            setEditCommentSkill(val.comment)
-                            setModalEditSkill(true);
-                          }}
-                        >
-                          <PencilSimple
-                            color="#003049"
-                            className="h-5 w-5"
-                            weight="bold"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        // onclick={()=>setId(val.id)}
-                        >
-                          <Trash
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                    </td>
+                        <div className="flex flex-row gap-2">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setEditIdSkill(val.id);
+                              setEditSkillId(val.skill.id);
+                              setEditSkillName(val.skill.name);
+                              setEditYearsOfExperience(val.yearsOfExperience);
+                              setEditCommentSkill(val.comment);
+                              setModalEditSkill(true);
+                            }}
+                          >
+                            <PencilSimple
+                              color="#003049"
+                              className="h-5 w-5"
+                              weight="bold"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setId(val.id);
+                              setDeleteSkill(true);
+                            }}
+                          >
+                            <Trash
+                              color="#003049"
+                              weight="bold"
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -647,40 +670,44 @@ function Qualification() {
                       <td className="align-middle">{val.year}</td>
                       <td className="align-middle">{val.gap}</td>
                       <td className="align-middle">
-                      <div className="flex flex-row gap-2">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setidEdu(val.id)
-                            setEditLevel(val.level)
-                            setEditYear(val.year)
-                            setEditGpa(val.gap)
-                            setEditInstitute(val.institute)
-                            setEditMajor(val.major)
-                            setEditStartDateEdu(val.startDate)
-                            setEditEndDateEdu(val.endDate)
-                            setModalEditEducation(true);
-                          }}
-                        >
-                          <PencilSimple
-                            color="#003049"
-                            className="h-5 w-5"
-                            weight="bold"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        // onclick={()=>setId(val.id)}
-                        >
-                          <Trash
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                    </td>
+                        <div className="flex flex-row gap-2">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setidEdu(val.id);
+                              setEditLevel(val.level);
+                              setEditYear(val.year);
+                              setEditGpa(val.gap);
+                              setEditInstitute(val.institute);
+                              setEditMajor(val.major);
+                              setEditStartDateEdu(val.startDate);
+                              setEditEndDateEdu(val.endDate);
+                              setModalEditEducation(true);
+                            }}
+                          >
+                            <PencilSimple
+                              color="#003049"
+                              className="h-5 w-5"
+                              weight="bold"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setId(val.id);
+                              setDeleteEdu(true);
+                            }}
+                          >
+                            <Trash
+                              color="#003049"
+                              weight="bold"
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -765,38 +792,42 @@ function Qualification() {
                       <td className="align-middle">{val.competency}</td>
                       <td className="align-middle">{val.comment}</td>
                       <td className="align-middle">
-                      <div className="flex flex-row gap-2">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setIdLanguage(val.id)
-                            setEditLanguageId(val.language.id)
-                            setEditLanguageName(val.language.name)
-                            setEditFluency(val.fluency)
-                            setEditCompetency(val.competency)
-                            setEditCommentLanguage(val.comment)
-                            setModalEditLanguage(true);
-                          }}
-                        >
-                          <PencilSimple
-                            color="#003049"
-                            className="h-5 w-5"
-                            weight="bold"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        // onclick={()=>setId(val.id)}
-                        >
-                          <Trash
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                    </td>
+                        <div className="flex flex-row gap-2">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setIdLanguage(val.id);
+                              setEditLanguageId(val.language.id);
+                              setEditLanguageName(val.language.name);
+                              setEditFluency(val.fluency);
+                              setEditCompetency(val.competency);
+                              setEditCommentLanguage(val.comment);
+                              setModalEditLanguage(true);
+                            }}
+                          >
+                            <PencilSimple
+                              color="#003049"
+                              className="h-5 w-5"
+                              weight="bold"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setId(val.id);
+                              setDeleteLanguage(true);
+                            }}
+                          >
+                            <Trash
+                              color="#003049"
+                              weight="bold"
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -880,37 +911,41 @@ function Qualification() {
                       <td className="align-middle">{val.issuedDate}</td>
                       <td className="align-middle">{val.expiryDate}</td>
                       <td className="align-middle">
-                      <div className="flex flex-row gap-2">
-                        <button
-                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                          onClick={() => {
-                            setidLicense(val.id)
-                            setEditLicenseType(val.licenseType)
-                            setEditIssuedDate(val.issuedDate)
-                            setEditExpiryDate(val.expiryDate)
-                            setEditLicenseNumber(val.licenseNumber)
-                            setModalEditLisence(true);
-                          }}
-                        >
-                          <PencilSimple
-                            color="#003049"
-                            className="h-5 w-5"
-                            weight="bold"
-                            aria-hidden="true"
-                          />
-                        </button>
-                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        // onclick={()=>setId(val.id)}
-                        >
-                          <Trash
-                            color="#003049"
-                            weight="bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                    </td>
+                        <div className="flex flex-row gap-2">
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setidLicense(val.id);
+                              setEditLicenseType(val.licenseType);
+                              setEditIssuedDate(val.issuedDate);
+                              setEditExpiryDate(val.expiryDate);
+                              setEditLicenseNumber(val.licenseNumber);
+                              setModalEditLisence(true);
+                            }}
+                          >
+                            <PencilSimple
+                              color="#003049"
+                              className="h-5 w-5"
+                              weight="bold"
+                              aria-hidden="true"
+                            />
+                          </button>
+                          <button
+                            className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                            onClick={() => {
+                              setId(val.id);
+                              setDeleteLicense(true);
+                            }}
+                          >
+                            <Trash
+                              color="#003049"
+                              weight="bold"
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -1096,9 +1131,11 @@ function Qualification() {
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setEditJobTitleId(e.target.value)}
               >
-                <option value={editJobTitleId} hidden className="py-3">{editJobTitleName != null
+                <option value={editJobTitleId} hidden className="py-3">
+                  {editJobTitleName != null
                     ? editJobTitleName
-                    : "Select Job Title"}</option>
+                    : "Select Job Title"}
+                </option>
                 {datajobTitle.map((val, index) => (
                   <option key={index} value={val.id} className="py-3">
                     {val.name}
@@ -1310,9 +1347,8 @@ function Qualification() {
                 value={editSkillId}
                 onChange={(e) => setEditSkillId(e.target.value)}
               >
-                <option hidden value={editSkillId} className="py-3">{editSkillName != null
-                    ? editSkillName
-                    : "Select SKill"}
+                <option hidden value={editSkillId} className="py-3">
+                  {editSkillName != null ? editSkillName : "Select SKill"}
                 </option>
                 {dataSkill.map((val, index) => (
                   <option value={val.id} key={index} className="py-3">
@@ -1570,9 +1606,7 @@ function Qualification() {
                 onChange={(e) => setEditLevel(e.target.value)}
               >
                 <option hidden value={editLevel} className="py-3">
-                {editLevel != null
-                    ? editLevel
-                    : "Select Level"}
+                  {editLevel != null ? editLevel : "Select Level"}
                 </option>
                 <option value="High School" className="py-3">
                   High School
@@ -1871,7 +1905,7 @@ function Qualification() {
                 onChange={(e) => setEditLanguageId(e.target.value)}
               >
                 <option value={editLanguageId} hidden className="py-3">
-                {editLanguageName != null
+                  {editLanguageName != null
                     ? editLanguageName
                     : "Select Language"}
                 </option>
@@ -1894,9 +1928,7 @@ function Qualification() {
                 onChange={(e) => setEditFluency(e.target.value)}
               >
                 <option hidden className="py-3">
-                {editFluency != null
-                    ? editFluency
-                    : "Select Fluency"}
+                  {editFluency != null ? editFluency : "Select Fluency"}
                 </option>
                 <option value="Writting" className="py-3">
                   Writting
@@ -1921,7 +1953,7 @@ function Qualification() {
                 onChange={(e) => setEditCompetency(e.target.value)}
               >
                 <option hidden className="py-3">
-                {editCompetency != null
+                  {editCompetency != null
                     ? editCompetency
                     : "Select Relationship"}
                 </option>
@@ -2124,7 +2156,7 @@ function Qualification() {
                 onChange={(e) => setEditLicenseType(e.target.value)}
               >
                 <option hidden value={editLicenseType} className="py-3">
-                {editLicenseType != null
+                  {editLicenseType != null
                     ? editLicenseType
                     : "Select Relationship"}
                 </option>
@@ -2213,6 +2245,61 @@ function Qualification() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDeleteWork(false);
+        }}
+        submit={() => {
+          deleteWorkExperience(id);
+          inAwait();
+          setDeleteWork(false);
+        }}
+        active={isdeleteWork}
+      />
+      <ModalDelete
+        close={() => {
+          setDeleteSkill(false);
+        }}
+        submit={() => {
+          deleteSkill(id);
+          inAwait();
+          setDeleteSkill(false);
+        }}
+        active={isdeleteSkill}
+      />
+      <ModalDelete
+        close={() => {
+          setDeleteEdu(false);
+        }}
+        submit={() => {
+          deleteEducation(id);
+          inAwait();
+          setDeleteEdu(false);
+        }}
+        active={isdeleteEdu}
+      />
+      <ModalDelete
+        close={() => {
+          setDeleteLanguage(false);
+        }}
+        submit={() => {
+          deleteLanguage(id);
+          inAwait();
+          setDeleteLanguage(false);
+        }}
+        active={isdeleteLanguage}
+      />
+      <ModalDelete
+        close={() => {
+          setDeleteLicense(false);
+        }}
+        submit={() => {
+          deleteLicense(id);
+          inAwait();
+          setDeleteLicense(false);
+        }}
+        active={isdeleteLicense}
+      />
     </>
   );
 }

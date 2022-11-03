@@ -73,12 +73,12 @@ const updateDependent = async (data) => {
     return res.data;
   }
 };
-// const deleteEmergencyContact = async (id) => {
-//   var res = await api.delete(`${endpoint}/mobile/profile/emergencyContact?id=${id}`);
-//   if (res.status == 200) {
-//     return res.data;
-//   }
-// };
+const deleteDependent = async (id) => {
+  var res = await api.delete(`${endpoint}/mobile/profile/dependent?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 
 const updateProfile = async (data) => {
   var res = await api.post(`${endpoint}/updateProfile`, data);
@@ -105,6 +105,16 @@ const addWorkExperience = async (data) => {
 };
 const updateWorkExperience = async (data) => {
   var res = await api.put(`${endpoint}/mobile/profile/experience`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const deleteWorkExperience = async (data) => {
+  var res = await api.delete(
+    `${endpoint}/mobile/profile/experience?id=${data}`
+  );
   if (res.status == 200) {
     return res.data;
   } else {
@@ -139,6 +149,15 @@ const updateSkill = async (data) => {
   }
 };
 
+const deleteSkill = async (data) => {
+  var res = await api.delete(`${endpoint}/mobile/profile/skill?id=${data}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const getEducation = async (data) => {
   var res = await api.get(`${endpoint}/mobile/profile/education`);
   if (res.status == 200) {
@@ -159,6 +178,17 @@ const addEducation = async (data) => {
 
 const updateEducation = async (data) => {
   var res = await api.put(`${endpoint}/mobile/profile/education`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const deleteEducation = async (data) => {
+  var res = await api.delete(
+    `${endpoint}/mobile/profile/education?id=${data}`
+  );
   if (res.status == 200) {
     return res.data;
   } else {
@@ -193,6 +223,15 @@ const editLanguage = async (data) => {
   }
 };
 
+const deleteLanguage = async (data) => {
+  var res = await api.delete(`${endpoint}/mobile/profile/language?id=${data}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const getLincense = async () => {
   var res = await api.get(`${endpoint}/mobile/profile/license`);
   if (res.status == 200) {
@@ -212,6 +251,14 @@ const addLincense = async (data) => {
 };
 const updateLincense = async (data) => {
   var res = await api.put(`${endpoint}/mobile/profile/license`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const deleteLicense = async (data) => {
+  var res = await api.delete(`${endpoint}/mobile/profile/license?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -241,6 +288,40 @@ const updateJob = async (data) => {
   }
 };
 
+const getImigration = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/immigration`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const addImigration = async (data) => {
+  var res = await api.post(`${endpoint}/addImmigration`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const updateImigration = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/immigration`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const deleteImigration = async (data) => {
+  var res = await api.delete(
+    `${endpoint}/mobile/profile/immigration?id=${data}`
+  );
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
 export {
   getProfile,
   updateProfile,
@@ -251,6 +332,7 @@ export {
   getDependents,
   addDependent,
   updateDependent,
+  deleteDependent,
   getWorkExperience,
   getSkill,
   updateSkill,
@@ -259,6 +341,7 @@ export {
   getLincense,
   addWorkExperience,
   updateWorkExperience,
+  deleteWorkExperience,
   addEducation,
   updateEducation,
   addLincense,
@@ -268,4 +351,12 @@ export {
   editLanguage,
   getJob,
   updateJob,
+  getImigration,
+  addImigration,
+  updateImigration,
+  deleteImigration,
+  deleteSkill,
+  deleteEducation,
+  deleteLanguage,
+  deleteLicense,
 };

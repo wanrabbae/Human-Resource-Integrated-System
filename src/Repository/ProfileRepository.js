@@ -241,6 +241,38 @@ const updateJob = async (data) => {
   }
 };
 
+const getImigration = async () => {
+  var res = await api.get(`${endpoint}/mobile/profile/immigration`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const addImigration = async (data) => {
+  var res = await api.post(`${endpoint}/addImmigration`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const updateImigration = async (data) => {
+  var res = await api.put(`${endpoint}/mobile/profile/immigration`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const deleteImigration = async (data) => {
+  var res = await api.delete(`${endpoint}/mobile/profile/immigration?id=${data}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
 export {
   getProfile,
   updateProfile,
@@ -268,4 +300,8 @@ export {
   editLanguage,
   getJob,
   updateJob,
+  getImigration,
+  addImigration,
+  updateImigration,
+  deleteImigration,
 };

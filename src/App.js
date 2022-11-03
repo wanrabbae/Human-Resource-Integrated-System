@@ -52,6 +52,7 @@ import ChartStructure from "./Pages/Administrator/Admin/Organization/ChartStruct
 import Calendar from "./Pages/Administrator/TimeManagement/Calendar";
 import Cal from "./Pages/Administrator/TimeManagement/Calendar";
 import Maintenance from "./Pages/Administrator/Maintenance/maintenance";
+import DetailDocument from "./Pages/Administrator/Document/detail_document";
 
 function App() {
   return (
@@ -138,6 +139,7 @@ function App() {
       </Route>
       <Route path="/document-management" element={<Template />}>
         <Route path="/document-management" element={<DocumentManagement />} />
+        <Route path="/document-management/detail" element={<DetailDocument />} />
       </Route>
       <Route path="/timeManagement" element={<Template />}>
         <Route

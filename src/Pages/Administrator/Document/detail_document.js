@@ -187,7 +187,7 @@ function DetailDocument() {
                     }}
                   >
                     {/* ============= MAININ IF ELSE IF DISINI ============== */}
-                    {detail.field_type == "Short Answer" ? (
+                    {detail.field_type == "short_answer" ? (
                       <div>
                         <div>{detail.field_name}</div>
                         <input
@@ -206,7 +206,7 @@ function DetailDocument() {
                         />
                       </div>
                     ) : null}
-                    {detail.field_type == "Paragraph" ? (
+                    {detail.field_type == "paragraph" ? (
                       <div>
                         <div>{detail.field_name}</div>
                         <textarea
@@ -225,7 +225,7 @@ function DetailDocument() {
                         ></textarea>
                       </div>
                     ) : null}
-                    {detail.field_type == "Check Box" ? (
+                    {detail.field_type == "checkbox" ? (
                       <>
                         <div>{detail.field_name}</div>
                         {detail.field_documents.map((fd) => (
@@ -239,7 +239,7 @@ function DetailDocument() {
                         ))}
                       </>
                     ) : null}
-                    {detail.field_type == "Radio" ? (
+                    {detail.field_type == "option" ? (
                       <>
                         <div>{detail.field_name}</div>
                         {detail.field_documents.map((fd) => (
@@ -253,7 +253,7 @@ function DetailDocument() {
                         ))}
                       </>
                     ) : null}
-                    {detail.field_type == "Dropdown" ? (
+                    {detail.field_type == "dropdown" ? (
                       <>
                         <div>{detail.field_name}</div>
                         <div>
@@ -268,7 +268,7 @@ function DetailDocument() {
                         </div>
                       </>
                     ) : null}
-                    {detail.field_type == "Upload File" ? (
+                    {detail.field_type == "file" ? (
                       <>
                         <div>{detail.field_name}</div>
                         <input
@@ -278,7 +278,7 @@ function DetailDocument() {
                         />
                       </>
                     ) : null}
-                    {detail.field_type == "Date" ? (
+                    {detail.field_type == "date" ? (
                       <>
                         <div>{detail.field_name}</div>
                         <input
@@ -295,7 +295,7 @@ function DetailDocument() {
                         />
                       </>
                     ) : null}
-                    {detail.field_type == "Time" ? (
+                    {detail.field_type == "time" ? (
                       <>
                         <div>{detail.field_name}</div>
                         <input

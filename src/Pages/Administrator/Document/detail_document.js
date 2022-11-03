@@ -190,6 +190,30 @@ function DetailDocument() {
                         </div>
                         <input onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" type="file" placeholder="Short Answer"/>
                     </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 5
+                        </div>
+                        <input onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" style={{
+                    borderRadius: "10px",
+                    border: "1.5px solid #EDEDED",
+                    backgroundColor: "transparent",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                  }} type="date" placeholder="Short Answer"/>
+                    </div>
+                    <div className="p-4 mb-4" style={{borderRadius:'10px',boxShadow:'0px 0px 3px 0px rgba(179,179,179,1)' }}>
+                        <div>
+                        This is the question in field name 5
+                        </div>
+                        <input onChange={(val)=>{}} className="focus:ring-0 focus:ring-offset-0 me-3 form-control" style={{
+                    borderRadius: "10px",
+                    border: "1.5px solid #EDEDED",
+                    backgroundColor: "transparent",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                  }} type="time" placeholder="Short Answer"/>
+                    </div>
                 </div>
             </div>
             <Modal show={modal} size="lg"  onHide={() => setModal(false)}>

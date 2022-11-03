@@ -256,10 +256,10 @@ function JobPosition() {
             </div>
           </div>
           <div className="w-full">
-            <label className="text-xs">Relation Code</label>
+            <label className="mb-1">Relation Code</label>
             <select
               id="relation_code"
-              className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              className="form-control"
             >
               <option className="py-3" hidden>
                 Select
@@ -383,6 +383,31 @@ function JobPosition() {
                   }
                 </select>
               </div>
+            </div>
+            <div className="w-full">
+              <label className="mb-1">Relation Code</label>
+              <select
+                id="relation_code"
+                className="form-control"
+                onChange={(e) =>
+                  setEditValues({ ...editValues, relation_code: e.target.value })
+                }
+              >
+                <option className="py-3" hidden>
+                  Select
+                </option>
+                {jobposition.map((e, i) => {
+                  return (
+                    <option
+                      selected={editValues?.relation_code == e.job_id ? true : false}
+                      className="py-3"
+                      value={e?.job_id}
+                    >
+                      {`${e?.name} | ${e?.job_id}`}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           </div>
         </Modal.Body>

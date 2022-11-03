@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
-import { Plus, Eye, FileText, DotsThreeOutline, MagnifyingGlass, FunnelSimple, DotsThreeOutlineVertical, ArrowRight } from "phosphor-react";
-import { Button, Modal, Table } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
+import {
+    Plus,
+    Eye,
+    FileText,
+    DotsThreeOutline,
+    MagnifyingGlass,
+    FunnelSimple,
+    DotsThreeOutlineVertical,
+    ArrowRight,
+} from "phosphor-react";
+import { Button, Modal, Table } from "react-bootstrap";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -10,13 +19,14 @@ import {
     Title,
     Tooltip,
     Legend,
-} from 'chart.js';
+} from "chart.js";
 import { Bar } from 'react-chartjs-2';
 import ReactSelect from "react-select";
 // import faker from 'faker';
 import { components } from "react-select";
 import { GetDoc } from "../../../Repository/DocumentRepository";
 import { Delete, Remove } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -30,6 +40,7 @@ function DocumentManagement() {
         Tooltip,
         Legend
     );
+    const navigate = useNavigate();
     const [modal, setModal] = useState(false);
     const options = {
         responsive: true,
@@ -170,10 +181,12 @@ function DocumentManagement() {
                                             {/* <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to {JSON.parse(val.delegated_to).length} Role</h3> */}
                                             <div className="d-flex justify-content-end mt-3 ">
                                                 <a
-                                                    href="#"
+
+                                                    style={{ cursor: "pointer" }}
                                                     onClick={
                                                         () => {
-                                                            window.location.href = "/document-management/detail";
+
+                                                            navigate(`/document-management/detail/${val.id}`);
                                                         }
                                                     }
                                                     className="ms-auto">

@@ -74,13 +74,13 @@ var AddEmployee = async (requestBody) => {
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 var DeleteEmployee = async (id) => {
   var res = await axios.get(`${endpoint}/deleteEmployee?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 var UpdateEmployee = async (requestBody) => {
   var res = await axios.post(`${endpoint}/updateEmployee`, requestBody, {
     headers: {
@@ -90,6 +90,48 @@ var UpdateEmployee = async (requestBody) => {
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 
-export { UpdateEmployee, DeleteEmployee, AddEmployee, GetEmployee, GetEmployeeName, GetReportMeth, AddReportMeth, DelReportMeth, UpdateReportMeth, GetTermReason, AddTermReason, DelTermReason, UpdateTermReason };
+var GetReport = async () => {
+  var res = await axios.get(`${endpoint}/getReport`);
+  return res.data;
+};
+
+var AddReport = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/addReport`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var UpdateReport = async (requestBody) => {
+  var res = await axios.post(`${endpoint}/updateReport`, requestBody);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var DeleteReport = async (id) => {
+  var res = await axios.get(`${endpoint}/deleteReport?id=${id}`);
+  return res.data;
+};
+
+export {
+  UpdateEmployee,
+  DeleteEmployee,
+  AddEmployee,
+  GetEmployee,
+  GetEmployeeName,
+  GetReportMeth,
+  AddReportMeth,
+  DelReportMeth,
+  UpdateReportMeth,
+  GetTermReason,
+  AddTermReason,
+  DelTermReason,
+  UpdateTermReason,
+  GetReport,
+  AddReport,
+  UpdateReport,
+  DeleteReport,
+};

@@ -76,7 +76,10 @@ function App() {
         <Route path="/admin/job/employeeStatus" element={<EmployeeStatus />} />
         <Route path="/admin/job/jobCategories" element={<JobCategories />} />
         <Route path="/admin/job/workShift" element={<WorkShift />} />
-        <Route path="/admin/job/jobManagement/bulkUploud" element={<BulkUploud />} />
+        <Route
+          path="/admin/job/jobManagement/bulkUploud"
+          element={<BulkUploud />}
+        />
         <Route
           path="/admin/document-management"
           element={<DocumentManagement />}
@@ -139,7 +142,10 @@ function App() {
       </Route>
       <Route path="/document-management" element={<Template />}>
         <Route path="/document-management" element={<DocumentManagement />} />
-        <Route path="/document-management/detail" element={<DetailDocument />} />
+        <Route
+          path="/document-management/detail/:id"
+          element={<DetailDocument />}
+        />
       </Route>
       <Route path="/timeManagement" element={<Template />}>
         <Route
@@ -154,7 +160,7 @@ function App() {
         <Route path="/timeManagement/calendar" element={<Cal />} />
       </Route>
       <Route path="/maintenance" element={<Template />}>
-        <Route path="/maintenance" element={<Maintenance />}/>
+        <Route path="/maintenance" element={<Maintenance />} />
       </Route>
       <Route path="/employee" element={<Template />}>
         <Route path="/employee/optional-field" index element={<Optionals />} />

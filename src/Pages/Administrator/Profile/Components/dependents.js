@@ -19,18 +19,22 @@ import {
   getDependents,
   addDependent,
   updateDependent,
+  deleteDependent,
 } from "../../../../Repository/ProfileRepository";
 import { useEffect } from "react";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function Dependents() {
   const [modal, setModal] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
+  const [isdelete, setDelete] = useState(false);
+
   const [dependents, setDependents] = useState([]);
   const [name, setName] = useState([]);
   const [relationship, setRelationship] = useState([]);
   const [birthDate, setBirthDate] = useState([]);
-  const [id, setId] = useState([])
-  const [editId, setEditId] = useState([])
+  const [id, setId] = useState([]);
+  const [editId, setEditId] = useState([]);
   const [editName, setEditName] = useState([]);
   const [editRelationship, setEditRelationship] = useState([]);
   const [editBirthDate, setEditBirthDate] = useState([]);
@@ -142,7 +146,7 @@ function Dependents() {
                         <button
                           className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                           onClick={() => {
-                            setEditId(val.id)
+                            setEditId(val.id);
                             setEditName(val.name);
                             setEditRelationship(val.relationship);
                             setEditBirthDate(val.birthDate);
@@ -156,8 +160,13 @@ function Dependents() {
                             aria-hidden="true"
                           />
                         </button>
-                        <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                        onclick={()=>setId(val.id)}>
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setId(val.id);
+                            setDelete(true);
+                          }}
+                        >
                           <Trash
                             color="#003049"
                             weight="bold"
@@ -206,7 +215,7 @@ function Dependents() {
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 type="text"
                 placeholder="name"
-                onChange={(e)=>setEditName(e.target.value)}
+                onChange={(e) => setEditName(e.target.value)}
               />
             </div>
             <div className="col">
@@ -372,6 +381,17 @@ function Dependents() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          deleteDependent(id);
+          inAwait();
+          setDelete(false);
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

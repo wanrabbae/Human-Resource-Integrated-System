@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import {
   PlusIcon,
   PencilIcon,
@@ -10,12 +10,64 @@ import {
 } from "@heroicons/react/solid";
 import { Modal, Table } from "react-bootstrap";
 import profile from "../../../../Resourse/img/default-profile.png";
-import { ModalDelete } from "../../../../Components/Modals";
+import {
+  ModalDelete,
+  SwalError,
+  SwalSuccess,
+} from "../../../../Components/Modals";
+import {
+  GetReport,
+  AddReport,
+  UpdateReport,
+  DeleteReport,
+} from "../../../../Repository/EmployeeRepository.js";
+import { ReportSharp } from "@mui/icons-material";
 
 function Report() {
+  const [reports, setReports] = useState([]);
+  const [addReport, setAddReport] = useState({});
+  const [editReport, setEditReport] = useState({});
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [isdelete, setDelete] = useState(false);
+  const [id, setId] = useState();
+
+  const inAwait = async () => {
+    var data = await GetReport();
+    setReports(data.result);
+  };
+
+  const postReport = async (e) => {
+    e.preventDefault();
+    const add = await AddReport(addReport);
+    if (add.message == "Success Create") {
+      SwalSuccess({ message: "Success create report" });
+      setModalAdd(false);
+      setAddReport({});
+      inAwait();
+    } else {
+      SwalError({ message: "Error create report" });
+      setModalAdd(false);
+    }
+  };
+
+  const putReport = async (e) => {
+    e.preventDefault();
+    const edit = await UpdateReport(editReport);
+    if (edit.message == "Success Updating") {
+      SwalSuccess({ message: "Success edit report" });
+      setModalEdit(false);
+      setEditReport({});
+      inAwait();
+    } else {
+      SwalError({ message: "Error edit report" });
+      setModalEdit(false);
+    }
+  };
+
+  useEffect(() => {
+    inAwait();
+  }, []);
 
   return (
     <>
@@ -79,41 +131,60 @@ function Report() {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <input
-                    id="default-checkbox"
-                    type="checkbox"
-                    value=""
-                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fakhri
-                </td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-2">
-                    <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    onClick={() => {
-                      setDelete(true);
-                    }}>
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => setModalEdit(true)}
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/employee/detail-report"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <DocumentIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
+              {reports.length > 0 ? (
+                reports.map((report) => (
+                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <input
+                        id="default-checkbox"
+                        type="checkbox"
+                        value=""
+                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                    </td>
+                    <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {report.name}
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex flex-row justify-end gap-2">
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setDelete(true);
+                            setId(report.id);
+                          }}
+                        >
+                          <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                        </button>
+                        <button
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                          onClick={() => {
+                            setEditReport(report);
+                            setModalEdit(true);
+                          }}
+                        >
+                          <PencilIcon className="h-5 w-5" aria-hidden="true" />
+                        </button>
+                        <a
+                          href="/employee/detail-report"
+                          className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                        >
+                          <DocumentIcon
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <td>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
                   </div>
                 </td>
-              </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -129,93 +200,145 @@ function Report() {
             Add Report
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4 space-y-4">
-          <div className="w-full">
-            <label className="text-xs">Report Name</label>
-            <input
-              onChange={(val) => {}}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              type="text"
-              placeholder="Type here"
-            />
-          </div>
-          <label className="mt-4 font-semibold">Selection Criteria</label>
-          <div className="grid grid-cols-2 gap-3">
+        <form method="POST" onSubmit={(e) => postReport(e)}>
+          <Modal.Body className="mx-4 space-y-4">
             <div className="w-full">
-              <label className="text-xs">Select Criteria</label>
-              <div className="flex flex-row gap-3">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <label className="text-xs">Report Name</label>
+              <input
+                required
+                onChange={(val) => {
+                  setAddReport({ ...addReport, name: val.target.value });
+                }}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="Type here"
+              />
+            </div>
+            <label className="mt-4 font-semibold">Selection Criteria</label>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="w-full">
+                <label className="text-xs">Select Criteria</label>
+                <div className="flex flex-row gap-3">
+                  <select
+                    required
+                    onChange={(val) => {
+                      setAddReport({
+                        ...addReport,
+                        criteria: val.target.value,
+                      });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option hidden>--Select--</option>
+                    <option value="Employee Name">Employee Name</option>
+                    <option value="Pay Grade">Pay Grade</option>
+                    <option value="Education">Education</option>
+                    <option value="Employment Status">Employment Status</option>
+                    <option value="Service Period">Service Period</option>
+                  </select>
+                  <button
+                    type="button"
+                    className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
+                  >
+                    <PlusIcon
+                      className="text-[#669BBC] h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Include</label>
+                <select
+                  required
+                  onChange={(val) => {
+                    setAddReport({ ...addReport, include: val.target.value });
+                  }}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
                   <option hidden>--Select--</option>
-                  <option>Employee Name</option>
-                  <option>Pay Grade</option>
-                  <option>Education</option>
-                  <option>Employment Status</option>
-                  <option>Service Period</option>
+                  <option value="Current Employee Only">
+                    Current Employee Only
+                  </option>
+                  <option value="Current & Past Employee">
+                    Current & Past Employee
+                  </option>
+                  <option value="Past Employees Only">
+                    Past Employees Only
+                  </option>
                 </select>
-                <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
-                  <PlusIcon
-                    className="text-[#669BBC] h-5 w-5"
-                    aria-hidden="true"
-                  />
-                </button>
               </div>
             </div>
-            <div className="w-full">
-              <label className="text-xs">Include</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>--Select--</option>
-                <option>Current Employee Only</option>
-                <option>Current & Past Employee</option>
-                <option>Past Employees Only</option>
-              </select>
-            </div>
-          </div>
-          <label className="mt-4 font-semibold">Display Fields</label>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="w-full">
-              <label className="text-xs">Select Display Field Group</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>--Select Field --</option>
-                <option>Personal</option>
-                <option>Contact Details</option>
-                <option>Dependents</option>
-                <option>Membership</option>
-              </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Select Display Field</label>
-              <div className="flex flex-row gap-3">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>--Select--</option>
-                  <option>Skill Name</option>
-                  <option>Years of Experience</option>
-                  <option>Comments</option>
+            <label className="mt-4 font-semibold">Display Fields</label>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="w-full">
+                <label className="text-xs">Select Display Field Group</label>
+                <select
+                  required
+                  onChange={(val) => {
+                    setAddReport({
+                      ...addReport,
+                      displayFieldGroup: val.target.value,
+                    });
+                  }}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option hidden>--Select Field --</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Contact Details">Contact Details</option>
+                  <option value="Dependents">Dependents</option>
+                  <option value="Membership">Membership</option>
                 </select>
-                <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
-                  <PlusIcon
-                    className="text-[#669BBC] h-5 w-5"
-                    aria-hidden="true"
-                  />
-                </button>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Select Display Field</label>
+                <div className="flex flex-row gap-3">
+                  <select
+                    required
+                    onChange={(val) => {
+                      setAddReport({
+                        ...addReport,
+                        displayField: val.target.value,
+                      });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option hidden>--Select--</option>
+                    <option value="Skill Name">Skill Name</option>
+                    <option value="Years of Experience">
+                      Years of Experience
+                    </option>
+                    <option value="Comments">Comments</option>
+                  </select>
+                  <button
+                    type="button"
+                    className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
+                  >
+                    <PlusIcon
+                      className="text-[#669BBC] h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            onClick={() => setModalAdd(false)}
-            type="button"
-            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
-          >
-            Add
-          </button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              onClick={() => setModalAdd(false)}
+              type="button"
+              className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+            >
+              Add
+            </button>
+          </Modal.Footer>
+        </form>
       </Modal>
 
       {/* Modal Edit */}
@@ -229,160 +352,217 @@ function Report() {
             Edit Report
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4 space-y-4">
-          <div className="w-full">
-            <label className="text-xs">Report Name</label>
-            <input
-              onChange={(val) => {}}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              type="text"
-              placeholder="Type here"
-            />
-          </div>
-          <label className="text-xsfont-bold">Selection Criteria</label>
-          <div className="grid grid-cols-2 gap-3">
+        <form method="POST" onSubmit={(e) => putReport(e)}>
+          <Modal.Body className="mx-4 space-y-4">
             <div className="w-full">
-              <label className="text-xs">Select Criteria</label>
-              <div className="flex flex-row gap-3">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <label className="text-xs">Report Name</label>
+              <input
+                onChange={(val) => {
+                  setEditReport({ ...editReport, name: val.target.value });
+                }}
+                value={editReport?.name}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="Type here"
+              />
+            </div>
+            <label className="text-xsfont-bold">Selection Criteria</label>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="w-full">
+                <label className="text-xs">Select Criteria</label>
+                <div className="flex flex-row gap-3">
+                  <select
+                    onChange={(val) => {
+                      setEditReport({
+                        ...editReport,
+                        criteria: val.target.value,
+                      });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option hidden>--Select--</option>
+                    <option value="Employee Name">Employee Name</option>
+                    <option value="Pay Grade">Pay Grade</option>
+                    <option value="Education">Education</option>
+                    <option value="Employment Status">Employment Status</option>
+                    <option value="Service Period">Service Period</option>
+                  </select>
+                  <button
+                    type="button"
+                    className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
+                  >
+                    <PlusIcon
+                      className="text-[#669BBC] h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Include</label>
+                <select
+                  onChange={(val) => {
+                    setEditReport({ ...editReport, include: val.target.value });
+                  }}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
                   <option hidden>--Select--</option>
-                  <option>Employee Name</option>
-                  <option>Pay Grade</option>
-                  <option>Education</option>
-                  <option>Employment Status</option>
-                  <option>Service Period</option>
+                  <option value="Current Employee Only">
+                    Current Employee Only
+                  </option>
+                  <option value="Current & Past Employee">
+                    Current & Past Employee
+                  </option>
+                  <option value="Past Employees Only">
+                    Past Employees Only
+                  </option>
                 </select>
-                <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
-                  <PlusIcon
-                    className="text-[#669BBC] h-5 w-5"
-                    aria-hidden="true"
-                  />
-                </button>
               </div>
             </div>
-            <div className="w-full">
-              <label className="text-xs">Include</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>--Select--</option>
-                <option>Current Employee Only</option>
-                <option>Current & Past Employee</option>
-                <option>Past Employees Only</option>
-              </select>
-            </div>
-          </div>
-          <label className="text-xs font-bold">Display Fields</label>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="w-full">
-              <label className="text-xs">Select Display Field Group</label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>--Select Field --</option>
-                <option>Personal</option>
-                <option>Contact Details</option>
-                <option>Dependents</option>
-                <option>Membership</option>
-              </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Select Display Field</label>
-              <div className="flex flex-row gap-3">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>--Select--</option>
-                  <option>Skill Name</option>
-                  <option>Years of Experience</option>
-                  <option>Comments</option>
+            <label className="text-xs font-bold">Display Fields</label>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="w-full">
+                <label className="text-xs">Select Display Field Group</label>
+                <select
+                  onChange={(val) => {
+                    setEditReport({
+                      ...editReport,
+                      displayFieldGroup: val.target.value,
+                    });
+                  }}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option hidden>--Select Field --</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Contact Details">Contact Details</option>
+                  <option value="Dependents">Dependents</option>
+                  <option value="Membership">Membership</option>
                 </select>
-                <button className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md">
-                  <PlusIcon
-                    className="text-[#669BBC] h-5 w-5"
-                    aria-hidden="true"
-                  />
-                </button>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Select Display Field</label>
+                <div className="flex flex-row gap-3">
+                  <select
+                    onChange={(val) => {
+                      setEditReport({
+                        ...editReport,
+                        displayField: val.target.value,
+                      });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option hidden>--Select--</option>
+                    <option value="Skill Name">Skill Name</option>
+                    <option value="Years of Experience">
+                      Years of Experience
+                    </option>
+                    <option value="Comments">Comments</option>
+                  </select>
+                  <button
+                    type="button"
+                    className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
+                  >
+                    <PlusIcon
+                      className="text-[#669BBC] h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-6 gap-2">
-            <div>
-              <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
-                <TrashIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="col-span-3 flex flex-col gap-2">
-              <h4>Personal</h4>
-              <div className="flex flex-wrap">
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
-                </div>
-                <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
-                  <p>Employee ID</p>
-                  <a href="#">
-                    <XCircleIcon className="text-gray-400 h-5 w-5" />
-                  </a>
+            <div className="grid grid-cols-6 gap-2">
+              <div>
+                <button
+                  type="button"
+                  className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                >
+                  <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="col-span-3 flex flex-col gap-2">
+                <h4>Personal</h4>
+                <div className="flex flex-wrap">
+                  <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                    <p>Employee ID</p>
+                    <a href="#">
+                      <XCircleIcon className="text-gray-400 h-5 w-5" />
+                    </a>
+                  </div>
+                  <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                    <p>Employee ID</p>
+                    <a href="#">
+                      <XCircleIcon className="text-gray-400 h-5 w-5" />
+                    </a>
+                  </div>
+                  <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                    <p>Employee ID</p>
+                    <a href="#">
+                      <XCircleIcon className="text-gray-400 h-5 w-5" />
+                    </a>
+                  </div>
+                  <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                    <p>Employee ID</p>
+                    <a href="#">
+                      <XCircleIcon className="text-gray-400 h-5 w-5" />
+                    </a>
+                  </div>
+                  <div className="flex flex-row gap-1 bg-gray-200 text-sm items-center py-1 px-2 rounded-full">
+                    <p>Employee ID</p>
+                    <a href="#">
+                      <XCircleIcon className="text-gray-400 h-5 w-5" />
+                    </a>
+                  </div>
                 </div>
               </div>
+              <div className="col-span-2">
+                <label
+                  for="default-toggle2"
+                  className="inline-flex relative items-center cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    value=""
+                    id="default-toggle2"
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Include Header
+                  </span>
+                </label>
+              </div>
             </div>
-            <div className="col-span-2">
-              <label
-                for="default-toggle2"
-                className="inline-flex relative items-center cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  value=""
-                  id="default-toggle2"
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Include Header
-                </span>
-              </label>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            // onClick={() => setModalEdit(false)}
-            type="button"
-            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
-          >
-            Search
-          </button>
-        </Modal.Footer>
-        </Modal>
-        <ModalDelete
-          close={() => {
-            setDelete(false);
-          }}
-          active={isdelete}
-        />
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              onClick={() => setModalEdit(false)}
+              type="button"
+              className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+            >
+              Save
+            </button>
+          </Modal.Footer>
+        </form>
+      </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          DeleteReport(id);
+          inAwait();
+          setDelete(false);
+          SwalSuccess({ message: "Success delete report" });
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

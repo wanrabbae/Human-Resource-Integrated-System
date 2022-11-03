@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from 'react-bootstrap/Form';
 import {
     Plus,
@@ -9,8 +9,9 @@ import {
     FunnelSimple,
     DotsThreeOutlineVertical,
     ArrowRight,
+    DotsThreeVertical,
 } from "phosphor-react";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button, Dropdown, Modal, Table } from "react-bootstrap";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -102,9 +103,27 @@ function DocumentManagement() {
         { value: "8", label: "Support and Analyst" },
         { value: "9", label: "Information and Technology Development" },
     ];
-
+    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+        <a
+          // className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
+          href=""
+          ref={ref}
+          // style={{
+          //   color: "#003049",
+          // }}
+          onClick={(e) => {
+            e.preventDefault();
+            onClick(e);
+          }}
+        >
+          <DotsThreeVertical size={25} color="#ffffff" weight="bold" />
+          {children}
+        </a>
+      ));
     const [editUserData, setEditUserData] = useState();
     const [Doc, setDoc] = useState([]);
+    const [isdelete, setDelete] = useState(false);
+  const [id, setId] = useState();
     const [fields, setField] = useState([]);
     const inAwait = async () => {
         var rec = await GetDoc();
@@ -171,9 +190,33 @@ function DocumentManagement() {
                                     <div className="px-3 py-4" style={{ backgroundColor: '#669BBC', borderRadius: '10px', fontWeight: '600' }}>
                                         <div>
                                             <div className="d-flex justify-content-end mb-2 ">
-                                                <a href="" className="ms-auto">
+                                                <Dropdown
+                                                >
+                                                    <Dropdown.Toggle as={CustomToggle} />
+
+                                                    <Dropdown.Menu size="sm">
+                                                    <Dropdown.Item
+                                                        className="text-sm"
+                                                        onClick={() => {
+                                                        navigate(`/recruitment/edit/${val["id"]}`);
+                                                        }}
+                                                    >
+                                                        Edit
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item
+                                                        onClick={() => {
+                                                        setDelete(true);
+                                                        setId(val.id);
+                                                        }}
+                                                        className="text-sm"
+                                                    >
+                                                        Delete
+                                                    </Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                                {/* <a href="" className="ms-auto">
                                                     <DotsThreeOutlineVertical size={20} weight="fill" color="white" />
-                                                </a>
+                                                </a> */}
                                             </div>
                                             <h3 className="mb-2" style={{ fontSize: "20px", fontWeight: '600', color: 'white' }}>{val.title}</h3>
                                             <p className="mb-2" style={{ fontSize: "12px", fontWeight: '400', color: "white", lineHeight: '15px' }}>{val.description}</p>

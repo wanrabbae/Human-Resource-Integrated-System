@@ -338,6 +338,16 @@ const addReportTo = async (data) => {
     return res;
   }
 };
+
+const deleteReportTo = async (data) => {
+  console.log(data)
+  var res = await api.get(`${endpoint}/deleteReportTo?id=${data}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
 export {
   getProfile,
   updateProfile,
@@ -377,4 +387,5 @@ export {
   deleteLicense,
   getReport,
   addReportTo,
+  deleteReportTo,
 };

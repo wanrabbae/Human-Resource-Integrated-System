@@ -186,9 +186,7 @@ const updateEducation = async (data) => {
 };
 
 const deleteEducation = async (data) => {
-  var res = await api.delete(
-    `${endpoint}/mobile/profile/education?id=${data}`
-  );
+  var res = await api.delete(`${endpoint}/mobile/profile/education?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -322,6 +320,24 @@ const deleteImigration = async (data) => {
     return res;
   }
 };
+
+const getReport = async () => {
+  var res = await api.get(`${endpoint}/getReportTo`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const addReportTo = async (data) => {
+  var res = await api.post(`${endpoint}/addReportTo`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
 export {
   getProfile,
   updateProfile,
@@ -359,4 +375,6 @@ export {
   deleteEducation,
   deleteLanguage,
   deleteLicense,
+  getReport,
+  addReportTo,
 };

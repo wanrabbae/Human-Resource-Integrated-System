@@ -32,6 +32,7 @@ import {
   AddFieldDocument,
   DeleteDocument,
 } from "../../../Repository/DocumentRepository";
+import { GetEmployee } from "../../../Repository/EmployeeRepository";
 import { Delete, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import {
@@ -51,6 +52,15 @@ function DocumentManagement() {
   );
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const [editmodal, setModaledit] = useState(false);
+  const [employee, setEmployee] = useState([]);
+
+  const [editUserData, setEditUserData] = useState();
+  const [Doc, setDoc] = useState([]);
+  const [isdelete, setDelete] = useState(false);
+  const [id, setId] = useState();
+  const [fields, setField] = useState([]);
+
   const options = {
     responsive: true,
     plugins: {
@@ -98,6 +108,9 @@ function DocumentManagement() {
       },
     ],
   };
+  const [document, setDocument] = useState({});
+  const [showto, setShowTo] = useState([]);
+  const [employeeto, setEmployeeTo] = useState([""]);
   const Option = (props) => {
     return (
       <div>
@@ -105,9 +118,6 @@ function DocumentManagement() {
           <Form.Check
             type="checkbox"
             checked={props.isSelected}
-            onChange={(e) =>
-              setDocument({ ...document, delegated_to: [...e, e.target.value] })
-            }
             id="default-checkbox"
             label={props.label}
           />
@@ -115,17 +125,7 @@ function DocumentManagement() {
       </div>
     );
   };
-  const showTo = [
-    { value: "1", label: "Manager" },
-    { value: "2", label: "Human Resources" },
-    { value: "3", label: "Sales Acquisition" },
-    { value: "4", label: "Sales External" },
-    { value: "5", label: "Sales Research and Media Social" },
-    { value: "6", label: "Advertiser" },
-    { value: "7", label: "Finance" },
-    { value: "8", label: "Support and Analyst" },
-    { value: "9", label: "Information and Technology Development" },
-  ];
+  const showTo = [];
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       // className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
@@ -143,24 +143,26 @@ function DocumentManagement() {
       {children}
     </a>
   ));
-  const [editUserData, setEditUserData] = useState();
-  const [Doc, setDoc] = useState([]);
-  const [isdelete, setDelete] = useState(false);
-  const [id, setId] = useState();
-  const [fields, setField] = useState([]);
-  const [document, setDocument] = useState({});
+
   const inAwait = async () => {
     var rec = await GetDoc();
-    console.log(rec);
+    var emp = await GetEmployee();
+    emp.map((em) => showTo.push({ value: em.id, label: em.firstName }));
     setDoc(rec["result"]);
+    setEmployeeTo(showTo);
   };
+
   useEffect(() => {
     inAwait();
   }, []);
 
   const addDocument = async () => {
     try {
-      const addDoc = await AddDocument(document);
+      const addDoc = await AddDocument({
+        title: document.title,
+        description: document.description,
+        delegated_to: `[${showto}]`,
+      });
 
       fields.forEach(async (field) => {
         const addDetail = await AddDetailDocument({
@@ -321,7 +323,7 @@ function DocumentManagement() {
                   textTransform: "uppercase",
                 }}
               >
-                100
+                {Doc.length}
               </h3>
             </div>
           </div>
@@ -796,9 +798,15 @@ function DocumentManagement() {
               Show To
             </label>
             <ReactSelect
-              options={showTo}
+              options={employeeto}
               isMulti
-              // onChange={(e) => setDocument(e.)}
+              onChange={(e) => {
+                var data = [];
+                for (var i in e) {
+                  data.push(parseInt(e[i].value));
+                }
+                setShowTo(data);
+              }}
               closeMenuOnSelect={false}
               hideSelectedOptions={false}
               components={{
@@ -836,6 +844,322 @@ function DocumentManagement() {
             className="px-3"
           >
             Create
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={editmodal}
+        size="lg"
+        onHide={() => {
+          setModaledit(false);
+          setField([]);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Document Management System
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4">
+          <div
+            className="px-4 pb-4 mb-4 pt-2"
+            style={{
+              borderRadius: "10px",
+              border: "0",
+              borderLeft: "15px solid #780000",
+              boxShadow: "0px 0px 3px 0px rgba(179,179,179,1)",
+            }}
+          >
+            <input
+              style={{
+                border: "0",
+                outline: "none",
+                borderBottom: "1px solid #EDEDED",
+                backgroundColor: "transparent",
+                fontSize: "20px",
+                fontWeight: "500",
+              }}
+              onChange={(val) => {
+                setDocument({ ...document, title: val.target.value });
+              }}
+              className="focus:ring-0 focus:ring-offset-0 me-3 w-50 "
+              type="text"
+              placeholder="Document Title"
+            />
+            <input
+              style={{
+                border: "0",
+                outline: "none",
+                borderBottom: "1px solid #EDEDED",
+                backgroundColor: "transparent",
+                fontSize: "12px",
+                fontWeight: "500",
+              }}
+              onChange={(val) => {
+                setDocument({ ...document, description: val.target.value });
+              }}
+              className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+              type="text"
+              placeholder="Document description"
+            />
+          </div>
+          {fields.map((e, i) => {
+            return (
+              <div className="row mb-4">
+                <div className="col-4 mb-2">
+                  <input
+                    onChange={(val) => {
+                      var data = [...fields];
+                      data[i]["field_name"] = val.target.value;
+                      setField(data);
+                    }}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                    type="text"
+                    placeholder="Field Name"
+                  />
+                </div>
+                <div className="col-3 mb-2">
+                  <select
+                    onChange={(val) => {
+                      var data = [...fields];
+                      data[i]["field_type"] = val.target.value;
+                      if (
+                        val.target.value == "option" ||
+                        val.target.value == "checkbox" ||
+                        val.target.value == "dropdown"
+                      ) {
+                        if (data[i]["options"].length == 0) {
+                          data[i]["options"].push({
+                            field_name: "",
+                          });
+                        }
+                      } else {
+                        data[i]["options"] = [];
+                      }
+                      setField(data);
+                    }}
+                    id="field_type"
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                  >
+                    <option className="py-3" hidden>
+                      Field Type
+                    </option>
+                    <option className="py-3" value="short_answer">
+                      Short Answer
+                    </option>
+                    <option className="py-3" value="paragraph">
+                      Paragraph
+                    </option>
+                    <option className="py-3" value="option">
+                      Radio
+                    </option>
+                    <option className="py-3" value="checkbox">
+                      Check Box
+                    </option>
+                    <option className="py-3" value="dropdown">
+                      Dropdown
+                    </option>
+                    <option className="py-3" value="file">
+                      Upload File
+                    </option>
+                    <option className="py-3" value="date">
+                      Date
+                    </option>
+                    <option className="py-3" value="time">
+                      Time
+                    </option>
+                  </select>
+                </div>
+                <div className="col-3 mb-2">
+                  <select
+                    disabled={
+                      e?.field_type == "short_answer" ||
+                        e?.field_type == "paragraph"
+                        ? false
+                        : true
+                    }
+                    onChange={(val) => {
+                      var data = [...fields];
+                      data[i]["data_type"] = val.target.value;
+                      setField(data);
+                    }}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                  >
+                    <option className="py-3" hidden>
+                      Data Type
+                    </option>
+                    <option className="py-3" value="text">
+                      String
+                    </option>
+                    <option className="py-3" value="number">
+                      Interger
+                    </option>
+                  </select>
+                </div>
+                {fields.length > 1 ? (
+                  <div className="col-1 mb-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        var data = [...fields];
+                        data.splice(i, 1);
+                        setField(data);
+                      }}
+                      className="rounded leading-tight p-2 btn bg-[#780000]"
+                    >
+                      <Delete
+                        fontSize="small"
+                        weight="bold"
+                        style={{ color: "#FFFFFF" }}
+                      />
+                    </button>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {i == fields.length - 1 ? (
+                  <div className="col-1 mb-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setField([
+                          ...fields,
+                          {
+                            field_name: "",
+                            field_type: "",
+                            data_type: "",
+                            options: [],
+                          },
+                        ]);
+                      }}
+                      className="rounded leading-tight p-2 btn bg-[#669BBC]"
+                    >
+                      <Plus size={21} weight="bold" color="white" />
+                    </button>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <div className="d-flex flex-wrap">
+                  {e?.options.map((elem, ind) => {
+                    return (
+                      <div className="d-flex justify-content-between align-items-center mr-3 mb-2">
+                        {e.field_type == "checkbox" ||
+                          e.field_type == "option" ? (
+                          <input
+                            type={
+                              e.field_type == "checkbox" ? "checkbox" : "radio"
+                            }
+                            className="mr-2"
+                          />
+                        ) : (
+                          <></>
+                        )}
+                        <input
+                          value={elem.name}
+                          onChange={(val) => {
+                            var data = [...fields];
+                            data[i]["options"][ind]["name"] = val.target.value;
+                            setField(data);
+                          }}
+                          className="appearance-none border-0 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline focus:border-transparent"
+                          type="text"
+                          placeholder={`Field Name ${ind + 1}`}
+                        />
+                        {e?.options.length != 1 ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              var data = [...fields];
+                              data[i]["options"].splice(ind, 1);
+                              setField(data);
+                            }}
+                            className="rounded leading-tight p-2 btn"
+                          >
+                            <Delete fontSize="small" />
+                          </button>
+                        ) : (
+                          <></>
+                        )}
+                        {ind == e?.options.length - 1 ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              var data = [...fields];
+                              data[i]["options"].push({
+                                field_name: "",
+                              });
+                              setField(data);
+                            }}
+                            className="rounded leading-tight p-2 btn"
+                          >
+                            <Plus size={10} weight="bold" color="black" />
+                          </button>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+          <div className="">
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              Show To
+            </label>
+            <ReactSelect
+              options={employeeto}
+              isMulti
+              onChange={(e) => {
+                var data = [];
+                for (var i in e) {
+                  data.push(parseInt(e[i].value));
+                }
+                setShowTo(data);
+              }}
+              closeMenuOnSelect={false}
+              hideSelectedOptions={false}
+              components={{
+                Option,
+              }}
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4" style={{ borderTop: "0" }}>
+          <Button
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#ECECEC",
+              color: "#003049",
+            }}
+            className="px-3"
+            onClick={() => {
+              setModaledit(false);
+              setField([]);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              addDocument();
+            }}
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+            className="px-3"
+          >
+            Submit
           </Button>
         </Modal.Footer>
       </Modal>

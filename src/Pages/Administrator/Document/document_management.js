@@ -109,6 +109,7 @@ function DocumentManagement() {
   };
   const [document, setDocument] = useState({});
   const [showto, setShowTo] = useState([]);
+  const [employeeto, setEmployeeTo] = useState([""]);
   const Option = (props) => {
     return (
       <div>
@@ -147,6 +148,7 @@ function DocumentManagement() {
     var emp = await GetEmployee();
     emp.map((em) => showTo.push({ value: em.id, label: em.firstName }));
     setDoc(rec["result"]);
+    setEmployeeTo(showTo);
   };
 
   useEffect(() => {
@@ -795,7 +797,7 @@ function DocumentManagement() {
               Show To
             </label>
             <ReactSelect
-              options={showTo}
+              options={employeeto}
               isMulti
               onChange={(e) => {
                 var data = [];

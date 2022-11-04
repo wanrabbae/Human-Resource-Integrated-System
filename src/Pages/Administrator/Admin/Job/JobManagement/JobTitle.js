@@ -198,6 +198,20 @@ function JobTitle() {
         >
           <Modal.Title>Add Job Title</Modal.Title>
         </Modal.Header>
+        <form
+        action={async (e) => {
+          e.preventDefault();
+          var requestBody = {
+            name: document.getElementById("name").value,
+            grade_id: document.getElementById("grade_id").value,
+          };
+          var res = await AddJobTittle(requestBody);
+          console.log(res);
+          SwalSuccess({ message: "Success add job title" });
+          setTitle(!dialogTitle);
+          inAwait();
+        }}
+        >
         <Modal.Body className="mx-4">
         <div className="row">
             <div className="col-md-12 mb-3">
@@ -208,6 +222,7 @@ function JobTitle() {
                 <input
                   className="form-control"
                   id="name"
+                  required
                   placeholder="Level Name..."
                 />
               </div>
@@ -218,11 +233,12 @@ function JobTitle() {
                 <select
                   className="form-control"
                   id="grade_id"
+                  required
                   onChange={(e) =>
                     setEditValues({ ...editValues, type: e.target.value })
                   }
                 >
-                  <option>Select Job Grade</option>
+                  <option value="">Select Job Grade</option>
                   {
                     jobgrade.map((val) => {
                       return (
@@ -244,8 +260,9 @@ function JobTitle() {
               color: "#0E5073",
               width: "100px",
             }}
+            type="button"
             onClick={() => setTitle(!dialogTitle)}
-          >
+            >
             Cancel
           </button>
           <button
@@ -256,21 +273,12 @@ function JobTitle() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-                grade_id: document.getElementById("grade_id").value,
-              };
-              var res = await AddJobTittle(requestBody);
-              console.log(res);
-              SwalSuccess({ message: "Success add job title" });
-              setTitle(!dialogTitle);
-              inAwait();
-            }}
-          >
+            type="submit"
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

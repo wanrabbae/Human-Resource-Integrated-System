@@ -231,7 +231,7 @@ function RecruitmentCreate() {
                 id="type"
                 className="appearance-none w-full py-2 px-3 text-gray-700 focus:outline-none focus:border-0 focus:shadow-outline"
               >
-                <option selected disabled className="py-3">
+                <option selected value="" disabled className="py-3">
                   Select Job Type
                 </option>
                 <option value="Part Time" className="py-3">

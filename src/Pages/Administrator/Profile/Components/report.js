@@ -18,32 +18,50 @@ import {
 } from "@mui/icons-material";
 import {
   addReportTo,
+  deleteReportTo,
   getReport,
 } from "../../../../Repository/ProfileRepository";
 import {
   GetEmployee,
   GetReportMeth,
 } from "../../../../Repository/EmployeeRepository";
+import { ModalDelete } from "../../../../Components/Modals";
 
 function ReportTo() {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalAddSub, setModalAddSub] = useState(false);
 
+  const [isdelete, setDelete] = useState(false);
+
+  const [id, setId] = useState([]);
   const [data, setData] = useState([]);
   const [employee, setEmployee] = useState([]);
-  const [structureId, setStructureId] = useState([]);
   const [reportingMethod, setReportingMethod] = useState([]);
+
+  const [structureId, setStructureId] = useState([]);
   const [reportId, setReportId] = useState([]);
   const [status, setStatus] = useState([]);
   const [name, setName] = useState([]);
 
+  const [editStructureId, setEditStructureId] = useState([]);
+  const [editReportId, setEditReportId] = useState([]);
+  const [editReportName, setEditReportName] = useState([]);
+  const [editStatus, setEditStatus] = useState([]);
+  const [editName, setEditName] = useState([]);
+
+  console.log(editName);
+  console.log(editStructureId);
+  console.log(editReportName);
+  console.log(editReportId);
+  console.log(editStatus);
+
   const inAwait = async () => {
     var data = await getReport();
     setData(data.result);
-    // console.log(data.result);
+    console.log(data.result);
     var dataEmployee = await GetEmployee();
-    console.log(dataEmployee);
+    // console.log(dataEmployee);
     setEmployee(dataEmployee);
     var method = await GetReportMeth();
     // console.log(method.result);
@@ -62,12 +80,29 @@ function ReportTo() {
       structureId: structureId,
     };
     console.log(requestBody);
+    var res = await addReportTo(requestBody);
+    console.log(res);
     inAwait();
     setModalAdd(false);
     setModalAddSub(false);
+  };
+
+  const postDataEdit = async () => {
+    var requestBody = {
+      id: id,
+      name: name,
+      status: status,
+      reporting_method_id: reportId,
+      structureId: structureId,
+    };
+    console.log(requestBody);
     var res = await addReportTo(requestBody);
     console.log(res);
+    inAwait();
+    setModalAdd(false);
+    setModalAddSub(false);
   };
+
   const code = (id) => {
     employee.map((val) => {
       return val.id == id
@@ -172,7 +207,14 @@ function ReportTo() {
                           <div className="flex flex-row gap-2">
                             <button
                               className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => setModalEdit(true)}
+                              onClick={() => {
+                                setEditReportId(val.reportingmethod.id);
+                                setEditReportName(val.reportingmethod.name);
+                                setEditStructureId(val.structureId);
+                                setEditStatus(val.status);
+                                setEditName(val.name);
+                                setModalEdit(true);
+                              }}
                             >
                               <PencilSimple
                                 color="#003049"
@@ -181,7 +223,13 @@ function ReportTo() {
                                 aria-hidden="true"
                               />
                             </button>
-                            <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                            <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => {
+                                setDelete(true);
+                                setId(val.id);
+                              }}
+                            >
                               <Trash
                                 color="#003049"
                                 weight="bold"
@@ -288,7 +336,13 @@ function ReportTo() {
                                 aria-hidden="true"
                               />
                             </button>
-                            <button className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg">
+                            <button
+                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                              onClick={() => {
+                                setDelete(true);
+                                setId(val.id);
+                              }}
+                            >
                               <Trash
                                 color="#003049"
                                 weight="bold"
@@ -467,12 +521,6 @@ function ReportTo() {
         </Modal.Header>
         <Modal.Body className="mx-4">
           <div className="row mb-4">
-            <h1
-              className="mb-3  "
-              style={{ fontSize: "16px", fontWeight: "500" }}
-            >
-              Add Supervisor
-            </h1>
             <div className="col">
               <label
                 className="block text-gray-700 text-sm mb-2"
@@ -481,64 +529,72 @@ function ReportTo() {
                 Name <span style={{ color: "#780000" }}>*</span>
               </label>
               <input
-                value="Kim Woo Bin"
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
                 placeholder="Username"
+                value={editName}
+                readOnly
               />
+              {/* <Select
+                id="selectedEmployee"
+                isLoading={true}
+                onChange={(e) => {
+                  code(e.value);
+                  setEditName(e.label);
+                }}
+                isFocused="appearance-none border-0 outline-0"
+                className="appearance-none"
+                classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
+                defaultValue={editName}
+                options={
+                  employee &&
+                  employee.map((val) => {
+                    return {
+                      value: val.id,
+                      label: val.firstName + " " + val.lastName,
+                    };
+                  })
+                }
+              /> */}
             </div>
             <div className="col">
               <label
                 className="block text-gray-700 text-sm mb-2"
                 for="username"
               >
-                Reporting Method <span style={{ color: "#780000" }}>*</span>
+                Stucture ID
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3" hidden>
-                  Select
-                </option>
-                <option className="py-3">Direct</option>
-                <option className="py-3">Indirect</option>
-              </select>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Username"
+                value={editStructureId}
+                readOnly
+              />
             </div>
           </div>
           <div className="row mb-4">
-            <h1
-              className="mb-3  "
-              style={{ fontSize: "16px", fontWeight: "500" }}
-            >
-              Add Subordinate
-            </h1>
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Name <span style={{ color: "#780000" }}>*</span>
-              </label>
-              <input
-                value="Kim Woo Bin"
-                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Username"
-              />
-            </div>
-            <div className="col">
+            <div className="col-6">
               <label
                 className="block text-gray-700 text-sm mb-2"
                 for="username"
               >
                 Reporting Method <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3" hidden>
-                  Select
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setEditReportId(e.target.value)}
+              >
+                <option hidden value={editReportId} className="py-3">
+                  {editReportName != null ? editReportName : "Select"}
                 </option>
-                <option className="py-3">Direct</option>
-                <option className="py-3">Indirect</option>
+                {reportingMethod.map((val, index) => (
+                  <option key={index} value={val.id} className="py-3">
+                    {val.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -677,6 +733,17 @@ function ReportTo() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={async () => {
+          deleteReportTo(id);
+          inAwait();
+          setDelete(false);
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

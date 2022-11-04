@@ -32,6 +32,7 @@ import {
   AddFieldDocument,
   DeleteDocument,
 } from "../../../Repository/DocumentRepository";
+import { GetEmployee } from "../../../Repository/EmployeeRepository";
 import { Delete, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import {
@@ -51,6 +52,14 @@ function DocumentManagement() {
   );
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const [employee, setEmployee] = useState([]);
+
+  const [editUserData, setEditUserData] = useState();
+  const [Doc, setDoc] = useState([]);
+  const [isdelete, setDelete] = useState(false);
+  const [id, setId] = useState();
+  const [fields, setField] = useState([]);
+
   const options = {
     responsive: true,
     plugins: {
@@ -114,17 +123,7 @@ function DocumentManagement() {
       </div>
     );
   };
-  const showTo = [
-    { value: "1", label: "Manager" },
-    { value: "2", label: "Human Resources" },
-    { value: "3", label: "Sales Acquisition" },
-    { value: "4", label: "Sales External" },
-    { value: "5", label: "Sales Research and Media Social" },
-    { value: "6", label: "Advertiser" },
-    { value: "7", label: "Finance" },
-    { value: "8", label: "Support and Analyst" },
-    { value: "9", label: "Information and Technology Development" },
-  ];
+  const showTo = [];
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       // className={`ms-auto ${isExpired ? "text-[#CACACA]" : ""}`}
@@ -142,16 +141,14 @@ function DocumentManagement() {
       {children}
     </a>
   ));
-  const [editUserData, setEditUserData] = useState();
-  const [Doc, setDoc] = useState([]);
-  const [isdelete, setDelete] = useState(false);
-  const [id, setId] = useState();
-  const [fields, setField] = useState([]);
 
   const inAwait = async () => {
     var rec = await GetDoc();
+    var emp = await GetEmployee();
+    emp.map((em) => showTo.push({ value: em.id, label: em.firstName }));
     setDoc(rec["result"]);
   };
+
   useEffect(() => {
     inAwait();
   }, []);

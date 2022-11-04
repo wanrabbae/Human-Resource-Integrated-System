@@ -98,6 +98,8 @@ function DocumentManagement() {
       },
     ],
   };
+  const [document, setDocument] = useState({});
+  const [showto, setShowTo] = useState([]);
   const Option = (props) => {
     return (
       <div>
@@ -105,9 +107,6 @@ function DocumentManagement() {
           <Form.Check
             type="checkbox"
             checked={props.isSelected}
-            onChange={(e) =>
-              setDocument({ ...document, delegated_to: [...e, e.target.value] })
-            }
             id="default-checkbox"
             label={props.label}
           />
@@ -148,7 +147,7 @@ function DocumentManagement() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [fields, setField] = useState([]);
-  const [document, setDocument] = useState({});
+
   const inAwait = async () => {
     var rec = await GetDoc();
     setDoc(rec["result"]);
@@ -159,7 +158,11 @@ function DocumentManagement() {
 
   const addDocument = async () => {
     try {
-      const addDoc = await AddDocument(document);
+      const addDoc = await AddDocument({
+        title: document.title,
+        description: document.description,
+        delegated_to: `[${showto}]`,
+      });
 
       fields.forEach(async (field) => {
         const addDetail = await AddDetailDocument({
@@ -320,7 +323,7 @@ function DocumentManagement() {
                   textTransform: "uppercase",
                 }}
               >
-                100
+                {Doc.length}
               </h3>
             </div>
           </div>
@@ -797,7 +800,13 @@ function DocumentManagement() {
             <ReactSelect
               options={showTo}
               isMulti
-              // onChange={(e) => setDocument(e.)}
+              onChange={(e) => {
+                var data = [];
+                for (var i in e) {
+                  data.push(parseInt(e[i].value));
+                }
+                setShowTo(data);
+              }}
               closeMenuOnSelect={false}
               hideSelectedOptions={false}
               components={{

@@ -202,6 +202,21 @@ function JobLevel() {
         >
           <Modal.Title>Add Job Level</Modal.Title>
         </Modal.Header>
+        <form 
+        onSubmit={async (e) => {
+          e.preventDefault();
+          var requestBody = {
+            name: document.getElementById("name").value,
+            grade_id: document.getElementById("grade_id").value,
+          };
+          var res = await AddJobLevel(requestBody);
+          console.log(res);
+          setTitle(!dialogTitle);
+          SwalSuccess({ message: "Success Add job level" });
+          inAwait();
+        }}
+        >
+
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -211,6 +226,7 @@ function JobLevel() {
                 </label>
                 <input
                   className="form-control"
+                  required
                   id="name"
                   placeholder="Level Name..."
                 />
@@ -222,16 +238,17 @@ function JobLevel() {
                 <select
                   className="form-control"
                   id="grade_id"
+                  required
                   onChange={(e) =>
                     setEditValues({ ...editValues, grade_id: e.target.value })
                   }
-                >
-                  <option>Select Job Grade</option>
+                  >
+                  <option value="">Select Job Grade</option>
                   {
                     jobgrade.map((val) => {
                       return (
                         <option selected={editValues?.grade_id == val.id ? true : false } value={val.id}>{val.name}</option>
-                      )
+                        )
                     })
                   }
                 </select>
@@ -248,6 +265,7 @@ function JobLevel() {
               color: "#0E5073",
               width: "100px",
             }}
+            type="button"
             onClick={() => setTitle(!dialogTitle)}
           >
             Cancel
@@ -260,21 +278,12 @@ function JobLevel() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-                grade_id: document.getElementById("grade_id").value,
-              };
-              var res = await AddJobLevel(requestBody);
-              console.log(res);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success Add job level" });
-              inAwait();
-            }}
-          >
+            type="submit"
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

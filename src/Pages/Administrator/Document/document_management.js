@@ -641,10 +641,10 @@ function DocumentManagement() {
                       Paragraph
                     </option>
                     <option className="py-3" value="option">
-                      Radio
+                      Single Choice
                     </option>
                     <option className="py-3" value="checkbox">
-                      Check Box
+                      Multiple Choice
                     </option>
                     <option className="py-3" value="dropdown">
                       Dropdown
@@ -679,10 +679,10 @@ function DocumentManagement() {
                       Data Type
                     </option>
                     <option className="py-3" value="text">
-                      String
+                      Alphabet
                     </option>
                     <option className="py-3" value="number">
-                      Interger
+                      Number
                     </option>
                   </select>
                 </div>

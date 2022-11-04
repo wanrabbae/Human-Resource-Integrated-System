@@ -151,6 +151,7 @@ function DocumentManagement() {
   const [document, setDocument] = useState({});
   const inAwait = async () => {
     var rec = await GetDoc();
+    console.log(rec);
     setDoc(rec["result"]);
   };
   useEffect(() => {
@@ -234,7 +235,7 @@ function DocumentManagement() {
                 fontSize: "14px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              onChange={(val) => { }}
               className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
               type="search"
               placeholder="Search Document..."
@@ -354,91 +355,91 @@ function DocumentManagement() {
           <div className="grid grid-cols-5 gap-4">
             {Doc.length > 0
               ? Doc.map((val) => {
-                  return (
-                    <div
-                      className="px-3 py-4"
-                      style={{
-                        backgroundColor: "#669BBC",
-                        borderRadius: "10px",
-                        fontWeight: "600",
-                      }}
-                    >
-                      <div>
-                        <div className="d-flex justify-content-end mb-2 ">
-                          <Dropdown>
-                            <Dropdown.Toggle as={CustomToggle} />
+                return (
+                  <div
+                    className="px-3 py-4"
+                    style={{
+                      backgroundColor: "#669BBC",
+                      borderRadius: "10px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <div>
+                      <div className="d-flex justify-content-end mb-2 ">
+                        <Dropdown>
+                          <Dropdown.Toggle as={CustomToggle} />
 
-                            <Dropdown.Menu size="sm">
-                              <Dropdown.Item
-                                className="text-sm"
-                                onClick={() => {
-                                  // navigate(`/recruitment/edit/${val["id"]}`);
-                                }}
-                              >
-                                Edit
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                onClick={() => {
-                                  setDelete(true);
-                                  setId(val.id);
-                                }}
-                                className="text-sm"
-                              >
-                                Delete
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                          {/* <a href="" className="ms-auto">
+                          <Dropdown.Menu size="sm">
+                            <Dropdown.Item
+                              className="text-sm"
+                              onClick={() => {
+                                // navigate(`/recruitment/edit/${val["id"]}`);
+                              }}
+                            >
+                              Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() => {
+                                setDelete(true);
+                                setId(val.id);
+                              }}
+                              className="text-sm"
+                            >
+                              Delete
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        {/* <a href="" className="ms-auto">
                                                     <DotsThreeOutlineVertical size={20} weight="fill" color="white" />
                                                 </a> */}
-                        </div>
-                        <h3
-                          className="mb-2"
-                          style={{
-                            fontSize: "20px",
-                            fontWeight: "600",
-                            color: "white",
+                      </div>
+                      <h3
+                        className="mb-2"
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: "600",
+                          color: "white",
+                        }}
+                      >
+                        {val.title}
+                      </h3>
+                      <p
+                        className="mb-2"
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "400",
+                          color: "white",
+                          lineHeight: "15px",
+                        }}
+                      >
+                        {val.description}
+                      </p>
+                      <h3
+                        className="mb-2"
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: "600",
+                          color: "#003049",
+                        }}
+                      >
+                        Show to Role
+                      </h3>
+                      {/* <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to {JSON.parse(val.delegated_to).length} Role</h3> */}
+                      <div className="d-flex justify-content-end mt-3 ">
+                        <a
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            navigate(`/document-management/detail/${val.id}`);
                           }}
+                          className="ms-auto"
                         >
-                          {val.title}
-                        </h3>
-                        <p
-                          className="mb-2"
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            color: "white",
-                            lineHeight: "15px",
-                          }}
-                        >
-                          {val.description}
-                        </p>
-                        <h3
-                          className="mb-2"
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "600",
-                            color: "#003049",
-                          }}
-                        >
-                          Show to Role
-                        </h3>
-                        {/* <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to {JSON.parse(val.delegated_to).length} Role</h3> */}
-                        <div className="d-flex justify-content-end mt-3 ">
-                          <a
-                            style={{ cursor: "pointer" }}
-                            onClick={() => {
-                              navigate(`/document-management/detail/${val.id}`);
-                            }}
-                            className="ms-auto"
-                          >
-                            <ArrowRight size={30} weight="bold" color="white" />
-                          </a>
-                        </div>
+                          <ArrowRight size={30} weight="bold" color="white" />
+                        </a>
                       </div>
                     </div>
-                  );
-                })
+                  </div>
+                );
+              })
               : ""}
             {/* <div className="px-3 py-4" style={{backgroundColor:'#669BBC',borderRadius:'10px',fontWeight:'600'}}>
                             <div>
@@ -659,7 +660,7 @@ function DocumentManagement() {
                   <select
                     disabled={
                       e?.field_type == "short_answer" ||
-                      e?.field_type == "paragraph"
+                        e?.field_type == "paragraph"
                         ? false
                         : true
                     }
@@ -730,7 +731,7 @@ function DocumentManagement() {
                     return (
                       <div className="d-flex justify-content-between align-items-center mr-3 mb-2">
                         {e.field_type == "checkbox" ||
-                        e.field_type == "option" ? (
+                          e.field_type == "option" ? (
                           <input
                             type={
                               e.field_type == "checkbox" ? "checkbox" : "radio"

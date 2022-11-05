@@ -7,8 +7,9 @@ import Tree, { useTreeState, treeHandlers } from "react-hyper-tree";
 import classNames from "classnames";
 import ChevronDown from "react-multiselect-checkboxes/lib/ChevronDown";
 import { ArrowDown, ArrowUp, CaretUp, CaretDown, TreeStructure } from "phosphor-react";
-import { addStructure, deleteStructure, getCodeStructure, GetJobPosition, getStructure, updateStructure } from "../../../../Repository/AdminRepository";
+import { AddJobPosition, addStructure, deleteStructure, DelJobPosition, getCodeStructure, GetJobGrade, GetJobPosition, getStructure, UpdateJobPosition, updateStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 
 function StructureOrganization() {
   const [isSelected, setSelected] = useState(false);
@@ -18,10 +19,15 @@ function StructureOrganization() {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [jobPosition, setJobPosition] = useState([]);
+  const [jobgrade, setJobGrade] = useState([]);
   const [allStruct, setStruct] = useState([]);
+  const [isdelete, setDelete] = useState(false);
+
 
   const [data, setData] = useState([]);
   const loadData = async () => {
+    var grd = await GetJobGrade();
+    setJobGrade(grd);
     var rec = await GetJobPosition();
     setJobPosition(rec["result"]);
     var structure = await getStructure();
@@ -64,18 +70,15 @@ function StructureOrganization() {
         >
           <div className="titles">
             <div className="node-title">
-              {isSelected == true ? `${node.data.position.name} ${node.data.structure_id}` : node.data.position.name}
+              {isSelected == true ? `${node.data.name} ${node.data.structure_id}` : node.data.name}
             </div>
           </div>
           <div className="flex space-x-3" style={{ display: `${isSelected == false ? "none" : ""}` }}>
             <button
               className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
               onClick={async () => {
-                var data = await deleteStructure(node.data.id);
-                if (data.status == 200) {
-                  await loadData();
-                  alert(data.message);
-                }
+                setId(node.data.id);
+                setDelete(true);
               }}
             >
               <DeleteOutlineOutlined
@@ -88,8 +91,10 @@ function StructureOrganization() {
               onClick={() => {
                 setController({
                   id: node.data.id,
-                  position_id: node.data.position.id,
-                  structure_id: node.data.structure_id,
+                  name: node.data.name,
+                  grade_id: node.data.grade_id,
+                  relation_code: node.data.relation_code,
+                  job_id: node.data.job_id,
                   color: node.data.color,
                 });
                 setEdited(true);
@@ -104,7 +109,7 @@ function StructureOrganization() {
         </div>
       </div>
     </div>
-  ), [isSelected])
+  ), [isSelected, data])
   return (
     <>
       <div
@@ -408,14 +413,45 @@ function StructureOrganization() {
         <Modal.Body className="mx-4">
           <div className="grid grid-cols-1 gap-3 mt-3">
             <div className="w-full">
-              <label className="text-xs">Job Position</label>
-              <select
-                id="job_position"
+              <label className="text-xs">Position Name</label>
+              <input
+                id="name"
                 className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                onChange={async (val) => {
-                  var res = await getCodeStructure(val.target.value);
-                  setId(res['result']);
-                }}
+              />
+
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Job ID</label>
+              <input
+                id="id"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="ID..."
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Job Grade</label>
+              <select
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="grade_id"
+              >
+                <option value="" hidden>Select Job Grade</option>
+                {
+                  jobgrade.map((val) => {
+                    return (
+                      <option selected={val?.grade_id == val.id ? true : false} value={val.id}>{val.name}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Relation Code</label>
+              <select
+                required
+                id="relation_code"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option className="py-3" hidden>
                   Select
@@ -423,27 +459,14 @@ function StructureOrganization() {
                 {jobPosition.map((e, i) => {
                   return (
                     <option
-                      key={e['id']}
                       className="py-3"
-                      value={e['id']}
+                      value={e?.id}
                     >
-                      {e['name']}
+                      {`${e?.name} | ${e?.job_id}`}
                     </option>
                   );
                 })}
               </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Structure ID</label>
-              <input
-                id="id"
-                readOnly
-                value={id}
-                onChange={(val) => setId(val.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="text"
-                placeholder="ID..."
-              />
             </div>
             <div className="w-full">
               <label className="text-xs">Color</label>
@@ -468,14 +491,20 @@ function StructureOrganization() {
           </button>
           <button
             onClick={async () => {
-              var id_position = document.getElementById("job_position").value;
+              var relation_code = document.getElementById("relation_code").value;
               var color = document.getElementById("color").value;
+              var jobGrade = document.getElementById("grade_id").value;
+              var name = document.getElementById("name").value;
+              var id = document.getElementById("id").value;
               const requestBody = {
-                position_id: id_position,
-                structure_id: id,
+                name: name,
+                grade_id: jobGrade,
+                relation_code: relation_code,
+                job_id: id,
                 color: color,
               };
-              var data = await addStructure(requestBody);
+              var data = await AddJobPosition(requestBody);
+              console.log(data);
               if (data['status'] == 400) {
                 alert("Parent tidak ditemukan, harap tambahkan terlebih dahulu");
               } else {
@@ -506,51 +535,76 @@ function StructureOrganization() {
         <Modal.Body className="mx-4">
           <div className="grid grid-cols-1 gap-3 mt-3">
             <div className="w-full">
-              <label className="text-xs">Job Position</label>
-              <select
-                disabled
-                id="job_position"
+              <label className="text-xs">Position Name</label>
+              <input
+                id="name"
                 className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                onChange={async (val) => {
-                  var res = await getCodeStructure(val.target.value);
-                  setController({ ...controllerEdited, position_id: val.target.value, structure_id: res.result });
+                value={controllerEdited.name}
+                onChange={(val) => setController({ ...controllerEdited, name: val.target.value })}
+              />
 
-                }}
-              >
-                <option className="py-3" hidden>
-                  Select
-                </option>
-                {jobPosition.map((e, i) => {
-                  return (
-                    <option
-                      key={e['id']}
-                      className="py-3"
-                      value={e['id']}
-                      selected={controllerEdited.position_id == e['id'] ? true : false}
-                    >
-                      {e['name']}
-                    </option>
-                  );
-                })}
-              </select>
             </div>
             <div className="w-full">
-              <label className="text-xs">Structure ID</label>
+              <label className="text-xs">Job ID</label>
               <input
                 id="id"
-                readOnly
-                value={controllerEdited.structure_id}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
+                value={controllerEdited.job_id}
+                onChange={(val) => setController({ ...controllerEdited, job_id: val.target.value })}
                 placeholder="ID..."
               />
             </div>
             <div className="w-full">
+              <label className="text-xs">Job Grade</label>
+              <select
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="grade_id"
+                onChange={(val) => setController({ ...controllerEdited, grade_id: val.target.value })}
+              >
+                <option value="" hidden>Select Job Grade</option>
+                {
+                  jobgrade.map((val) => {
+                    return (
+                      <option selected={controllerEdited.grade_id == val.id ? true : false} value={val.id}>{val.name}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Relation Code</label>
+              <select
+                required
+                id="relation_code"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={(val) => setController({ ...controllerEdited, relation_code: val.target.value })}
+              >
+                <option className="py-3">
+                  Select
+                </option>
+                {jobPosition.map((e, i) => {
+                  if (controllerEdited?.id != e?.id) {
+                    return (
+                      <option
+                        className="py-3"
+                        value={e?.id}
+                        selected={controllerEdited.relation_code == e?.id ? true : false}
+                      >
+                        {`${e?.name} | ${e?.job_id}`}
+                      </option>
+                    );
+                  }
+                })}
+              </select>
+            </div>
+            <div className="w-full">
               <label className="text-xs">Color</label>
               <input
-                value={controllerEdited.color}
                 id="color"
-                onChange={(v) => setController({ ...controllerEdited, color: v.target.value })}
+                value={controllerEdited.color}
+                onChange={(val) => setController({ ...controllerEdited, color: val.target.value })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="color"
               />
@@ -570,20 +624,10 @@ function StructureOrganization() {
           </button>
           <button
             onClick={async () => {
-              const requestBody = {
-                id: controllerEdited.id,
-                position_id: controllerEdited.position_id,
-                structure_id: controllerEdited.structure_id,
-                color: controllerEdited.color,
-              };
-              var data = await updateStructure(requestBody);
-              if (data.status == 200) {
-                await loadData();
-                setEdited(false);
-                setController({});
-              } else {
-                alert("Pastikan parent sudah dimasukan");
-              }
+              var data = await UpdateJobPosition(controllerEdited);
+              await loadData();
+              setEdited(false);
+              setController({});
             }}
             type="button"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
@@ -592,6 +636,20 @@ function StructureOrganization() {
           </button>
         </Modal.Footer>
       </Modal>
+
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={async () => {
+          var del = await DelJobPosition(id);
+          console.log(del);
+          await loadData();
+          SwalSuccess({ message: "Success delete job position" });
+          setDelete(false);
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

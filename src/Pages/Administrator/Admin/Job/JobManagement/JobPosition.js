@@ -205,7 +205,7 @@ function JobPosition() {
         >
           <Modal.Title>Add Job Postition</Modal.Title>
         </Modal.Header>
-        <form
+        {/* <form
         action={
           async (e) => {
             e.preventDefault();
@@ -214,15 +214,16 @@ function JobPosition() {
               job_id: document.getElementById("job_id").value,
               grade_id: document.getElementById("grade_id").value,
               relation_code: document.getElementById("relation_code").value,
+              color: document.getElementById("color").value,
             };
             var res = await AddJobPosition(requestBody);
             console.log(res);
             setTitle(!dialogTitle);
-            inAwait();
+            await inAwait();
             SwalSuccess({ message: "Success add job position" });
           }
         }
-        >
+        > */}
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -235,7 +236,7 @@ function JobPosition() {
                   id="name"
                   placeholder="Job title..."
                   required
-                  />
+                />
               </div>
             </div>
             <div className="col-md-12 mb-3">
@@ -274,27 +275,39 @@ function JobPosition() {
               </div>
             </div>
           </div>
-          <div className="w-full">
+          <div className="w-full mb-3">
             <label className="mb-1">Relation Code</label>
             <select
-              required
               id="relation_code"
               className="form-control"
-              >
-              <option value="" className="py-3" hidden>
+            >
+              <option className="py-3" hidden>
                 Select
               </option>
               {jobposition.map((e, i) => {
                 return (
                   <option
                     className="py-3"
-                    value={e?.job_id}
+                    value={e?.id}
                   >
                     {`${e?.name} | ${e?.job_id}`}
                   </option>
                 );
               })}
             </select>
+          </div>
+          <div className="col-md-12 mb-3">
+            <div className="form-group">
+              <label className="mb-1">
+                Color
+              </label>
+              <input
+                type="color"
+                className="form-control"
+                id="color"
+                required
+              />
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
@@ -319,12 +332,26 @@ function JobPosition() {
               color: "#FFFFFF",
               width: "100px",
             }}
+            onClick={async () => {
+              var requestBody = {
+                name: document.getElementById("name").value,
+                job_id: document.getElementById("job_id").value,
+                grade_id: document.getElementById("grade_id").value,
+                relation_code: document.getElementById("relation_code").value,
+                color: document.getElementById("color").value,
+              };
+              var res = await AddJobPosition(requestBody);
+              console.log(res);
+              setTitle(!dialogTitle);
+              await inAwait();
+              SwalSuccess({ message: "Success add job position" });
+            }}
             type="submit"
-            >
+          >
             Add
           </button>
         </Modal.Footer>
-        </form>
+        {/* </form> */}
       </Modal>
 
       <Modal
@@ -354,7 +381,7 @@ function JobPosition() {
                   onChange={(e) =>
                     setEditValues({ ...editValues, name: e.target.value })
                   }
-                  />
+                />
               </div>
             </div>
             <div className="col-md-12 mb-3">
@@ -370,7 +397,7 @@ function JobPosition() {
                     setEditValues({ ...editValues, job_id: e.target.value })
                   }
                   placeholder="Job title..."
-                  />
+                />
               </div>
             </div>
             <div className="col-md-12 mb-3">
@@ -388,36 +415,39 @@ function JobPosition() {
                     jobgrade.map((val) => {
                       return (
                         <option selected={editValues?.grade_id == val.id ? true : false} value={val.id}>{val.name}</option>
-                        )
+                      )
                     })
                   }
                 </select>
               </div>
             </div>
-            <div className="w-full">
+            <div className="w-full mb-3">
               <label className="mb-1">Relation Code</label>
               <select
                 id="relation_code"
                 className="form-control"
-                onChange={(e) =>
-                  setEditValues({ ...editValues, relation_code: e.target.value })
-                }
-                >
-                <option className="py-3" hidden>
+              >
+                <option className="py-3">
                   Select
                 </option>
                 {jobposition.map((e, i) => {
-                  return (
-                    <option
-                      selected={editValues?.relation_code == e.job_id ? true : false}
-                      className="py-3"
-                      value={e?.job_id}
-                    >
-                      {`${e?.name} | ${e?.job_id}`}
-                    </option>
-                  );
+                  if (editValues?.id != e?.id) {
+                    return (
+                      <option
+                        selected={editValues?.relation_code == e?.id ? true : false}
+                        className="py-3"
+                        value={e?.id}
+                      >
+                        {`${e?.name} | ${e?.job_id}`}
+                      </option>
+                    );
+                  }
                 })}
               </select>
+            </div>
+            <div className="w-full">
+              <label className="mb-1">Color</label>
+              <input type="color" id="color" value={editValues?.color} className="form-control" onChange={(e) => setEditValues({ ...editValues, color: e.target.value })} />
             </div>
           </div>
         </Modal.Body>
@@ -440,9 +470,12 @@ function JobPosition() {
                 id: id,
                 name: document.getElementById("name").value,
                 job_id: document.getElementById("job_id").value,
+                relation_code: document.getElementById("relation_code").value,
                 grade_id: document.getElementById("grade_id").value,
+                color: editValues.color,
               };
-              
+              // console.log(requestBody);
+              // return 1;
               var res = await UpdateJobPosition(requestBody);
               console.log(res);
               setEditTitle(!dialogEditTitle);
@@ -456,7 +489,7 @@ function JobPosition() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            >
+          >
             Submit
           </button>
         </Modal.Footer>

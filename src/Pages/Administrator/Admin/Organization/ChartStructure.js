@@ -16,7 +16,10 @@ import {
 } from "phosphor-react";
 import { getStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
-import { Tree, TreeNode } from "react-organizational-chart";
+// import { Tree, TreeNode } from "react-organizational-chart";
+import OrganizationChart from "@dabeng/react-orgchart";
+// import { Tree } from "react-tree-graph";
+import Tree from 'react-hierarchy-tree-graph';
 
 function ChartStructure() {
   const [isSelected, setSelected] = useState(false);
@@ -27,7 +30,7 @@ function ChartStructure() {
 
   const [data, setData] = useState([]);
   const loadData = async () => {
-    var structure = await getStructure("0");
+    var structure = await getStructure();
     var allStructure = await getStructure(1);
     setData(structure);
     setStruct(allStructure);
@@ -141,7 +144,15 @@ function ChartStructure() {
         </div>
         <hr></hr>
         <div className="mt-2 p-4 bg-[#F3F3F3]" style={{ borderRadius: "5px" }}>
-          {
+          {/* <OrganizationChart datasource={data} pan={true} zoom={true} /> */}
+          <Tree data={data} />
+          {/* <Tree
+            data={data}
+            key={data.id}
+            height={400}
+            width={600}
+          /> */}
+          {/* {
             data.length > 0 ? (
               data.map((val) => {
                 return (
@@ -214,7 +225,7 @@ function ChartStructure() {
             ) : (
               ""
             )
-          }
+          } */}
         </div>
         {/* <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
           <span className="">PT Ethos Kreatif Indonesia</span>

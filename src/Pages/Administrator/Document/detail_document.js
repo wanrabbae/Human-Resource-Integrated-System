@@ -177,7 +177,7 @@ function DetailDocument() {
           </div>
           {Doc.detail_documents ? (
             Doc.detail_documents.length > 0 ? (
-              Doc.detail_documents.map((detail) => (
+              Doc.detail_documents.map((detail, index) => (
                 <>
                   <div
                     className="p-4 mb-4"
@@ -199,7 +199,7 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => {}}
+                          onChange={(val) => { }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Short Answer"
@@ -218,7 +218,7 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => {}}
+                          onChange={(val) => { }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Paragraph"
@@ -245,6 +245,7 @@ function DetailDocument() {
                         {detail.field_documents.map((fd) => (
                           <div>
                             <input
+                              name={`radio-${index}`}
                               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                               type="radio"
                             />
@@ -272,7 +273,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {}}
+                          onChange={(val) => { }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="file"
                         />
@@ -282,7 +283,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {}}
+                          onChange={(val) => { }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",
@@ -299,7 +300,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {}}
+                          onChange={(val) => { }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",
@@ -509,7 +510,7 @@ function DetailDocument() {
                 fontSize: "20px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              onChange={(val) => { }}
               className="focus:ring-0 focus:ring-offset-0 me-3 w-50 "
               type="text"
               placeholder="Document Title"
@@ -523,7 +524,7 @@ function DetailDocument() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => {}}
+              onChange={(val) => { }}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Document description"
@@ -532,7 +533,7 @@ function DetailDocument() {
           <div className="row mb-4">
             <div className="col-5">
               <input
-                onChange={(val) => {}}
+                onChange={(val) => { }}
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 type="text"
                 placeholder="Field Name"

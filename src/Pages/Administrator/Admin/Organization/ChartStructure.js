@@ -16,7 +16,10 @@ import {
 } from "phosphor-react";
 import { getStructure } from "../../../../Repository/AdminRepository";
 import { removeSpace } from "../../../../Constant/utils";
-import { Tree, TreeNode } from "react-organizational-chart";
+// import { Tree, TreeNode } from "react-organizational-chart";
+import OrganizationChart from "@dabeng/react-orgchart";
+// import { Tree } from "react-tree-graph";
+import Tree from 'react-hierarchy-tree-graph';
 
 function ChartStructure() {
   const [isSelected, setSelected] = useState(false);
@@ -31,12 +34,12 @@ function ChartStructure() {
     var allStructure = await getStructure(1);
     setData(structure);
     setStruct(allStructure);
-    console.log(data);
   };
   useEffect(() => {
     loadData();
   }, []);
-
+  
+  console.log(data);
   const data2 = {
     name: "Parent",
     children: [
@@ -141,77 +144,88 @@ function ChartStructure() {
         </div>
         <hr></hr>
         <div className="mt-2 p-4 bg-[#F3F3F3]" style={{ borderRadius: "5px" }}>
-          {
+          {/* <OrganizationChart datasource={data} pan={true} zoom={true} /> */}
+          <Tree data={data} />
+          {/* <Tree
+            data={data}
+            key={data.id}
+            height={400}
+            width={600}
+          /> */}
+          {/* {
             data.length > 0 ? (
               data.map((val) => {
-                <Tree
-                lineWidth={'2px'}
-                lineColor={'green'}
-                lineBorderRadius={'10px'}      
-                label={<div>{val.position.name}</div>}>
-                  {
-                    data.children.length > 0 ? (
-                      <TreeNode label={<div>{val.position.name}</div>}>
-                        {
-                          data.children.length > 0 ? (
-                            <TreeNode label={<div>{val.position.name}</div>}>
-                              {
-                                data.children.length > 0 ? (
-                                  <TreeNode label={<div>{val.position.name}</div>}>
-                                    {
-                                      data.children.length > 0 ? (
-                                        <TreeNode label={<div>{val.position.name}</div>}>
-                                          {
-                                            data.children.length > 0 ? (
-                                              <TreeNode label={<div>{val.position.name}</div>}>
-                                                {
-                                                  data.children.length > 0 ? (
-                                                    <TreeNode label={<div>{val.position.name}</div>}>
-                                                      {
-                                                        data.children.length > 0 ? (
-                                                          <TreeNode label={<div>{val.position.name}</div>}>
-                                                            <TreeNode label={<div>{val.position.name}</div>} />
-                                                          </TreeNode>
-                                                        ) : (
-                                                          <TreeNode label={<div>{val.position.name}</div>}/>
-                                                        )
-                                                      }
-                                                    </TreeNode>
-                                                  ) : (
-                                                    <TreeNode label={<div>{val.position.name}</div>}/>
-                                                  )
-                                                }
-                                              </TreeNode>
-                                            ) : (
-                                              <TreeNode label={<div>{val.position.name}</div>}/>
-                                            )
-                                          }
-                                        </TreeNode>
-                                      ) : (
-                                        <TreeNode label={<div>{val.position.name}</div>}/>
-                                      )
-                                    }
-                                  </TreeNode>
-                                ) : (
-                                  <TreeNode label={<div>{val.position.name}</div>}/>
-                                )
-                              }
-                            </TreeNode>
-                          ) : (
-                            <TreeNode label={<div>{val.position.name}</div>}/>
-                          )
-                        }
-                      </TreeNode>
-                    ) : (
-                      <TreeNode label={<div>{val.position.name}</div>}/>
-                    )
-                  }
-                </Tree>
+                return (
+                  <Tree
+                  key={val.id}
+                  lineWidth={'2px'}
+                  lineColor={'green'}
+                  lineBorderRadius={'10px'}      
+                  label={<div>{val.name}</div>}>
+                    {
+                      val.children.length > 0 ? (
+                        <TreeNode key={val.id} label={<div>{val.name}</div>}>
+                          {
+                            val.children.length > 0 ? (
+                              <TreeNode key={val.id} label={<div>{val.name}</div>}>
+                                {
+                                  val.children.length > 0 ? (
+                                    <TreeNode key={val.id} label={<div>{val.name}</div>}>
+                                      {
+                                        val.children.length > 0 ? (
+                                          <TreeNode key={val.id} label={<div>{val.name}</div>}>
+                                            {
+                                              val.children.length > 0 ? (
+                                                <TreeNode key={val.id} label={<div>{val.name}</div>}>
+                                                  {
+                                                    val.children.length > 0 ? (
+                                                      <TreeNode key={val.id} label={<div>{val.name}</div>}>
+                                                        {
+                                                          val.children.length > 0 ? (
+                                                            <TreeNode key={val.id} label={<div>{val.name}</div>}>
+                                                              <TreeNode key={val.id} label={<div>{val.name}</div>} />
+                                                            </TreeNode>
+                                                          ) : (
+                                                            <TreeNode key={val.id} label={<div>{val.name}</div>}/>
+                                                          )
+                                                        }
+                                                      </TreeNode>
+                                                    ) : (
+                                                      <TreeNode key={val.id} label={<div>{val.name}</div>}/>
+                                                    )
+                                                  }
+                                                </TreeNode>
+                                              ) : (
+                                                <TreeNode key={val.id} label={<div>{val.name}</div>}/>
+                                              )
+                                            }
+                                          </TreeNode>
+                                        ) : (
+                                          <TreeNode key={val.id} label={<div>{val.name}</div>}/>
+                                        )
+                                      }
+                                    </TreeNode>
+                                  ) : (
+                                    <TreeNode key={val.id} label={<div>{val.name}</div>}/>
+                                  )
+                                }
+                              </TreeNode>
+                            ) : (
+                              <TreeNode key={val.id} label={<div>{val.name}</div>}/>
+                            )
+                          }
+                        </TreeNode>
+                      ) : (
+                        <TreeNode key={val.id}  label={<div>{val.name}</div>}/>
+                      )
+                    }
+                  </Tree>
+                )
               })
             ) : (
               ""
             )
-          }
+          } */}
         </div>
         {/* <p className="mt-3 py-2 px-3 w-full shadow-md rounded-xl flex justify-between items-center">
           <span className="">PT Ethos Kreatif Indonesia</span>
@@ -484,9 +498,9 @@ function ChartStructure() {
                   return (
                     <option
                       className="py-3"
-                      value={JSON.stringify([e?.id, e?.position["name"]])}
+                      value={JSON.stringify([e?.id, e?.name])}
                     >
-                      {e?.position["name"]}
+                      {e?.name}
                     </option>
                   );
                 })}

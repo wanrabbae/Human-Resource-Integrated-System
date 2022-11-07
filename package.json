@@ -4,6 +4,7 @@
   "homepage": "https://pwktesting.afkaaruna.sch.id",
   "private": true,
   "dependencies": {
+    "@dabeng/react-orgchart": "^1.0.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -39,6 +40,7 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-froala-wysiwyg": "^4.0.14",
+    "react-hierarchy-tree-graph": "^1.0.3",
     "react-hyper-tree": "^0.3.12",
     "react-multiselect-checkboxes": "^0.1.1",
     "react-organizational-chart": "^2.2.0",

@@ -176,6 +176,21 @@ function EmployeeStatus() {
         >
           <Modal.Title>Add Employee Status</Modal.Title>
         </Modal.Header>
+        <form
+        action={
+          async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              name: document.getElementById("name").value,
+            };
+            var res = await AddEmployeeStatus(requestBody);
+            console.log(res);
+            setTitle(!dialogTitle);
+            SwalSuccess({ message: "Success add employee status" });
+            inAwait();
+          }
+        }
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -184,6 +199,7 @@ function EmployeeStatus() {
                   Employee Status <span className="text-danger">*</span>
                 </label>
                 <input
+                required
                   className="form-control"
                   id="name"
                   placeholder="Employee Status..."
@@ -201,6 +217,7 @@ function EmployeeStatus() {
               color: "#0E5073",
               width: "100px",
             }}
+            type="button"
             onClick={() => setTitle(!dialogTitle)}
           >
             Cancel
@@ -213,27 +230,19 @@ function EmployeeStatus() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-              };
-              var res = await AddEmployeeStatus(requestBody);
-              console.log(res);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add employee status" });
-              inAwait();
-            }}
+            type="submit"
           >
             Add
           </button>
         </Modal.Footer>
+      </form>
       </Modal>
 
       <Modal
         show={dialogEditTitle}
         size="lg"
         onHide={() => setEditTitle(!dialogEditTitle)}
-      >
+        >
         <Modal.Header
           closeButton
           className="m-4"

@@ -19,6 +19,7 @@ import {
 import {
   addReportTo,
   deleteReportTo,
+  editReportTo,
   getReport,
 } from "../../../../Repository/ProfileRepository";
 import {
@@ -29,6 +30,7 @@ import { ModalDelete } from "../../../../Components/Modals";
 
 function ReportTo() {
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalEditSub, setModalEditSub] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalAddSub, setModalAddSub] = useState(false);
 
@@ -44,6 +46,7 @@ function ReportTo() {
   const [status, setStatus] = useState([]);
   const [name, setName] = useState([]);
 
+  const [editId, setEditId] = useState([]);
   const [editStructureId, setEditStructureId] = useState([]);
   const [editReportId, setEditReportId] = useState([]);
   const [editReportName, setEditReportName] = useState([]);
@@ -55,6 +58,7 @@ function ReportTo() {
   console.log(editReportName);
   console.log(editReportId);
   console.log(editStatus);
+  console.log(editId);
 
   const inAwait = async () => {
     var data = await getReport();
@@ -89,18 +93,18 @@ function ReportTo() {
 
   const postDataEdit = async () => {
     var requestBody = {
-      id: id,
-      name: name,
-      status: status,
-      reporting_method_id: reportId,
-      structureId: structureId,
+      id: editId,
+      name: editName,
+      status: editStatus,
+      reporting_method_id: editReportId,
+      structureId: editStructureId,
     };
     console.log(requestBody);
-    var res = await addReportTo(requestBody);
+    var res = await editReportTo(requestBody);
     console.log(res);
     inAwait();
-    setModalAdd(false);
-    setModalAddSub(false);
+    setModalEdit(false);
+    setModalEditSub(false);
   };
 
   const code = (id) => {
@@ -213,6 +217,7 @@ function ReportTo() {
                                 setEditStructureId(val.structureId);
                                 setEditStatus(val.status);
                                 setEditName(val.name);
+                                setEditId(val.id);
                                 setModalEdit(true);
                               }}
                             >
@@ -327,7 +332,15 @@ function ReportTo() {
                           <div className="flex flex-row gap-2">
                             <button
                               className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => setModalEdit(true)}
+                              onClick={() => {
+                                setEditReportId(val.reportingmethod.id);
+                                setEditReportName(val.reportingmethod.name);
+                                setEditStructureId(val.structureId);
+                                setEditStatus(val.status);
+                                setEditName(val.name);
+                                setEditId(val.id);
+                                setModalEdit(true);
+                              }}
                             >
                               <PencilSimple
                                 color="#003049"
@@ -620,6 +633,7 @@ function ReportTo() {
               color: "#FFFFFF",
             }}
             className="px-3"
+            onClick={postDataEdit}
           >
             Submit
           </Button>

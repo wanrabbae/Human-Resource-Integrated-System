@@ -339,8 +339,17 @@ const addReportTo = async (data) => {
   }
 };
 
+const editReportTo = async (data) => {
+  var res = await api.post(`${endpoint}/updateReportTo`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const deleteReportTo = async (data) => {
-  console.log(data)
+  console.log(data);
   var res = await api.get(`${endpoint}/deleteReportTo?id=${data}`);
   if (res.status == 200) {
     return res.data;
@@ -387,5 +396,6 @@ export {
   deleteLicense,
   getReport,
   addReportTo,
+  editReportTo,
   deleteReportTo,
 };

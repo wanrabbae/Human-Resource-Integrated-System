@@ -31,6 +31,7 @@ import {
   AddDetailDocument,
   AddFieldDocument,
   DeleteDocument,
+  GetDetailDoc,
 } from "../../../Repository/DocumentRepository";
 import { GetEmployee } from "../../../Repository/EmployeeRepository";
 import { Delete, Remove } from "@mui/icons-material";
@@ -60,6 +61,40 @@ function DocumentManagement() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [fields, setField] = useState([]);
+  const fieldTypeEdit = [
+    {
+      name: "Short Answer",
+      value: "short_answer",
+    },
+    {
+      name: "Paragraph",
+      value: "paragraph",
+    },
+    {
+      name: "Single Choice",
+      value: "option",
+    },
+    {
+      name: "Checkbox",
+      value: "checkbox",
+    },
+    {
+      name: "Dropdown",
+      value: "dropdown",
+    },
+    {
+      name: "Upload File",
+      value: "file",
+    },
+    {
+      name: "Date",
+      value: "date",
+    },
+    {
+      name: "Time",
+      value: "time",
+    },
+  ];
 
   const options = {
     responsive: true,
@@ -237,7 +272,7 @@ function DocumentManagement() {
                 fontSize: "14px",
                 fontWeight: "500",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className="focus:ring-0 focus:ring-offset-0 focus:outline-0"
               type="search"
               placeholder="Search Document..."
@@ -357,91 +392,107 @@ function DocumentManagement() {
           <div className="grid grid-cols-5 gap-4">
             {Doc.length > 0
               ? Doc.map((val) => {
-                return (
-                  <div
-                    className="px-3 py-4"
-                    style={{
-                      backgroundColor: "#669BBC",
-                      borderRadius: "10px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <div>
-                      <div className="d-flex justify-content-end mb-2 ">
-                        <Dropdown>
-                          <Dropdown.Toggle as={CustomToggle} />
+                  return (
+                    <div
+                      className="px-3 py-4"
+                      style={{
+                        backgroundColor: "#669BBC",
+                        borderRadius: "10px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      <div>
+                        <div className="d-flex justify-content-end mb-2 ">
+                          <Dropdown>
+                            <Dropdown.Toggle as={CustomToggle} />
 
-                          <Dropdown.Menu size="sm">
-                            <Dropdown.Item
-                              className="text-sm"
-                              onClick={() => {
-                                // navigate(`/recruitment/edit/${val["id"]}`);
-                              }}
-                            >
-                              Edit
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() => {
-                                setDelete(true);
-                                setId(val.id);
-                              }}
-                              className="text-sm"
-                            >
-                              Delete
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                        {/* <a href="" className="ms-auto">
+                            <Dropdown.Menu size="sm">
+                              <Dropdown.Item
+                                className="text-sm"
+                                onClick={async () => {
+                                  let field = [];
+                                  setModaledit(true);
+                                  const getDetailDocument = await GetDetailDoc(
+                                    val.id
+                                  );
+                                  setDocument(getDetailDocument.result);
+                                  getDetailDocument.result?.detail_documents?.map(
+                                    (data) =>
+                                      field.push({
+                                        field_name: data.field_name,
+                                        field_type: data.field_type,
+                                        data_type: data.data_type,
+                                        options: data?.field_documents ?? [],
+                                      })
+                                  );
+                                  setField(field);
+                                  // navigate(`/recruitment/edit/${val["id"]}`);
+                                }}
+                              >
+                                Edit
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                onClick={() => {
+                                  setDelete(true);
+                                  setId(val.id);
+                                }}
+                                className="text-sm"
+                              >
+                                Delete
+                              </Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                          {/* <a href="" className="ms-auto">
                                                     <DotsThreeOutlineVertical size={20} weight="fill" color="white" />
                                                 </a> */}
-                      </div>
-                      <h3
-                        className="mb-2"
-                        style={{
-                          fontSize: "20px",
-                          fontWeight: "600",
-                          color: "white",
-                        }}
-                      >
-                        {val.title}
-                      </h3>
-                      <p
-                        className="mb-2"
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          color: "white",
-                          lineHeight: "15px",
-                        }}
-                      >
-                        {val.description}
-                      </p>
-                      <h3
-                        className="mb-2"
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "600",
-                          color: "#003049",
-                        }}
-                      >
-                        Show to Role
-                      </h3>
-                      {/* <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to {JSON.parse(val.delegated_to).length} Role</h3> */}
-                      <div className="d-flex justify-content-end mt-3 ">
-                        <a
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            navigate(`/document-management/detail/${val.id}`);
+                        </div>
+                        <h3
+                          className="mb-2"
+                          style={{
+                            fontSize: "20px",
+                            fontWeight: "600",
+                            color: "white",
                           }}
-                          className="ms-auto"
                         >
-                          <ArrowRight size={30} weight="bold" color="white" />
-                        </a>
+                          {val.title}
+                        </h3>
+                        <p
+                          className="mb-2"
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            color: "white",
+                            lineHeight: "15px",
+                          }}
+                        >
+                          {val.description}
+                        </p>
+                        <h3
+                          className="mb-2"
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "600",
+                            color: "#003049",
+                          }}
+                        >
+                          Show to Role
+                        </h3>
+                        {/* <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to {JSON.parse(val.delegated_to).length} Role</h3> */}
+                        <div className="d-flex justify-content-end mt-3 ">
+                          <a
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              navigate(`/document-management/detail/${val.id}`);
+                            }}
+                            className="ms-auto"
+                          >
+                            <ArrowRight size={30} weight="bold" color="white" />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })
+                  );
+                })
               : ""}
             {/* <div className="px-3 py-4" style={{backgroundColor:'#669BBC',borderRadius:'10px',fontWeight:'600'}}>
                             <div>
@@ -662,7 +713,7 @@ function DocumentManagement() {
                   <select
                     disabled={
                       e?.field_type == "short_answer" ||
-                        e?.field_type == "paragraph"
+                      e?.field_type == "paragraph"
                         ? false
                         : true
                     }
@@ -733,7 +784,7 @@ function DocumentManagement() {
                     return (
                       <div className="d-flex justify-content-between align-items-center mr-3 mb-2">
                         {e.field_type == "checkbox" ||
-                          e.field_type == "option" ? (
+                        e.field_type == "option" ? (
                           <input
                             type={
                               e.field_type == "checkbox" ? "checkbox" : "radio"
@@ -886,6 +937,7 @@ function DocumentManagement() {
               onChange={(val) => {
                 setDocument({ ...document, title: val.target.value });
               }}
+              value={document?.title}
               className="focus:ring-0 focus:ring-offset-0 me-3 w-50 "
               type="text"
               placeholder="Document Title"
@@ -902,6 +954,7 @@ function DocumentManagement() {
               onChange={(val) => {
                 setDocument({ ...document, description: val.target.value });
               }}
+              value={document?.description}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Document description"
@@ -919,6 +972,7 @@ function DocumentManagement() {
                     }}
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                     type="text"
+                    value={e.field_name}
                     placeholder="Field Name"
                   />
                 </div>
@@ -948,37 +1002,24 @@ function DocumentManagement() {
                     <option className="py-3" hidden>
                       Field Type
                     </option>
-                    <option className="py-3" value="short_answer">
-                      Short Answer
-                    </option>
-                    <option className="py-3" value="paragraph">
-                      Paragraph
-                    </option>
-                    <option className="py-3" value="option">
-                      Radio
-                    </option>
-                    <option className="py-3" value="checkbox">
-                      Check Box
-                    </option>
-                    <option className="py-3" value="dropdown">
-                      Dropdown
-                    </option>
-                    <option className="py-3" value="file">
-                      Upload File
-                    </option>
-                    <option className="py-3" value="date">
-                      Date
-                    </option>
-                    <option className="py-3" value="time">
-                      Time
-                    </option>
+                    {fieldTypeEdit.map((fte) => {
+                      return (
+                        <option
+                          className="py-3"
+                          value={fte.value}
+                          selected={e.field_type == fte.value ? true : false}
+                        >
+                          {fte.name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div className="col-3 mb-2">
                   <select
                     disabled={
                       e?.field_type == "short_answer" ||
-                        e?.field_type == "paragraph"
+                      e?.field_type == "paragraph"
                         ? false
                         : true
                     }
@@ -993,10 +1034,10 @@ function DocumentManagement() {
                       Data Type
                     </option>
                     <option className="py-3" value="text">
-                      String
+                      Alphabet
                     </option>
                     <option className="py-3" value="number">
-                      Interger
+                      Number
                     </option>
                   </select>
                 </div>
@@ -1049,7 +1090,7 @@ function DocumentManagement() {
                     return (
                       <div className="d-flex justify-content-between align-items-center mr-3 mb-2">
                         {e.field_type == "checkbox" ||
-                          e.field_type == "option" ? (
+                        e.field_type == "option" ? (
                           <input
                             type={
                               e.field_type == "checkbox" ? "checkbox" : "radio"
@@ -1149,7 +1190,7 @@ function DocumentManagement() {
           </Button>
           <Button
             onClick={() => {
-              addDocument();
+              // addDocument();
             }}
             style={{
               border: "none",
@@ -1159,7 +1200,7 @@ function DocumentManagement() {
             }}
             className="px-3"
           >
-            Submit
+            Save
           </Button>
         </Modal.Footer>
       </Modal>

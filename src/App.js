@@ -13,6 +13,7 @@ import Users from "./Pages/Administrator/Admin/UserManagement/Users";
 import EmployeeStatus from "./Pages/Administrator/Admin/Job/EmployeeStatus";
 import JobCategories from "./Pages/Administrator/Admin/Job/JobCategories";
 import ProfileTemplate from "./Pages/Administrator/Profile/profile_template";
+import ProfileEmployeeTemplate from "./Pages/Administrator/ProfileEmployee/ProfileEmployeeTemplate";
 import DataImport from "./Pages/Administrator/Employee/Configuration/DataImport";
 import ReportingMethods from "./Pages/Administrator/Employee/Configuration/ReportingMethods";
 import TerminationReasons from "./Pages/Administrator/Employee/Configuration/TerminationReasons";
@@ -139,6 +140,9 @@ function App() {
       </Route>
       <Route path="/profile" element={<Template />}>
         <Route path="/profile" element={<ProfileTemplate />} />
+      </Route>
+      <Route path="/profile-employee" element={<Template />}>
+        <Route path="/profile-employee" element={<ProfileEmployeeTemplate />} />
       </Route>
       <Route path="/document-management" element={<Template />}>
         <Route path="/document-management" element={<DocumentManagement />} />

@@ -18,6 +18,7 @@ import {
   GetJobTittle,
 } from "../../../../Repository/AdminRepository";
 import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
+import { useNavigate } from "react-router-dom";
 
 function EmployeeList() {
   const [modalAdd, setModalAdd] = useState(false);
@@ -34,6 +35,7 @@ function EmployeeList() {
   const [id, setId] = useState();
   const [controller, setController] = useState({});
   const [profilePict, setProfilePict] = useState(null);
+  const navigate = useNavigate();
 
   const inAwait = async () => {
     var dataEmployees = await GetEmployee();
@@ -54,6 +56,15 @@ function EmployeeList() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const onEdit = (data) => {
+    const params = {
+      id: data
+    }
+    navigate('/profile-employee',{
+      state: params
+    })
+  }
 
   return (
     <>
@@ -191,26 +202,28 @@ function EmployeeList() {
                       </button>
                       <button
                         onClick={() => {
-                          setController({
-                            image: null,
-                            firstName: employee.firstName,
-                            joinDate: employee.joinDate,
-                            jobtitle_id: employee.jobtitle_id,
-                            employeestatus_id: employee.employeestatus_id,
-                            jobgrade_id: employee.jobgrade_id,
-                            joblevel_id: employee.joblevel_id,
-                            jobposition_id: employee.jobposition_id,
-                            location: employee.location,
-                            otherId: employee.otherId,
-                            username: "",
-                            password: "",
-                            confirm: "",
-                            status: null,
-                            id: employee.id,
-                          });
-                          setProfilePict(employee.image);
-                          setModalUpdate(true);
+                          onEdit(employee.id)
+                        //   setController({
+                        //     image: null,
+                        //     firstName: employee.firstName,
+                        //     joinDate: employee.joinDate,
+                        //     jobtitle_id: employee.jobtitle_id,
+                        //     employeestatus_id: employee.employeestatus_id,
+                        //     jobgrade_id: employee.jobgrade_id,
+                        //     joblevel_id: employee.joblevel_id,
+                        //     jobposition_id: employee.jobposition_id,
+                        //     location: employee.location,
+                        //     otherId: employee.otherId,
+                        //     username: "",
+                        //     password: "",
+                        //     confirm: "",
+                        //     status: null,
+                        //     id: employee.id,
+                        //   });
+                        //   setProfilePict(employee.image);
+                        //   setModalUpdate(true);
                         }}
+
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                       >
                         <PencilIcon className="h-5 w-5" aria-hidden="true" />

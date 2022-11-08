@@ -1,0 +1,256 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { Button } from "react-bootstrap";
+import Select from "react-select";
+import { updateProfile } from "../../../../Repository/ProfileRepository";
+
+function ContactDetail({ data }) {
+  const provinces = ["Jawa Tengah", "Jawa Barat", "Jawa Timur", "DKI Jakarta"];
+  const countries = ["Indonesia", "Malaysia", "Arab", "Jepang", "Korea"];
+
+  const [street, setStreet] = useState([]);
+  const [city, setCity] = useState([]);
+  const [province, setProvince] = useState([]);
+  const [postalCode, setPostalCode] = useState([]);
+  const [country, setCountry] = useState([]);
+  const [phone, setPhone] = useState([]);
+  const [mPhone, setMPhone] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [otherEmail, setOtherEmail] = useState([]);
+
+  const inAwait = async () => {
+    setStreet(data?.employee?.street);
+    setCity(data?.employee?.city);
+    setProvince(data?.employee?.province);
+    setPostalCode(data?.employee?.postalCode);
+    setCountry(data?.employee?.country);
+    setPhone(data?.employee?.phone);
+    setMPhone(data?.employee?.mobilePhone);
+    setEmail(data?.employee?.email);
+    setOtherEmail(data?.employee?.otherEmail);
+  };
+
+  useEffect(() => {
+    inAwait();
+  }, []);
+  const postData = async () => {
+    var requestBody = {
+      street: street,
+      city: city,
+      province: province,
+      postalCode: postalCode,
+      country: country,
+      phone: phone,
+      mobilePhone: mPhone,
+      email: email,
+      otherEmail: otherEmail,
+    };
+    console.log(requestBody);
+    inAwait();
+    var res = await updateProfile(requestBody);
+    console.log(res);
+  };
+  console.log(street);
+  console.log(city);
+  console.log(province);
+  console.log(postalCode);
+  console.log(country);
+  console.log(phone);
+  console.log(mPhone);
+  console.log(email);
+  console.log(otherEmail);
+  return (
+    <>
+      <div>
+        <div className="mb-4">
+          <span style={{ fontWeight: "600" }}>Contact Detail</span>
+        </div>
+        <form onSubmit={postData}>
+          <div className="row mb-4">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Street <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="Username"
+              />
+            </div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                City <span style={{ color: "#780000" }}>*</span>
+              </label>
+              <input
+                // value="Banyumas"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+              />
+            </div>
+          </div>
+          <hr style={{ backgroundColor: "#CACACA" }} className="mb-4"></hr>
+          <div className="row mb-4">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Province
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setProvince(e.target.value)}
+              >
+                <option className="py-3" value={province} hidden>
+                  {province != null ? province : "Select Provinces"}
+                </option>
+                {provinces.map((val) => (
+                  <option className="py-3" value={val}>
+                    {val}
+                  </option>
+                ))}
+                {/* <option className="py-3" selected>
+                  Jawa Tengah
+                </option>
+                <option className="py-3">Jawa Barat</option>
+                <option className="py-3">Jawa Timut</option>
+                <option className="py-3">DKI Jakarta</option> */}
+              </select>
+            </div>
+            <div className="col-3">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Zip/ Postal Code
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                value={postalCode}
+                onChange={(e) => setPostalCode(e.target.value)}
+                type="text"
+              />
+            </div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Country
+              </label>
+              <select
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                onChange={(e) => setCountry(e.target.value)}
+              >
+                <option className="py-3" value={country} hidden>
+                  {countries != null ? countries : "Select Country"}
+                </option>
+                {countries.map((val) => (
+                  <option className="py-3" value={val}>
+                    {val}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <hr style={{ backgroundColor: "#CACACA" }} className="mb-4"></hr>
+          <div className="row mb-4">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Telephone
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="ex: (123) 445566"
+              />
+            </div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Mobile
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                placeholder="ex : 0812xxxxxxxx"
+                id="username"
+                type="text"
+                value={mPhone}
+                onChange={(e) => setMPhone(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="row mb-4">
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Email
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="email"
+                type="text"
+                placeholder="ex : vinahaha@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="col">
+              <label
+                className="block text-gray-700 text-sm mb-2"
+                for="username"
+              >
+                Other Email
+              </label>
+              <input
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                placeholder="another email"
+                id="username"
+                type="text"
+                value={otherEmail}
+                onChange={(e) => setOtherEmail(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="d-flex justify-content-end mt-4">
+          <input
+              type="submit"
+              value="submit"
+              className="btn"
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#0E5073",
+                color: "#FFFFFF",
+              }}
+            />
+          </div>
+        </form>
+      </div>
+    </>
+  );
+}
+export default ContactDetail;

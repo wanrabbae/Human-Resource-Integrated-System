@@ -20,6 +20,8 @@ import { removeSpace } from "../../../../Constant/utils";
 import OrganizationChart from "@dabeng/react-orgchart";
 // import { Tree } from "react-tree-graph";
 import Tree from 'react-hierarchy-tree-graph';
+import OrgChart from "react-orgchart";
+// import Tree from 'react-d3-tree';
 
 function ChartStructure() {
   const [isSelected, setSelected] = useState(false);
@@ -108,6 +110,11 @@ function ChartStructure() {
   //     </div>
   //   </div>
   // ), [])
+  const MyNodeComponent = ({node}) => {
+    return (
+      <div style={{borderRadius:10}} className="p-3">{ node.name }</div>
+    );
+  };
   return (
     <>
       <div
@@ -145,7 +152,13 @@ function ChartStructure() {
         <hr></hr>
         <div className="mt-2 p-4 bg-[#F3F3F3]" style={{ borderRadius: "5px" }}>
           {/* <OrganizationChart datasource={data} pan={true} zoom={true} /> */}
-          <Tree data={data} />
+          <div id="treeWrapper" style={{width: '50em', height: '20em'}}>
+            <Tree data={data2} rootNodeClassName="node__root"
+        branchNodeClassName="node__branch"
+        leafNodeClassName="node__leaf" key={data.id}/>
+    
+          </div>
+          {/* <OrgChart tree={data} NodeComponent={MyNodeComponent}/> */}
           {/* <Tree
             data={data}
             key={data.id}

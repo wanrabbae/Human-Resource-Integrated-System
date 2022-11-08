@@ -19,6 +19,11 @@ var AddDocument = async (data) => {
   return res.data;
 };
 
+var UpdateDocument = async (data) => {
+  var res = await axios.post(`${endpoint}/updateDocument`, data);
+  return res.data;
+};
+
 var DeleteDocument = async (data) => {
   var res = await axios.get(`${endpoint}/deleteDocument?id=${data}`);
   return res.data;
@@ -29,8 +34,18 @@ var AddDetailDocument = async (data) => {
   return res.data;
 };
 
+var UpdateDetailDocument = async (data) => {
+  var res = await axios.post(`${endpoint}/updateDocumentDetail`, data);
+  return res.data;
+};
+
 var AddFieldDocument = async (data) => {
   var res = await axios.post(`${endpoint}/addFieldDocument`, data);
+  return res.data;
+};
+
+var UpdateFieldDocument = async (data) => {
+  var res = await axios.post(`${endpoint}/updateFieldDocument`, data);
   return res.data;
 };
 
@@ -41,4 +56,7 @@ export {
   AddDetailDocument,
   AddFieldDocument,
   DeleteDocument,
+  UpdateDetailDocument,
+  UpdateDocument,
+  UpdateFieldDocument,
 };

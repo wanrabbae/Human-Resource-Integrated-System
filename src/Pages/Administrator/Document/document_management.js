@@ -32,6 +32,9 @@ import {
   AddFieldDocument,
   DeleteDocument,
   GetDetailDoc,
+  UpdateDocument,
+  UpdateDetailDocument,
+  UpdateFieldDocument,
 } from "../../../Repository/DocumentRepository";
 import { GetEmployee } from "../../../Repository/EmployeeRepository";
 import { Delete, Remove } from "@mui/icons-material";
@@ -61,6 +64,16 @@ function DocumentManagement() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [fields, setField] = useState([]);
+  const dataTypeOpt = [
+    {
+      name: "Alphabet",
+      value: "text",
+    },
+    {
+      name: "Number",
+      value: "number",
+    },
+  ];
   const fieldTypeEdit = [
     {
       name: "Short Answer",
@@ -222,6 +235,44 @@ function DocumentManagement() {
       setDocument({});
       inAwait();
       SwalSuccess({ message: "Success create document" });
+    } catch (error) {
+      console.log(error);
+      SwalError({ message: "Error while creating document" });
+    }
+  };
+
+  const editDocument = async () => {
+    try {
+      const addDoc = await UpdateDocument({
+        id: document.id,
+        title: document.title,
+        description: document.description,
+        // delegated_to: `[${showto}]`,
+      });
+
+      fields.forEach(async (field) => {
+        const addDetail = await UpdateDetailDocument({
+          id: field.id,
+          field_name: field.field_name,
+          field_type: field.field_type,
+          data_type: field.data_type,
+        });
+
+        if (field.options.length > 0) {
+          field.options.forEach(async (option) => {
+            await UpdateFieldDocument({
+              id: option.id,
+              name: option.name,
+            });
+          });
+        }
+      });
+
+      setModaledit(false);
+      setField([]);
+      setDocument({});
+      inAwait();
+      SwalSuccess({ message: "Success edit document" });
     } catch (error) {
       console.log(error);
       SwalError({ message: "Error while creating document" });
@@ -419,6 +470,7 @@ function DocumentManagement() {
                                   getDetailDocument.result?.detail_documents?.map(
                                     (data) =>
                                       field.push({
+                                        id: data.id,
                                         field_name: data.field_name,
                                         field_type: data.field_type,
                                         data_type: data.data_type,
@@ -714,6 +766,13 @@ function DocumentManagement() {
                     disabled={
                       e?.field_type == "short_answer" ||
                       e?.field_type == "paragraph"
+                        ? false
+                        : true
+                    }
+                    hidden={
+                      e?.field_type == "short_answer" ||
+                      e?.field_type == "paragraph" ||
+                      e?.field_type == ""
                         ? false
                         : true
                     }
@@ -1023,6 +1082,13 @@ function DocumentManagement() {
                         ? false
                         : true
                     }
+                    hidden={
+                      e?.field_type == "short_answer" ||
+                      e?.field_type == "paragraph" ||
+                      e?.field_type == ""
+                        ? false
+                        : true
+                    }
                     onChange={(val) => {
                       var data = [...fields];
                       data[i]["data_type"] = val.target.value;
@@ -1033,12 +1099,23 @@ function DocumentManagement() {
                     <option className="py-3" hidden>
                       Data Type
                     </option>
-                    <option className="py-3" value="text">
+                    {dataTypeOpt.map((dto) => {
+                      return (
+                        <option
+                          className="py-3"
+                          value={dto.value}
+                          selected={e.data_type == dto.value ? true : false}
+                        >
+                          {dto.name}
+                        </option>
+                      );
+                    })}
+                    {/* <option className="py-3" value="text">
                       Alphabet
                     </option>
                     <option className="py-3" value="number">
                       Number
-                    </option>
+                    </option> */}
                   </select>
                 </div>
                 {fields.length > 1 ? (
@@ -1190,7 +1267,7 @@ function DocumentManagement() {
           </Button>
           <Button
             onClick={() => {
-              // addDocument();
+              editDocument();
             }}
             style={{
               border: "none",

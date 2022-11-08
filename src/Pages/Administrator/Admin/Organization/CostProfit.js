@@ -210,6 +210,12 @@ function CostProfit() {
         >
           <Modal.Title>Profit Centre Unit Additions</Modal.Title>
         </Modal.Header>
+        <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          addProfit({ name: document.getElementById("positionAdd").value })
+        }}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 my-3">
@@ -219,9 +225,10 @@ function CostProfit() {
                 </label>
                 <select
                   id="positionAdd"
+                  required
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option selected disabled>
+                  <option value="" selected disabled>
                     Select Job Position
                   </option>
                   {jobposition.map((val) => {
@@ -241,6 +248,7 @@ function CostProfit() {
               color: "#0E5073",
               width: "100px",
             }}
+            type="button"
             onClick={() => setTitle(!dialogTitle)}
           >
             Cancel
@@ -253,13 +261,12 @@ function CostProfit() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={() =>
-              addProfit({ name: document.getElementById("positionAdd").value })
-            }
-          >
+            type="submit"
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal
@@ -456,6 +463,12 @@ function CostProfit() {
         >
           <Modal.Title>Cost Centre Unit Additions</Modal.Title>
         </Modal.Header>
+        <form
+        onSubmit={async(e) => {
+          e.preventDefault();
+          addCost({ name: document.getElementById("costAdd").value })}
+        }
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 my-3">
@@ -464,10 +477,11 @@ function CostProfit() {
                   Employee Position <span className="text-danger">*</span>
                 </label>
                 <select
+                  required
                   id="costAdd"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option selected disabled>
+                  >
+                  <option value="" selected disabled>
                     Select Job Position
                   </option>
                   {jobposition.map((val) => {
@@ -487,8 +501,9 @@ function CostProfit() {
               color: "#0E5073",
               width: "100px",
             }}
+            type="button"
             onClick={() => setCost(!dialogCost)}
-          >
+            >
             Cancel
           </button>
           <button
@@ -499,13 +514,12 @@ function CostProfit() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={() =>
-              addCost({ name: document.getElementById("costAdd").value })
-            }
+            type="submit"
           >
             Add
           </button>
         </Modal.Footer>
+      </form>
       </Modal>
 
       <Modal

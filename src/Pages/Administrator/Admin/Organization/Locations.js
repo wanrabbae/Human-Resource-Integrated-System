@@ -183,6 +183,26 @@ function Locations() {
         >
           <Modal.Title>Add Location</Modal.Title>
         </Modal.Header>
+        <form
+        action={async (e) => {
+          e.preventDefault();
+          var requestBody = {
+            name: document.getElementById("name").value,
+            city: document.getElementById("city").value,
+            province: document.getElementById("province").value,
+            country: document.getElementById("country").value,
+            postalCode: document.getElementById("postalCode").value,
+            phone: document.getElementById("phone").value,
+            fax: document.getElementById("fax").value,
+            address: document.getElementById("address").value,
+            note: document.getElementById("note").value,
+          };
+          var res = await AddCompanyLocation(requestBody);
+          setTitle(!dialogTitle);
+          SwalSuccess({ message: "Success add location" });
+          inAwait();
+        }}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -191,6 +211,7 @@ function Locations() {
                   Location Name <span className="text-danger">*</span>
                 </label>
                 <input
+                required
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Location Name..."
                   id="name"
@@ -203,10 +224,11 @@ function Locations() {
                   City <span className="text-danger">*</span>
                 </label>
                 <select
+                required
                   id="city"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option>Select City</option>
+                  <option value="">Select City</option>
                   <option>Banyumas</option>
                   <option>Solo</option>
                   <option>Yogyakartya</option>
@@ -221,9 +243,10 @@ function Locations() {
                 </label>
                 <select
                   id="province"
+                  required
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option>Select Province</option>
+                  <option value="">Select Province</option>
                   <option>Jawa Tengah</option>
                   <option>Jawa Barat</option>
                   <option>Jawa Timur</option>
@@ -237,10 +260,11 @@ function Locations() {
                   Country <span className="text-danger">*</span>
                 </label>
                 <select
+                  required
                   id="country"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Select Country</option>
+                  >
+                  <option value="">Select Country</option>
                   <option>Indonesia</option>
                   <option>Malaysia</option>
                   <option>Maroko</option>
@@ -254,11 +278,12 @@ function Locations() {
                   Postal Code <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   id="postalCode"
                   placeholder="Postal Code..."
                   type="number"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
+                  />
               </div>
             </div>
 
@@ -269,10 +294,11 @@ function Locations() {
                 </label>
                 <input
                   id="phone"
+                  required
                   placeholder="Phone number..."
                   type="number"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
+                  />
               </div>
             </div>
 
@@ -283,10 +309,11 @@ function Locations() {
                 </label>
                 <input
                   id="fax"
+                  required
                   placeholder="Fax number..."
                   type="number"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
+                  />
               </div>
             </div>
 
@@ -296,6 +323,7 @@ function Locations() {
                   Address <span className="text-danger">*</span>
                 </label>
                 <textarea
+                  required
                   id="address"
                   rows={4}
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -308,16 +336,18 @@ function Locations() {
                 <label className="mb-1">Note</label>
                 <textarea
                   id="note"
+                  required
                   rows={4}
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Note..."
-                ></textarea>
+                  ></textarea>
               </div>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer className="m-4">
           <button
+          type="button"
             className="btn"
             style={{
               backgroundColor: "#00000010",
@@ -326,38 +356,23 @@ function Locations() {
               width: "100px",
             }}
             onClick={() => setTitle(!dialogTitle)}
-          >
+            >
             Cancel
           </button>
           <button
             className="btn"
+            type="submit"
             style={{
               backgroundColor: "#0E5073",
               border: "1px solid transparent",
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-                city: document.getElementById("city").value,
-                province: document.getElementById("province").value,
-                country: document.getElementById("country").value,
-                postalCode: document.getElementById("postalCode").value,
-                phone: document.getElementById("phone").value,
-                fax: document.getElementById("fax").value,
-                address: document.getElementById("address").value,
-                note: document.getElementById("note").value,
-              };
-              var res = await AddCompanyLocation(requestBody);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add location" });
-              inAwait();
-            }}
-          >
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

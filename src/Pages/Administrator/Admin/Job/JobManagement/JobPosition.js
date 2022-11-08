@@ -205,8 +205,8 @@ function JobPosition() {
         >
           <Modal.Title>Add Job Postition</Modal.Title>
         </Modal.Header>
-        {/* <form
-        action={
+        <form
+        onSubmit={
           async (e) => {
             e.preventDefault();
             var requestBody = {
@@ -223,7 +223,7 @@ function JobPosition() {
             SwalSuccess({ message: "Success add job position" });
           }
         }
-        > */}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -278,11 +278,12 @@ function JobPosition() {
           <div className="w-full mb-3">
             <label className="mb-1">Relation Code</label>
             <select
+              required
               id="relation_code"
               className="form-control"
             >
-              <option className="py-3" hidden>
-                Select
+              <option className="py-3" value="">
+                Select Relation Code
               </option>
               {jobposition.map((e, i) => {
                 return (
@@ -332,26 +333,26 @@ function JobPosition() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-                job_id: document.getElementById("job_id").value,
-                grade_id: document.getElementById("grade_id").value,
-                relation_code: document.getElementById("relation_code").value,
-                color: document.getElementById("color").value,
-              };
-              var res = await AddJobPosition(requestBody);
-              console.log(res);
-              setTitle(!dialogTitle);
-              await inAwait();
-              SwalSuccess({ message: "Success add job position" });
-            }}
+            // onClick={async () => {
+            //   var requestBody = {
+            //     name: document.getElementById("name").value,
+            //     job_id: document.getElementById("job_id").value,
+            //     grade_id: document.getElementById("grade_id").value,
+            //     relation_code: document.getElementById("relation_code").value,
+            //     color: document.getElementById("color").value,
+            //   };
+            //   var res = await AddJobPosition(requestBody);
+            //   console.log(res);
+            //   setTitle(!dialogTitle);
+            //   await inAwait();
+            //   SwalSuccess({ message: "Success add job position" });
+            // }}
             type="submit"
           >
             Add
           </button>
         </Modal.Footer>
-        {/* </form> */}
+        </form>
       </Modal>
 
       <Modal

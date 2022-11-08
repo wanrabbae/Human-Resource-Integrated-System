@@ -199,7 +199,7 @@ function JobTitle() {
           <Modal.Title>Add Job Title</Modal.Title>
         </Modal.Header>
         <form
-        action={async (e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           var requestBody = {
             name: document.getElementById("name").value,

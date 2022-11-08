@@ -315,7 +315,7 @@ function JobGrade() {
                 <div className="form-group">
                   <label className="mb-1">Currency type</label>
                   <select required id="type" className="form-control">
-                    <option>Select currency</option>
+                    <option value="">Select currency</option>
                     <option  value="IDR">IDR (Indonesia Rupiah)</option>
                     <option value="USD">USD (United Stated Dollar)</option>
                   </select>

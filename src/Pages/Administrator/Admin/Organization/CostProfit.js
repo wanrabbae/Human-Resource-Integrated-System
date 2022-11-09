@@ -299,7 +299,7 @@ function CostProfit() {
                     return (
                       <option
                         value={val.name}
-                        selected={val === profitEdit.name ? "true" : "false"}
+                        selected={profitEdit.name ? true : false}
                       >
                         {val.name}
                       </option>

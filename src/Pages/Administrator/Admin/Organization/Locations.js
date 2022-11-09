@@ -410,12 +410,14 @@ function Locations() {
                 <label className="mb-1">
                   City <span className="text-danger">*</span>
                 </label>
-                <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select 
+                  id="city"
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option>Select City</option>
-                  <option>Banyumas</option>
-                  <option>Solo</option>
-                  <option>Yogyakartya</option>
-                  <option>Jakarta</option>
+                  <option selected={editValues?.city ? true : false } >Banyumas</option>
+                  <option selected={editValues?.city ? true : false } >Solo</option>
+                  <option selected={editValues?.city ? true : false } >Yogyakartya</option>
+                  <option selected={editValues?.city ? true : false } >Jakarta</option>
                 </select>
               </div>
             </div>
@@ -424,12 +426,14 @@ function Locations() {
                 <label className="mb-1">
                   Province <span className="text-danger">*</span>
                 </label>
-                <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select 
+                  id="province"
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option>Select Province</option>
-                  <option>Jawa Tengah</option>
-                  <option>Jawa Barat</option>
-                  <option>Jawa Timur</option>
-                  <option>DKI Jakarta</option>
+                  <option selected={editValues?.province ? true : false } >Jawa Tengah</option>
+                  <option selected={editValues?.province ? true : false }>Jawa Barat</option>
+                  <option selected={editValues?.province ? true : false }>Jawa Timur</option>
+                  <option selected={editValues?.province ? true : false }>DKI Jakarta</option>
                 </select>
               </div>
             </div>
@@ -438,12 +442,14 @@ function Locations() {
                 <label className="mb-1">
                   Country <span className="text-danger">*</span>
                 </label>
-                <select className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select 
+                  id="country"
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option>Select Country</option>
-                  <option>Indonesia</option>
-                  <option>Malaysia</option>
-                  <option>Maroko</option>
-                  <option>Arab</option>
+                  <option selected={editValues?.country ? true : false }>Indonesia</option>
+                  <option selected={editValues?.country ? true : false }>Malaysia</option>
+                  <option selected={editValues?.country ? true : false }>Maroko</option>
+                  <option selected={editValues?.country ? true : false }>Arab</option>
                 </select>
               </div>
             </div>

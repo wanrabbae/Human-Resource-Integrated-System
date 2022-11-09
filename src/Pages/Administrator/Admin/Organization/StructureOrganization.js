@@ -410,11 +410,38 @@ function StructureOrganization() {
             Add Organization Unit
           </Modal.Title>
         </Modal.Header>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var relation_code = document.getElementById("relation_code").value;
+            var color = document.getElementById("color").value;
+            var jobGrade = document.getElementById("grade_id").value;
+            var name = document.getElementById("name").value;
+            var id = document.getElementById("id").value;
+            const requestBody = {
+              name: name,
+              grade_id: jobGrade,
+              relation_code: relation_code,
+              job_id: id,
+              color: color,
+            };
+            var data = await AddJobPosition(requestBody);
+            console.log(data);
+            if (data['status'] == 400) {
+              alert("Parent tidak ditemukan, harap tambahkan terlebih dahulu");
+            } else {
+              setId("");
+              setModalAdd(false);
+              await loadData();
+            }
+          }}
+        >
         <Modal.Body className="mx-4">
           <div className="grid grid-cols-1 gap-3 mt-3">
             <div className="w-full">
               <label className="text-xs">Position Name</label>
               <input
+                required
                 id="name"
                 className="bg-gray-50 appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
               />
@@ -424,10 +451,11 @@ function StructureOrganization() {
               <label className="text-xs">Job ID</label>
               <input
                 id="id"
+                required
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder="ID..."
-              />
+                />
             </div>
             <div className="w-full">
               <label className="text-xs">Job Grade</label>
@@ -435,7 +463,7 @@ function StructureOrganization() {
                 required
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 id="grade_id"
-              >
+                >
                 <option value="" hidden>Select Job Grade</option>
                 {
                   jobgrade.map((val) => {
@@ -452,16 +480,16 @@ function StructureOrganization() {
                 required
                 id="relation_code"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option className="py-3" hidden>
+                >
+                <option className="py-3" value="" hidden>
                   Select
                 </option>
                 {jobPosition.map((e, i) => {
                   return (
                     <option
-                      className="py-3"
+                    className="py-3"
                       value={e?.id}
-                    >
+                      >
                       {`${e?.name} | ${e?.job_id}`}
                     </option>
                   );
@@ -471,10 +499,11 @@ function StructureOrganization() {
             <div className="w-full">
               <label className="text-xs">Color</label>
               <input
+                required
                 id="color"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="color"
-              />
+                />
             </div>
           </div>
         </Modal.Body>
@@ -490,35 +519,13 @@ function StructureOrganization() {
             Cancel
           </button>
           <button
-            onClick={async () => {
-              var relation_code = document.getElementById("relation_code").value;
-              var color = document.getElementById("color").value;
-              var jobGrade = document.getElementById("grade_id").value;
-              var name = document.getElementById("name").value;
-              var id = document.getElementById("id").value;
-              const requestBody = {
-                name: name,
-                grade_id: jobGrade,
-                relation_code: relation_code,
-                job_id: id,
-                color: color,
-              };
-              var data = await AddJobPosition(requestBody);
-              console.log(data);
-              if (data['status'] == 400) {
-                alert("Parent tidak ditemukan, harap tambahkan terlebih dahulu");
-              } else {
-                setId("");
-                setModalAdd(false);
-                await loadData();
-              }
-            }}
-            type="button"
+            type="submit"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
-          >
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       {/* Modal Update */}

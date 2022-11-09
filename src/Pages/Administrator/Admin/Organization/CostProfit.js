@@ -211,61 +211,61 @@ function CostProfit() {
           <Modal.Title>Profit Centre Unit Additions</Modal.Title>
         </Modal.Header>
         <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          addProfit({ name: document.getElementById("positionAdd").value })
-        }}
+          onSubmit={async (e) => {
+            e.preventDefault();
+            addProfit({ name: document.getElementById("positionAdd").value });
+          }}
         >
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Employee Position <span className="text-danger">*</span>
-                </label>
-                <select
-                  id="positionAdd"
-                  required
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value="" selected disabled>
-                    Select Job Position
-                  </option>
-                  {jobposition.map((val) => {
-                    return <option value={val.name}>{val.name}</option>;
-                  })}
-                </select>
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Employee Position <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    id="positionAdd"
+                    required
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="" selected disabled>
+                      Select Job Position
+                    </option>
+                    {jobposition.map((val) => {
+                      return <option value={val.name}>{val.name}</option>;
+                    })}
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#00000010",
-              border: "1px solid transparent",
-              color: "#0E5073",
-              width: "100px",
-            }}
-            type="button"
-            onClick={() => setTitle(!dialogTitle)}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            type="submit"
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#00000010",
+                border: "1px solid transparent",
+                color: "#0E5073",
+                width: "100px",
+              }}
+              type="button"
+              onClick={() => setTitle(!dialogTitle)}
             >
-            Add
-          </button>
-        </Modal.Footer>
+              Cancel
+            </button>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              type="submit"
+            >
+              Add
+            </button>
+          </Modal.Footer>
         </form>
       </Modal>
 
@@ -299,7 +299,7 @@ function CostProfit() {
                     return (
                       <option
                         value={val.name}
-                        selected={profitEdit.name ? true : false}
+                        selected={profitEdit.name == val.name ? true : false}
                       >
                         {val.name}
                       </option>
@@ -464,62 +464,62 @@ function CostProfit() {
           <Modal.Title>Cost Centre Unit Additions</Modal.Title>
         </Modal.Header>
         <form
-        onSubmit={async(e) => {
-          e.preventDefault();
-          addCost({ name: document.getElementById("costAdd").value })}
-        }
+          onSubmit={async (e) => {
+            e.preventDefault();
+            addCost({ name: document.getElementById("costAdd").value });
+          }}
         >
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Employee Position <span className="text-danger">*</span>
-                </label>
-                <select
-                  required
-                  id="costAdd"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Employee Position <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    required
+                    id="costAdd"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                  <option value="" selected disabled>
-                    Select Job Position
-                  </option>
-                  {jobposition.map((val) => {
-                    return <option value={val.name}>{val.name}</option>;
-                  })}
-                </select>
+                    <option value="" selected disabled>
+                      Select Job Position
+                    </option>
+                    {jobposition.map((val) => {
+                      return <option value={val.name}>{val.name}</option>;
+                    })}
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#00000010",
-              border: "1px solid transparent",
-              color: "#0E5073",
-              width: "100px",
-            }}
-            type="button"
-            onClick={() => setCost(!dialogCost)}
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#00000010",
+                border: "1px solid transparent",
+                color: "#0E5073",
+                width: "100px",
+              }}
+              type="button"
+              onClick={() => setCost(!dialogCost)}
             >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            type="submit"
-          >
-            Add
-          </button>
-        </Modal.Footer>
-      </form>
+              Cancel
+            </button>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              type="submit"
+            >
+              Add
+            </button>
+          </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal
@@ -552,7 +552,7 @@ function CostProfit() {
                     return (
                       <option
                         value={val.name}
-                        selected={val === costEdit.name ? "true" : "false"}
+                        selected={val.name === costEdit.name ? true : false}
                       >
                         {val.name}
                       </option>

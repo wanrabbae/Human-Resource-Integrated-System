@@ -111,7 +111,8 @@ function Schedule() {
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>
                   <td className="align-middle">
-                    {schedule?.employee?.firstName} {schedule?.employee?.lastName}
+                    {schedule?.employee?.firstName}{" "}
+                    {schedule?.employee?.lastName}
                   </td>
                   <td className="align-middle">{schedule.startDate}</td>
                   <td className="align-middle">{schedule.endDate}</td>
@@ -166,111 +167,119 @@ function Schedule() {
         >
           <Modal.Title>Add Schedule</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Employee Name <span className="text-danger">*</span>
-                </label>
-                <Select
-                  id="selectedEmployee"
-                  isLoading={true}
-                  onChange={(val) =>
-                    setEmployeeName({ employeeName: val.value })
-                  }
-                  isFocused="appearance-none border-0 outline-0"
-                  className="appearance-none"
-                  classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
-                  options={employeeNames.map((val) => {
-                    return {
-                      value: val.id,
-                      label: val.firstName + " " + val.lastName,
-                    };
-                  })}
-                />
-              </div>
-            </div>
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Schedule <span className="text-danger">*</span>
-                </label>
-                <select
-                  id="schedule"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option selected>Select Schedule</option>
-                  <option>contoh</option>
-                  <option>contoh</option>
-                </select>
-              </div>
-            </div>
+        <form
+          method="POST"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              employeeId: employeeName.employeeName,
+              startDate: employeeName.startDate,
+              endDate: employeeName.endDate,
+            };
+            var res = await AddSchedule(requestBody);
+            setUser(!dialogUser);
+            SwalSuccess({ message: "Success add schedule" });
+            inAwait();
+          }}
+        >
+          <Modal.Body className="mx-4">
             <div className="row">
-              <div className="col-md-6 mb-3">
+              <div className="col-md-12 mb-3">
                 <div className="form-group">
                   <label className="mb-1">
-                    Start Date <span className="text-danger">*</span>
+                    Employee Name <span className="text-danger">*</span>
                   </label>
-                  <input
-                    id="date1"
-                    type="date"
-                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  <Select
+                    id="selectedEmployee"
+                    isLoading={true}
+                    onChange={(val) =>
+                      setEmployeeName({
+                        ...employeeName,
+                        employeeName: val.value,
+                      })
+                    }
+                    isFocused="appearance-none border-0 outline-0"
+                    className="appearance-none"
+                    classNamePrefix="appearance-none active:outline-0 active:border-0 focus:outline-0 focus:border-0 focus:shadow-outline"
+                    options={employeeNames.map((val) => {
+                      return {
+                        value: val.id,
+                        label: val.firstName + " " + val.lastName,
+                      };
+                    })}
                   />
                 </div>
               </div>
-              <div className="col-md-6 mb-3">
-                <div className="form-group">
-                  <label className="mb-1">
-                    End Date <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    id="date2"
-                    type="date"
-                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  />
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <div className="form-group">
+                    <label className="mb-1">
+                      Start Date <span className="text-danger">*</span>
+                    </label>
+                    <input
+                      id="date1"
+                      type="date"
+                      onChange={(e) =>
+                        setEmployeeName({
+                          ...employeeName,
+                          startDate: e.target.value,
+                        })
+                      }
+                      required
+                      className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="form-group">
+                    <label className="mb-1">
+                      End Date <span className="text-danger">*</span>
+                    </label>
+                    <input
+                      id="date2"
+                      type="date"
+                      onChange={(e) =>
+                        setEmployeeName({
+                          ...employeeName,
+                          endDate: e.target.value,
+                        })
+                      }
+                      required
+                      className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#737373",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            onClick={() => setUser(!dialogUser)}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            onClick={async () => {
-              var requestBody = {
-                employeeId: employeeName.employeeName,
-                startDate: document.getElementById("date1").value,
-                endDate: document.getElementById("date2").value,
-                schedule: document.getElementById("schedule").value,
-              };
-              var res = await AddSchedule(requestBody);
-              setUser(!dialogUser);
-              SwalSuccess({ message: "Success add schedule" });
-              inAwait();
-            }}
-          >
-            Add
-          </button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              type="button"
+              style={{
+                backgroundColor: "#737373",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              onClick={() => setUser(!dialogUser)}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn"
+              type="submit"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+            >
+              Add
+            </button>
+          </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

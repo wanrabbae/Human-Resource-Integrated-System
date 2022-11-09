@@ -177,7 +177,7 @@ function EmployeeStatus() {
           <Modal.Title>Add Employee Status</Modal.Title>
         </Modal.Header>
         <form
-        action={
+        onSubmit={
           async (e) => {
             e.preventDefault();
             var requestBody = {

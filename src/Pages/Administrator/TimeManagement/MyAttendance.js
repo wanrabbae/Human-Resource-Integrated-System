@@ -62,8 +62,7 @@ function MyAttendance() {
     var dataA = await GetAttendance();
     setDataAttendance(dataA);
     var profile = await GetEmployeeProfile(token);
-    console.log(profile.result.employee)
-    setDataProfile(profile.result.employee)
+    setDataProfile(profile.result.employee);
   };
   const token = localStorage.getItem("token");
   // console.log(token)
@@ -72,15 +71,16 @@ function MyAttendance() {
     inAwait();
   }, []);
 
-  const postData = async () => {
+  const postData = async (e) => {
+    e.preventDefault();
+
     var requestBody = {
       checkIn: time,
       noteCheckIn: note,
     };
     setUser(false);
-    inAwait();
     var res = await AddAttendance(requestBody);
-    console.log(res);
+    inAwait();
   };
   return (
     <>
@@ -228,7 +228,7 @@ function MyAttendance() {
         >
           <Modal.Title>Check In / Out</Modal.Title>
         </Modal.Header>
-        <form onSubmit={postData}>
+        <form onSubmit={(e) => postData(e)}>
           <Modal.Body className="mx-4">
             <div className="row">
               <div className="col-md-12 mb-3">
@@ -237,6 +237,7 @@ function MyAttendance() {
                   <input
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     type="time"
+                    required
                     placeholder="Select Time"
                     onChange={(e) => setTime(e.target.value)}
                   />
@@ -252,7 +253,6 @@ function MyAttendance() {
                     placeholder="Note check in / out here"
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     onChange={(e) => setNote(e.target.value)}
-                    required
                   ></textarea>
                 </div>
               </div>
@@ -306,8 +306,12 @@ function MyAttendance() {
                 Employee Name : {dataProfile.firstName} {dataProfile.lastName}
               </div>
               <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
-              <div className="col-md-6 mb-2">Job Title : {dataProfile?.jobtitle?.name}</div>
-              <div className="col-md-6 mb-2">Work Shift : {dataProfile?.workshift?.name}</div>
+              <div className="col-md-6 mb-2">
+                Job Title : {dataProfile?.jobtitle?.name}
+              </div>
+              <div className="col-md-6 mb-2">
+                Work Shift : {dataProfile?.workshift?.name}
+              </div>
               <div className="col-md-6 mb-2">
                 Company Location : {dataProfile.location}
               </div>

@@ -220,7 +220,7 @@ function Report() {
                 <label className="text-xs">Select Criteria</label>
                 <div className="flex flex-row gap-3">
                   <select
-                    required
+                    required={true}
                     onChange={(val) => {
                       setAddReport({
                         ...addReport,
@@ -250,7 +250,7 @@ function Report() {
               <div className="w-full">
                 <label className="text-xs">Include</label>
                 <select
-                  required
+                  required={true}
                   onChange={(val) => {
                     setAddReport({ ...addReport, include: val.target.value });
                   }}
@@ -274,7 +274,7 @@ function Report() {
               <div className="w-full">
                 <label className="text-xs">Select Display Field Group</label>
                 <select
-                  required
+                  required={true}
                   onChange={(val) => {
                     setAddReport({
                       ...addReport,
@@ -294,7 +294,7 @@ function Report() {
                 <label className="text-xs">Select Display Field</label>
                 <div className="flex flex-row gap-3">
                   <select
-                    required
+                    required={true}
                     onChange={(val) => {
                       setAddReport({
                         ...addReport,
@@ -357,6 +357,7 @@ function Report() {
             <div className="w-full">
               <label className="text-xs">Report Name</label>
               <input
+                required={true}
                 onChange={(val) => {
                   setEditReport({ ...editReport, name: val.target.value });
                 }}
@@ -372,6 +373,7 @@ function Report() {
                 <label className="text-xs">Select Criteria</label>
                 <div className="flex flex-row gap-3">
                   <select
+                    required={true}
                     onChange={(val) => {
                       setEditReport({
                         ...editReport,
@@ -401,6 +403,7 @@ function Report() {
               <div className="w-full">
                 <label className="text-xs">Include</label>
                 <select
+                  required={true}
                   onChange={(val) => {
                     setEditReport({ ...editReport, include: val.target.value });
                   }}
@@ -424,6 +427,7 @@ function Report() {
               <div className="w-full">
                 <label className="text-xs">Select Display Field Group</label>
                 <select
+                  required={true}
                   onChange={(val) => {
                     setEditReport({
                       ...editReport,
@@ -443,6 +447,7 @@ function Report() {
                 <label className="text-xs">Select Display Field</label>
                 <div className="flex flex-row gap-3">
                   <select
+                    required={true}
                     onChange={(val) => {
                       setEditReport({
                         ...editReport,

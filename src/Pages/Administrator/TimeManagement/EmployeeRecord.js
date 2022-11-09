@@ -53,9 +53,11 @@ function EmployeeRecord() {
   const [dialogUser, setUser] = useState(false);
   const [dialogDetailUser, setDetailUser] = useState(false);
   const [employeeNames, setEmployeeNames] = useState([]);
-  const [employeeId, setEmployeeId] = useState([{
-    employeeId: "",
-  }]);
+  const [employeeId, setEmployeeId] = useState([
+    {
+      employeeId: "",
+    },
+  ]);
   const [detail, setDetail] = useState([]);
   const [detailEmployee, setDetailEmployee] = useState([]);
   const [time, setTime] = useState([]);
@@ -70,17 +72,17 @@ function EmployeeRecord() {
   useEffect(() => {
     inAwait();
   }, []);
-  const postData = async () => {
+  const postData = async (e) => {
+    e.preventDefault();
+
     var requestBody = {
       employeeId: employeeId.employeeId,
       checkIn: time,
       noteCheckIn: note,
     };
-    console.log(requestBody);
     setUser(false);
-    inAwait();
     var res = await AddEmployeeRecord(requestBody);
-    console.log(res);
+    inAwait();
   };
   // console.log(detail);
   return (
@@ -237,7 +239,7 @@ function EmployeeRecord() {
         >
           <Modal.Title>Check In / Out</Modal.Title>
         </Modal.Header>
-        <form onSubmit={postData}>
+        <form onSubmit={(e) => postData(e)}>
           <Modal.Body className="mx-4">
             <div className="row">
               <div className="col-md-12 mb-3">
@@ -267,6 +269,7 @@ function EmployeeRecord() {
                   <input
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     type="time"
+                    required
                     placeholder="Select Time"
                     onChange={(e) => setTime(e.target.value)}
                   />
@@ -281,7 +284,7 @@ function EmployeeRecord() {
                     rows={4}
                     placeholder="Note check in / out here"
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  onChange={(e) => setNote(e.target.value)}
+                    onChange={(e) => setNote(e.target.value)}
                   ></textarea>
                 </div>
               </div>
@@ -290,6 +293,7 @@ function EmployeeRecord() {
           <Modal.Footer className="m-4">
             <button
               className="btn"
+              type="button"
               style={{
                 backgroundColor: "#737373",
                 border: "1px solid transparent",
@@ -335,7 +339,9 @@ function EmployeeRecord() {
                 Employee Name : {detail.firstName} {detail.lastName}
               </div>
               <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
-              <div className="col-md-6 mb-2">Job Title : {detailEmployee.name}</div>
+              <div className="col-md-6 mb-2">
+                Job Title : {detailEmployee.name}
+              </div>
               <div className="col-md-6 mb-2">Work Shift : General Shift</div>
               <div className="col-md-6 mb-2">
                 Company Location : Ethos Pusat

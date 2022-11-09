@@ -50,6 +50,7 @@ function License() {
   useEffect(() => {
     inAwait();
   }, []);
+  console.log(licenses)
   return (
     <>
       <div
@@ -169,6 +170,18 @@ function License() {
         >
           <Modal.Title>Add License</Modal.Title>
         </Modal.Header>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append("name", document.getElementById("name").value);
+            formData.append("attachment", attachment);
+            var res = await AddLicense(formData);
+            setTitle(!dialogTitle);
+            SwalSuccess({ message: "Success add license" });
+            inAwait();
+          }}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -177,6 +190,7 @@ function License() {
                   License Name <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   className="bg-light-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="License name..."
                   id="name"
@@ -189,6 +203,7 @@ function License() {
                   Attachment <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   ref={attachmentRef}
                   onChange={(val) => setAttachment(val.target.files[0])}
                   className="form-control"
@@ -208,7 +223,8 @@ function License() {
               width: "100px",
             }}
             onClick={() => setTitle(!dialogTitle)}
-          >
+            type="button"
+            >
             Cancel
           </button>
           <button
@@ -219,19 +235,12 @@ function License() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              const formData = new FormData();
-              formData.append("name", document.getElementById("name").value);
-              formData.append("attachment", attachment);
-              var res = await AddLicense(formData);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add license" });
-              inAwait();
-            }}
-          >
+            type="submit"
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal
@@ -271,6 +280,7 @@ function License() {
                 </label>
                 <input
                   ref={attachmentRef}
+                  value={editValues?.attachment ?? null}
                   onChange={(val) => setAttachment(val.target.files[0])}
                   className="form-control"
                   type="file"

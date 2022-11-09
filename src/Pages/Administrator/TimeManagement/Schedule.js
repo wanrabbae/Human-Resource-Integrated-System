@@ -111,14 +111,13 @@ function Schedule() {
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>
                   <td className="align-middle">
-                    {schedule.employee.firstName} {schedule.employee.lastName}
+                    {schedule?.employee?.firstName} {schedule?.employee?.lastName}
                   </td>
                   <td className="align-middle">{schedule.startDate}</td>
                   <td className="align-middle">{schedule.endDate}</td>
                   <td className="align-middle">
-                    {schedule.employee.jobtitle.name}
+                    {schedule?.employee?.jobtitle?.name}
                   </td>
-                  <td className="align-middle">{schedule.schedule}</td>
                 </tr>
               ))
             ) : (

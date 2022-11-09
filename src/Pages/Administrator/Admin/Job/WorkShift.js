@@ -200,6 +200,23 @@ function WorkShift() {
         >
           <Modal.Title>Add Work Shift</Modal.Title>
         </Modal.Header>
+        <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          var requestBody = {
+            name: document.getElementById("name").value,
+            start: document.getElementById("start").value,
+            end: document.getElementById("end").value,
+            employee_ids: selected,
+            position_ids: posisi,
+          };
+          var res = await AddWorkShift(requestBody);
+          setTitle(!dialogTitle);
+          setSelected([]);
+          setPosisi([]);
+          inAwait();
+        }}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -208,10 +225,11 @@ function WorkShift() {
                   Work Shift Name <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   id="name"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Work Shift..."
-                />
+                  />
               </div>
             </div>
             <h1>Working hours</h1>
@@ -219,6 +237,7 @@ function WorkShift() {
               <div className="form-group">
                 <label className="mb-1">Start</label>
                 <input
+                  required
                   type="time"
                   id="start"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -229,10 +248,11 @@ function WorkShift() {
               <div className="form-group">
                 <label className="mb-1">End</label>
                 <input
+                  required
                   type="time"
                   id="end"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
+                  />
               </div>
             </div>
             <div className="col-md-4 my-3">
@@ -277,17 +297,18 @@ function WorkShift() {
                           setPosi(true);
                           setEmp(false);
                         }}
-                      />
+                        />
                       <label
                         for="2"
                         className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
-                      >
+                        >
                         Position
                       </label>
                     </div>
                   </div>
                 </div>
                 <select
+                  required={isEmp}
                   style={{
                     display: isEmp ? "block" : !isPosi ? "none" : "none",
                   }}
@@ -296,12 +317,12 @@ function WorkShift() {
                   }
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option>Search Employee</option>
+                  <option value="">Search Employee</option>
                   {employee.map((val) => {
                     return (
                       <option value={val["id"]}>{val["firstName"]}</option>
-                    );
-                  })}
+                      );
+                    })}
                 </select>
                 <div className="d-flex flex-wrap justify-content-start mt-3">
                   {selected.map((value) => (
@@ -312,7 +333,7 @@ function WorkShift() {
                         color: "#00000050",
                         borderRadius: "5px",
                       }}
-                    >
+                      >
                       {value}
                       <button
                         onClick={() => {
@@ -320,6 +341,7 @@ function WorkShift() {
                             selected.filter((val) => val !== value)
                           );
                         }}
+                        type="button"
                         className="btn btn-sm"
                         style={{ color: "#00000030" }}
                       >
@@ -329,6 +351,7 @@ function WorkShift() {
                   ))}
                 </div>
                 <select
+                  required={isPosi}
                   style={{
                     display: isPosi ? "block" : !isEmp ? "none" : "none",
                   }}
@@ -336,8 +359,8 @@ function WorkShift() {
                     setPosisi((current) => [...current, val.target.value])
                   }
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Search Position</option>
+                  >
+                  <option value="">Search Position</option>
                   {jobposition.map((val) => {
                     return <option value={val.id}>{val.name}</option>;
                   })}
@@ -358,9 +381,10 @@ function WorkShift() {
                       onClick={() => {
                         return setPosisi(posisi.filter((val) => val !== value));
                       }}
+                      type="button"
                       className="btn btn-sm"
                       style={{ color: "#00000030" }}
-                    >
+                      >
                       <Close />
                     </button>
                   </div>
@@ -383,7 +407,8 @@ function WorkShift() {
               setPosisi([]);
               setTitle(!dialogTitle);
             }}
-          >
+            type="button"
+            >
             Cancel
           </button>
           <button
@@ -394,24 +419,12 @@ function WorkShift() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-                start: document.getElementById("start").value,
-                end: document.getElementById("end").value,
-                employee_ids: selected,
-                position_ids: posisi,
-              };
-              var res = await AddWorkShift(requestBody);
-              setTitle(!dialogTitle);
-              setSelected([]);
-              setPosisi([]);
-              inAwait();
-            }}
-          >
+            type="submit"
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

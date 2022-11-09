@@ -58,6 +58,7 @@ function Users() {
     var dataEmployeeName = await GetEmployeeName();
     setEmployeeNames(dataEmployeeName);
     setUserManagement(rec["result"]);
+    console.log(rec);
   };
   useEffect(() => {
     inAwait();
@@ -196,11 +197,7 @@ function Users() {
                     </td>
                     <td className="align-middle">{val["username"]}</td>
                     <td className="align-middle">{val["role"]}</td>
-                    <td className="align-middle">
-                      {val?.employee?.firstName ??
-                        " " + " " + val?.employee?.lastName ??
-                        " "}
-                    </td>
+                    <td className="align-middle">{val?.employee?.firstName}</td>
                     <td className="align-middle">{val["status"]}</td>
                     <td className="align-middle">
                       <button
@@ -440,6 +437,7 @@ function Users() {
                   className="form-control"
                   placeholder="Employee Name..."
                   id="employeeEdit"
+                  value={editUserData?.employee?.firstName}
                   onChange={(val) =>
                     setEmployeeName({ employeeName: val.target.value })
                   }
@@ -496,6 +494,7 @@ function Users() {
                 <input
                   className="form-control"
                   id="asigntoEdit"
+                  value={editUserData?.location}
                   placeholder="Search location"
                 />
               </div>

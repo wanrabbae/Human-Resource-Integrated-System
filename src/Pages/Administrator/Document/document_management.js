@@ -22,7 +22,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import ReactSelect from "react-select";
+import Select from "react-select";
 // import faker from 'faker';
 import { components } from "react-select";
 import {
@@ -64,6 +64,7 @@ function DocumentManagement() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [fields, setField] = useState([]);
+  const [defaultShow, setDefaultShow] = useState([]);
   const dataTypeOpt = [
     {
       name: "Alphabet",
@@ -271,6 +272,7 @@ function DocumentManagement() {
       setModaledit(false);
       setField([]);
       setDocument({});
+      setDefaultShow([]);
       inAwait();
       SwalSuccess({ message: "Success edit document" });
     } catch (error) {
@@ -462,11 +464,21 @@ function DocumentManagement() {
                                 className="text-sm"
                                 onClick={async () => {
                                   let field = [];
+                                  let showsto = [];
                                   setModaledit(true);
                                   const getDetailDocument = await GetDetailDoc(
                                     val.id
                                   );
                                   setDocument(getDetailDocument.result);
+                                  getDetailDocument.result?.delegated_to?.map(
+                                    (data) => {
+                                      console.log(data);
+                                      showsto.push({
+                                        value: data.value,
+                                        label: data.label,
+                                      });
+                                    }
+                                  );
                                   getDetailDocument.result?.detail_documents?.map(
                                     (data) =>
                                       field.push({
@@ -478,6 +490,10 @@ function DocumentManagement() {
                                       })
                                   );
                                   setField(field);
+                                  setDefaultShow(
+                                    getDetailDocument.result?.delegated_to
+                                  );
+                                  console.log(defaultShow);
                                   // navigate(`/recruitment/edit/${val["id"]}`);
                                 }}
                               >
@@ -907,7 +923,7 @@ function DocumentManagement() {
             <label className="block text-gray-700 text-sm mb-2" for="username">
               Show To
             </label>
-            <ReactSelect
+            <Select
               options={employeeto}
               isMulti
               onChange={(e) => {
@@ -919,9 +935,9 @@ function DocumentManagement() {
               }}
               closeMenuOnSelect={false}
               hideSelectedOptions={false}
-              components={{
-                Option,
-              }}
+              // components={{
+              //   Option,
+              // }}
             />
           </div>
         </Modal.Body>
@@ -971,7 +987,7 @@ function DocumentManagement() {
           style={{ borderBottomColor: "transparent" }}
         >
           <Modal.Title id="contained-modal-title-vcenter">
-            Edit Document Management System
+            Edit Document Management System {defaultShow[1]?.value}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="mx-4">
@@ -1231,8 +1247,11 @@ function DocumentManagement() {
             <label className="block text-gray-700 text-sm mb-2" for="username">
               Show To
             </label>
-            <ReactSelect
+            <Select
+              className="basic-multi-select"
               options={employeeto}
+              defaultValue={defaultShow}
+              classNamePrefix="select"
               isMulti
               onChange={(e) => {
                 var data = [];
@@ -1241,11 +1260,9 @@ function DocumentManagement() {
                 }
                 setShowTo(data);
               }}
-              closeMenuOnSelect={false}
-              hideSelectedOptions={false}
-              components={{
-                Option,
-              }}
+              // components={{
+              //   Option,
+              // }}
             />
           </div>
         </Modal.Body>
@@ -1261,6 +1278,7 @@ function DocumentManagement() {
             onClick={() => {
               setModaledit(false);
               setField([]);
+              setDefaultShow([]);
             }}
           >
             Cancel

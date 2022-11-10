@@ -464,21 +464,11 @@ function DocumentManagement() {
                                 className="text-sm"
                                 onClick={async () => {
                                   let field = [];
-                                  let showsto = [];
-                                  setModaledit(true);
+
                                   const getDetailDocument = await GetDetailDoc(
                                     val.id
                                   );
                                   setDocument(getDetailDocument.result);
-                                  getDetailDocument.result?.delegated_to?.map(
-                                    (data) => {
-                                      console.log(data);
-                                      showsto.push({
-                                        value: data.value,
-                                        label: data.label,
-                                      });
-                                    }
-                                  );
                                   getDetailDocument.result?.detail_documents?.map(
                                     (data) =>
                                       field.push({
@@ -493,8 +483,7 @@ function DocumentManagement() {
                                   setDefaultShow(
                                     getDetailDocument.result?.delegated_to
                                   );
-                                  console.log(defaultShow);
-                                  // navigate(`/recruitment/edit/${val["id"]}`);
+                                  setModaledit(true);
                                 }}
                               >
                                 Edit
@@ -987,7 +976,7 @@ function DocumentManagement() {
           style={{ borderBottomColor: "transparent" }}
         >
           <Modal.Title id="contained-modal-title-vcenter">
-            Edit Document Management System {defaultShow[1]?.value}
+            Edit Document Management System {defaultShow[2]?.value}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="mx-4">

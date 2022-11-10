@@ -69,12 +69,79 @@ function Report() {
     inAwait();
   }, []);
 
+  const criterias = [
+    {
+      name: "Employee Name",
+      value: "Employee Name",
+    },
+    {
+      name: "Pay Grade ",
+      value: "Pay Grade",
+    },
+    {
+      name: "Education ",
+      value: "Education",
+    },
+    {
+      name: "Employment Status",
+      value: "Employment Status",
+    },
+  ];
+  const includes = [
+    {
+      value: "Current Employee Only",
+      name: "Current Employee Only",
+    },
+    {
+      value: "Current & Past Employee",
+      name: "Current & Past Employee",
+    },
+    {
+      value: "Past Employees Only",
+      name: "Past Employees Only",
+    },
+  ];
+  const fieldGroup = [
+    {
+      value: "Personal",
+      name: "Personal",
+    },
+    {
+      value: "Contact Details",
+      name: "Contact Details",
+    },
+    {
+      value: "Dependents",
+      name: "Dependents",
+    },
+    {
+      value: "Membership",
+      name: "Membership",
+    },
+  ];
+  const fieldDisplay = [
+    {
+      value: "Skill Name",
+      name: "Skill Name",
+    },
+    {
+      value: "Years of Experience",
+      name: "Years of Experience",
+    },
+    {
+      value: "Comments",
+      name: "Comments",
+    },
+  ];
+
   return (
     <>
       <div className="bg-white p-3 rounded-lg space-y-5">
         <div>
           <h1>Report</h1>
-          <p className="text-xs text-gray-400">1 Record Found</p>
+          <p className="text-xs text-gray-400">
+            {reports?.length} Record Found
+          </p>
         </div>
         <div className="flex flex-row justify-end">
           <div className="flex flex-row gap-2">
@@ -229,12 +296,13 @@ function Report() {
                     }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    <option hidden>--Select--</option>
+                    <option hidden value="">
+                      --Select--
+                    </option>
                     <option value="Employee Name">Employee Name</option>
                     <option value="Pay Grade">Pay Grade</option>
                     <option value="Education">Education</option>
                     <option value="Employment Status">Employment Status</option>
-                    <option value="Service Period">Service Period</option>
                   </select>
                   <button
                     type="button"
@@ -256,7 +324,9 @@ function Report() {
                   }}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option hidden>--Select--</option>
+                  <option hidden value="">
+                    --Select--
+                  </option>
                   <option value="Current Employee Only">
                     Current Employee Only
                   </option>
@@ -283,7 +353,9 @@ function Report() {
                   }}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option hidden>--Select Field --</option>
+                  <option hidden value="">
+                    --Select Field --
+                  </option>
                   <option value="Personal">Personal</option>
                   <option value="Contact Details">Contact Details</option>
                   <option value="Dependents">Dependents</option>
@@ -303,7 +375,9 @@ function Report() {
                     }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    <option hidden>--Select--</option>
+                    <option hidden value="">
+                      --Select--
+                    </option>
                     <option value="Skill Name">Skill Name</option>
                     <option value="Years of Experience">
                       Years of Experience
@@ -382,12 +456,21 @@ function Report() {
                     }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    <option hidden>--Select--</option>
-                    <option value="Employee Name">Employee Name</option>
-                    <option value="Pay Grade">Pay Grade</option>
-                    <option value="Education">Education</option>
-                    <option value="Employment Status">Employment Status</option>
-                    <option value="Service Period">Service Period</option>
+                    <option hidden value="">
+                      --Select--
+                    </option>
+                    {criterias.map((cri) => {
+                      return (
+                        <option
+                          value={cri.value}
+                          selected={
+                            editReport?.criteria == cri.value ? true : false
+                          }
+                        >
+                          {cri.name}
+                        </option>
+                      );
+                    })}
                   </select>
                   <button
                     type="button"
@@ -409,16 +492,21 @@ function Report() {
                   }}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option hidden>--Select--</option>
-                  <option value="Current Employee Only">
-                    Current Employee Only
+                  <option hidden value="">
+                    --Select--
                   </option>
-                  <option value="Current & Past Employee">
-                    Current & Past Employee
-                  </option>
-                  <option value="Past Employees Only">
-                    Past Employees Only
-                  </option>
+                  {includes.map((cri) => {
+                    return (
+                      <option
+                        value={cri.value}
+                        selected={
+                          editReport?.include == cri.value ? true : false
+                        }
+                      >
+                        {cri.name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>
@@ -436,11 +524,23 @@ function Report() {
                   }}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option hidden>--Select Field --</option>
-                  <option value="Personal">Personal</option>
-                  <option value="Contact Details">Contact Details</option>
-                  <option value="Dependents">Dependents</option>
-                  <option value="Membership">Membership</option>
+                  <option hidden value="">
+                    --Select Field --
+                  </option>
+                  {fieldGroup.map((cri) => {
+                    return (
+                      <option
+                        value={cri.value}
+                        selected={
+                          editReport?.displayFieldGroup == cri.value
+                            ? true
+                            : false
+                        }
+                      >
+                        {cri.name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="w-full">
@@ -456,12 +556,21 @@ function Report() {
                     }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    <option hidden>--Select--</option>
-                    <option value="Skill Name">Skill Name</option>
-                    <option value="Years of Experience">
-                      Years of Experience
+                    <option hidden value="">
+                      --Select--
                     </option>
-                    <option value="Comments">Comments</option>
+                    {fieldDisplay.map((cri) => {
+                      return (
+                        <option
+                          value={cri.value}
+                          selected={
+                            editReport?.displayField == cri.value ? true : false
+                          }
+                        >
+                          {cri.name}
+                        </option>
+                      );
+                    })}
                   </select>
                   <button
                     type="button"

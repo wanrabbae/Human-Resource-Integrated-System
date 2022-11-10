@@ -39,6 +39,7 @@ function Skills() {
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [skillAdd, setSkillAdd] = useState({});
 
   const inAwait = async () => {
     var data = await GetSkills();
@@ -170,70 +171,84 @@ function Skills() {
         >
           <Modal.Title>Add Skill</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Skill Name <span className="text-danger">*</span>
-                </label>
-                <input
-                  id="name"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Skill Name..."
-                />
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              name: skillAdd?.name,
+              description: skillAdd?.description,
+            };
+            await AddSkill(requestBody);
+            console.log("TEST");
+            setTitle(!dialogTitle);
+            SwalSuccess({ message: "Success add skill" });
+            inAwait();
+          }}
+        >
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Skill Name <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    id="name"
+                    required
+                    onChange={(e) =>
+                      setSkillAdd({ ...skillAdd, name: e.target.value })
+                    }
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Skill Name..."
+                  />
+                </div>
+              </div>
+              <div className="col-md-12 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Description <span className="text-danger">*</span>
+                  </label>
+                  <textarea
+                    rows="4"
+                    id="description"
+                    onChange={(e) =>
+                      setSkillAdd({ ...skillAdd, description: e.target.value })
+                    }
+                    placeholder="description..."
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  ></textarea>
+                </div>
               </div>
             </div>
-            <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Description <span className="text-danger">*</span>
-                </label>
-                <textarea
-                  rows="4"
-                  id="description"
-                  placeholder="description..."
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#00000010",
-              border: "1px solid transparent",
-              color: "#0E5073",
-              width: "100px",
-            }}
-            onClick={() => setTitle(!dialogTitle)}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-                description: document.getElementById("description").value,
-              };
-              var res = await AddSkill(requestBody);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add skill" });
-              inAwait();
-            }}
-          >
-            Add
-          </button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              type="button"
+              style={{
+                backgroundColor: "#00000010",
+                border: "1px solid transparent",
+                color: "#0E5073",
+                width: "100px",
+              }}
+              onClick={() => setTitle(!dialogTitle)}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+            >
+              Add
+            </button>
+          </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal
@@ -248,82 +263,91 @@ function Skills() {
         >
           <Modal.Title>Edit Skill</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Skill Name <span className="text-danger">*</span>
-                </label>
-                <input
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Skill Name..."
-                  id="nameEdit"
-                  value={editValues?.name ?? null}
-                  onChange={(e) =>
-                    setEditValues({ ...editValues, name: e.target.value })
-                  }
-                />
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              id: editValues.id,
+              name: editValues.name,
+              description: editValues.description,
+            };
+            var res = await EditSkill(requestBody);
+            console.log("TREST");
+            setEditTitle(!dialogEditTitle);
+            SwalSuccess({ message: "Success edit skill" });
+            inAwait();
+          }}
+        >
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Skill Name <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Skill Name..."
+                    required
+                    id="nameEdit"
+                    value={editValues?.name ?? null}
+                    onChange={(e) =>
+                      setEditValues({ ...editValues, name: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="col-md-12 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Description <span className="text-danger">*</span>
+                  </label>
+                  <textarea
+                    rows="4"
+                    required
+                    value={editValues?.description ?? null}
+                    onChange={(e) =>
+                      setEditValues({
+                        ...editValues,
+                        description: e.target.value,
+                      })
+                    }
+                    id="descriptionEdit"
+                    placeholder="description..."
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  ></textarea>
+                </div>
               </div>
             </div>
-            <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Description <span className="text-danger">*</span>
-                </label>
-                <textarea
-                  rows="4"
-                  value={editValues?.description ?? null}
-                  onChange={(e) =>
-                    setEditValues({
-                      ...editValues,
-                      description: e.target.value,
-                    })
-                  }
-                  id="descriptionEdit"
-                  placeholder="description..."
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#00000010",
-              border: "1px solid transparent",
-              color: "#0E5073",
-              width: "100px",
-            }}
-            onClick={() => setEditTitle(!dialogEditTitle)}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            onClick={async () => {
-              var requestBody = {
-                id: editValues.id,
-                name: editValues.name,
-                description: editValues.description,
-              };
-              var res = await EditSkill(requestBody);
-              setEditTitle(!dialogEditTitle);
-              SwalSuccess({ message: "Success edit skill" });
-              inAwait();
-            }}
-          >
-            Submit
-          </button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              type="button"
+              style={{
+                backgroundColor: "#00000010",
+                border: "1px solid transparent",
+                color: "#0E5073",
+                width: "100px",
+              }}
+              onClick={() => setEditTitle(!dialogEditTitle)}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              type="submit"
+            >
+              Submit
+            </button>
+          </Modal.Footer>
+        </form>
       </Modal>
 
       <ModalDelete

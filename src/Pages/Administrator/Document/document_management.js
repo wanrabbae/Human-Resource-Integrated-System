@@ -248,7 +248,7 @@ function DocumentManagement() {
         id: document.id,
         title: document.title,
         description: document.description,
-        // delegated_to: `[${showto}]`,
+        delegated_to: `[${showto}]`,
       });
 
       fields.forEach(async (field) => {
@@ -273,6 +273,7 @@ function DocumentManagement() {
       setField([]);
       setDocument({});
       setDefaultShow([]);
+      setShowTo([]);
       inAwait();
       SwalSuccess({ message: "Success edit document" });
     } catch (error) {
@@ -1267,6 +1268,7 @@ function DocumentManagement() {
             onClick={() => {
               setModaledit(false);
               setField([]);
+              setShowTo([]);
               setDefaultShow([]);
             }}
           >

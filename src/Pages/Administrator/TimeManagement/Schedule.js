@@ -98,9 +98,6 @@ function Schedule() {
               <th onClick={() => {}}>
                 Job Title <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
-                Current Schedule <ImportExport fontSize="2px" />
-              </th>
             </tr>
           </thead>
           <tbody>

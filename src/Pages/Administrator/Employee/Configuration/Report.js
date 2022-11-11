@@ -165,7 +165,7 @@ function Report() {
     if (criteria == "Employee Name") {
       return (
         <div className="pe-3 py-4">
-          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option hidden value="">
               --Select Employee Name--
             </option>
@@ -178,7 +178,7 @@ function Report() {
     } else if (criteria == "Pay Grade") {
       return (
         <div className="pe-3 py-4">
-          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option hidden value="">
               --Select Job Grade--
             </option>
@@ -191,7 +191,7 @@ function Report() {
     } else if (criteria == "Education") {
       return (
         <div className="pe-3 py-4">
-          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option hidden value="">
               --Select Education--
             </option>
@@ -204,7 +204,7 @@ function Report() {
     } else if (criteria == "Employment Status") {
       return (
         <div className="pe-3 py-4">
-          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option hidden value="">
               --Select Employment Status--
             </option>
@@ -386,7 +386,7 @@ function Report() {
                         --Select--
                       </option>
                       <option value="Employee Name">Employee Name</option>
-                      <option value="Pay Grade">Pay Grade</option>
+                      <option value="Pay Grade">Job Grade</option>
                       <option value="Education">Education</option>
                       <option value="Employment Status">
                         Employment Status
@@ -415,7 +415,7 @@ function Report() {
                   {showCriteria ? criteriaInput(criteriaType) : ""}
                 </div>
               </div>
-              {criteriaType == "Employee Name" ? (
+              {criteriaType !== "Employee Name" ? (
                 ""
               ) : (
                 <div className="w-full">

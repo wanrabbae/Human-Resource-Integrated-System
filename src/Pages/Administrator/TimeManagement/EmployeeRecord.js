@@ -248,6 +248,7 @@ function EmployeeRecord() {
                     Employee Name <span className="text-danger">*</span>
                   </label>
                   <Select
+                    required
                     id="selectedEmployee"
                     isLoading={true}
                     onChange={(val) => setEmployeeId({ employeeId: val.value })}

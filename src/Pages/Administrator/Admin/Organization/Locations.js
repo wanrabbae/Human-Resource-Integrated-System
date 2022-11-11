@@ -184,7 +184,7 @@ function Locations() {
           <Modal.Title>Add Location</Modal.Title>
         </Modal.Header>
         <form
-        action={async (e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           var requestBody = {
             name: document.getElementById("name").value,

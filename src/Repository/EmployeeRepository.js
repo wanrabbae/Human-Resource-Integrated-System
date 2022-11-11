@@ -97,6 +97,11 @@ var GetReport = async () => {
   return res.data;
 };
 
+var GetReportSingle = async (id) => {
+  var res = await axios.get(`${endpoint}/getReport?id=${id}`);
+  return res.data;
+};
+
 var AddReport = async (requestBody) => {
   var res = await axios.post(`${endpoint}/addReport`, requestBody);
   if (res.status == 200) {
@@ -134,4 +139,5 @@ export {
   AddReport,
   UpdateReport,
   DeleteReport,
+  GetReportSingle,
 };

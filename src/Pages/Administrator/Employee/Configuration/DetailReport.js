@@ -1,6 +1,18 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { GetReportSingle } from "../../../../Repository/EmployeeRepository";
 
 function DetailReport() {
+  const [reports, setReports] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const inAwait = async () => {
+    var rec = await GetReportSingle(location.state.id);
+    setReports(rec.result);
+  };
+  useEffect(() => {
+    inAwait();
+  }, []);
   return (
     <>
       <div className="space-y-5">
@@ -9,17 +21,19 @@ function DetailReport() {
             <h1 className="font-bold">Personal</h1>
             <div className="mt-4 grid grid-cols-3 gap-3 items-center text-xs">
               <p>Employee Full Name</p>
-              <p className="col-span-2">: Fakhri</p>
+              <p className="col-span-2">: {reports?.employee?.firstName}</p>
               <p>Employee ID</p>
-              <p className="col-span-2">: 12345</p>
+              <p className="col-span-2">: {reports?.employee?.id}</p>
               <p>Birth of Date</p>
-              <p className="col-span-2">: 22-06-1999</p>
+              <p className="col-span-2">: {reports?.employee?.birthDate}</p>
               <p>Gender</p>
-              <p className="col-span-2">: Male</p>
+              <p className="col-span-2">: {reports?.employee?.gender}</p>
               <p>Nationality</p>
-              <p className="col-span-2">: Indonesia</p>
+              <p className="col-span-2">
+                : {reports?.employee?.nationality?.name}
+              </p>
               <p>Drive’s License Number</p>
-              <p className="col-span-2">: 92142144444</p>
+              <p className="col-span-2">: {reports?.employee?.driverLicence}</p>
             </div>
           </div>
         </div>
@@ -28,18 +42,15 @@ function DetailReport() {
             <h1 className="font-bold">Contact Details</h1>
             <div className="mt-4 grid grid-cols-3 gap-3 items-center text-xs">
               <p>Address</p>
-              <p className="col-span-2">
-                : Karangklesem, Puri Hijau, No. 18, Purwokerto, Central Java,
-                Postal Code 53144, Indonesia
-              </p>
+              <p className="col-span-2">: {reports?.employee?.street}</p>
               <p>Telephone</p>
-              <p className="col-span-2">: (123) 654789</p>
+              <p className="col-span-2">: {reports?.employee?.phone}</p>
               <p>Mobile</p>
-              <p className="col-span-2">: 081325679843</p>
+              <p className="col-span-2">: {reports?.employee?.mobilePhone}</p>
               <p>Email</p>
-              <p className="col-span-2">: Fakhriazmi@gmail.com</p>
+              <p className="col-span-2">: {reports?.employee?.email}</p>
               <p>Other Email</p>
-              <p className="col-span-2">: -</p>
+              <p className="col-span-2">: {reports?.employee?.otherEmail}</p>
             </div>
           </div>
         </div>
@@ -49,14 +60,20 @@ function DetailReport() {
             <div className="mt-4 grid grid-cols-3 gap-3 items-center text-xs">
               <p>Name</p>
               <p className="col-span-2">
-                : Putri Delina
+                : {reports?.employee?.emergencycontacts[0]?.name}
               </p>
               <p>Relationship</p>
-              <p className="col-span-2">: Wife</p>
+              <p className="col-span-2">
+                : {reports?.employee?.emergencycontacts[0]?.relationship}
+              </p>
               <p>Telephone</p>
-              <p className="col-span-2">: (123) 654789</p>
+              <p className="col-span-2">
+                : {reports?.employee?.emergencycontacts[0]?.phone}
+              </p>
               <p>Mobile</p>
-              <p className="col-span-2">: 081344576891</p>
+              <p className="col-span-2">
+                : {reports?.employee?.emergencycontacts[0]?.mobilePhone}
+              </p>
             </div>
           </div>
         </div>

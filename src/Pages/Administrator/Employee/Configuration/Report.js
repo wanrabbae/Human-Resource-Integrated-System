@@ -28,6 +28,7 @@ import {
   GetJobGrade,
 } from "../../../../Repository/AdminRepository";
 import { GetEducation } from "../../../../Repository/EducationRepository";
+import { useNavigate } from "react-router-dom";
 
 function Report() {
   const [reports, setReports] = useState([]);
@@ -37,6 +38,7 @@ function Report() {
   const [modalEdit, setModalEdit] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const navigate = useNavigate();
   const [criteriaType, setCriteriaType] = useState("");
   const [dataCriteria, setDataCriteria] = useState([]);
   const [showCriteria, setShowCriteria] = useState(false);
@@ -165,7 +167,13 @@ function Report() {
     if (criteria == "Employee Name") {
       return (
         <div className="pe-3 py-4">
-          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select
+            required
+            onChange={(e) =>
+              setAddReport({ ...addReport, employeeId: e.target.value })
+            }
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
             <option hidden value="">
               --Select Employee Name--
             </option>
@@ -178,7 +186,10 @@ function Report() {
     } else if (criteria == "Pay Grade") {
       return (
         <div className="pe-3 py-4">
-          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select
+            required
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
             <option hidden value="">
               --Select Job Grade--
             </option>
@@ -191,7 +202,10 @@ function Report() {
     } else if (criteria == "Education") {
       return (
         <div className="pe-3 py-4">
-          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select
+            required
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
             <option hidden value="">
               --Select Education--
             </option>
@@ -204,7 +218,10 @@ function Report() {
     } else if (criteria == "Employment Status") {
       return (
         <div className="pe-3 py-4">
-          <select required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select
+            required
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
             <option hidden value="">
               --Select Employment Status--
             </option>
@@ -315,15 +332,19 @@ function Report() {
                         >
                           <PencilIcon className="h-5 w-5" aria-hidden="true" />
                         </button>
-                        <a
-                          href="/employee/detail-report"
+                        <span
+                          onClick={() =>
+                            navigate(`/employee/detail-report`, {
+                              state: report,
+                            })
+                          }
                           className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                         >
                           <DocumentIcon
                             className="h-5 w-5"
                             aria-hidden="true"
                           />
-                        </a>
+                        </span>
                       </div>
                     </td>
                   </tr>

@@ -20,8 +20,14 @@ import {
   AddReport,
   UpdateReport,
   DeleteReport,
+  GetEmployee,
 } from "../../../../Repository/EmployeeRepository.js";
 import { ReportSharp } from "@mui/icons-material";
+import {
+  GetEmployeeStatus,
+  GetJobGrade,
+} from "../../../../Repository/AdminRepository";
+import { GetEducation } from "../../../../Repository/EducationRepository";
 
 function Report() {
   const [reports, setReports] = useState([]);
@@ -31,6 +37,9 @@ function Report() {
   const [modalEdit, setModalEdit] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [criteriaType, setCriteriaType] = useState("");
+  const [dataCriteria, setDataCriteria] = useState([]);
+  const [showCriteria, setShowCriteria] = useState(false);
 
   const inAwait = async () => {
     var data = await GetReport();
@@ -133,6 +142,80 @@ function Report() {
       name: "Comments",
     },
   ];
+
+  const handleChangeCriteria = async (criteria) => {
+    if (criteria == "Employee Name") {
+      const employees = await GetEmployee();
+      setDataCriteria(employees);
+    } else if (criteria == "Pay Grade") {
+      const jobGrade = await GetJobGrade();
+      setDataCriteria(jobGrade);
+    } else if (criteria == "Education") {
+      const educations = await GetEducation();
+      setDataCriteria(educations);
+    } else if (criteria == "Employment Status") {
+      const statuses = await GetEmployeeStatus();
+      setDataCriteria(statuses);
+    } else {
+      setDataCriteria([]);
+    }
+  };
+
+  const criteriaInput = (criteria) => {
+    if (criteria == "Employee Name") {
+      return (
+        <div className="pe-3 py-4">
+          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option hidden value="">
+              --Select Employee Name--
+            </option>
+            {dataCriteria.map((emp) => {
+              return <option value={emp.id}>{emp.firstName}</option>;
+            })}
+          </select>
+        </div>
+      );
+    } else if (criteria == "Pay Grade") {
+      return (
+        <div className="pe-3 py-4">
+          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option hidden value="">
+              --Select Job Grade--
+            </option>
+            {dataCriteria.map((emp) => {
+              return <option value={emp.id}>{emp.name}</option>;
+            })}
+          </select>
+        </div>
+      );
+    } else if (criteria == "Education") {
+      return (
+        <div className="pe-3 py-4">
+          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option hidden value="">
+              --Select Education--
+            </option>
+            {dataCriteria.map((edu) => {
+              return <option value={edu.id}>{edu.name}</option>;
+            })}
+          </select>
+        </div>
+      );
+    } else if (criteria == "Employment Status") {
+      return (
+        <div className="pe-3 py-4">
+          <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option hidden value="">
+              --Select Employment Status--
+            </option>
+            {dataCriteria.map((emp) => {
+              return <option value={emp.id}>{emp.name}</option>;
+            })}
+          </select>
+        </div>
+      );
+    }
+  };
 
   return (
     <>
@@ -285,59 +368,80 @@ function Report() {
             <div className="grid grid-cols-2 gap-3">
               <div className="w-full">
                 <label className="text-xs">Select Criteria</label>
-                <div className="flex flex-row gap-3">
+                <div className="wrapper">
+                  <div className="flex flex-row gap-3">
+                    <select
+                      required={true}
+                      onChange={(val) => {
+                        setAddReport({
+                          ...addReport,
+                          criteria: val.target.value,
+                        });
+                        setCriteriaType(val.target.value);
+                        handleChangeCriteria(val.target.value);
+                      }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option hidden value="">
+                        --Select--
+                      </option>
+                      <option value="Employee Name">Employee Name</option>
+                      <option value="Pay Grade">Pay Grade</option>
+                      <option value="Education">Education</option>
+                      <option value="Employment Status">
+                        Employment Status
+                      </option>
+                    </select>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowCriteria(!showCriteria);
+                      }}
+                      className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
+                    >
+                      {showCriteria ? (
+                        <XIcon
+                          className="text-[#669BBC] h-5 w-5"
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <PlusIcon
+                          className="text-[#669BBC] h-5 w-5"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </button>
+                  </div>
+                  {showCriteria ? criteriaInput(criteriaType) : ""}
+                </div>
+              </div>
+              {criteriaType == "Employee Name" ? (
+                ""
+              ) : (
+                <div className="w-full">
+                  <label className="text-xs">Include</label>
                   <select
                     required={true}
                     onChange={(val) => {
-                      setAddReport({
-                        ...addReport,
-                        criteria: val.target.value,
-                      });
+                      setAddReport({ ...addReport, include: val.target.value });
                     }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option hidden value="">
                       --Select--
                     </option>
-                    <option value="Employee Name">Employee Name</option>
-                    <option value="Pay Grade">Pay Grade</option>
-                    <option value="Education">Education</option>
-                    <option value="Employment Status">Employment Status</option>
+                    <option value="Current Employee Only">
+                      Current Employee Only
+                    </option>
+                    <option value="Current & Past Employee">
+                      Current & Past Employee
+                    </option>
+                    <option value="Past Employees Only">
+                      Past Employees Only
+                    </option>
                   </select>
-                  <button
-                    type="button"
-                    className="bg-[#E0EBF2] hover:bg[#003049] text-white flex items-center px-2 py-1 rounded-md"
-                  >
-                    <PlusIcon
-                      className="text-[#669BBC] h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </button>
                 </div>
-              </div>
-              <div className="w-full">
-                <label className="text-xs">Include</label>
-                <select
-                  required={true}
-                  onChange={(val) => {
-                    setAddReport({ ...addReport, include: val.target.value });
-                  }}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option hidden value="">
-                    --Select--
-                  </option>
-                  <option value="Current Employee Only">
-                    Current Employee Only
-                  </option>
-                  <option value="Current & Past Employee">
-                    Current & Past Employee
-                  </option>
-                  <option value="Past Employees Only">
-                    Past Employees Only
-                  </option>
-                </select>
-              </div>
+              )}
             </div>
             <label className="mt-4 font-semibold">Display Fields</label>
             <div className="grid grid-cols-2 gap-3">

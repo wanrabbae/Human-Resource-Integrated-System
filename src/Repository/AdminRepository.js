@@ -360,35 +360,35 @@ var getStructure = async (data = 0) => {
       return res.data;
     }
   }
-}
+};
 
 var deleteStructure = async (id) => {
   var res = await axios.get(`${endpoint}/deleteStructure?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 
 var getCodeStructure = async (id) => {
   var res = await axios.get(`${endpoint}/getCodeStructure?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 
 var addStructure = async (requestBody) => {
   var res = await axios.post(`${endpoint}/addStructure`, requestBody);
   if (res.status == 200) {
-    return res.data
+    return res.data;
   }
-}
+};
 
 var updateStructure = async (requestBody) => {
   var res = await axios.post(`${endpoint}/updateStructure`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
-}
+};
 
 export {
   updateStructure,

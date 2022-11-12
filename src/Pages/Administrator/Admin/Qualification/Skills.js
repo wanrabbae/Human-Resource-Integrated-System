@@ -224,7 +224,7 @@ function Skills() {
           <Modal.Footer className="m-4">
             <button
               className="btn"
-              type="button"
+              type={"button"}
               style={{
                 backgroundColor: "#00000010",
                 border: "1px solid transparent",
@@ -236,7 +236,7 @@ function Skills() {
               Cancel
             </button>
             <button
-              type="submit"
+              type={"submit"}
               className="btn"
               style={{
                 backgroundColor: "#0E5073",

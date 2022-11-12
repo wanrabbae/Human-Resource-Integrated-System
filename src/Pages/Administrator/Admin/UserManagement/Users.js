@@ -73,6 +73,7 @@ function Users() {
   const [employeeName, setEmployeeName] = useState({
     employeeName: "",
   });
+  const [error, setError] = useState("");
 
   const searchUser = async (keyword) => {
     const data = await SearchUser(keyword);
@@ -347,6 +348,7 @@ function Users() {
               </div>
             </div>
           </div>
+          <p className="text-danger text-sm">{error}</p>
         </Modal.Body>
         <Modal.Footer className="m-4">
           <button
@@ -370,17 +372,21 @@ function Users() {
               width: "100px",
             }}
             onClick={async () => {
-              var requestBody = {
-                role: document.getElementById("role").value,
-                employee_id: employeeName.employeeName,
-                status: document.getElementById("status").value,
-                username: document.getElementById("username").value,
-                password: document.getElementById("password").value,
-                location: document.getElementById("asignto").value,
-              };
-              await AddUser(requestBody);
-              setUser(false);
-              inAwait();
+              try {
+                var requestBody = {
+                  role: document.getElementById("role").value,
+                  employee_id: employeeName.employeeName,
+                  status: document.getElementById("status").value,
+                  username: document.getElementById("username").value,
+                  password: document.getElementById("password").value,
+                  location: document.getElementById("asignto").value,
+                };
+                await AddUser(requestBody);
+                setUser(false);
+                inAwait();
+              } catch (error) {
+                setError(error.response.data.message);
+              }
               // var res = await axios.post;
             }}
           >

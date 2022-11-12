@@ -53,6 +53,7 @@ function EmployeeRecord() {
   const [dialogUser, setUser] = useState(false);
   const [dialogDetailUser, setDetailUser] = useState(false);
   const [employeeNames, setEmployeeNames] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
   const [employeeId, setEmployeeId] = useState([
     {
       employeeId: "",
@@ -80,8 +81,13 @@ function EmployeeRecord() {
       checkIn: time,
       noteCheckIn: note,
     };
+    if (employeeId.employeeId == undefined || employeeId.employeeId == null) {
+      setErrorMsg("Please choose the employee");
+      return false;
+    }
     setUser(false);
     var res = await AddEmployeeRecord(requestBody);
+    setErrorMsg("");
     inAwait();
   };
   // console.log(detail);
@@ -166,9 +172,7 @@ function EmployeeRecord() {
                   <td className="align-middle">
                     <input type="checkbox" style={{ borderRadius: "2px" }} />
                   </td>
-                  <td className="align-middle">
-                    {value.employee.firstName} {value.employee.lastName}
-                  </td>
+                  <td className="align-middle">{value.employee.firstName}</td>
                   <td className="align-middle">{value.date}</td>
                   <td className="align-middle">{value.checkIn}</td>
                   <td className="align-middle">{value.noteCheckIn}</td>
@@ -263,6 +267,7 @@ function EmployeeRecord() {
                     })}
                   />
                 </div>
+                <p className={"text-danger text-sm"}>{errorMsg}</p>
               </div>
               <div className="col-md-12 mb-3">
                 <div className="form-group">

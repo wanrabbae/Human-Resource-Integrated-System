@@ -1,22 +1,34 @@
 import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
+const api = axios.create({
+  baseURL: endpoint,
+});
+
+api.interceptors.request.use((req) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `${token}`;
+  }
+  return req;
+});
+
 var GetAttendance = async () => {
-  var res = await axios.get(`${endpoint}/getAttendance`);
+  var res = await api.get(`/mobile/user/getAttendances`);
   if (res.status == 200) {
-    return res.data;
+    return res.data.result;
   }
 };
 
 var GetAttendanceByDate = async (date) => {
-  var res = await axios.get(`${endpoint}/getAttendance?date=${date}`);
+  var res = await api.get(`/getAttendance?date=${date}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var AddAttendance = async (data) => {
-  var res = await axios.post(`${endpoint}/addAttendance`, data);
+  var res = await api.post(`/mobile/user/postRecord`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -25,21 +37,21 @@ var AddAttendance = async (data) => {
 };
 
 var GetEmployeeRecord = async () => {
-  var res = await axios.get(`${endpoint}/getEmployeeRecord`);
+  var res = await api.get(`/getEmployeeRecord`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var GetEmployeeRecByDate = async (date) => {
-  var res = await axios.get(`${endpoint}/getEmployeeRecord?date=${date}`);
+  var res = await api.get(`/getEmployeeRecord?date=${date}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var AddEmployeeRecord = async (data) => {
-  var res = await axios.post(`${endpoint}/addEmployeeRecord`, data);
+  var res = await api.post(`/addEmployeeRecord`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -48,42 +60,42 @@ var AddEmployeeRecord = async (data) => {
 };
 
 var GetSchedule = async () => {
-  var res = await axios.get(`${endpoint}/getSchedule`);
+  var res = await api.get(`/getSchedule`);
   if (res.status == 200) {
     return res.data.result;
   }
 };
 
 var GetScheduleByDate = async (date) => {
-  var res = await axios.get(`${endpoint}/getSchedule?date=${date}`);
+  var res = await api.get(`/getSchedule?date=${date}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var AddSchedule = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addSchedule`, requestBody);
+  var res = await api.post(`/addSchedule`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var EditSchedule = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateSchedule`, requestBody);
+  var res = await api.post(`/updateSchedule`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var DeleteSchedule = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteSchedule?id=${id}`);
+  var res = await api.get(`/deleteSchedule?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var GetEmployeeProfile = async (auth) => {
-  var res = await axios.get(`${endpoint}/getProfile`, {
+  var res = await api.get(`/getProfile`, {
     headers: {
       Authorization: auth,
     },

@@ -194,7 +194,8 @@ function DocumentManagement() {
   ));
 
   const inAwait = async () => {
-    var rec = await GetDoc();
+    var data = JSON.parse(window.localStorage.getItem("users"));
+    var rec = await GetDoc(data);
     var emp = await GetEmployee();
     emp.map((em) => showTo.push({ value: em.id, label: em.firstName }));
     setDoc(rec["result"]);

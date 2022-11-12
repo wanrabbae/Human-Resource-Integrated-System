@@ -1,56 +1,68 @@
 import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
+const api = axios.create({
+  baseURL: endpoint,
+});
+
+api.interceptors.request.use((req) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `${token}`;
+  }
+  return req;
+});
+
 var GetUser = async () => {
-  var res = await axios.get(`${endpoint}/getUser`);
+  var res = await api.get(`/getUser`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var GetInfo = async () => {
-  var res = await axios.get(`${endpoint}/getInfo`);
+  var res = await api.get(`/getInfo`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var AddUser = async (data) => {
-  var res = await axios.post(`${endpoint}/addUser`, data);
+  var res = await api.post(`/addUser`, data);
   if (res.data.status == 200) {
     return res.data;
   }
 };
 
 var DeleteUser = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteUser?id=${id}`);
+  var res = await api.get(`/deleteUser?id=${id}`);
   if (res.data.status == 200) {
     return res.data;
   }
 };
 
 var EditUser = async (data) => {
-  var res = await axios.post(`${endpoint}/updateUser`, data);
+  var res = await api.post(`/updateUser`, data);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var SearchUser = async (keyword) => {
-  var res = await axios.get(`${endpoint}/getUser?keyword=${keyword}`);
+  var res = await api.get(`/getUser?keyword=${keyword}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var FilterUser = async (data) => {
-  var res = await axios.post(`${endpoint}/filterUser`, data);
+  var res = await api.post(`/filterUser`, data);
   if (res.data.status == 200) {
     return res.data;
   }
 };
 
 var GetApplicant = async () => {
-  var res = await axios.get(`${endpoint}/getApplicant`);
+  var res = await api.get(`/getApplicant`);
   if (res.status == 200) {
     return res.data;
   }
@@ -59,287 +71,287 @@ var GetApplicant = async () => {
 // JOB
 
 var GetJobTittle = async () => {
-  var res = await axios.get(`${endpoint}/getJobTitle`);
+  var res = await api.get(`/getJobTitle`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddJobTittle = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addJobTitle`, requestBody);
+  var res = await api.post(`/addJobTitle`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditJobTittle = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateJobTitle`, requestBody);
+  var res = await api.post(`/updateJobTitle`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var delJobTittle = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteJobTitle?id=${id}`);
+  var res = await api.get(`/deleteJobTitle?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var GetJobLevel = async () => {
-  var res = await axios.get(`${endpoint}/getJobLevel`);
+  var res = await api.get(`/getJobLevel`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddJobLevel = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addJobLevel`, requestBody);
+  var res = await api.post(`/addJobLevel`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditJobLevel = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateJobLevel`, requestBody);
+  var res = await api.post(`/updateJobLevel`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var DeleteJobLevel = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteJobLevel?id=${id}`);
+  var res = await api.get(`/deleteJobLevel?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var GetJobPosition = async () => {
-  var res = await axios.get(`${endpoint}/getJobPosition`);
+  var res = await api.get(`/getJobPosition`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddJobPosition = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addJobPosition`, requestBody);
+  var res = await api.post(`/addJobPosition`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var UpdateJobPosition = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateJobPosition`, requestBody);
+  var res = await api.post(`/updateJobPosition`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var DelJobPosition = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteJobPosition?id=${id}`);
+  var res = await api.get(`/deleteJobPosition?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var GetJobGrade = async () => {
-  var res = await axios.get(`${endpoint}/getJobGrade`);
+  var res = await api.get(`/getJobGrade`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddJobGrade = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addJobGrade`, requestBody);
+  var res = await api.post(`/addJobGrade`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var DeleteJobGrade = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteJobGrade?id=${id}`);
+  var res = await api.get(`/deleteJobGrade?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditJobGrade = async (data) => {
-  var res = await axios.post(`${endpoint}/updateJobGrade`, data);
+  var res = await api.post(`/updateJobGrade`, data);
   if (res.status == 200) {
     return res.data;
   }
 };
 var GetEmployeeStatus = async () => {
-  var res = await axios.get(`${endpoint}/getEmployeeStatus`);
+  var res = await api.get(`/getEmployeeStatus`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddEmployeeStatus = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addEmployeeStatus`, requestBody);
+  var res = await api.post(`/addEmployeeStatus`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var DeleteEmployeeStatus = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteEmployeeStatus?id=${id}`);
+  var res = await api.get(`/deleteEmployeeStatus?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditEmployeeStatus = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateEmployeeStatus`, requestBody);
+  var res = await api.post(`/updateEmployeeStatus`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var GetJobCategory = async () => {
-  var res = await axios.get(`${endpoint}/getJobCategory`);
+  var res = await api.get(`/getJobCategory`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddJobCategory = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addJobCategory`, requestBody);
+  var res = await api.post(`/addJobCategory`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var DeleteJobCategory = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteJobCategory?id=${id}`);
+  var res = await api.get(`/deleteJobCategory?id=${id}`);
   console.log(res);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditJobCategory = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateJobCategory`, requestBody);
+  var res = await api.post(`/updateJobCategory`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var getWorkShift = async () => {
-  var res = await axios.get(`${endpoint}/getWorkShift`);
+  var res = await api.get(`/getWorkShift`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddWorkShift = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addWorkShift`, requestBody);
+  var res = await api.post(`/addWorkShift`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditWorkShift = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateWorkShift`, requestBody);
+  var res = await api.post(`/updateWorkShift`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var deleteWorkShift = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteWorkShift?id=${id}`);
+  var res = await api.get(`/deleteWorkShift?id=${id}`);
   console.log(res);
   if (res.status == 200) {
     return res.data;
   }
 };
 var getProfit = async () => {
-  var res = await axios.get(`${endpoint}/getProfit`);
+  var res = await api.get(`/getProfit`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var getCost = async () => {
-  var res = await axios.get(`${endpoint}/getCost`);
+  var res = await api.get(`/getCost`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddProfit = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addProfit`, requestBody);
+  var res = await api.post(`/addProfit`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditProfit = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateProfit`, requestBody);
+  var res = await api.post(`/updateProfit`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var deleteProfit = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteProfit?id=${id}`);
+  var res = await api.get(`/deleteProfit?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var AddCost = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addCost`, requestBody);
+  var res = await api.post(`/addCost`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditCost = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateCost`, requestBody);
+  var res = await api.post(`/updateCost`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var deleteCost = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteCost?id=${id}`);
+  var res = await api.get(`/deleteCost?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditUnit = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateUnit`, requestBody);
+  var res = await api.post(`/updateUnit`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var deleteUnit = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteUnit?id=${id}`);
+  var res = await api.get(`/deleteUnit?id=${id}`);
   console.log(res);
   if (res.status == 200) {
     return res.data;
   }
 };
 var getLicense = async () => {
-  var res = await axios.get(`${endpoint}/getLicense`);
+  var res = await api.get(`/getLicense`);
   if (res.status == 200) {
     return res.data.result;
   }
 };
 var AddLicense = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addLicense`, requestBody);
+  var res = await api.post(`/addLicense`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditLicense = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateLicense`, requestBody);
+  var res = await api.post(`/updateLicense`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var deleteLicense = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteLicense?id=${id}`);
+  var res = await api.get(`/deleteLicense?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var getCompanyLocation = async () => {
-  var res = await axios.get(`${endpoint}/getCompanyLocation`);
+  var res = await api.get(`/getCompanyLocation`);
   if (res.status == 200) {
     return res.data.result;
   }
 };
 var AddCompanyLocation = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addCompanyLocation`, requestBody);
+  var res = await api.post(`/addCompanyLocation`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var EditCompanyLocation = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateCompanyLocation`, requestBody);
+  var res = await api.post(`/updateCompanyLocation`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 var deleteCompanyLocation = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteCompanyLocation?id=${id}`);
+  var res = await api.get(`/deleteCompanyLocation?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 var updateInformation = async (data) => {
-  var res = await axios.post(`${endpoint}/updateInfo`, data, {
+  var res = await api.post(`/updateInfo`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -350,12 +362,12 @@ var updateInformation = async (data) => {
 };
 var getStructure = async (data = 0) => {
   if (data == 1) {
-    var res = await axios.get(`${endpoint}/getStructure?ket=1`);
+    var res = await api.get(`/getStructure?ket=1`);
     if (res.status == 200) {
       return res.data;
     }
   } else {
-    var res = await axios.get(`${endpoint}/getStructure`);
+    var res = await api.get(`/getStructure`);
     if (res.status == 200) {
       return res.data;
     }
@@ -363,28 +375,28 @@ var getStructure = async (data = 0) => {
 };
 
 var deleteStructure = async (id) => {
-  var res = await axios.get(`${endpoint}/deleteStructure?id=${id}`);
+  var res = await api.get(`/deleteStructure?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var getCodeStructure = async (id) => {
-  var res = await axios.get(`${endpoint}/getCodeStructure?id=${id}`);
+  var res = await api.get(`/getCodeStructure?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var addStructure = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/addStructure`, requestBody);
+  var res = await api.post(`/addStructure`, requestBody);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 var updateStructure = async (requestBody) => {
-  var res = await axios.post(`${endpoint}/updateStructure`, requestBody);
+  var res = await api.post(`/updateStructure`, requestBody);
   if (res.status == 200) {
     return res.data;
   }

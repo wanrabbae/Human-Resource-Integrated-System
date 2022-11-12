@@ -14,7 +14,7 @@ api.interceptors.request.use((req) => {
 });
 
 const getProfile = async () => {
-  var res = await api.get(`${endpoint}/getProfile`);
+  var res = await api.get(`/getProfile`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -23,7 +23,7 @@ const getProfile = async () => {
 };
 
 const getEmergencyContact = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/emergencyContact`);
+  var res = await api.get(`/mobile/profile/emergencyContact`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -32,28 +32,26 @@ const getEmergencyContact = async () => {
 };
 
 const addEmergencyContact = async (data) => {
-  var res = await api.post(`${endpoint}/addEmergencyContact`, data);
+  var res = await api.post(`/addEmergencyContact`, data);
   if (res.status == 200) {
     return res.data;
   }
 };
 const updateEmergencyContact = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/emergencyContact`, data);
+  var res = await api.put(`/mobile/profile/emergencyContact`, data);
   if (res.status == 200) {
     return res.data;
   }
 };
 const deleteEmergencyContact = async (id) => {
-  var res = await api.delete(
-    `${endpoint}/mobile/profile/emergencyContact?id=${id}`
-  );
+  var res = await api.delete(`/mobile/profile/emergencyContact?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 const getDependents = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/dependent`);
+  var res = await api.get(`/mobile/profile/dependent`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -62,33 +60,33 @@ const getDependents = async () => {
 };
 
 const addDependent = async (data) => {
-  var res = await api.post(`${endpoint}/addDependent`, data);
+  var res = await api.post(`/addDependent`, data);
   if (res.status == 200) {
     return res.data;
   }
 };
 const updateDependent = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/dependent`, data);
+  var res = await api.put(`/mobile/profile/dependent`, data);
   if (res.status == 200) {
     return res.data;
   }
 };
 const deleteDependent = async (id) => {
-  var res = await api.delete(`${endpoint}/mobile/profile/dependent?id=${id}`);
+  var res = await api.delete(`/mobile/profile/dependent?id=${id}`);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 const updateProfile = async (data) => {
-  var res = await api.post(`${endpoint}/updateProfile`, data);
+  var res = await api.post(`/updateProfile`, data);
   if (res.status == 200) {
     return res.data;
   }
 };
 
 const getWorkExperience = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/experience`);
+  var res = await api.get(`/mobile/profile/experience`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -96,7 +94,7 @@ const getWorkExperience = async () => {
   }
 };
 const addWorkExperience = async (data) => {
-  var res = await api.post(`${endpoint}/mobile/profile/experience`, data);
+  var res = await api.post(`/mobile/profile/experience`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -104,7 +102,7 @@ const addWorkExperience = async (data) => {
   }
 };
 const updateWorkExperience = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/experience`, data);
+  var res = await api.put(`/mobile/profile/experience`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -112,9 +110,7 @@ const updateWorkExperience = async (data) => {
   }
 };
 const deleteWorkExperience = async (data) => {
-  var res = await api.delete(
-    `${endpoint}/mobile/profile/experience?id=${data}`
-  );
+  var res = await api.delete(`/mobile/profile/experience?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -123,7 +119,7 @@ const deleteWorkExperience = async (data) => {
 };
 
 const getSkill = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/skill`);
+  var res = await api.get(`/mobile/profile/skill`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -132,7 +128,7 @@ const getSkill = async () => {
 };
 
 const addSkill = async (data) => {
-  var res = await api.post(`${endpoint}/mobile/profile/skill`, data);
+  var res = await api.post(`/mobile/profile/skill`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -141,7 +137,7 @@ const addSkill = async (data) => {
 };
 
 const updateSkill = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/skill`, data);
+  var res = await api.put(`/mobile/profile/skill`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -150,7 +146,7 @@ const updateSkill = async (data) => {
 };
 
 const deleteSkill = async (data) => {
-  var res = await api.delete(`${endpoint}/mobile/profile/skill?id=${data}`);
+  var res = await api.delete(`/mobile/profile/skill?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -159,7 +155,7 @@ const deleteSkill = async (data) => {
 };
 
 const getEducation = async (data) => {
-  var res = await api.get(`${endpoint}/mobile/profile/education`);
+  var res = await api.get(`/mobile/profile/education`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -168,7 +164,7 @@ const getEducation = async (data) => {
 };
 
 const addEducation = async (data) => {
-  var res = await api.post(`${endpoint}/mobile/profile/education`, data);
+  var res = await api.post(`/mobile/profile/education`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -177,7 +173,7 @@ const addEducation = async (data) => {
 };
 
 const updateEducation = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/education`, data);
+  var res = await api.put(`/mobile/profile/education`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -186,7 +182,7 @@ const updateEducation = async (data) => {
 };
 
 const deleteEducation = async (data) => {
-  var res = await api.delete(`${endpoint}/mobile/profile/education?id=${data}`);
+  var res = await api.delete(`/mobile/profile/education?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -195,7 +191,7 @@ const deleteEducation = async (data) => {
 };
 
 const getLanguage = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/language`);
+  var res = await api.get(`/mobile/profile/language`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -204,7 +200,7 @@ const getLanguage = async () => {
 };
 
 const addLanguage = async (data) => {
-  var res = await api.post(`${endpoint}/mobile/profile/language`, data);
+  var res = await api.post(`/mobile/profile/language`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -213,7 +209,7 @@ const addLanguage = async (data) => {
 };
 
 const editLanguage = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/language`, data);
+  var res = await api.put(`/mobile/profile/language`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -222,7 +218,7 @@ const editLanguage = async (data) => {
 };
 
 const deleteLanguage = async (data) => {
-  var res = await api.delete(`${endpoint}/mobile/profile/language?id=${data}`);
+  var res = await api.delete(`/mobile/profile/language?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -231,7 +227,7 @@ const deleteLanguage = async (data) => {
 };
 
 const getLincense = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/license`);
+  var res = await api.get(`/mobile/profile/license`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -240,7 +236,7 @@ const getLincense = async () => {
 };
 
 const addLincense = async (data) => {
-  var res = await api.post(`${endpoint}/mobile/profile/license`, data);
+  var res = await api.post(`/mobile/profile/license`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -248,7 +244,7 @@ const addLincense = async (data) => {
   }
 };
 const updateLincense = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/license`, data);
+  var res = await api.put(`/mobile/profile/license`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -256,7 +252,7 @@ const updateLincense = async (data) => {
   }
 };
 const deleteLicense = async (data) => {
-  var res = await api.delete(`${endpoint}/mobile/profile/license?id=${data}`);
+  var res = await api.delete(`/mobile/profile/license?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -265,7 +261,7 @@ const deleteLicense = async (data) => {
 };
 
 const getJob = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/job`);
+  var res = await api.get(`/mobile/profile/job`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -274,7 +270,7 @@ const getJob = async () => {
 };
 
 const updateJob = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/job`, data, {
+  var res = await api.put(`/mobile/profile/job`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -287,7 +283,7 @@ const updateJob = async (data) => {
 };
 
 const getImigration = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/immigration`);
+  var res = await api.get(`/mobile/profile/immigration`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -295,7 +291,7 @@ const getImigration = async () => {
   }
 };
 const addImigration = async (data) => {
-  var res = await api.post(`${endpoint}/addImmigration`, data);
+  var res = await api.post(`/addImmigration`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -303,7 +299,7 @@ const addImigration = async (data) => {
   }
 };
 const updateImigration = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/immigration`, data);
+  var res = await api.put(`/mobile/profile/immigration`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -311,9 +307,7 @@ const updateImigration = async (data) => {
   }
 };
 const deleteImigration = async (data) => {
-  var res = await api.delete(
-    `${endpoint}/mobile/profile/immigration?id=${data}`
-  );
+  var res = await api.delete(`/mobile/profile/immigration?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -322,7 +316,7 @@ const deleteImigration = async (data) => {
 };
 
 const getReport = async () => {
-  var res = await api.get(`${endpoint}/getReportTo`);
+  var res = await api.get(`/getReportTo`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -331,7 +325,7 @@ const getReport = async () => {
 };
 
 const addReportTo = async (data) => {
-  var res = await api.post(`${endpoint}/addReportTo`, data);
+  var res = await api.post(`/addReportTo`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -340,7 +334,7 @@ const addReportTo = async (data) => {
 };
 
 const editReportTo = async (data) => {
-  var res = await api.post(`${endpoint}/updateReportTo`, data);
+  var res = await api.post(`/updateReportTo`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -350,7 +344,7 @@ const editReportTo = async (data) => {
 
 const deleteReportTo = async (data) => {
   console.log(data);
-  var res = await api.get(`${endpoint}/deleteReportTo?id=${data}`);
+  var res = await api.get(`/deleteReportTo?id=${data}`);
   if (res.status == 200) {
     return res.data;
   } else {

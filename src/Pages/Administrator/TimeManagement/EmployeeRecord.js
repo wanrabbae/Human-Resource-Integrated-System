@@ -258,7 +258,7 @@ function EmployeeRecord() {
                     options={employeeNames.map((val) => {
                       return {
                         value: val.id,
-                        label: val.firstName + " " + val.lastName,
+                        label: val.firstName,
                       };
                     })}
                   />

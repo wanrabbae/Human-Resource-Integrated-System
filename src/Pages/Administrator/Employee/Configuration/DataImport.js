@@ -1,6 +1,28 @@
-import { React } from "react";
+import { React, useState } from "react";
+import * as XLSX from "xlsx";
 
 function DataImport() {
+  const [file, setFile] = useState();
+  const handleChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleImport = async () => {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      var data = e.target.result;
+      let readedData = XLSX.read(data, { type: "binary" });
+      const wsname = readedData.SheetNames[0];
+      const ws = readedData.Sheets[wsname];
+
+      /* Convert array to json*/
+      const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
+      console.log(dataParse);
+    };
+    reader.readAsBinaryString(file);
+    console.log(file);
+  };
+
   return (
     <>
       <div className="bg-white p-3 rounded-lg space-y-5">
@@ -54,9 +76,19 @@ function DataImport() {
             <input
               className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
               id="file_input"
+              onChange={(e) => handleChange(e)}
               type="file"
+              accept={".xlsx,.csv"}
             />
             <p className="text-xs">max 64 MB</p>
+          </div>
+          <div className="d-flex justify-end">
+            <button
+              onClick={() => handleImport()}
+              className="bg-[#0E5073] hover:bg-[#003049] text-white flex items-center px-3 py-2 fs-5 rounded-md"
+            >
+              Import
+            </button>
           </div>
         </div>
       </div>

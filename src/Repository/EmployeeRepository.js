@@ -121,6 +121,11 @@ var DeleteReport = async (id) => {
   return res.data;
 };
 
+var ImportEmployee = async (data) => {
+  var res = await axios.post(`${endpoint}/importEmployee`, data);
+  return res.data;
+};
+
 export {
   UpdateEmployee,
   DeleteEmployee,
@@ -140,4 +145,5 @@ export {
   UpdateReport,
   DeleteReport,
   GetReportSingle,
+  ImportEmployee,
 };

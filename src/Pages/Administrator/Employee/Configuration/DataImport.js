@@ -1,26 +1,60 @@
 import { React, useState } from "react";
 import * as XLSX from "xlsx";
+import { SwalSuccess, SwalError } from "../../../../Components/Modals";
+import { ImportEmployee } from "../../../../Repository/EmployeeRepository";
 
 function DataImport() {
   const [file, setFile] = useState();
+  const employees = [];
   const handleChange = (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleImport = async () => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      var data = e.target.result;
-      let readedData = XLSX.read(data, { type: "binary" });
-      const wsname = readedData.SheetNames[0];
-      const ws = readedData.Sheets[wsname];
+    try {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          var data = e.target.result;
+          let readedData = XLSX.read(data, {
+            type: "binary",
+            cellText: false,
+            cellDates: true,
+          });
+          const wsname = readedData.SheetNames[0];
+          const ws = readedData.Sheets[wsname];
 
-      /* Convert array to json*/
-      const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
-      console.log(dataParse);
-    };
-    reader.readAsBinaryString(file);
-    console.log(file);
+          /* Convert array to json*/
+          const dataParse = XLSX.utils.sheet_to_json(ws, {
+            header: 0,
+            raw: false,
+            dateNF: "yyyy-mm-dd",
+          });
+          dataParse.forEach(async (dt) => {
+            await ImportEmployee({
+              firstName: dt["First Name"],
+              lastName: dt["Last Name"],
+              joinDate: dt["Joined Date"],
+              status: dt["Status"],
+              jobgrade: dt["Job Grade"],
+              joblevel: dt["Job Level"],
+              jobtitle: dt["Job Title"],
+              jobposition: dt["Job Position"],
+              location: dt["Location"],
+              gender: dt["Gender"],
+            });
+          });
+        } catch (error) {
+          console.log(error);
+          SwalError({ message: "Error while importing the employees data!" });
+        }
+      };
+      await reader.readAsBinaryString(file);
+      SwalSuccess({ message: "Success importing employee data" });
+    } catch (error) {
+      console.log(error);
+      SwalError({ message: "Error while importing the employees data!" });
+    }
   };
 
   return (

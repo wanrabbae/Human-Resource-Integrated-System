@@ -59,12 +59,12 @@ function EmployeeList() {
 
   const onEdit = (data) => {
     const params = {
-      id: data
-    }
-    navigate('/profile-employee',{
-      state: params
-    })
-  }
+      id: data,
+    };
+    navigate("/profile-employee", {
+      state: params,
+    });
+  };
 
   return (
     <>
@@ -202,28 +202,27 @@ function EmployeeList() {
                       </button>
                       <button
                         onClick={() => {
-                          onEdit(employee.id)
-                        //   setController({
-                        //     image: null,
-                        //     firstName: employee.firstName,
-                        //     joinDate: employee.joinDate,
-                        //     jobtitle_id: employee.jobtitle_id,
-                        //     employeestatus_id: employee.employeestatus_id,
-                        //     jobgrade_id: employee.jobgrade_id,
-                        //     joblevel_id: employee.joblevel_id,
-                        //     jobposition_id: employee.jobposition_id,
-                        //     location: employee.location,
-                        //     otherId: employee.otherId,
-                        //     username: "",
-                        //     password: "",
-                        //     confirm: "",
-                        //     status: null,
-                        //     id: employee.id,
-                        //   });
-                        //   setProfilePict(employee.image);
-                        //   setModalUpdate(true);
+                          onEdit(employee.id);
+                          //   setController({
+                          //     image: null,
+                          //     firstName: employee.firstName,
+                          //     joinDate: employee.joinDate,
+                          //     jobtitle_id: employee.jobtitle_id,
+                          //     employeestatus_id: employee.employeestatus_id,
+                          //     jobgrade_id: employee.jobgrade_id,
+                          //     joblevel_id: employee.joblevel_id,
+                          //     jobposition_id: employee.jobposition_id,
+                          //     location: employee.location,
+                          //     otherId: employee.otherId,
+                          //     username: "",
+                          //     password: "",
+                          //     confirm: "",
+                          //     status: null,
+                          //     id: employee.id,
+                          //   });
+                          //   setProfilePict(employee.image);
+                          //   setModalUpdate(true);
                         }}
-
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                       >
                         <PencilIcon className="h-5 w-5" aria-hidden="true" />
@@ -628,11 +627,8 @@ function EmployeeList() {
             formData.append("employeeId", "GENERATE001");
             formData.append("joinedDate", controller.joinDate);
             formData.append("jobtitle_id", controller.jobtitle_id);
-            formData.append(
-              "employeestatus_id",
-              controller.employeestatus_id
-              );
-              formData.append("jobgrade_id", controller.jobgrade_id);
+            formData.append("employeestatus_id", controller.employeestatus_id);
+            formData.append("jobgrade_id", controller.jobgrade_id);
             formData.append("joblevel_id", controller.joblevel_id);
             formData.append("jobposition_id", controller.jobposition_id);
             formData.append("location", controller.location);
@@ -658,332 +654,348 @@ function EmployeeList() {
             }
           }}
         >
-        <Modal.Body className="mx-4">
-          <div>
-            <label htmlFor="imagePicker">
-              <img
-                src={profilePict ?? profile}
-                className="rounded-full w-20 h-20"
-                style={{ objectFit: "fill" }}
-              ></img>
-            </label>
-            <input
-              type="file"
-              id="imagePicker"
-              multiple={false}
-              hidden
-              onChange={(val) => {
-                var url = URL.createObjectURL(val.currentTarget.files[0]);
-                setProfilePict(url);
-                setController({
-                  ...controller,
-                  image: val.currentTarget.files[0],
-                });
-              }}
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-3 mt-3">
-            <div className="w-full">
-              <label className="text-xs">Employee Full Name</label>
+          <Modal.Body className="mx-4">
+            <div>
+              <label htmlFor="imagePicker">
+                <img
+                  src={profilePict ?? profile}
+                  className="rounded-full w-20 h-20"
+                  style={{ objectFit: "fill" }}
+                ></img>
+              </label>
               <input
+                type="file"
+                id="imagePicker"
+                multiple={false}
+                hidden
                 onChange={(val) => {
-                  setController({ ...controller, firstName: val.target.value });
-                }}
-                value={controller?.firstName}
-                required
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="text"
-                placeholder="First Name"
-                />
-            </div>
-            <div className="w-full">
-              <label className="text-xs"></label>
-              <input
-                onChange={(val) => { }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="text"
-                required
-                placeholder="Last Name"
-                />
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Employee ID</label>
-              <input
-                readOnly
-                onChange={(val) => { }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="text"
-                placeholder=""
-              // readOnly
-              />
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Joined Date</label>
-              <input
-                required
-                onChange={(val) => {
-                  setController({ ...controller, joinDate: val.target.value });
-                }}
-                value={controller.joinDate}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="date"
-                placeholder=""
-                />
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Employee Status</label>
-              <select
-                required
-                onChange={(val) =>
+                  var url = URL.createObjectURL(val.currentTarget.files[0]);
+                  setProfilePict(url);
                   setController({
                     ...controller,
-                    employeestatus_id: val.target.value,
-                  })
-                }
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option hidden value="">--Select--</option>
-                {employeeStatus.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
-                })}
-              </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Job Grade</label>
-              <select
-                required
-                onChange={(val) =>
-                  setController({
-                    ...controller,
-                    jobgrade_id: val.target.value,
-                  })
-                }
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                <option hidden value="">--Select--</option>
-                {jobGrade.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
-                })}
-              </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Job Level</label>
-              <select
-                required
-                onChange={(val) =>
-                  setController({
-                    ...controller,
-                    joblevel_id: val.target.value,
-                  })
-                }
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                <option hidden value="">--Select--</option>
-                {jobLevel.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
-                })}
-              </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Job Title</label>
-              <select
-                required
-                onChange={(val) =>
-                  setController({
-                    ...controller,
-                    jobtitle_id: val.target.value,
-                  })
-                }
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option hidden value="">--Select--</option>
-                {jobTitle.map((e, i) => {
-                  return <option value={e.id}>{e.name}</option>;
-                })}
-              </select>
-            </div>
-            <div className="w-full">
-              <label className="text-xs">Job Position</label>
-              <select
-                required
-                onChange={(val) =>
-                  setController({
-                    ...controller,
-                    jobposition_id: val.target.value,
-                  })
-                }
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                <option hidden value="">--Select--</option>
-                {jobPosition.map((e, i) => {
-                  return <option value={e.id}>{e?.name}</option>;
-                })}
-              </select>
-            </div>
-            <div className="w-full"></div>
-            <div className="w-full">
-              <label className="text-xs">Location</label>
-              <input
-                required
-                onChange={(val) =>
-                  setController({ ...controller, location: val.target.value })
-                }
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="text"
-                placeholder="ex : California"
-                />
-            </div>
-          </div>
-          <div className="mt-3">
-            <label
-              for="default-toggle"
-              className="inline-flex relative items-center cursor-pointer"
-            >
-              <input
-                type="checkbox"
-                value=""
-                id="default-toggle"
-                className="sr-only peer"
-                onClick={() => {
-                  setShow((prev) => !prev);
-                  setController({
-                    ...controller,
-                    username: "",
-                    password: "",
-                    confirm: "",
-                    status: null,
+                    image: val.currentTarget.files[0],
                   });
                 }}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3 mt-3">
+              <div className="w-full">
+                <label className="text-xs">Employee Full Name</label>
+                <input
+                  onChange={(val) => {
+                    setController({
+                      ...controller,
+                      firstName: val.target.value,
+                    });
+                  }}
+                  value={controller?.firstName}
+                  required
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="text"
+                  placeholder="First Name"
                 />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Create Login Details
-              </span>
-            </label>
-          </div>
-          {show && (
-            <div className="mt-3">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="w-full">
-                  <label className="text-xs">Username</label>
-                  <input
-                    required={show}
-                    value={controller.username}
-                    onChange={(val) =>
-                      setController({
-                        ...controller,
-                        username: val.target.value,
-                      })
-                    }
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="text"
-                    placeholder=""
-                    />
-                </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 mt-3">
-                <div className="w-full">
-                  <label className="text-xs">Password</label>
-                  <input
-                    required={show}
-                    value={controller.password}
-                    onChange={(val) =>
-                      setController({
-                        ...controller,
-                        password: val.target.value,
-                      })
-                    }
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="password"
-                    placeholder=""
-                  />
-                </div>
-                <div className="w-full">
-                  <label className="text-xs">Confirm Password</label>
-                  <input
-                    required={show}
-                    value={controller.confirm}
-                    onChange={(val) =>
-                      setController({
-                        ...controller,
-                        confirm: val.target.value,
-                      })
-                    }
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="password"
-                    placeholder=""
-                  />
-                </div>
+              <div className="w-full">
+                <label className="text-xs"></label>
+                <input
+                  onChange={(val) => {}}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="text"
+                  required
+                  placeholder="Last Name"
+                />
               </div>
-              <div className="flex flex-col gap-2 mt-3">
-                <label className="text-xs">Status</label>
-                <div className="flex flex-row gap-5">
-                  <div className="flex items-center mb-4">
-                    <input
-                      id="default-radio-1"
-                      type="radio"
-                      value={"Enable"}
-                      onChange={(val) =>
-                        setController({
-                          ...controller,
-                          status: val.target.value,
-                        })
-                      }
-                      name="default-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                    <label
-                      for="default-radio-1"
-                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      Enable
-                    </label>
-                  </div>
-                  <div className="flex items-center mb-4">
-                    <input
-                      id="default-radio-2"
-                      type="radio"
-                      onChange={(val) =>
-                        setController({
-                          ...controller,
-                          status: val.target.value,
-                        })
-                      }
-                      value={"Disable"}
-                      name="default-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                    <label
-                      for="default-radio-2"
-                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      Disable
-                    </label>
-                  </div>
-                </div>
+              <div className="w-full">
+                <label className="text-xs">Employee ID</label>
+                <input
+                  readOnly
+                  onChange={(val) => {}}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="text"
+                  placeholder=""
+                  // readOnly
+                />
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Joined Date</label>
+                <input
+                  required
+                  onChange={(val) => {
+                    setController({
+                      ...controller,
+                      joinDate: val.target.value,
+                    });
+                  }}
+                  value={controller.joinDate}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="date"
+                  placeholder=""
+                />
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Employee Status</label>
+                <select
+                  required
+                  onChange={(val) =>
+                    setController({
+                      ...controller,
+                      employeestatus_id: val.target.value,
+                    })
+                  }
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option hidden value="">
+                    --Select--
+                  </option>
+                  {employeeStatus.map((e, i) => {
+                    return <option value={e.id}>{e.name}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Job Grade</label>
+                <select
+                  required
+                  onChange={(val) =>
+                    setController({
+                      ...controller,
+                      jobgrade_id: val.target.value,
+                    })
+                  }
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option hidden value="">
+                    --Select--
+                  </option>
+                  {jobGrade.map((e, i) => {
+                    return <option value={e.id}>{e.name}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Job Level</label>
+                <select
+                  required
+                  onChange={(val) =>
+                    setController({
+                      ...controller,
+                      joblevel_id: val.target.value,
+                    })
+                  }
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option hidden value="">
+                    --Select--
+                  </option>
+                  {jobLevel.map((e, i) => {
+                    return <option value={e.id}>{e.name}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Job Title</label>
+                <select
+                  required
+                  onChange={(val) =>
+                    setController({
+                      ...controller,
+                      jobtitle_id: val.target.value,
+                    })
+                  }
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option hidden value="">
+                    --Select--
+                  </option>
+                  {jobTitle.map((e, i) => {
+                    return <option value={e.id}>{e.name}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="w-full">
+                <label className="text-xs">Job Position</label>
+                <select
+                  required
+                  onChange={(val) =>
+                    setController({
+                      ...controller,
+                      jobposition_id: val.target.value,
+                    })
+                  }
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option hidden value="">
+                    --Select--
+                  </option>
+                  {jobPosition.map((e, i) => {
+                    return <option value={e.id}>{e?.name}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="w-full"></div>
+              <div className="w-full">
+                <label className="text-xs">Location</label>
+                <input
+                  required
+                  onChange={(val) =>
+                    setController({ ...controller, location: val.target.value })
+                  }
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="text"
+                  placeholder="ex : California"
+                />
               </div>
             </div>
-          )}
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            onClick={() => {
-              setModalAdd(false);
-              setController({});
-              setProfilePict(null);
-            }}
-            type="button"
-            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            <div className="mt-3">
+              <label
+                for="default-toggle"
+                className="inline-flex relative items-center cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  value=""
+                  id="default-toggle"
+                  className="sr-only peer"
+                  onClick={() => {
+                    setShow((prev) => !prev);
+                    setController({
+                      ...controller,
+                      username: "",
+                      password: "",
+                      confirm: "",
+                      status: null,
+                    });
+                  }}
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Create Login Details
+                </span>
+              </label>
+            </div>
+            {show && (
+              <div className="mt-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="w-full">
+                    <label className="text-xs">Username</label>
+                    <input
+                      required={show}
+                      value={controller.username}
+                      onChange={(val) =>
+                        setController({
+                          ...controller,
+                          username: val.target.value,
+                        })
+                      }
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      type="text"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3 mt-3">
+                  <div className="w-full">
+                    <label className="text-xs">Password</label>
+                    <input
+                      required={show}
+                      value={controller.password}
+                      onChange={(val) =>
+                        setController({
+                          ...controller,
+                          password: val.target.value,
+                        })
+                      }
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      type="password"
+                      placeholder=""
+                    />
+                  </div>
+                  <div className="w-full">
+                    <label className="text-xs">Confirm Password</label>
+                    <input
+                      required={show}
+                      value={controller.confirm}
+                      onChange={(val) =>
+                        setController({
+                          ...controller,
+                          confirm: val.target.value,
+                        })
+                      }
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      type="password"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 mt-3">
+                  <label className="text-xs">Status</label>
+                  <div className="flex flex-row gap-5">
+                    <div className="flex items-center mb-4">
+                      <input
+                        id="default-radio-1"
+                        type="radio"
+                        value={"Enable"}
+                        onChange={(val) =>
+                          setController({
+                            ...controller,
+                            status: val.target.value,
+                          })
+                        }
+                        name="default-radio"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        for="default-radio-1"
+                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        Enable
+                      </label>
+                    </div>
+                    <div className="flex items-center mb-4">
+                      <input
+                        id="default-radio-2"
+                        type="radio"
+                        onChange={(val) =>
+                          setController({
+                            ...controller,
+                            status: val.target.value,
+                          })
+                        }
+                        value={"Disable"}
+                        name="default-radio"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        for="default-radio-2"
+                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        Disable
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              onClick={() => {
+                setModalAdd(false);
+                setController({});
+                setProfilePict(null);
+              }}
+              type="button"
+              className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
             >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
             >
-            Create
-          </button>
-        </Modal.Footer>
+              Create
+            </button>
+          </Modal.Footer>
         </form>
       </Modal>
 
@@ -1046,7 +1058,7 @@ function EmployeeList() {
             <div className="w-full">
               <label className="text-xs"></label>
               <input
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder="Last Name"
@@ -1056,11 +1068,11 @@ function EmployeeList() {
               <label className="text-xs">Employee ID</label>
               <input
                 readOnly
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 placeholder=""
-              // readOnly
+                // readOnly
               />
             </div>
             <div className="w-full">
@@ -1088,7 +1100,16 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {employeeStatus.map((e, i) => {
-                  return <option selected={controller.employeestatus_id == e.id ? true : false} value={e.id}>{e.name}</option>;
+                  return (
+                    <option
+                      selected={
+                        controller.employeestatus_id == e.id ? true : false
+                      }
+                      value={e.id}
+                    >
+                      {e.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -1105,7 +1126,14 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobGrade.map((e, i) => {
-                  return <option selected={controller.jobgrade_id == e.id ? true : false} value={e.id}>{e.name}</option>;
+                  return (
+                    <option
+                      selected={controller.jobgrade_id == e.id ? true : false}
+                      value={e.id}
+                    >
+                      {e.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -1122,7 +1150,14 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobLevel.map((e, i) => {
-                  return <option selected={controller.joblevel_id == e.id ? true : false} value={e.id}>{e.name}</option>;
+                  return (
+                    <option
+                      selected={controller.joblevel_id == e.id ? true : false}
+                      value={e.id}
+                    >
+                      {e.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -1139,7 +1174,14 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobTitle.map((e, i) => {
-                  return <option selected={controller.jobtitle_id == e.id ? true : false} value={e.id}>{e.name}</option>;
+                  return (
+                    <option
+                      selected={controller.jobtitle_id == e.id ? true : false}
+                      value={e.id}
+                    >
+                      {e.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -1156,7 +1198,16 @@ function EmployeeList() {
               >
                 <option hidden>--Select--</option>
                 {jobPosition.map((e, i) => {
-                  return <option selected={controller.jobposition_id == e.id ? true : false} value={e.id}>{e?.name}</option>;
+                  return (
+                    <option
+                      selected={
+                        controller.jobposition_id == e.id ? true : false
+                      }
+                      value={e.id}
+                    >
+                      {e?.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -1322,11 +1373,11 @@ function EmployeeList() {
               formData.append("firstName", controller.firstName);
               formData.append("lastName", "");
               formData.append("employeeId", "GENERATE001");
-              formData.append("joinedDate", controller.joinDate);
+              formData.append("joinDate", controller.joinDate);
               formData.append("jobtitle_id", controller.jobtitle_id);
               formData.append(
                 "employeestatus_id",
-                controller.employeestatus_id,
+                controller.employeestatus_id
               );
               formData.append("jobgrade_id", controller.jobgrade_id);
               formData.append("joblevel_id", controller.joblevel_id);

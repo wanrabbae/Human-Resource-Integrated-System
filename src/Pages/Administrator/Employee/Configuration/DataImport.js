@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import * as XLSX from "xlsx";
 import { SwalSuccess, SwalError } from "../../../../Components/Modals";
 import { ImportEmployee } from "../../../../Repository/EmployeeRepository";
+import { endpoint } from "../../../../Utils/constant";
 
 function DataImport() {
   const [file, setFile] = useState();
@@ -82,7 +83,9 @@ function DataImport() {
             </li>
           </ul>
           <a
-            href="#"
+            href={`${endpoint}/assets/employee/ImportEmployee.xlsx`}
+            download
+            target={"_blank"}
             className="inline-flex items-center text-[#59B6CD] hover:text-[#59B6CD]"
           >
             <span>CSV template</span>

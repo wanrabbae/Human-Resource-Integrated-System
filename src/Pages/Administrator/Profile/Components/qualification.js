@@ -44,6 +44,7 @@ import { GetJobTittle } from "../../../../Repository/AdminRepository";
 import { GetSkills } from "../../../../Repository/SkillsRepository";
 import { GetLanguages } from "../../../../Repository/LanguagesRepository";
 import { ModalDelete } from "../../../../Components/Modals";
+import { GetEducation } from "../../../../Repository/EducationRepository";
 
 function Qualification() {
   const [modalAddWExperience, setModalAddWExperience] = useState(false);
@@ -100,6 +101,7 @@ function Qualification() {
   // console.log(yearsOfExperience)
   // console.log(commentSkill)
 
+  const [dataLevel, setDataLevel] = useState([]);
   const [education, setEducation] = useState([]);
   const [level, setLevel] = useState([]);
   const [institute, setInstitute] = useState([]);
@@ -179,6 +181,9 @@ function Qualification() {
     setDataSkill(dataSkill);
     var language = await GetLanguages();
     setDataLanguage(language);
+    var dataLevel = await GetEducation();
+    // console.log(dataLevel);
+    setDataLevel(dataLevel);
   };
   // console.log(skill);
 
@@ -211,10 +216,10 @@ function Qualification() {
       comment: editComment,
     };
     console.log(requestBody);
-    inAwait();
-    setModalEditExperience(false);
     var res = await updateWorkExperience(requestBody);
     console.log(res);
+    inAwait();
+    setModalEditExperience(false);
   };
 
   const postDataSkill = async () => {
@@ -1449,12 +1454,12 @@ function Qualification() {
                 <option hidden className="py-3">
                   Select
                 </option>
-                <option value="High School" className="py-3">
-                  High School
-                </option>
-                <option value="Bachelor's Degree" className="py-3">
-                  Bachelor's Degree
-                </option>
+                {dataLevel &&
+                  dataLevel.map((val, index) => (
+                    <option key={index} value={val.name} className="py-3">
+                      {val.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mb-4">
@@ -1608,12 +1613,12 @@ function Qualification() {
                 <option hidden value={editLevel} className="py-3">
                   {editLevel != null ? editLevel : "Select Level"}
                 </option>
-                <option value="High School" className="py-3">
-                  High School
-                </option>
-                <option value="Bachelor's Degree" className="py-3">
-                  Bachelor's Degree
-                </option>
+                {dataLevel &&
+                  dataLevel.map((val, index) => (
+                    <option key={index} value={val.name} className="py-3">
+                      {val.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mb-4">

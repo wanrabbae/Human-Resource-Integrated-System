@@ -219,6 +219,22 @@ function Schedule() {
                   <p className={"text-danger text-sm"}>{errorMsg}</p>
                 </div>
               </div>
+              <div className="py-2">
+                <label className="mb-1">
+                  Schedule<span className="text-danger">*</span>
+                </label>
+                <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                  <option hidden className="py-3">
+                    Select
+                  </option>
+                  <option value="Home Schedule" className="py-3">
+                    Home Schedule
+                  </option>
+                  <option value="Office Schedule" className="py-3">
+                    Office Schedule
+                  </option>
+                </select>
+              </div>
               <div className="row">
                 <div className="col-md-6 mb-3">
                   <div className="form-group">

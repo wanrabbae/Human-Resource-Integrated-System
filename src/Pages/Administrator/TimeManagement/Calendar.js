@@ -13,8 +13,13 @@ import Icon from "@mdi/react";
 import { mdiCalendarMonth, mdiPlusCircle } from "@mdi/js";
 import { Table, Modal, Button } from "react-bootstrap";
 import { ListItemButton, ListItemText, Typography } from "@mui/material";
-import { GetEvent } from "../../../Repository/TimeManagementRepository";
+import {
+  AddEvent,
+  DeleteEvent,
+  GetEvent,
+} from "../../../Repository/TimeManagementRepository";
 import dateFormat from "dateformat";
+import { ModalDelete } from "../../../Components/Modals";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -66,6 +71,33 @@ function Cal() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [isdeleteEvent, setDeleteEvent] = useState(false);
+
+  const [title, setTitle] = useState([]);
+  const [date, setDate] = useState([]);
+  const [start, setStart] = useState([]);
+  const [end, setEnd] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [email, setEmail] = useState([]);
+
+  const [id, setId] = useState([]);
+
+  const postData = async () => {
+    var requestBody = {
+      title: title,
+      date: date,
+      start: start,
+      end: end,
+      location: location,
+      calendar: email,
+    };
+    console.log(requestBody);
+    var res = await AddEvent(requestBody);
+    console.log(res);
+    handleClose();
+    inAwait();
+  };
 
   const inAwait = async () => {
     var dataA = await GetEvent();
@@ -222,7 +254,13 @@ function Cal() {
                         </defs>
                       </svg>
                     </button>
-                    <button className="bg-blue-900 rounded-full p-2">
+                    <button
+                      className="bg-blue-900 rounded-full p-2"
+                      onClick={() => {
+                        setId(val.id);
+                        setDeleteEvent(true);
+                      }}
+                    >
                       <svg
                         width="14"
                         height="14"
@@ -292,34 +330,25 @@ function Cal() {
                     <input
                       type="text"
                       placeholder="Input Event Title"
-                      value={newEvent.title}
-                      onChange={(e) =>
-                        setNewEvent({ ...newEvent, title: e.target.value })
-                      }
+                      // value={newEvent.title}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, title: e.target.value })
+                      // }
+                      onChange={(e) => setTitle(e.target.value)}
                       className="form-control rounded-lg"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="">
                     <div className="form-group mt-3">
-                      <label>Start Date</label>
-                      <DatePicker
+                      <label>Date</label>
+                      <input
+                        type="date"
                         placeholderText="Start Date"
                         className="form-control rounded-lg"
                         //   style={{ marginRight: "10px" }}
-                        selected={newEvent.end}
-                        onChange={(end) => setNewEvent({ ...newEvent, end })}
-                      />
-                    </div>
-                    <div className="form-group mt-3">
-                      <label>End Date</label>
-                      <DatePicker
-                        placeholderText="End Date"
-                        className="form-control rounded-lg"
-                        //   style={{ marginRight: "10px" }}
-                        selected={newEvent.start}
-                        onChange={(start) =>
-                          setNewEvent({ ...newEvent, start })
-                        }
+                        // selected={newEvent.start}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setDate(e.target.value)}
                       />
                     </div>
                   </div>
@@ -333,6 +362,7 @@ function Cal() {
                         //   style={{ marginRight: "10px" }}
                         // selected={newEvent.end}
                         // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setStart(e.target.value)}
                       />
                     </div>
                     <div className="form-group mt-3">
@@ -346,6 +376,7 @@ function Cal() {
                         // onChange={(start) =>
                         //   setNewEvent({ ...newEvent, start })
                         // }
+                        onChange={(e) => setEnd(e.target.value)}
                       />
                     </div>
                   </div>
@@ -355,11 +386,12 @@ function Cal() {
                     <input
                       type="text"
                       placeholder="Add Location"
-                      value={newEvent.location}
-                      onChange={(e) =>
-                        setNewEvent({ ...newEvent, location: e.target.value })
-                      }
+                      // value={newEvent.location}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, location: e.target.value })
+                      // }
                       className="form-control rounded-lg"
+                      onChange={(e) => setLocation(e.target.value)}
                     />
                   </div>
                   <div className="form-group mt-3">
@@ -367,10 +399,11 @@ function Cal() {
                     <input
                       type="email"
                       placeholder="Type your email"
-                      value={newEvent.email}
-                      onChange={(e) =>
-                        setNewEvent({ ...newEvent, email: e.target.value })
-                      }
+                      // value={newEvent.email}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, email: e.target.value })
+                      // }
+                      onChange={(e) => setEmail(e.target.value)}
                       className="form-control rounded-lg"
                     />
                   </div>
@@ -382,7 +415,7 @@ function Cal() {
                         color: "#FFFFFF",
                         width: "100px",
                       }}
-                      onClick={handleAddEvent}
+                      onClick={postData}
                     >
                       Save
                     </Button>
@@ -470,6 +503,17 @@ function Cal() {
             </div>
           </Modal.Body>
         </Modal>
+        <ModalDelete
+          close={() => {
+            setDeleteEvent(false);
+          }}
+          submit={() => {
+            DeleteEvent(id);
+            setDeleteEvent(false);
+            inAwait();
+          }}
+          active={isdeleteEvent}
+        />
       </div>
     </>
   );

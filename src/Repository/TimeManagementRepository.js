@@ -20,6 +20,29 @@ var GetEvent = async () => {
   }
 };
 
+var GetTodo = async () => {
+  var res = await api.get(`/getMyTodo`);
+  if (res.status == 200) {
+    return res.data.result;
+  }
+};
+var AddEvent = async (data) => {
+  var res = await api.post(`/addEvent`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+var DeleteEvent = async (id) => {
+  var res = await api.get(`/deleteEvent?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 var GetAttendance = async () => {
   var res = await api.get(`/mobile/user/getAttendances`);
   if (res.status == 200) {
@@ -126,4 +149,7 @@ export {
   AddEmployeeRecord,
   GetEmployeeProfile,
   GetEvent,
+  AddEvent,
+  DeleteEvent,
+  GetTodo
 };

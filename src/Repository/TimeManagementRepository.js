@@ -13,10 +13,69 @@ api.interceptors.request.use((req) => {
   return req;
 });
 
+var AddTodo = async (data) => {
+  var res = await api.post(`/addMyTodo`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+var UpdateTodo = async (data) => {
+  var res = await api.post(`/updateMyTodo`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
+const GetTodo = async () => {
+  var res = await api.get(`/getMyTodo`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+var DeleteTodo = async (id) => {
+  var res = await api.get(`/deleteMyTodo?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 var GetEvent = async () => {
   var res = await api.get(`/getEvent`);
   if (res.status == 200) {
     return res.data.result;
+  }
+};
+var AddEvent = async (data) => {
+  var res = await api.post(`/addEvent`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+var UpdateEvent = async (data) => {
+  var res = await api.post(`/updateEvent`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+var DeleteEvent = async (id) => {
+  var res = await api.get(`/deleteEvent?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
   }
 };
 
@@ -126,4 +185,11 @@ export {
   AddEmployeeRecord,
   GetEmployeeProfile,
   GetEvent,
+  AddEvent,
+  UpdateEvent,
+  DeleteEvent,
+  GetTodo,
+  DeleteTodo,
+  AddTodo,
+  UpdateTodo,
 };

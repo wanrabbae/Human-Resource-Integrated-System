@@ -13,6 +13,13 @@ api.interceptors.request.use((req) => {
   return req;
 });
 
+var GetEvent = async () => {
+  var res = await api.get(`/getEvent`);
+  if (res.status == 200) {
+    return res.data.result;
+  }
+};
+
 var GetAttendance = async () => {
   var res = await api.get(`/mobile/user/getAttendances`);
   if (res.status == 200) {
@@ -118,4 +125,5 @@ export {
   AddAttendance,
   AddEmployeeRecord,
   GetEmployeeProfile,
+  GetEvent,
 };

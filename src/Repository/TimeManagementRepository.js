@@ -13,19 +13,29 @@ api.interceptors.request.use((req) => {
   return req;
 });
 
+const GetTodo = async () => {
+  var res = await api.get(`/getMyTodo`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+var DeleteTodo = async (id) => {
+  var res = await api.get(`/deleteMyTodo?id=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 var GetEvent = async () => {
   var res = await api.get(`/getEvent`);
   if (res.status == 200) {
     return res.data.result;
   }
-};
-
-var GetTodo = async () => {
-  var res = await api.get(`/getMyTodo`);
-  if (res.status == 200) {
-    return res.data.result;
-  }
-};
+}; 
 var AddEvent = async (data) => {
   var res = await api.post(`/addEvent`, data);
   if (res.status == 200) {
@@ -151,5 +161,6 @@ export {
   GetEvent,
   AddEvent,
   DeleteEvent,
-  GetTodo
+  GetTodo,
+  DeleteTodo
 };

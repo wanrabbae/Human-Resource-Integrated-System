@@ -66,13 +66,14 @@ function JobGrade() {
     e.preventDefault();
     let rangeValue = [];
     await range.map((r) => rangeValue.push(document.getElementById(r).value));
+    let rangeValue2 = `[${rangeValue.map((r) => `"${r}"`)}]`;
     var requestBody = {
       name:
         isMulti == true
           ? document.getElementById("name").value
           : rangeValue[0] + "-" + rangeValue[rangeValue.length - 1],
       type: document.getElementById("type").value,
-      // range: `[${rangeValue}]`, // NGEBUGG
+      range: rangeValue2, // NGEBUGG
       minsalary: document.getElementById("minsalary").value,
       maxsalary: document.getElementById("maxsalary").value,
     };
@@ -490,15 +491,17 @@ function JobGrade() {
                         </div>
                       );
                     })
-                  : editValues?.rangegrade?.map((reng) => (
+                  : editValues?.rangegrade?.map((reng, i) => (
                       <div className="mb-3">
                         <div className="form-group" style={{ width: "70px" }}>
                           <label className="mb-1 text-sm">Range</label>
                           <input
                             className="form-control "
-                            id="name"
+                            id={i}
                             defaultValue={reng}
-                            // onChange={setEditValues(...editValues, rangegrade: [])}
+                            // onChange={(e) =>
+                            //   setRangeValues((current) => [e.target.value])
+                            // }
                             style={{
                               borderRadius: "0.25rem",
                               border: "1px solid #ced4da",
@@ -592,9 +595,14 @@ function JobGrade() {
               width: "100px",
             }}
             onClick={async () => {
+              let rangeValue = [];
+              await editValues?.rangegrade?.map((r, i) =>
+                rangeValue.push(document.getElementById(i).value)
+              );
               var requestBody = {
                 id: editValues.id,
                 name: editValues.name,
+                range: rangeValue,
                 type: editValues.type,
                 minsalary: editValues.minsalary,
                 maxsalary: editValues.maxsalary,

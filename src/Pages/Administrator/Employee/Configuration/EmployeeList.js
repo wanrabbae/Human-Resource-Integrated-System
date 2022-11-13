@@ -33,6 +33,7 @@ function EmployeeList() {
   const [jobPosition, setJobPosition] = useState([]);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [errorMsg, setErrorMsg] = useState("");
   const [controller, setController] = useState({});
   const [profilePict, setProfilePict] = useState(null);
   const navigate = useNavigate();
@@ -620,37 +621,56 @@ function EmployeeList() {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            var formData = new FormData();
-            formData.append("image", controller.image);
-            formData.append("firstName", controller.firstName);
-            formData.append("lastName", "");
-            formData.append("employeeId", "GENERATE001");
-            formData.append("joinedDate", controller.joinDate);
-            formData.append("jobtitle_id", controller.jobtitle_id);
-            formData.append("employeestatus_id", controller.employeestatus_id);
-            formData.append("jobgrade_id", controller.jobgrade_id);
-            formData.append("joblevel_id", controller.joblevel_id);
-            formData.append("jobposition_id", controller.jobposition_id);
-            formData.append("location", controller.location);
-            var data = await AddEmployee(formData);
-            if (show) {
-              await AddUser({
-                role: "user",
-                employee_id: data.data.id, //BELUM
-                status: controller.status,
-                username: controller.username,
-                password: controller.password,
-                location: controller.location,
-              });
-              console.log("SUCCESS CREATE USER");
-            }
+            try {
+              var formData = new FormData();
+              formData.append("image", controller.image);
+              formData.append("firstName", controller.firstName);
+              formData.append("lastName", "");
+              formData.append("employeeId", "GENERATE001");
+              formData.append("joinedDate", controller.joinDate);
+              formData.append("jobtitle_id", controller.jobtitle_id);
+              formData.append(
+                "employeestatus_id",
+                controller.employeestatus_id
+              );
+              formData.append("jobgrade_id", controller.jobgrade_id);
+              formData.append("joblevel_id", controller.joblevel_id);
+              formData.append("jobposition_id", controller.jobposition_id);
+              formData.append("location", controller.location);
 
-            if (data.message == "Success") {
-              await inAwait();
-              setModalAdd(false);
-              setController({});
-              SwalSuccess({ message: "Success add employee" });
-              setProfilePict(null);
+              if (show) {
+                if (controller.confirm != controller.password) {
+                  setErrorMsg("Confirmation password did not match!");
+                  return false;
+                }
+
+                formData.append("createUser", true);
+                formData.append("username", controller.username);
+                formData.append("password", controller.password);
+                formData.append("status", controller.status);
+
+                // await AddUser({
+                //   role: "user",
+                //   employee_id: data.data.id, //BELUM
+                //   status: controller.status,
+                //   username: controller.username,
+                //   password: controller.password,
+                //   location: controller.location,
+                // });
+              }
+
+              var data = await AddEmployee(formData);
+
+              if (data.message == "Success") {
+                await inAwait();
+                setModalAdd(false);
+                setErrorMsg("");
+                setController({});
+                SwalSuccess({ message: "Success add employee" });
+                setProfilePict(null);
+              }
+            } catch (error) {
+              setErrorMsg(error.response.data.message);
             }
           }}
         >
@@ -976,6 +996,7 @@ function EmployeeList() {
                 </div>
               </div>
             )}
+            <p className={"text-danger text-sm"}>{errorMsg}</p>
           </Modal.Body>
           <Modal.Footer className="m-4">
             <button

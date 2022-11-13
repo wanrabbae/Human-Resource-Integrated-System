@@ -13,6 +13,15 @@ api.interceptors.request.use((req) => {
   return req;
 });
 
+var AddTodo = async (data) => {
+  var res = await api.post(`/addMyTodo`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const GetTodo = async () => {
   var res = await api.get(`/getMyTodo`);
   if (res.status == 200) {
@@ -35,7 +44,7 @@ var GetEvent = async () => {
   if (res.status == 200) {
     return res.data.result;
   }
-}; 
+};
 var AddEvent = async (data) => {
   var res = await api.post(`/addEvent`, data);
   if (res.status == 200) {
@@ -162,5 +171,6 @@ export {
   AddEvent,
   DeleteEvent,
   GetTodo,
-  DeleteTodo
+  DeleteTodo,
+  AddTodo,
 };

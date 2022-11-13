@@ -15,6 +15,7 @@ import { Table, Modal, Button } from "react-bootstrap";
 import { ListItemButton, ListItemText, Typography } from "@mui/material";
 import {
   AddEvent,
+  AddTodo,
   DeleteEvent,
   DeleteTodo,
   GetEvent,
@@ -22,6 +23,7 @@ import {
 } from "../../../Repository/TimeManagementRepository";
 import dateFormat from "dateformat";
 import { ModalDelete } from "../../../Components/Modals";
+import { Details } from "@mui/icons-material";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -85,6 +87,12 @@ function Cal() {
   const [location, setLocation] = useState([]);
   const [email, setEmail] = useState([]);
 
+  const [titleTodo, setTitleTodo] = useState([]);
+  const [dateTodo, setDateTodo] = useState([]);
+  const [time, setTime] = useState([]);
+  const [emailTodo, setEmailTodo] = useState([]);
+  const [detail, setDetail] = useState([]);
+
   const [id, setId] = useState([]);
 
   const postData = async () => {
@@ -102,13 +110,27 @@ function Cal() {
     handleClose();
     inAwait();
   };
+  const postDataTodo = async () => {
+    var requestBody = {
+      title: titleTodo,
+      date: dateTodo,
+      time: time,
+      calendar: emailTodo,
+      details: detail,
+    };
+    console.log(requestBody);
+    var res = await AddTodo(requestBody);
+    console.log(res);
+    handleClose();
+    inAwait();
+  };
 
   const inAwait = async () => {
     var dataA = await GetEvent();
-    console.log(dataA);
+    // console.log(dataA);
     setDataEvent(dataA);
     var dataB = await GetTodo();
-    console.log(dataB.result);
+    // console.log(dataB.result);
     setDataTodo(dataB.result);
   };
 
@@ -555,22 +577,25 @@ function Cal() {
                     <input
                       type="text"
                       placeholder="Input Event Title"
-                      value={newEvent.title}
-                      onChange={(e) =>
-                        setNewEvent({ ...newEvent, title: e.target.value })
-                      }
+                      // value={newEvent.title}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, title: e.target.value })
+                      // }
+                      onChange={(e) => setTitleTodo(e.target.value)}
                       className="form-control rounded-lg"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="form-group mt-3">
                       <label>Date</label>
-                      <DatePicker
+                      <input
+                        type="date"
                         placeholderText="Start Date"
                         className="form-control rounded-lg"
                         //   style={{ marginRight: "10px" }}
-                        selected={newEvent.end}
-                        onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        // selected={newEvent.start}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setDateTodo(e.target.value)}
                       />
                     </div>
                     <div className="form-group mt-3">
@@ -582,31 +607,33 @@ function Cal() {
                         //   style={{ marginRight: "10px" }}
                         // selected={newEvent.end}
                         // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setTime(e.target.value)}
                       />
                     </div>
                   </div>
 
                   <div className="form-group mt-3">
-                    <label>Location</label>
-                    <input
-                      type="text"
-                      placeholder="Add Location"
-                      value={newEvent.location}
-                      onChange={(e) =>
-                        setNewEvent({ ...newEvent, location: e.target.value })
-                      }
-                      className="form-control rounded-lg"
-                    />
-                  </div>
-                  <div className="form-group mt-3">
                     <label>Calendar</label>
                     <input
                       type="email"
                       placeholder="Type your email"
-                      value={newEvent.email}
-                      onChange={(e) =>
-                        setNewEvent({ ...newEvent, email: e.target.value })
-                      }
+                      // value={newEvent.email}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, email: e.target.value })
+                      // }
+                      onChange={(e) => setEmailTodo(e.target.value)}
+                      className="form-control rounded-lg"
+                    />
+                  </div>
+                  <div className="form-group mt-3">
+                    <label>Details</label>
+                    <textarea
+                      placeholder="type details activity"
+                      // value={newEvent.location}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, location: e.target.value })
+                      // }
+                      onChange={(e) => setDetail(e.target.value)}
                       className="form-control rounded-lg"
                     />
                   </div>
@@ -618,7 +645,7 @@ function Cal() {
                         color: "#FFFFFF",
                         width: "100px",
                       }}
-                      onClick={handleAddEvent}
+                      onClick={postDataTodo}
                     >
                       Save
                     </Button>

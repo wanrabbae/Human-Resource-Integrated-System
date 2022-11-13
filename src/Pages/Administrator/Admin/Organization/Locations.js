@@ -184,194 +184,194 @@ function Locations() {
           <Modal.Title>Add Location</Modal.Title>
         </Modal.Header>
         <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          var requestBody = {
-            name: document.getElementById("name").value,
-            city: document.getElementById("city").value,
-            province: document.getElementById("province").value,
-            country: document.getElementById("country").value,
-            postalCode: document.getElementById("postalCode").value,
-            phone: document.getElementById("phone").value,
-            fax: document.getElementById("fax").value,
-            address: document.getElementById("address").value,
-            note: document.getElementById("note").value,
-          };
-          var res = await AddCompanyLocation(requestBody);
-          setTitle(!dialogTitle);
-          SwalSuccess({ message: "Success add location" });
-          inAwait();
-        }}
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              name: document.getElementById("name").value,
+              city: document.getElementById("city").value,
+              province: document.getElementById("province").value,
+              country: document.getElementById("country").value,
+              postalCode: document.getElementById("postalCode").value,
+              phone: document.getElementById("phone").value,
+              fax: document.getElementById("fax").value,
+              address: document.getElementById("address").value,
+              note: document.getElementById("note").value,
+            };
+            var res = await AddCompanyLocation(requestBody);
+            setTitle(!dialogTitle);
+            SwalSuccess({ message: "Success add location" });
+            inAwait();
+          }}
         >
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Location Name <span className="text-danger">*</span>
-                </label>
-                <input
-                required
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Location Name..."
-                  id="name"
-                />
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Location Name <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    required
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Location Name..."
+                    id="name"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="col-md-6 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  City <span className="text-danger">*</span>
-                </label>
-                <select
-                required
-                  id="city"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value="">Select City</option>
-                  <option>Banyumas</option>
-                  <option>Solo</option>
-                  <option>Yogyakartya</option>
-                  <option>Jakarta</option>
-                </select>
-              </div>
-            </div>
-            <div className="col-md-6 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Province <span className="text-danger">*</span>
-                </label>
-                <select
-                  id="province"
-                  required
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value="">Select Province</option>
-                  <option>Jawa Tengah</option>
-                  <option>Jawa Barat</option>
-                  <option>Jawa Timur</option>
-                  <option>DKI Jakarta</option>
-                </select>
-              </div>
-            </div>
-            <div className="col-md-6 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Country <span className="text-danger">*</span>
-                </label>
-                <select
-                  required
-                  id="country"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <div className="col-md-6 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    City <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    required
+                    id="city"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                  <option value="">Select Country</option>
-                  <option>Indonesia</option>
-                  <option>Malaysia</option>
-                  <option>Maroko</option>
-                  <option>Arab</option>
-                </select>
+                    <option value="">Select City</option>
+                    <option>Banyumas</option>
+                    <option>Solo</option>
+                    <option>Yogyakarta</option>
+                    <option>Jakarta</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div className="col-md-6 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Postal Code <span className="text-danger">*</span>
-                </label>
-                <input
-                  required
-                  id="postalCode"
-                  placeholder="Postal Code..."
-                  type="number"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <div className="col-md-6 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Province <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    id="province"
+                    required
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="">Select Province</option>
+                    <option>Jawa Tengah</option>
+                    <option>Jawa Barat</option>
+                    <option>Jawa Timur</option>
+                    <option>DKI Jakarta</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-6 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Country <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    required
+                    id="country"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="">Select Country</option>
+                    <option>Indonesia</option>
+                    <option>Malaysia</option>
+                    <option>Maroko</option>
+                    <option>Arab</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-6 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Postal Code <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    required
+                    id="postalCode"
+                    placeholder="Postal Code..."
+                    type="number"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
+                </div>
               </div>
-            </div>
 
-            <div className="col-md-6 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Phone <span className="text-danger">*</span>
-                </label>
-                <input
-                  id="phone"
-                  required
-                  placeholder="Phone number..."
-                  type="number"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <div className="col-md-6 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Phone <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    id="phone"
+                    required
+                    placeholder="Phone number..."
+                    type="number"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
+                </div>
               </div>
-            </div>
 
-            <div className="col-md-6 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Fax <span className="text-danger">*</span>
-                </label>
-                <input
-                  id="fax"
-                  required
-                  placeholder="Fax number..."
-                  type="number"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <div className="col-md-6 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Fax <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    id="fax"
+                    required
+                    placeholder="Fax number..."
+                    type="number"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
+                </div>
               </div>
-            </div>
 
-            <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Address <span className="text-danger">*</span>
-                </label>
-                <textarea
-                  required
-                  id="address"
-                  rows={4}
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Address..."
-                ></textarea>
-              </div>
-            </div>
-            <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">Note</label>
-                <textarea
-                  id="note"
-                  required
-                  rows={4}
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Note..."
+              <div className="col-md-12 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Address <span className="text-danger">*</span>
+                  </label>
+                  <textarea
+                    required
+                    id="address"
+                    rows={4}
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Address..."
                   ></textarea>
+                </div>
+              </div>
+              <div className="col-md-12 my-3">
+                <div className="form-group">
+                  <label className="mb-1">Note</label>
+                  <textarea
+                    id="note"
+                    required
+                    rows={4}
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Note..."
+                  ></textarea>
+                </div>
               </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-          type="button"
-            className="btn"
-            style={{
-              backgroundColor: "#00000010",
-              border: "1px solid transparent",
-              color: "#0E5073",
-              width: "100px",
-            }}
-            onClick={() => setTitle(!dialogTitle)}
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              type="button"
+              className="btn"
+              style={{
+                backgroundColor: "#00000010",
+                border: "1px solid transparent",
+                color: "#0E5073",
+                width: "100px",
+              }}
+              onClick={() => setTitle(!dialogTitle)}
             >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            type="submit"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
+              Cancel
+            </button>
+            <button
+              className="btn"
+              type="submit"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
             >
-            Add
-          </button>
-        </Modal.Footer>
+              Add
+            </button>
+          </Modal.Footer>
         </form>
       </Modal>
 
@@ -410,14 +410,29 @@ function Locations() {
                 <label className="mb-1">
                   City <span className="text-danger">*</span>
                 </label>
-                <select 
+                <select
                   id="city"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
                   <option>Select City</option>
-                  <option selected={editValues?.city ? true : false } >Banyumas</option>
-                  <option selected={editValues?.city ? true : false } >Solo</option>
-                  <option selected={editValues?.city ? true : false } >Yogyakartya</option>
-                  <option selected={editValues?.city ? true : false } >Jakarta</option>
+                  <option
+                    selected={editValues?.city == "Banyumas" ? true : false}
+                  >
+                    Banyumas
+                  </option>
+                  <option selected={editValues?.city == "Solo" ? true : false}>
+                    Solo
+                  </option>
+                  <option
+                    selected={editValues?.city == "Yogyakarta" ? true : false}
+                  >
+                    Yogyakartya
+                  </option>
+                  <option
+                    selected={editValues?.city == "Jakarta" ? true : false}
+                  >
+                    Jakarta
+                  </option>
                 </select>
               </div>
             </div>
@@ -426,14 +441,39 @@ function Locations() {
                 <label className="mb-1">
                   Province <span className="text-danger">*</span>
                 </label>
-                <select 
+                <select
                   id="province"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
                   <option>Select Province</option>
-                  <option selected={editValues?.province ? true : false } >Jawa Tengah</option>
-                  <option selected={editValues?.province ? true : false }>Jawa Barat</option>
-                  <option selected={editValues?.province ? true : false }>Jawa Timur</option>
-                  <option selected={editValues?.province ? true : false }>DKI Jakarta</option>
+                  <option
+                    selected={
+                      editValues?.province == "Jawa Tengah" ? true : false
+                    }
+                  >
+                    Jawa Tengah
+                  </option>
+                  <option
+                    selected={
+                      editValues?.province == "Jawa Barat" ? true : false
+                    }
+                  >
+                    Jawa Barat
+                  </option>
+                  <option
+                    selected={
+                      editValues?.province == "Jawa Timur" ? true : false
+                    }
+                  >
+                    Jawa Timur
+                  </option>
+                  <option
+                    selected={
+                      editValues?.province == "DKI Jakarta" ? true : false
+                    }
+                  >
+                    DKI Jakarta
+                  </option>
                 </select>
               </div>
             </div>
@@ -442,14 +482,31 @@ function Locations() {
                 <label className="mb-1">
                   Country <span className="text-danger">*</span>
                 </label>
-                <select 
+                <select
                   id="country"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
                   <option>Select Country</option>
-                  <option selected={editValues?.country ? true : false }>Indonesia</option>
-                  <option selected={editValues?.country ? true : false }>Malaysia</option>
-                  <option selected={editValues?.country ? true : false }>Maroko</option>
-                  <option selected={editValues?.country ? true : false }>Arab</option>
+                  <option
+                    selected={editValues?.country == "Indonesia" ? true : false}
+                  >
+                    Indonesia
+                  </option>
+                  <option
+                    selected={editValues?.country == "Malaysia" ? true : false}
+                  >
+                    Malaysia
+                  </option>
+                  <option
+                    selected={editValues?.country == "Maroko" ? true : false}
+                  >
+                    Maroko
+                  </option>
+                  <option
+                    selected={editValues?.country == "Arab" ? true : false}
+                  >
+                    Arab
+                  </option>
                 </select>
               </div>
             </div>

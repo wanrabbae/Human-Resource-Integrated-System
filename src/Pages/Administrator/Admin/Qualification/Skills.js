@@ -101,11 +101,11 @@ function Skills() {
               <th width="10px">
                 <input type="checkbox" style={{ borderRadius: "2px" }} />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => { }}>
                 Skills <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Description</th>
-              <th onClick={() => {}}>Action</th>
+              <th onClick={() => { }}>Description</th>
+              <th onClick={() => { }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -179,7 +179,6 @@ function Skills() {
               description: skillAdd?.description,
             };
             await AddSkill(requestBody);
-            console.log("TEST");
             setTitle(!dialogTitle);
             SwalSuccess({ message: "Success add skill" });
             inAwait();

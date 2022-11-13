@@ -25,6 +25,7 @@ function Schedule() {
   const [employeeName, setEmployeeName] = useState({
     employeeName: "",
   });
+  const [errorMsg, setErrorMsg] = useState("");
   const inAwait = async () => {
     var dataSchedules = await GetSchedule();
     var dataEmployeeName = await GetEmployeeName();
@@ -109,7 +110,6 @@ function Schedule() {
                   </td>
                   <td className="align-middle">
                     {schedule?.employee?.firstName}{" "}
-                    {schedule?.employee?.lastName}
                   </td>
                   <td className="align-middle">{schedule.startDate}</td>
                   <td className="align-middle">{schedule.endDate}</td>
@@ -168,6 +168,16 @@ function Schedule() {
           method="POST"
           onSubmit={async (e) => {
             e.preventDefault();
+            console.log(employeeName.employeeName);
+            if (
+              employeeName.employeeName == undefined ||
+              employeeName.employeeName == null ||
+              employeeName.employeeName == ""
+            ) {
+              setErrorMsg("Please choose the employee");
+              return false;
+            }
+
             var requestBody = {
               employeeId: employeeName.employeeName,
               startDate: employeeName.startDate,
@@ -175,6 +185,7 @@ function Schedule() {
             };
             var res = await AddSchedule(requestBody);
             setUser(!dialogUser);
+            setErrorMsg("");
             SwalSuccess({ message: "Success add schedule" });
             inAwait();
           }}
@@ -201,10 +212,11 @@ function Schedule() {
                     options={employeeNames.map((val) => {
                       return {
                         value: val.id,
-                        label: val.firstName + " " + val.lastName,
+                        label: val.firstName,
                       };
                     })}
                   />
+                  <p className={"text-danger text-sm"}>{errorMsg}</p>
                 </div>
               </div>
               <div className="row">

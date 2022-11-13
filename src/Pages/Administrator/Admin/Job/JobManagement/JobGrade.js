@@ -57,6 +57,7 @@ function JobGrade() {
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
+  const [isRange, setIsRange] = useState(false);
   const [id, setId] = useState();
   const [isMulti, setMulti] = useState(true);
   const [rangeValues, setRangeValues] = useState([]);
@@ -71,11 +72,14 @@ function JobGrade() {
           ? document.getElementById("name").value
           : rangeValue[0] + "-" + rangeValue[rangeValue.length - 1],
       type: document.getElementById("type").value,
+      // range: `[${rangeValue}]`, // NGEBUGG
       minsalary: document.getElementById("minsalary").value,
       maxsalary: document.getElementById("maxsalary").value,
     };
     var res = await AddJobGrade(requestBody);
     setTitle(!dialogTitle);
+    setRange([]);
+    setMulti(false);
     SwalSuccess({ message: "Success add job grade" });
     inAwait();
     console.log("TEST");
@@ -164,6 +168,7 @@ function JobGrade() {
                       <button
                         onClick={() => {
                           setId(val["id"]);
+                          if (val?.rangegrade?.length > 0) setIsRange(true);
                           setEditValues(val);
                           setEditTitle(!dialogEditTitle);
                         }}
@@ -203,7 +208,14 @@ function JobGrade() {
         </Table>
       </div>
 
-      <Modal show={dialogTitle} size="lg" onHide={() => setTitle(!dialogTitle)}>
+      <Modal
+        show={dialogTitle}
+        size="lg"
+        onHide={() => {
+          setRange([]);
+          setTitle(!dialogTitle);
+        }}
+      >
         <Modal.Header
           closeButton
           className="m-4"
@@ -235,7 +247,6 @@ function JobGrade() {
                   type="checkbox"
                   value=""
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"
-                  required
                 />
                 <label
                   for="checked-checkbox"
@@ -316,7 +327,7 @@ function JobGrade() {
                   <label className="mb-1">Currency type</label>
                   <select required id="type" className="form-control">
                     <option value="">Select currency</option>
-                    <option  value="IDR">IDR (Indonesia Rupiah)</option>
+                    <option value="IDR">IDR (Indonesia Rupiah)</option>
                     <option value="USD">USD (United Stated Dollar)</option>
                   </select>
                 </div>
@@ -349,7 +360,10 @@ function JobGrade() {
                 width: "100px",
               }}
               type="button"
-              onClick={() => setTitle(!dialogTitle)}
+              onClick={() => {
+                setRange([]);
+                setTitle(!dialogTitle);
+              }}
             >
               Cancel
             </button>
@@ -372,7 +386,10 @@ function JobGrade() {
       <Modal
         show={dialogEditTitle}
         size="lg"
-        onHide={() => setEditTitle(!dialogEditTitle)}
+        onHide={() => {
+          setIsRange(false);
+          setEditTitle(!dialogEditTitle);
+        }}
       >
         <Modal.Header
           closeButton
@@ -391,6 +408,7 @@ function JobGrade() {
                 <input
                   className="form-control"
                   placeholder="Jobl grade..."
+                  disabled={isRange}
                   value={editValues?.name ?? null}
                   onChange={(e) =>
                     setEditValues({ ...editValues, name: e.target.value })
@@ -404,6 +422,7 @@ function JobGrade() {
                 onClick={() => setMulti(!isMulti)}
                 type="checkbox"
                 value=""
+                checked={isRange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"
               />
               <label
@@ -415,7 +434,7 @@ function JobGrade() {
             </div>
             <div
               className="mb-3"
-              style={{ display: !isMulti ? "block" : "none" }}
+              style={{ display: !isMulti || isRange ? "block" : "none" }}
             >
               <div className="col-md-4 mb-3">
                 <div className="form-group">
@@ -423,7 +442,24 @@ function JobGrade() {
                   <input
                     className="form-control"
                     type="number"
-                    id="name"
+                    id="name3"
+                    onChange={() => {
+                      var value = parseInt(
+                        document.getElementById("name3").value
+                      );
+                      let data = [];
+
+                      if (value == NaN || !value || value == "") {
+                        console.log("asd");
+                        setRange([]);
+                      } else {
+                        for (let i = 0; i < value; i++) {
+                          data.push(i);
+                          setRange(data);
+                        }
+                        console.log(range);
+                      }
+                    }}
                     placeholder="Job grade..."
                     style={{
                       borderRadius: "0.25rem",
@@ -434,23 +470,43 @@ function JobGrade() {
               </div>
               <div className="w-100"></div>
               <div className="grid gap-3 grid-rows-1 grid-cols-8">
-                {[1, 2, 3].map((val) => {
-                  return (
-                    <div className="mb-3">
-                      <div className="form-group" style={{ width: "70px" }}>
-                        <label className="mb-1 text-sm">{val} Range</label>
-                        <input
-                          className="form-control "
-                          id="name"
-                          style={{
-                            borderRadius: "0.25rem",
-                            border: "1px solid #ced4da",
-                          }}
-                        />
+                {range.length > 0
+                  ? range.map((val) => {
+                      return (
+                        <div className="mb-3">
+                          <div className="form-group" style={{ width: "70px" }}>
+                            <label className="mb-1 text-sm">
+                              {val + 1} Range
+                            </label>
+                            <input
+                              className="form-control "
+                              id="name"
+                              style={{
+                                borderRadius: "0.25rem",
+                                border: "1px solid #ced4da",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })
+                  : editValues?.rangegrade?.map((reng) => (
+                      <div className="mb-3">
+                        <div className="form-group" style={{ width: "70px" }}>
+                          <label className="mb-1 text-sm">Range</label>
+                          <input
+                            className="form-control "
+                            id="name"
+                            defaultValue={reng}
+                            // onChange={setEditValues(...editValues, rangegrade: [])}
+                            style={{
+                              borderRadius: "0.25rem",
+                              border: "1px solid #ced4da",
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    ))}
               </div>
             </div>
             <div className="col-12 mb-3">
@@ -466,8 +522,18 @@ function JobGrade() {
                   }
                 >
                   <option>Select currency</option>
-                  <option selected={editValues?.type == "IDR" ? true : false} value="IDR">IDR (Indonesia Rupiah)</option>
-                  <option selected={editValues?.type == "USD" ? true : false} value="USD">USD (United Stated Dollar)</option>
+                  <option
+                    selected={editValues?.type == "IDR" ? true : false}
+                    value="IDR"
+                  >
+                    IDR (Indonesia Rupiah)
+                  </option>
+                  <option
+                    selected={editValues?.type == "USD" ? true : false}
+                    value="USD"
+                  >
+                    USD (United Stated Dollar)
+                  </option>
                 </select>
               </div>
             </div>
@@ -510,7 +576,10 @@ function JobGrade() {
               color: "#0E5073",
               width: "100px",
             }}
-            onClick={() => setEditTitle(!dialogEditTitle)}
+            onClick={() => {
+              setIsRange(false);
+              setEditTitle(!dialogEditTitle);
+            }}
           >
             Cancel
           </button>
@@ -532,6 +601,7 @@ function JobGrade() {
               };
               var res = await EditJobGrade(requestBody);
               setEditTitle(!dialogEditTitle);
+              setIsRange(false);
               SwalSuccess({ message: "Success edit job grade" });
               inAwait();
             }}

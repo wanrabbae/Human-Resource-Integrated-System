@@ -22,6 +22,15 @@ var AddTodo = async (data) => {
   }
 };
 
+var UpdateTodo = async (data) => {
+  var res = await api.post(`/updateMyTodo`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+
 const GetTodo = async () => {
   var res = await api.get(`/getMyTodo`);
   if (res.status == 200) {
@@ -47,6 +56,14 @@ var GetEvent = async () => {
 };
 var AddEvent = async (data) => {
   var res = await api.post(`/addEvent`, data);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+var UpdateEvent = async (data) => {
+  var res = await api.post(`/updateEvent`, data);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -169,8 +186,10 @@ export {
   GetEmployeeProfile,
   GetEvent,
   AddEvent,
+  UpdateEvent,
   DeleteEvent,
   GetTodo,
   DeleteTodo,
   AddTodo,
+  UpdateTodo,
 };

@@ -20,6 +20,8 @@ import {
   DeleteTodo,
   GetEvent,
   GetTodo,
+  UpdateEvent,
+  UpdateTodo,
 } from "../../../Repository/TimeManagementRepository";
 import dateFormat from "dateformat";
 import { ModalDelete } from "../../../Components/Modals";
@@ -40,8 +42,8 @@ const events = [
   {
     title: "Big Meeting",
     allDay: true,
-    start: new Date(2022, 10, 1),
-    end: new Date(2022, 10, 1),
+    start: new Date(2022, 10, 12),
+    end: new Date(2022, 10, 12),
   },
   {
     title: "Vacation",
@@ -71,11 +73,19 @@ function Cal() {
 
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(false);
+  const [showEditEvent, setShowEditEvent] = useState(false);
+  const [showEditTodo, setShowEditTodo] = useState(false);
   const [dataEvent, setDataEvent] = useState([]);
   const [dataTodo, setDataTodo] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleCloseEvent = () => setShowEditEvent(false);
+  const handleShowEvent = () => setShowEditEvent(true);
+
+  const handleCloseTodo = () => setShowEditTodo(false);
+  const handleShowTodo = () => setShowEditTodo(true);
 
   const [isdeleteEvent, setDeleteEvent] = useState(false);
   const [isdeleteTodo, setDeleteTodo] = useState(false);
@@ -87,11 +97,24 @@ function Cal() {
   const [location, setLocation] = useState([]);
   const [email, setEmail] = useState([]);
 
+  const [editTitle, setEditTitle] = useState([]);
+  const [editDate, setEditDate] = useState([]);
+  const [editStart, setEditStart] = useState([]);
+  const [editEnd, setEditEnd] = useState([]);
+  const [editLocation, setEditLocation] = useState([]);
+  const [editEmail, setEditEmail] = useState([]);
+
   const [titleTodo, setTitleTodo] = useState([]);
   const [dateTodo, setDateTodo] = useState([]);
   const [time, setTime] = useState([]);
   const [emailTodo, setEmailTodo] = useState([]);
   const [detail, setDetail] = useState([]);
+
+  const [editTitleTodo, setEditTitleTodo] = useState([]);
+  const [editDateTodo, setEditDateTodo] = useState([]);
+  const [editTime, setEditTime] = useState([]);
+  const [editEmailTodo, setEditEmailTodo] = useState([]);
+  const [editDetail, setEditDetail] = useState([]);
 
   const [id, setId] = useState([]);
 
@@ -110,6 +133,23 @@ function Cal() {
     handleClose();
     inAwait();
   };
+
+  const editData = async () => {
+    var requestBody = {
+      id: id,
+      title: editTitle,
+      date: editDate,
+      start: editStart,
+      end: editEnd,
+      location: editLocation,
+      calendar: editEmail,
+    };
+    console.log(requestBody);
+    var res = await UpdateEvent(requestBody);
+    console.log(res);
+    handleCloseEvent();
+    inAwait();
+  };
   const postDataTodo = async () => {
     var requestBody = {
       title: titleTodo,
@@ -122,6 +162,21 @@ function Cal() {
     var res = await AddTodo(requestBody);
     console.log(res);
     handleClose();
+    inAwait();
+  };
+  const editDataTodo = async () => {
+    var requestBody = {
+      id: id,
+      title: editTitleTodo,
+      date: editDateTodo,
+      time: editTime,
+      calendar: editEmailTodo,
+      details: editDetail,
+    };
+    console.log(requestBody);
+    var res = await UpdateTodo(requestBody);
+    console.log(res);
+    handleCloseTodo();
     inAwait();
   };
 
@@ -181,7 +236,7 @@ function Cal() {
             </Button>
           </div>
           <h2 className="text-xl font-bold">Events</h2>
-          <div className="overflow-y-auto h-1/2 space-y-5">
+          <div className="overflow-y-auto h-screen space-y-5">
             {dataEvent &&
               dataEvent.map((val, index) => (
                 <div key={index}>
@@ -254,7 +309,19 @@ function Cal() {
                       <p className="text-sm">{val.location}</p>
                     </div>
                     <div className="flex gap-2 self-end">
-                      <button className="bg-blue-900 rounded-full p-2">
+                      <button
+                        className="bg-blue-900 rounded-full p-2"
+                        onClick={() => {
+                          handleShowEvent();
+                          setId(val.id);
+                          setEditTitle(val.title);
+                          setEditDate(val.date);
+                          setEditStart(val.start);
+                          setEditEnd(val.end);
+                          setEditLocation(val.location);
+                          setEditEmail(val.calendar);
+                        }}
+                      >
                         <svg
                           width="17"
                           height="17"
@@ -370,7 +437,18 @@ function Cal() {
                       <p className="text-sm">{val.details}</p>
                     </div>
                     <div className="flex gap-2 self-end">
-                      <button className="bg-blue-900 rounded-full p-2">
+                      <button
+                        className="bg-blue-900 rounded-full p-2"
+                        onClick={() => {
+                          handleShowTodo();
+                          setId(val.id);
+                          setEditTitleTodo(val.title);
+                          setEditDateTodo(val.date);
+                          setEditTime(val.time);
+                          setEditDetail(val.details);
+                          setEditEmailTodo(val.calendar);
+                        }}
+                      >
                         <svg
                           width="17"
                           height="17"
@@ -654,6 +732,279 @@ function Cal() {
               ) : (
                 ""
               )}
+            </div>
+          </Modal.Body>
+        </Modal>
+        <Modal size="lg" show={showEditEvent} onHide={handleCloseEvent}>
+          <Modal.Header
+            closeButton
+            className="m-4"
+            style={{ borderBottomColor: "transparent" }}
+          >
+            <Modal.Title>Edit Event</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="mx-4">
+            <div className="bg-red-100 w-full p-3 rounded-lg flex gap-5">
+              <a
+                href="#"
+                style={{
+                  color: index == 0 ? "#780000" : "#00000080",
+                  borderColor: index == 0 ? "#780000" : "#00000080",
+                  paddingBottom: index == 0 ? "5px" : "",
+                  borderBottomStyle: index == 0 ? "solid" : "",
+                  borderBottomWidth: index == 0 ? "4px" : "",
+                  width: index == 0 ? "fit-content" : "",
+                }}
+                className="mt-2"
+                onClick={() => setIndex(0)}
+              >
+                Event
+              </a>
+              <a
+                href="#"
+                style={{
+                  color: index == 1 ? "#780000" : "#00000080",
+                  borderColor: index == 1 ? "#780000" : "#00000080",
+                  paddingBottom: index == 1 ? "5px" : "",
+                  borderBottomStyle: index == 1 ? "solid" : "",
+                  borderBottomWidth: index == 1 ? "4px" : "",
+                  width: index == 1 ? "fit-content" : "",
+                }}
+                className="mt-2"
+                onClick={() => setIndex(1)}
+              >
+                My To Do
+              </a>
+            </div>
+            <div className="p-3">
+              <div className="form-group mt-3">
+                <label>Title</label>
+                <input
+                  type="text"
+                  placeholder="Input Event Title"
+                  value={editTitle}
+                  // onChange={(e) =>
+                  //   setNewEvent({ ...newEvent, title: e.target.value })
+                  // }
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  className="form-control rounded-lg"
+                />
+              </div>
+              <div className="">
+                <div className="form-group mt-3">
+                  <label>Date</label>
+                  <input
+                    type="date"
+                    placeholderText="Start Date"
+                    className="form-control rounded-lg"
+                    //   style={{ marginRight: "10px" }}
+                    // selected={newEvent.start}
+                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                    value={editDate}
+                    onChange={(e) => setEditDate(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="form-group mt-3">
+                  <label>Start Time</label>
+                  <input
+                    type="time"
+                    placeholderText="Start Time"
+                    className="form-control rounded-lg"
+                    //   style={{ marginRight: "10px" }}
+                    // selected={newEvent.end}
+                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                    value={editStart}
+                    onChange={(e) => setEditStart(e.target.value)}
+                  />
+                </div>
+                <div className="form-group mt-3">
+                  <label>End Time</label>
+                  <input
+                    type="time"
+                    placeholderText="End Time"
+                    className="form-control rounded-lg"
+                    //   style={{ marginRight: "10px" }}
+                    // selected={newEvent.start}
+                    // onChange={(start) =>
+                    //   setNewEvent({ ...newEvent, start })
+                    // }
+                    value={editEnd}
+                    onChange={(e) => setEditEnd(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group mt-3">
+                <label>Location</label>
+                <input
+                  type="text"
+                  placeholder="Add Location"
+                  // value={newEvent.location}
+                  // onChange={(e) =>
+                  //   setNewEvent({ ...newEvent, location: e.target.value })
+                  // }
+                  className="form-control rounded-lg"
+                  value={editLocation}
+                  onChange={(e) => setEditLocation(e.target.value)}
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Calendar</label>
+                <input
+                  type="email"
+                  placeholder="Type your email"
+                  // value={newEvent.email}
+                  // onChange={(e) =>
+                  //   setNewEvent({ ...newEvent, email: e.target.value })
+                  // }
+                  value={editEmail}
+                  onChange={(e) => setEditEmail(e.target.value)}
+                  className="form-control rounded-lg"
+                />
+              </div>
+
+              <div className="w-full flex gap-5 justify-end mt-5">
+                <Button
+                  style={{
+                    backgroundColor: "#C1121F",
+                    color: "#FFFFFF",
+                    width: "100px",
+                  }}
+                  onClick={editData}
+                >
+                  Save
+                </Button>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+        <Modal size="lg" show={showEditTodo} onHide={handleCloseTodo}>
+          <Modal.Header
+            closeButton
+            className="m-4"
+            style={{ borderBottomColor: "transparent" }}
+          >
+            <Modal.Title>Edit My To Do</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="mx-4">
+            <div className="bg-red-100 w-full p-3 rounded-lg flex gap-5">
+              <a
+                href="#"
+                style={{
+                  color: index == 1 ? "#780000" : "#00000080",
+                  borderColor: index == 1 ? "#780000" : "#00000080",
+                  paddingBottom: index == 1 ? "5px" : "",
+                  borderBottomStyle: index == 1 ? "solid" : "",
+                  borderBottomWidth: index == 1 ? "4px" : "",
+                  width: index == 1 ? "fit-content" : "",
+                }}
+                className="mt-2"
+                onClick={() => setIndex(0)}
+              >
+                Event
+              </a>
+              <a
+                href="#"
+                style={{
+                  color: index == 0 ? "#780000" : "#00000080",
+                  borderColor: index == 0 ? "#780000" : "#00000080",
+                  paddingBottom: index == 0 ? "5px" : "",
+                  borderBottomStyle: index == 0 ? "solid" : "",
+                  borderBottomWidth: index == 0 ? "4px" : "",
+                  width: index == 0 ? "fit-content" : "",
+                }}
+                className="mt-2"
+                onClick={() => setIndex(1)}
+              >
+                My To Do
+              </a>
+            </div>
+            <div className="p-3">
+              <div className="form-group mt-3">
+                <label>Title</label>
+                <input
+                  type="text"
+                  placeholder="Input Event Title"
+                  // value={newEvent.title}
+                  // onChange={(e) =>
+                  //   setNewEvent({ ...newEvent, title: e.target.value })
+                  // }
+                  value={editTitleTodo}
+                  onChange={(e) => setEditTitleTodo(e.target.value)}
+                  className="form-control rounded-lg"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="form-group mt-3">
+                  <label>Date</label>
+                  <input
+                    type="date"
+                    placeholderText="Start Date"
+                    className="form-control rounded-lg"
+                    //   style={{ marginRight: "10px" }}
+                    // selected={newEvent.start}
+                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                    value={editDateTodo}
+                    onChange={(e) => setEditDateTodo(e.target.value)}
+                  />
+                </div>
+                <div className="form-group mt-3">
+                  <label>Time</label>
+                  <input
+                    type="time"
+                    placeholderText="Start Time"
+                    className="form-control rounded-lg"
+                    //   style={{ marginRight: "10px" }}
+                    // selected={newEvent.end}
+                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                    value={editTime}
+                    onChange={(e) => setEditTime(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group mt-3">
+                <label>Calendar</label>
+                <input
+                  type="email"
+                  placeholder="Type your email"
+                  // value={newEvent.email}
+                  // onChange={(e) =>
+                  //   setNewEvent({ ...newEvent, email: e.target.value })
+                  // }
+                  value={editEmailTodo}
+                  onChange={(e) => setEditEmailTodo(e.target.value)}
+                  className="form-control rounded-lg"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Details</label>
+                <textarea
+                  placeholder="type details activity"
+                  // value={newEvent.location}
+                  // onChange={(e) =>
+                  //   setNewEvent({ ...newEvent, location: e.target.value })
+                  // }
+                  value={editDetail}
+                  onChange={(e) => setEditDetail(e.target.value)}
+                  className="form-control rounded-lg"
+                />
+              </div>
+
+              <div className="w-full flex gap-5 justify-end mt-5">
+                <Button
+                  style={{
+                    backgroundColor: "#C1121F",
+                    color: "#FFFFFF",
+                    width: "100px",
+                  }}
+                  onClick={editDataTodo}
+                >
+                  Save
+                </Button>
+              </div>
             </div>
           </Modal.Body>
         </Modal>

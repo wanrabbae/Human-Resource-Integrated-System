@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { React, useEffect, useState } from "react";
 import { Alert, Modal, Table } from "react-bootstrap";
 import { PostLogin } from "../../Repository/AuthRepository";
@@ -9,6 +9,7 @@ import { LoadingDialog } from "../Modals";
 import lg from "../../Resourse/img/logo.png";
 function Navbar() {
   const [modalLogin, setModalLogin] = useState(false);
+  const navigate = useNavigate();
   const [modalPW, setModalPW] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
@@ -17,7 +18,7 @@ function Navbar() {
 
   useEffect(() => {
     if (window.localStorage.getItem("users") != null) {
-      window.location.href = "/dashboard";
+      navigate("/dashboard");
     }
   }, []);
   return (

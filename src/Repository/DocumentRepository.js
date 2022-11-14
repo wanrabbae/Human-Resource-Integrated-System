@@ -63,7 +63,13 @@ var UpdateFieldDocument = async (data) => {
   return res.data;
 };
 
+var AnswerDoc = async (data) => {
+  var res = await api.post("/addAnswer", data);
+  return res.data;
+};
+
 export {
+  AnswerDoc,
   GetDoc,
   GetDetailDoc,
   AddDocument,

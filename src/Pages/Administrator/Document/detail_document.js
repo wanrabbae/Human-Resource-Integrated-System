@@ -24,8 +24,13 @@ import { Bar } from "react-chartjs-2";
 import ReactSelect from "react-select";
 // import faker from 'faker';
 import { components } from "react-select";
-import { GetDetailDoc, GetDoc } from "../../../Repository/DocumentRepository";
-import { useParams } from "react-router-dom";
+import {
+  AnswerDoc,
+  GetDetailDoc,
+  GetDoc,
+} from "../../../Repository/DocumentRepository";
+import { useNavigate, useParams } from "react-router-dom";
+import { SwalSuccess } from "../../../Components/Modals";
 
 function DetailDocument() {
   const { id } = useParams();
@@ -114,15 +119,30 @@ function DetailDocument() {
   ];
 
   const [editUserData, setEditUserData] = useState();
+  const [users, setUsers] = useState({});
   const [Doc, setDoc] = useState([]);
+  const [valueAns, setValueAns] = useState([]);
+  const [answers, setAnswers] = useState([]);
+  const navigate = useNavigate();
   const inAwait = async () => {
+    var data = JSON.parse(window.localStorage.getItem("users"));
     var rec = await GetDetailDoc(id);
-    console.log(rec.result);
+    setUsers(data);
     setDoc(rec["result"]);
   };
   useEffect(() => {
     inAwait();
   }, []);
+
+  const answerDoc = async () => {
+    try {
+      console.log(answers);
+      SwalSuccess({ message: "Success submit the document!" });
+      navigate("/document-management");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -153,6 +173,7 @@ function DetailDocument() {
                 setDoc({ ...Doc, title: val.target.value });
               }}
               value={Doc?.title}
+              readOnly
               className="focus:ring-0 focus:ring-offset-0 me-3 w-50 "
               type="text"
               placeholder="Document Title"
@@ -170,6 +191,7 @@ function DetailDocument() {
                 setDoc({ ...Doc, description: val.target.value });
               }}
               value={Doc?.description}
+              readOnly
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Document description"
@@ -199,7 +221,15 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => { }}
+                          onChange={(val) => {
+                            setAnswers([
+                              ...answers,
+                              {
+                                id_detail_document: detail.id,
+                                value: val.target.value,
+                              },
+                            ]);
+                          }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Short Answer"
@@ -218,7 +248,15 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => { }}
+                          onChange={(val) => {
+                            setAnswers([
+                              ...answers,
+                              {
+                                id_detail_document: detail.id,
+                                value: val.target.value,
+                              },
+                            ]);
+                          }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Paragraph"
@@ -232,6 +270,16 @@ function DetailDocument() {
                           <div>
                             <input
                               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                              value={fd.name}
+                              onChange={(val) => {
+                                setAnswers([
+                                  ...answers,
+                                  {
+                                    id_detail_document: detail.id,
+                                    value: val.target.value,
+                                  },
+                                ]);
+                              }}
                               type="checkbox"
                             />
                             <span>{fd.name}</span>
@@ -247,6 +295,16 @@ function DetailDocument() {
                             <input
                               name={`radio-${index}`}
                               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
+                              value={fd.name}
+                              onChange={(val) => {
+                                setAnswers([
+                                  ...answers,
+                                  {
+                                    id_detail_document: detail.id,
+                                    value: val.target.value,
+                                  },
+                                ]);
+                              }}
                               type="radio"
                             />
                             <span>{fd.name}</span>
@@ -258,12 +316,25 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <div>
-                          <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                          <select
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                            onChange={(val) => {
+                              setAnswers([
+                                ...answers,
+                                {
+                                  id_detail_document: detail.id,
+                                  value: val.target.value,
+                                },
+                              ]);
+                            }}
+                          >
                             <option className="py-3" hidden>
                               Select
                             </option>
                             {detail.field_documents.map((fd) => (
-                              <option className="py-3">{fd.name}</option>
+                              <option className="py-3" value={fd.name}>
+                                {fd.name}
+                              </option>
                             ))}
                           </select>
                         </div>
@@ -273,7 +344,15 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => { }}
+                          onChange={(val) => {
+                            setAnswers([
+                              ...answers,
+                              {
+                                id_detail_document: detail.id,
+                                value: val.target.files[0],
+                              },
+                            ]);
+                          }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="file"
                         />
@@ -283,7 +362,15 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => { }}
+                          onChange={(val) => {
+                            setAnswers([
+                              ...answers,
+                              {
+                                id_detail_document: detail.id,
+                                value: val.target.value,
+                              },
+                            ]);
+                          }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",
@@ -300,7 +387,15 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => { }}
+                          onChange={(val) => {
+                            setAnswers([
+                              ...answers,
+                              {
+                                id_detail_document: detail.id,
+                                value: val.target.value,
+                              },
+                            ]);
+                          }}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",
@@ -323,6 +418,22 @@ function DetailDocument() {
           ) : (
             ""
           )}
+
+          <div className="d-flex justify-end">
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#0E5073",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="btn d-flex align-items-center text-white"
+              type="button"
+              onClick={() => answerDoc()}
+            >
+              Submit
+            </button>
+          </div>
           {/* <div
             className="p-4 mb-4"
             style={{
@@ -481,7 +592,7 @@ function DetailDocument() {
           </div> */}
         </div>
       </div>
-      <Modal show={modal} size="lg" onHide={() => setModal(false)}>
+      {/* <Modal show={modal} size="lg" onHide={() => setModal(false)}>
         <Modal.Header
           closeButton
           className="mx-4 mt-4"
@@ -510,7 +621,7 @@ function DetailDocument() {
                 fontSize: "20px",
                 fontWeight: "500",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className="focus:ring-0 focus:ring-offset-0 me-3 w-50 "
               type="text"
               placeholder="Document Title"
@@ -524,7 +635,7 @@ function DetailDocument() {
                 fontSize: "12px",
                 fontWeight: "500",
               }}
-              onChange={(val) => { }}
+              onChange={(val) => {}}
               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
               type="text"
               placeholder="Document description"
@@ -533,7 +644,7 @@ function DetailDocument() {
           <div className="row mb-4">
             <div className="col-5">
               <input
-                onChange={(val) => { }}
+                onChange={(val) => {}}
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 type="text"
                 placeholder="Field Name"
@@ -609,7 +720,7 @@ function DetailDocument() {
             Create
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

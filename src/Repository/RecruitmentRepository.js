@@ -1,6 +1,18 @@
 import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
+const api = axios.create({
+  baseURL: endpoint,
+});
+
+api.interceptors.request.use((req) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `${token}`;
+  }
+  return req;
+});
+
 var AddRecruitment = async (requestBody) => {
   var res = await axios.post(`${endpoint}/addRecruitment`, requestBody);
 
@@ -161,7 +173,7 @@ var UpdateApplicant = async (requestBody) => {
 };
 
 var getNotif = async () => {
-  var res = await axios.get(`${endpoint}/getNotif`);
+  var res = await api.get(`/getNotif`);
   if (res.status == 200) {
     return res.data;
   }

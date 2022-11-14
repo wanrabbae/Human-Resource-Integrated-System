@@ -199,8 +199,21 @@ function Template() {
         body: [],
       },
     ],
-    users?.role == "admin"
+    users.role && users.role == "user"
       ? [
+          {
+            nama: "Attendance",
+            click: null,
+            show: isHidden,
+            body: [
+              {
+                nama: "My Attendance",
+                link: "/timeManagement/attendance/myAttendance",
+              },
+            ],
+          },
+        ]
+      : [
           {
             nama: "Attendance",
             click: null,
@@ -228,22 +241,9 @@ function Template() {
             show: isHidden,
             body: [],
           },
-        ]
-      : [
-          {
-            nama: "Attendance",
-            click: null,
-            show: isHidden,
-            body: [
-              {
-                nama: "My Attendance",
-                link: "/timeManagement/attendance/myAttendance",
-              },
-            ],
-          },
         ],
   ]);
-
+  console.log(users.role);
   return (
     <div style={{ backgroundColor: "#ECEEF6" }}>
       <div className="d-flex flex-nowrap">
@@ -550,24 +550,41 @@ function Template() {
                         className="py-1 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownRightButton"
                       >
-                        {val.body.map((e, i) => {
-                          return (
-                            <li>
-                              <Link
-                                onClick={() =>
-                                  isOpen[2] == false
-                                    ? setOpen([true, false, false])
-                                    : setOpen([false, false, false])
-                                }
-                                key={i}
-                                to={e.link}
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                {e.nama}
-                              </Link>
-                            </li>
-                          );
-                        })}
+                        {users?.role == "admin" ? (
+                          val.body.map((e, i) => {
+                            return (
+                              <li>
+                                <Link
+                                  onClick={() =>
+                                    isOpen[2] == false
+                                      ? setOpen([true, false, false])
+                                      : setOpen([false, false, false])
+                                  }
+                                  key={i}
+                                  to={e.link}
+                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                >
+                                  {e.nama}
+                                </Link>
+                              </li>
+                            );
+                          })
+                        ) : (
+                          <li>
+                            <Link
+                              onClick={() =>
+                                isOpen[2] == false
+                                  ? setOpen([true, false, false])
+                                  : setOpen([false, false, false])
+                              }
+                              key={"i"}
+                              to={"/timeManagement/attendance/myAttendance"}
+                              className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            >
+                              My Attendance
+                            </Link>
+                          </li>
+                        )}
                       </ul>
                     </div>
                     <ListItemButton

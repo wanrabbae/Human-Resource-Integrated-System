@@ -168,6 +168,15 @@ function Languages() {
         >
           <Modal.Title>Add Language</Modal.Title>
         </Modal.Header>
+        <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await AddLanguages(document.getElementById("language").value);
+          setTitle(!dialogTitle);
+          SwalSuccess({ message: "Success add language" });
+          inAwait();
+        }}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -176,6 +185,7 @@ function Languages() {
                   Language <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Language..."
                   id="language"
@@ -187,6 +197,7 @@ function Languages() {
         <Modal.Footer className="m-4">
           <button
             className="btn"
+            type="button"
             style={{
               backgroundColor: "#00000010",
               border: "1px solid transparent",
@@ -194,7 +205,7 @@ function Languages() {
               width: "100px",
             }}
             onClick={() => setTitle(!dialogTitle)}
-          >
+            >
             Cancel
           </button>
           <button
@@ -205,16 +216,12 @@ function Languages() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              await AddLanguages(document.getElementById("language").value);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add language" });
-              inAwait();
-            }}
-          >
+            type="submit"
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

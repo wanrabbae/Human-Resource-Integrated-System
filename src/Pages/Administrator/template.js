@@ -50,6 +50,29 @@ function Template() {
   const [notif, setNotif] = useState(false);
   const [isRead, setRead] = useState(false);
   const [users, setUsers] = useState({});
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState([]);
+  const navigate = useNavigate();
+
+  // const inAwait = async () => {
+  //   var notifs = await getNotif();
+  //   setNotification(notifs.result);
+  //   notification.length > 0 ? setRead(false) : setRead(true);
+  // };
+
+  const { data } = useSWR("getNotif", getNotif);
+  // setNotification(response.result);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("users") == null) {
+      window.location.href = "/";
+    } else {
+      var data = JSON.parse(window.localStorage.getItem("users"));
+      setUsers(data);
+      // inAwait();
+    }
+  }, []);
+
   const [list, setList] = useState([
     [
       {
@@ -176,20 +199,9 @@ function Template() {
         body: [],
       },
     ],
-    [
-      users?.role == "user"
-        ? {
-            nama: "Attendance",
-            click: null,
-            show: isHidden,
-            body: [
-              {
-                nama: "My Attendance",
-                link: "/timeManagement/attendance/myAttendance",
-              },
-            ],
-          }
-        : {
+    users?.role == "admin"
+      ? [
+          {
             nama: "Attendance",
             click: null,
             show: isHidden,
@@ -204,85 +216,33 @@ function Template() {
               },
             ],
           },
-      {
-        nama: "Schedule",
-        click: "/timeManagement/schedule",
-        show: isHidden,
-        body: [],
-      },
-      {
-        nama: "Calendar",
-        click: "/timeManagement/calendar",
-        show: isHidden,
-        body: [],
-      },
-    ],
-    // users?.role == "admin"
-    //   ? [
-    //       {
-    //         nama: "Attendance",
-    //         click: null,
-    //         show: isHidden,
-    //         body: [
-    //           {
-    //             nama: "My Attendance",
-    //             link: "/timeManagement/attendance/myAttendance",
-    //           },
-    //           {
-    //             nama: "Employee Records",
-    //             link: "/timeManagement/attendance/employeeRecord",
-    //           },
-    //         ],
-    //       },
-    //       {
-    //         nama: "Schedule",
-    //         click: "/timeManagement/schedule",
-    //         show: isHidden,
-    //         body: [],
-    //       },
-    //       {
-    //         nama: "Calendar",
-    //         click: "/timeManagement/calendar",
-    //         show: isHidden,
-    //         body: [],
-    //       },
-    //     ]
-    //   : [
-    //       {
-    //         nama: "Attendance",
-    //         click: null,
-    //         show: isHidden,
-    //         body: [
-    //           {
-    //             nama: "My Attendance",
-    //             link: "/timeManagement/attendance/myAttendance",
-    //           },
-    //         ],
-    //       },
-    //     ],
+          {
+            nama: "Schedule",
+            click: "/timeManagement/schedule",
+            show: isHidden,
+            body: [],
+          },
+          {
+            nama: "Calendar",
+            click: "/timeManagement/calendar",
+            show: isHidden,
+            body: [],
+          },
+        ]
+      : [
+          {
+            nama: "Attendance",
+            click: null,
+            show: isHidden,
+            body: [
+              {
+                nama: "My Attendance",
+                link: "/timeManagement/attendance/myAttendance",
+              },
+            ],
+          },
+        ],
   ]);
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState([]);
-  const navigate = useNavigate();
-
-  // const inAwait = async () => {
-  //   var notifs = await getNotif();
-  //   setNotification(notifs.result);
-  //   notification.length > 0 ? setRead(false) : setRead(true);
-  // };
-
-  const { data } = useSWR("getNotif", getNotif);
-  // setNotification(response.result);
-
-  useEffect(() => {
-    if (window.localStorage.getItem("users") == null) {
-      window.location.href = "/";
-    } else {
-      var data = JSON.parse(window.localStorage.getItem("users"));
-      setUsers(data);
-      // inAwait();
-    }
-  }, []);
 
   return (
     <div style={{ backgroundColor: "#ECEEF6" }}>

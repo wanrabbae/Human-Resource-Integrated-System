@@ -162,8 +162,8 @@ function ContactDetail({ data }) {
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setCountry(e.target.value)}
               >
-                <option className="py-3" value={country} hidden>
-                  {countries != null ? countries : "Select Country"}
+                <option className="py-3" hidden>
+                  {"Select Country"}
                 </option>
                 {countries.map((val) => (
                   <option

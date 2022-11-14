@@ -77,7 +77,7 @@ function JobGrade() {
       minsalary: document.getElementById("minsalary").value,
       maxsalary: document.getElementById("maxsalary").value,
     };
-    // var res = await AddJobGrade(requestBody);
+    var res = await AddJobGrade(requestBody);
     setTitle(!dialogTitle);
     setRange([]);
     setMulti(false);

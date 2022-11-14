@@ -357,7 +357,15 @@ const deleteReportTo = async (data) => {
     return res;
   }
 };
+
+const updatePersonalDetail = async (request) => {
+  var res = await api.post(`${endpoint}/updatePersonalDetail`, request);
+  if (res.status == 200) {
+    return res.data;
+  }
+}
 export {
+  updatePersonalDetail,
   getProfile,
   updateProfile,
   getEmergencyContact,

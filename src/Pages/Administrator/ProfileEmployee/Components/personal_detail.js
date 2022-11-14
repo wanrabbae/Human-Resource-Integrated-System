@@ -8,7 +8,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { getProfile } from "../../../../Repository/ProfileEmployeeRepository";
+import { getProfile, updatePersonalDetail } from "../../../../Repository/ProfileEmployeeRepository";
 import { useLocation } from "react-router-dom";
 
 function PersonalDetail() {
@@ -23,16 +23,15 @@ function PersonalDetail() {
   const [maritalStatus, setMaritalStatus] = useState([]);
   const [licenceExpire, setLicenceExpire] = useState([]);
   const [birthDate, setBirthDate] = useState([]);
-  
-  
+
+
   const location = useLocation();
   const idEmployee = location.state.id
 
   const inAwait = async () => {
-    // var national = await GetNational();
+    var national = await GetNational();
     var dataProfile = await getProfile(idEmployee);
-    console.log(dataProfile.result);
-    // setNationalities(national);
+    setNationalities(national);
     setProfile(dataProfile.result);
     setFirstName(dataProfile.result.firstName);
     setLastName(dataProfile.result.lastName);
@@ -83,7 +82,25 @@ function PersonalDetail() {
           <span style={{ fontWeight: "600" }}>Personal Detail</span>
         </div>
         <form
-        // onSubmit={postData}
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              firstName: firstName ?? null,
+              lastName: lastName ?? null,
+              otherId: otherId ?? null,
+              driverLicence: driverLicence ?? null,
+              licenceExpire: licenceExpire ?? null,
+              idNationality: selectedNationalities == null ? profile?.nationality_id : selectedNationalities,
+              maritalStatus: maritalStatus ?? null,
+              birthDate: birthDate,
+              gender: gender,
+              id: profile?.id,
+            };
+            var stats = await updatePersonalDetail(requestBody);
+            if (stats?.message == "success") {
+              alert("Berhasil diubah");
+            }
+          }}
         >
           <div className="mb-4">
             <label className="block text-gray-700 text-sm mb-2" for="fName">
@@ -207,7 +224,7 @@ function PersonalDetail() {
                 </option>
                 {nationalities.length > 0 ? (
                   nationalities.map((national) => (
-                    <option className="py-3" value={national.id}>
+                    <option selected={profile?.nationality_id == national?.id ? true : false} className="py-3" value={national.id}>
                       {national.name}
                     </option>
                   ))

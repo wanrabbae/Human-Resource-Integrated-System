@@ -280,7 +280,6 @@ function License() {
                 </label>
                 <input
                   ref={attachmentRef}
-                  value={editValues?.attachment ?? null}
                   onChange={(val) => setAttachment(val.target.files[0])}
                   className="form-control"
                   type="file"

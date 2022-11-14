@@ -20,11 +20,11 @@ import {
   addDependent,
   updateDependent,
   deleteDependent,
-} from "../../../../Repository/ProfileRepository";
+} from "../../../../Repository/ProfileEmployeeRepository";
 import { useEffect } from "react";
 import { ModalDelete } from "../../../../Components/Modals";
 
-function Dependents() {
+function Dependents({ idEmployee }) {
   const [modal, setModal] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [isdelete, setDelete] = useState(false);
@@ -40,7 +40,7 @@ function Dependents() {
   const [editBirthDate, setEditBirthDate] = useState([]);
 
   const inAwait = async () => {
-    var data = await getDependents();
+    var data = await getDependents(idEmployee);
     setDependents(data.result);
   };
 
@@ -55,9 +55,9 @@ function Dependents() {
       birthDate: birthDate,
     };
     console.log(requestBody);
-    inAwait();
     setModalAdd(false);
-    var res = await addDependent(requestBody);
+    var res = await addDependent(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
   const postDataEdit = async () => {
@@ -68,9 +68,9 @@ function Dependents() {
       birthDate: editBirthDate,
     };
     console.log(requestBody);
-    inAwait();
     setModal(false);
     var res = await updateDependent(requestBody);
+    inAwait();
     console.log(res);
   };
 

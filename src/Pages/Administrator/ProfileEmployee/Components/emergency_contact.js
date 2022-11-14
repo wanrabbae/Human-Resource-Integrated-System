@@ -20,11 +20,11 @@ import {
   deleteEmergencyContact,
   getEmergencyContact,
   updateEmergencyContact,
-} from "../../../../Repository/ProfileRepository";
+} from "../../../../Repository/ProfileEmployeeRepository";
 
 import { ModalDelete } from "../../../../Components/Modals";
 
-function EmergencyContact() {
+function EmergencyContact({ idEmployee }) {
   const [modal, setModal] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [isdelete, setDelete] = useState(false);
@@ -42,7 +42,7 @@ function EmergencyContact() {
   const [editMobilePhone, setEditMobilePhone] = useState([]);
 
   const inAwait = async () => {
-    var data = await getEmergencyContact();
+    var data = await getEmergencyContact(idEmployee);
     setEmergencyContact(data.result);
   };
 
@@ -58,9 +58,9 @@ function EmergencyContact() {
       mobilePhone: mobilePhone,
     };
     console.log(requestBody);
-    inAwait();
     setModalAdd(false);
-    var res = await addEmergencyContact(requestBody);
+    var res = await addEmergencyContact(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
   const postDataEdit = async () => {
@@ -72,9 +72,9 @@ function EmergencyContact() {
       mobilePhone: editMobilePhone,
     };
     console.log(requestBody);
-    inAwait();
     setModal(false);
-    var res = await updateEmergencyContact(requestBody);
+    var res = await updateEmergencyContact(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
 

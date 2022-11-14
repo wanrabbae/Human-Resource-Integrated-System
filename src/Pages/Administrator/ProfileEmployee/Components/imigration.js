@@ -9,9 +9,9 @@ import {
   deleteImigration,
   getImigration,
   updateImigration,
-} from "../../../../Repository/ProfileRepository";
+} from "../../../../Repository/ProfileEmployeeRepository";
 
-function Imigration() {
+function Imigration({ idEmployee }) {
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [id, setId] = useState([]);
@@ -35,7 +35,7 @@ function Imigration() {
   const [editComment, setEditComment] = useState([]);
 
   const inAwait = async () => {
-    var data = await getImigration();
+    var data = await getImigration(idEmployee);
     console.log(data.result);
     setImigration(data.result);
   };
@@ -56,9 +56,9 @@ function Imigration() {
       comment: comment,
     };
     console.log(requestBody);
-    inAwait();
     setModal(false);
-    var res = await addImigration(requestBody);
+    var res = await addImigration(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
   const postDataEdit = async () => {
@@ -74,14 +74,15 @@ function Imigration() {
       comment: editComment,
     };
     console.log(requestBody);
-    inAwait();
     setModalEdit(false);
     var res = await updateImigration(requestBody);
+    inAwait();
     console.log(res);
   };
   const deletedImigration = async (data) => {
     var res = await deleteImigration(data);
     console.log(res);
+    inAwait();
   };
 
   return (

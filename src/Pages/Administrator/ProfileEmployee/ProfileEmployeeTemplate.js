@@ -268,17 +268,17 @@ function ProfileEmployeeTemplate() {
             ) : index == 1 ? (
               <ContactDetail data={data} />
             ) : index == 2 ? (
-              <EmergencyContact />
+              <EmergencyContact idEmployee={idEmployee} />
             ) : index == 3 ? (
-              <Dependents />
+              <Dependents idEmployee={idEmployee} />
             ) : index == 4 ? (
-              <Imigration />
+              <Imigration idEmployee={idEmployee} />
             ) : index == 5 ? (
-              <Job />
+              <Job idEmployee={idEmployee} />
             ) : index == 6 ? (
-              <ReportTo />
+              <ReportTo idEmployee={idEmployee} />
             ) : index == 7 ? (
-              <Qualification />
+              <Qualification idEmployee={idEmployee} />
             ) : (
               ""
             )}

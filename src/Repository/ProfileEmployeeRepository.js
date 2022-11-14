@@ -5,13 +5,13 @@ const api = axios.create({
   baseURL: endpoint,
 });
 
-// api.interceptors.request.use((req) => {
-//   const token = localStorage.getItem("token");
-//   if (token) {
-//     req.headers.Authorization = `${token}`;
-//   }
-//   return req;
-// });
+api.interceptors.request.use((req) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `${token}`;
+  }
+  return req;
+});
 
 const getProfile = async (id) => {
   var res = await axios.get(`${endpoint}/getEmployee?id=${id}`);
@@ -22,8 +22,10 @@ const getProfile = async (id) => {
   }
 };
 
-const getEmergencyContact = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/emergencyContact`);
+const getEmergencyContact = async (idEmployee) => {
+  var res = await api.get(
+    `${endpoint}/mobile/profile/emergencyContact?id_employee=${idEmployee}`
+  );
   if (res.status == 200) {
     return res.data;
   } else {
@@ -31,14 +33,20 @@ const getEmergencyContact = async () => {
   }
 };
 
-const addEmergencyContact = async (data) => {
-  var res = await api.post(`${endpoint}/addEmergencyContact`, data);
+const addEmergencyContact = async (data, idEmployee) => {
+  var res = await api.post(
+    `${endpoint}/addEmergencyContact?id_employee=${idEmployee}`,
+    data
+  );
   if (res.status == 200) {
     return res.data;
   }
 };
-const updateEmergencyContact = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/emergencyContact`, data);
+const updateEmergencyContact = async (data, idEmployee) => {
+  var res = await api.put(
+    `${endpoint}/mobile/profile/emergencyContact?id_employee=${idEmployee}`,
+    data
+  );
   if (res.status == 200) {
     return res.data;
   }
@@ -52,8 +60,10 @@ const deleteEmergencyContact = async (id) => {
   }
 };
 
-const getDependents = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/dependent`);
+const getDependents = async (idEmployee) => {
+  var res = await api.get(
+    `${endpoint}/mobile/profile/dependent?id_employee=${idEmployee}`
+  );
   if (res.status == 200) {
     return res.data;
   } else {
@@ -61,8 +71,11 @@ const getDependents = async () => {
   }
 };
 
-const addDependent = async (data) => {
-  var res = await api.post(`${endpoint}/addDependent`, data);
+const addDependent = async (data, idEmployee) => {
+  var res = await api.post(
+    `${endpoint}/addDependent?id_employee=${idEmployee}`,
+    data
+  );
   if (res.status == 200) {
     return res.data;
   }
@@ -286,16 +299,21 @@ const updateJob = async (data) => {
   }
 };
 
-const getImigration = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/immigration`);
+const getImigration = async (idEmployee) => {
+  var res = await api.get(
+    `${endpoint}/mobile/profile/immigration?id_employee=${idEmployee}`
+  );
   if (res.status == 200) {
     return res.data;
   } else {
     return res;
   }
 };
-const addImigration = async (data) => {
-  var res = await api.post(`${endpoint}/addImmigration`, data);
+const addImigration = async (data, idEmployee) => {
+  var res = await api.post(
+    `${endpoint}/addImmigration?id_employee=${idEmployee}`,
+    data
+  );
   if (res.status == 200) {
     return res.data;
   } else {
@@ -321,8 +339,8 @@ const deleteImigration = async (data) => {
   }
 };
 
-const getReport = async () => {
-  var res = await api.get(`${endpoint}/getReportTo`);
+const getReport = async (idEmployee) => {
+  var res = await api.get(`${endpoint}/getReportTo?id_employee=${idEmployee}`);
   if (res.status == 200) {
     return res.data;
   } else {
@@ -330,8 +348,11 @@ const getReport = async () => {
   }
 };
 
-const addReportTo = async (data) => {
-  var res = await api.post(`${endpoint}/addReportTo`, data);
+const addReportTo = async (data, idEmployee) => {
+  var res = await api.post(
+    `${endpoint}/addReportTo?id_employee=${idEmployee}`,
+    data
+  );
   if (res.status == 200) {
     return res.data;
   } else {
@@ -339,8 +360,11 @@ const addReportTo = async (data) => {
   }
 };
 
-const editReportTo = async (data) => {
-  var res = await api.post(`${endpoint}/updateReportTo`, data);
+const editReportTo = async (data, idEmployee) => {
+  var res = await api.post(
+    `${endpoint}/updateReportTo?id_employee=${idEmployee}`,
+    data
+  );
   if (res.status == 200) {
     return res.data;
   } else {

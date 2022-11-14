@@ -21,14 +21,14 @@ import {
   deleteReportTo,
   editReportTo,
   getReport,
-} from "../../../../Repository/ProfileRepository";
+} from "../../../../Repository/ProfileEmployeeRepository";
 import {
   GetEmployee,
   GetReportMeth,
 } from "../../../../Repository/EmployeeRepository";
 import { ModalDelete } from "../../../../Components/Modals";
 
-function ReportTo() {
+function ReportTo({ idEmployee }) {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalEditSub, setModalEditSub] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
@@ -61,7 +61,7 @@ function ReportTo() {
   console.log(editId);
 
   const inAwait = async () => {
-    var data = await getReport();
+    var data = await getReport(idEmployee);
     setData(data.result);
     console.log(data.result);
     var dataEmployee = await GetEmployee();
@@ -84,7 +84,7 @@ function ReportTo() {
       structureId: structureId,
     };
     console.log(requestBody);
-    var res = await addReportTo(requestBody);
+    var res = await addReportTo(requestBody, idEmployee);
     console.log(res);
     inAwait();
     setModalAdd(false);
@@ -100,7 +100,7 @@ function ReportTo() {
       structureId: editStructureId,
     };
     console.log(requestBody);
-    var res = await editReportTo(requestBody);
+    var res = await editReportTo(requestBody, idEmployee);
     console.log(res);
     inAwait();
     setModalEdit(false);
@@ -126,7 +126,7 @@ function ReportTo() {
             <span
               style={{ fontSize: "10px", fontWeight: "400", color: "#737373" }}
             >
-              List of record employee attendance
+              List of report to data
             </span>
           </div>
         </div>

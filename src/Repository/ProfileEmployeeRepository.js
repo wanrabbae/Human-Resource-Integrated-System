@@ -363,9 +363,16 @@ const updatePersonalDetail = async (request) => {
   if (res.status == 200) {
     return res.data;
   }
-}
+};
+const updateContactDetail = async (request) => {
+  var res = await api.post(`${endpoint}/updateContactDetail`, request);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 export {
   updatePersonalDetail,
+  updateContactDetail,
   getProfile,
   updateProfile,
   getEmergencyContact,

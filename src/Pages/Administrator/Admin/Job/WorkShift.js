@@ -145,6 +145,17 @@ function WorkShift() {
                     <td className="align-middle" style={{ minWidth: "100px" }}>
                       <button
                         onClick={() => {
+                          if (val.jobpositions.length > 0) {
+                            val.jobpositions.forEach((job) =>
+                              setSelected((current) => [...current, job.id])
+                            );
+                            setPosi(true);
+                          } else {
+                            val.employees.forEach((emp) =>
+                              setSelected((current) => [...current, emp.id])
+                            );
+                            setEmp(true);
+                          }
                           setEditTitle(!dialogEditTitle);
                           setWorkShiftEdit(val);
                         }}
@@ -201,131 +212,173 @@ function WorkShift() {
           <Modal.Title>Add Work Shift</Modal.Title>
         </Modal.Header>
         <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          var requestBody = {
-            name: document.getElementById("name").value,
-            start: document.getElementById("start").value,
-            end: document.getElementById("end").value,
-            employee_ids: selected,
-            position_ids: posisi,
-          };
-          var res = await AddWorkShift(requestBody);
-          setTitle(!dialogTitle);
-          setSelected([]);
-          setPosisi([]);
-          inAwait();
-        }}
+          onSubmit={async (e) => {
+            e.preventDefault();
+            var requestBody = {
+              name: document.getElementById("name").value,
+              start: document.getElementById("start").value,
+              end: document.getElementById("end").value,
+              employee_ids: selected,
+              position_ids: posisi,
+            };
+            var res = await AddWorkShift(requestBody);
+            setTitle(!dialogTitle);
+            setSelected([]);
+            setPosisi([]);
+            inAwait();
+          }}
         >
-        <Modal.Body className="mx-4">
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <div className="form-group">
-                <label className="mb-1">
-                  Work Shift Name <span className="text-danger">*</span>
-                </label>
-                <input
-                  required
-                  id="name"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Work Shift..."
+          <Modal.Body className="mx-4">
+            <div className="row">
+              <div className="col-md-12 mb-3">
+                <div className="form-group">
+                  <label className="mb-1">
+                    Work Shift Name <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    required
+                    id="name"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Work Shift..."
                   />
+                </div>
               </div>
-            </div>
-            <h1>Working hours</h1>
-            <div className="col-md-4 my-3">
-              <div className="form-group">
-                <label className="mb-1">Start</label>
-                <input
-                  required
-                  type="time"
-                  id="start"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-            </div>
-            <div className="col-md-4 my-3">
-              <div className="form-group">
-                <label className="mb-1">End</label>
-                <input
-                  required
-                  type="time"
-                  id="end"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <h1>Working hours</h1>
+              <div className="col-md-4 my-3">
+                <div className="form-group">
+                  <label className="mb-1">Start</label>
+                  <input
+                    required
+                    type="time"
+                    id="start"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
+                </div>
               </div>
-            </div>
-            <div className="col-md-4 my-3">
-              <div className="form-group">
-                <label className="mb-1">Duration per day</label>
-                <h6>--:--</h6>
+              <div className="col-md-4 my-3">
+                <div className="form-group">
+                  <label className="mb-1">End</label>
+                  <input
+                    required
+                    type="time"
+                    id="end"
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="col-md-12 my-3">
-              <div className="form-group">
-                <label className="mb-1">Assign To</label>
-                <div>
-                  <div className="grid w-50 grid-cols-2 space-x-2 mb-2 bg-[#F0F0F3] rounded-xl p-1.5">
-                    <div>
-                      <input
-                        type="radio"
-                        name="option"
-                        id="1"
-                        className="peer hidden"
-                        checked={isEmp}
-                        onChange={async () => {
-                          setEmp(true);
-                          setPosi(false);
-                        }}
-                      />
-                      <label
-                        for="1"
-                        className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
-                      >
-                        Employee
-                      </label>
-                    </div>
-
-                    <div>
-                      <input
-                        type="radio"
-                        name="option"
-                        id="2"
-                        class="peer hidden"
-                        checked={isPosi}
-                        onChange={async () => {
-                          setPosi(true);
-                          setEmp(false);
-                        }}
+              <div className="col-md-4 my-3">
+                <div className="form-group">
+                  <label className="mb-1">Duration per day</label>
+                  <h6>--:--</h6>
+                </div>
+              </div>
+              <div className="col-md-12 my-3">
+                <div className="form-group">
+                  <label className="mb-1">Assign To</label>
+                  <div>
+                    <div className="grid w-50 grid-cols-2 space-x-2 mb-2 bg-[#F0F0F3] rounded-xl p-1.5">
+                      <div>
+                        <input
+                          type="radio"
+                          name="option"
+                          id="1"
+                          className="peer hidden"
+                          checked={isEmp}
+                          onChange={async () => {
+                            setEmp(true);
+                            setPosi(false);
+                          }}
                         />
-                      <label
-                        for="2"
-                        className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
+                        <label
+                          for="1"
+                          className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
                         >
-                        Position
-                      </label>
+                          Employee
+                        </label>
+                      </div>
+
+                      <div>
+                        <input
+                          type="radio"
+                          name="option"
+                          id="2"
+                          class="peer hidden"
+                          checked={isPosi}
+                          onChange={async () => {
+                            setPosi(true);
+                            setEmp(false);
+                          }}
+                        />
+                        <label
+                          for="2"
+                          className="text-[#CACACA] block cursor-pointer text-sm select-none rounded-xl p-2 text-center peer-checked:bg-white peer-checked:font-bold peer-checked:text-[#5C5C5C]"
+                        >
+                          Position
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <select
-                  required={isEmp}
-                  style={{
-                    display: isEmp ? "block" : !isPosi ? "none" : "none",
-                  }}
-                  onChange={(val) =>
-                    setSelected((current) => [...current, val.target.value])
-                  }
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value="">Search Employee</option>
-                  {employee.map((val) => {
-                    return (
-                      <option value={val["id"]}>{val["firstName"]}</option>
+                  <select
+                    required={isEmp}
+                    style={{
+                      display: isEmp ? "block" : !isPosi ? "none" : "none",
+                    }}
+                    onChange={(val) =>
+                      setSelected((current) => [...current, val.target.value])
+                    }
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="">Search Employee</option>
+                    {employee.map((val) => {
+                      return (
+                        <option value={val["id"]}>{val["firstName"]}</option>
                       );
                     })}
-                </select>
+                  </select>
+                  <div className="d-flex flex-wrap justify-content-start mt-3">
+                    {selected.map((value) => (
+                      <div
+                        className="px-2 d-flex align-items-center my-2 mr-3"
+                        style={{
+                          backgroundColor: "#00000030",
+                          color: "#00000050",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        {value}
+                        <button
+                          onClick={() => {
+                            return setSelected(
+                              selected.filter((val) => val !== value)
+                            );
+                          }}
+                          type="button"
+                          className="btn btn-sm"
+                          style={{ color: "#00000030" }}
+                        >
+                          <Close />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <select
+                    required={isPosi}
+                    style={{
+                      display: isPosi ? "block" : !isEmp ? "none" : "none",
+                    }}
+                    onChange={(val) =>
+                      setPosisi((current) => [...current, val.target.value])
+                    }
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="">Search Position</option>
+                    {jobposition.map((val) => {
+                      return <option value={val.id}>{val.name}</option>;
+                    })}
+                  </select>
+                </div>
                 <div className="d-flex flex-wrap justify-content-start mt-3">
-                  {selected.map((value) => (
+                  {posisi.map((value) => (
                     <div
                       className="px-2 d-flex align-items-center my-2 mr-3"
                       style={{
@@ -333,12 +386,12 @@ function WorkShift() {
                         color: "#00000050",
                         borderRadius: "5px",
                       }}
-                      >
+                    >
                       {value}
                       <button
                         onClick={() => {
-                          return setSelected(
-                            selected.filter((val) => val !== value)
+                          return setPosisi(
+                            posisi.filter((val) => val !== value)
                           );
                         }}
                         type="button"
@@ -350,80 +403,40 @@ function WorkShift() {
                     </div>
                   ))}
                 </div>
-                <select
-                  required={isPosi}
-                  style={{
-                    display: isPosi ? "block" : !isEmp ? "none" : "none",
-                  }}
-                  onChange={(val) =>
-                    setPosisi((current) => [...current, val.target.value])
-                  }
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                  <option value="">Search Position</option>
-                  {jobposition.map((val) => {
-                    return <option value={val.id}>{val.name}</option>;
-                  })}
-                </select>
-              </div>
-              <div className="d-flex flex-wrap justify-content-start mt-3">
-                {posisi.map((value) => (
-                  <div
-                    className="px-2 d-flex align-items-center my-2 mr-3"
-                    style={{
-                      backgroundColor: "#00000030",
-                      color: "#00000050",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    {value}
-                    <button
-                      onClick={() => {
-                        return setPosisi(posisi.filter((val) => val !== value));
-                      }}
-                      type="button"
-                      className="btn btn-sm"
-                      style={{ color: "#00000030" }}
-                      >
-                      <Close />
-                    </button>
-                  </div>
-                ))}
               </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#00000010",
-              border: "1px solid transparent",
-              color: "#0E5073",
-              width: "100px",
-            }}
-            onClick={() => {
-              setSelected([]);
-              setPosisi([]);
-              setTitle(!dialogTitle);
-            }}
-            type="button"
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#00000010",
+                border: "1px solid transparent",
+                color: "#0E5073",
+                width: "100px",
+              }}
+              onClick={() => {
+                setSelected([]);
+                setPosisi([]);
+                setTitle(!dialogTitle);
+              }}
+              type="button"
             >
-            Cancel
-          </button>
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#0E5073",
-              border: "1px solid transparent",
-              color: "#FFFFFF",
-              width: "100px",
-            }}
-            type="submit"
+              Cancel
+            </button>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#0E5073",
+                border: "1px solid transparent",
+                color: "#FFFFFF",
+                width: "100px",
+              }}
+              type="submit"
             >
-            Add
-          </button>
-        </Modal.Footer>
+              Add
+            </button>
+          </Modal.Footer>
         </form>
       </Modal>
 
@@ -433,6 +446,8 @@ function WorkShift() {
         onHide={() => {
           setSelected([]);
           setPosisi([]);
+          setEmp(false);
+          setPosi(false);
           setEditTitle(!dialogEditTitle);
         }}
       >
@@ -617,6 +632,8 @@ function WorkShift() {
             onClick={() => {
               setSelected([]);
               setPosisi([]);
+              setEmp(false);
+              setPosi(false);
               setEditTitle(!dialogEditTitle);
             }}
           >

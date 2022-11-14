@@ -209,6 +209,7 @@ function Skills() {
                   </label>
                   <textarea
                     rows="4"
+                    required
                     id="description"
                     onChange={(e) =>
                       setSkillAdd({ ...skillAdd, description: e.target.value })

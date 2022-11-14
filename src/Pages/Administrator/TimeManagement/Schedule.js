@@ -25,6 +25,7 @@ function Schedule() {
   const [employeeName, setEmployeeName] = useState({
     employeeName: "",
   });
+  const [scheduleName, setScheduleName] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const inAwait = async () => {
     var dataSchedules = await GetSchedule();
@@ -32,6 +33,7 @@ function Schedule() {
     setEmployeeNames(dataEmployeeName);
     // console.log(dataSchedules[0].employee.jobtitle.name);
     setSchedules(dataSchedules);
+    // console.log(dataSchedules);
   };
   // console.log(schedules)
   useEffect(() => {
@@ -97,7 +99,7 @@ function Schedule() {
                 End Date <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
-                Job Title <ImportExport fontSize="2px" />
+                Current Schedule <ImportExport fontSize="2px" />
               </th>
             </tr>
           </thead>
@@ -113,9 +115,7 @@ function Schedule() {
                   </td>
                   <td className="align-middle">{schedule.startDate}</td>
                   <td className="align-middle">{schedule.endDate}</td>
-                  <td className="align-middle">
-                    {schedule?.employee?.jobtitle?.name}
-                  </td>
+                  <td className="align-middle">{schedule.schedule}</td>
                 </tr>
               ))
             ) : (
@@ -182,6 +182,7 @@ function Schedule() {
               employeeId: employeeName.employeeName,
               startDate: employeeName.startDate,
               endDate: employeeName.endDate,
+              schedule: scheduleName,
             };
             var res = await AddSchedule(requestBody);
             setUser(!dialogUser);
@@ -223,7 +224,10 @@ function Schedule() {
                 <label className="mb-1">
                   Schedule<span className="text-danger">*</span>
                 </label>
-                <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+                <select
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                  onChange={(e) => setScheduleName(e.target.value)}
+                >
                   <option hidden className="py-3">
                     Select
                   </option>

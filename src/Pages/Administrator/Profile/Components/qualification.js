@@ -185,7 +185,8 @@ function Qualification() {
     // console.log(dataLevel);
     setDataLevel(dataLevel);
   };
-  // console.log(skill);
+  // console.log(workExperience[0].jobtitle.name);
+  console.log(editJobTitleName);
 
   useEffect(() => {
     inAwait();
@@ -446,7 +447,7 @@ function Qualification() {
                               setEditIdWorkExp(val.id);
                               setEditCompanyName(val.companyName);
                               setEditJobTitleId(val.jobTitle?.id);
-                              setEditJobTitleName(val.jobTitle?.name);
+                              setEditJobTitleName(val.jobtitle.name);
                               setEditStartDate(val.startDate);
                               setEditEndDate(val.endDate);
                               setEditComment(val.comment);
@@ -1114,7 +1115,7 @@ function Qualification() {
                 className="block text-gray-700 text-sm mb-2"
                 for="username"
               >
-                Comany Name <span style={{ color: "#780000" }}>*</span>
+                Company Name <span style={{ color: "#780000" }}>*</span>
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"

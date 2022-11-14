@@ -53,7 +53,7 @@ function ProfileEmployeeTemplate() {
   const [index, setIndex] = useState(0);
   const [data, setData] = useState([]);
   const location = useLocation();
-  const idEmployee = location.state.id
+  const idEmployee = location.state.id;
   // console.log("id Employee "+idEmployee)
 
   const inAwait = async () => {

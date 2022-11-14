@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
-import Select from "react-select";
-import { updateProfile } from "../../../../Repository/ProfileRepository";
+import { useLocation } from "react-router-dom";
+import {
+  updateContactDetail,
+  getProfile,
+} from "../../../../Repository/ProfileEmployeeRepository";
+import { SwalSuccess } from "../../../../Components/Modals";
 
 function ContactDetail({ data }) {
   const provinces = ["Jawa Tengah", "Jawa Barat", "Jawa Timur", "DKI Jakarta"];
@@ -18,54 +21,54 @@ function ContactDetail({ data }) {
   const [email, setEmail] = useState([]);
   const [otherEmail, setOtherEmail] = useState([]);
 
+  const location = useLocation();
+  const idEmployee = location.state.id;
+
   const inAwait = async () => {
-    setStreet(data?.employee?.street);
-    setCity(data?.employee?.city);
-    setProvince(data?.employee?.province);
-    setPostalCode(data?.employee?.postalCode);
-    setCountry(data?.employee?.country);
-    setPhone(data?.employee?.phone);
-    setMPhone(data?.employee?.mobilePhone);
-    setEmail(data?.employee?.email);
-    setOtherEmail(data?.employee?.otherEmail);
+    var dataProfile = await getProfile(idEmployee);
+    setStreet(dataProfile.result?.street);
+    setCity(dataProfile.result?.city);
+    setProvince(dataProfile.result?.province);
+    setPostalCode(dataProfile.result?.postalCode);
+    setCountry(dataProfile.result?.country);
+    setPhone(dataProfile.result?.phone);
+    setMPhone(dataProfile.result?.mobilePhone);
+    setEmail(dataProfile.result?.email);
+    setOtherEmail(dataProfile.result?.otherEmail);
   };
 
   useEffect(() => {
     inAwait();
   }, []);
-  const postData = async () => {
+  const postData = async (e) => {
+    e.preventDefault();
+
     var requestBody = {
-      street: street,
-      city: city,
-      province: province,
-      postalCode: postalCode,
-      country: country,
-      phone: phone,
-      mobilePhone: mPhone,
-      email: email,
-      otherEmail: otherEmail,
+      id: idEmployee,
+      street: street ?? null,
+      city: city ?? null,
+      province: province ?? null,
+      postalCode: postalCode ?? null,
+      country: country ?? null,
+      phone: phone ?? null,
+      mobilePhone: mPhone ?? null,
+      email: email ?? null,
+      otherEmail: otherEmail ?? null,
     };
-    console.log(requestBody);
+
+    var res = await updateContactDetail(requestBody);
+    if (res?.message == "success") {
+      SwalSuccess({ message: "Success update contact detail employee" });
+    }
     inAwait();
-    var res = await updateProfile(requestBody);
-    console.log(res);
   };
-  console.log(street);
-  console.log(city);
-  console.log(province);
-  console.log(postalCode);
-  console.log(country);
-  console.log(phone);
-  console.log(mPhone);
-  console.log(email);
-  console.log(otherEmail);
   return (
     <>
       <div>
         <div className="mb-4">
           <span style={{ fontWeight: "600" }}>Contact Detail</span>
         </div>
-        <form onSubmit={postData}>
+        <form onSubmit={(e) => postData(e)}>
           <div className="row mb-4">
             <div className="col">
               <label
@@ -80,7 +83,7 @@ function ContactDetail({ data }) {
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 id="username"
                 type="text"
-                placeholder="Username"
+                placeholder="Street"
               />
             </div>
             <div className="col">
@@ -105,7 +108,7 @@ function ContactDetail({ data }) {
             <div className="col">
               <label
                 className="block text-gray-700 text-sm mb-2"
-                for="username"
+                for="province"
               >
                 Province
               </label>
@@ -117,7 +120,11 @@ function ContactDetail({ data }) {
                   {province != null ? province : "Select Provinces"}
                 </option>
                 {provinces.map((val) => (
-                  <option className="py-3" value={val}>
+                  <option
+                    className="py-3"
+                    value={val}
+                    selected={val == province ? true : false}
+                  >
                     {val}
                   </option>
                 ))}
@@ -159,7 +166,11 @@ function ContactDetail({ data }) {
                   {countries != null ? countries : "Select Country"}
                 </option>
                 {countries.map((val) => (
-                  <option className="py-3" value={val}>
+                  <option
+                    className="py-3"
+                    value={val}
+                    selected={val == country ? true : false}
+                  >
                     {val}
                   </option>
                 ))}
@@ -236,7 +247,7 @@ function ContactDetail({ data }) {
             </div>
           </div>
           <div className="d-flex justify-content-end mt-4">
-          <input
+            <input
               type="submit"
               value="submit"
               className="btn"

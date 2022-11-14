@@ -167,6 +167,18 @@ function Educations() {
         >
           <Modal.Title>Add Education</Modal.Title>
         </Modal.Header>
+        <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          var requestBody = {
+            name: document.getElementById("name").value,
+          };
+          var res = await AddEducation(requestBody);
+          setTitle(!dialogTitle);
+          SwalSuccess({ message: "Success add education" });
+          inAwait();
+        }}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-12 mb-3">
@@ -175,6 +187,7 @@ function Educations() {
                   Education Level <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Education Level..."
                   id="name"
@@ -186,6 +199,7 @@ function Educations() {
         <Modal.Footer className="m-4">
           <button
             className="btn"
+            type="button"
             style={{
               backgroundColor: "#00000010",
               border: "1px solid transparent",
@@ -204,19 +218,12 @@ function Educations() {
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              var requestBody = {
-                name: document.getElementById("name").value,
-              };
-              var res = await AddEducation(requestBody);
-              setTitle(!dialogTitle);
-              SwalSuccess({ message: "Success add education" });
-              inAwait();
-            }}
-          >
+            type="submit"
+            >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

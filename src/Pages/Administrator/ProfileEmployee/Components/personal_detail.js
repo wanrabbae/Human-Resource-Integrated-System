@@ -8,8 +8,12 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { getProfile, updatePersonalDetail } from "../../../../Repository/ProfileEmployeeRepository";
+import {
+  getProfile,
+  updatePersonalDetail,
+} from "../../../../Repository/ProfileEmployeeRepository";
 import { useLocation } from "react-router-dom";
+import { SwalSuccess } from "../../../../Components/Modals";
 
 function PersonalDetail() {
   const [nationalities, setNationalities] = useState([]);
@@ -24,9 +28,8 @@ function PersonalDetail() {
   const [licenceExpire, setLicenceExpire] = useState([]);
   const [birthDate, setBirthDate] = useState([]);
 
-
   const location = useLocation();
-  const idEmployee = location.state.id
+  const idEmployee = location.state.id;
 
   const inAwait = async () => {
     var national = await GetNational();
@@ -84,21 +87,26 @@ function PersonalDetail() {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
+            console.log("YOYY");
             var requestBody = {
               firstName: firstName ?? null,
               lastName: lastName ?? null,
               otherId: otherId ?? null,
               driverLicence: driverLicence ?? null,
               licenceExpire: licenceExpire ?? null,
-              idNationality: selectedNationalities == null ? profile?.nationality_id : selectedNationalities,
+              idNationality:
+                selectedNationalities == null
+                  ? profile?.nationality_id
+                  : selectedNationalities,
               maritalStatus: maritalStatus ?? null,
               birthDate: birthDate,
               gender: gender,
               id: profile?.id,
             };
             var stats = await updatePersonalDetail(requestBody);
+            console.log(stats);
             if (stats?.message == "success") {
-              alert("Berhasil diubah");
+              SwalSuccess({ message: "Success update employee!" });
             }
           }}
         >
@@ -224,7 +232,13 @@ function PersonalDetail() {
                 </option>
                 {nationalities.length > 0 ? (
                   nationalities.map((national) => (
-                    <option selected={profile?.nationality_id == national?.id ? true : false} className="py-3" value={national.id}>
+                    <option
+                      selected={
+                        profile?.nationality_id == national?.id ? true : false
+                      }
+                      className="py-3"
+                      value={national.id}
+                    >
                       {national.name}
                     </option>
                   ))

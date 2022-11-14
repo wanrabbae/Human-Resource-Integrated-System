@@ -13,7 +13,7 @@ import { useLocation } from "react-router-dom";
 
 function PersonalDetail() {
   const [nationalities, setNationalities] = useState([]);
-  const [selectedNationalities, setSelectedNationalities] = useState([]);
+  const [selectedNationalities, setSelectedNationalities] = useState(null);
   const [profile, setProfile] = useState([]);
   const [firstName, setFirstName] = useState([]);
   const [lastName, setLastName] = useState([]);

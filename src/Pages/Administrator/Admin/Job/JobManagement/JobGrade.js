@@ -73,11 +73,11 @@ function JobGrade() {
           ? document.getElementById("name").value
           : rangeValue[0] + "-" + rangeValue[rangeValue.length - 1],
       type: document.getElementById("type").value,
-      range: rangeValue2, // NGEBUGG
+      range: rangeValue2,
       minsalary: document.getElementById("minsalary").value,
       maxsalary: document.getElementById("maxsalary").value,
     };
-    var res = await AddJobGrade(requestBody);
+    // var res = await AddJobGrade(requestBody);
     setTitle(!dialogTitle);
     setRange([]);
     setMulti(false);
@@ -409,6 +409,7 @@ function JobGrade() {
                 <input
                   className="form-control"
                   placeholder="Jobl grade..."
+                  id="nameEdit"
                   disabled={isRange}
                   value={editValues?.name ?? null}
                   onChange={(e) =>
@@ -596,13 +597,18 @@ function JobGrade() {
             }}
             onClick={async () => {
               let rangeValue = [];
+              let rangeValue2 = [];
               await editValues?.rangegrade?.map((r, i) =>
                 rangeValue.push(document.getElementById(i).value)
               );
+              rangeValue.map((r) => rangeValue2.push(`"${r}"`));
               var requestBody = {
                 id: editValues.id,
-                name: editValues.name,
-                range: rangeValue,
+                name:
+                  isMulti == true
+                    ? document.getElementById("nameEdit").value
+                    : rangeValue[0] + "-" + rangeValue[rangeValue.length - 1],
+                range: `[${rangeValue2}]`,
                 type: editValues.type,
                 minsalary: editValues.minsalary,
                 maxsalary: editValues.maxsalary,

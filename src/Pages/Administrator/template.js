@@ -248,7 +248,7 @@ function Template() {
     <div style={{ backgroundColor: "#ECEEF6" }}>
       <div className="d-flex flex-nowrap">
         <aside
-          className="flex-shrink-0 py-5 w-1/5 h-screen fixed top-0 left-0 right-0 z-10"
+          className="flex-shrink-0 py-5 w-1/5 top-0 left-0 right-0 z-10"
           style={{
             backgroundColor: "#FFFFFF",
             borderTopRightRadius: "20px",

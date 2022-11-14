@@ -135,13 +135,13 @@ function StructureOrganization() {
                 fontWeight: "500",
               }}
               className="ms-3 btn d-flex align-items-center"
-              onClick={() => {
-                window.location.href = "/admin/organization/ChartStructureOrganization";
-              }}
+              // onClick={() => {
+              //   window.location.href = "/admin/organization/ChartStructureOrganization";
+              // }}
               type=""
             >
               <TreeStructure className="me-2" size={20} color="#003049" />
-              See Chart
+              See Chart Soon
             </button>
             <FormControlLabel
               value={isSelected}

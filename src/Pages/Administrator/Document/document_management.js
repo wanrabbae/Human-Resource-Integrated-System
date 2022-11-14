@@ -160,6 +160,7 @@ function DocumentManagement() {
   const [document, setDocument] = useState({});
   const [showto, setShowTo] = useState([]);
   const [employeeto, setEmployeeTo] = useState([""]);
+  const [userLogged, setUserLogged] = useState({});
   const Option = (props) => {
     return (
       <div>
@@ -198,6 +199,7 @@ function DocumentManagement() {
     var rec = await GetDoc(data);
     var emp = await GetEmployee();
     emp.map((em) => showTo.push({ value: em.id, label: em.firstName }));
+    setUserLogged(data);
     setDoc(rec["result"]);
     setEmployeeTo(showTo);
   };
@@ -333,30 +335,34 @@ function DocumentManagement() {
               placeholder="Search Document..."
             />
           </div>
-          <button
-            style={{
-              borderRadius: "10px",
-              backgroundColor: "#0E5073",
-              fontSize: "14px",
-              fontWeight: "500",
-            }}
-            className="btn d-flex align-items-center text-white"
-            onClick={() => {
-              setModal(true);
-              setField([
-                {
-                  field_name: "",
-                  field_type: "",
-                  data_type: "",
-                  options: [],
-                },
-              ]);
-            }}
-            type=""
-          >
-            <Plus size={15} className="me-2" weight="bold" />
-            Create Document
-          </button>
+          {userLogged?.role == "admin" ? (
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#0E5073",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="btn d-flex align-items-center text-white"
+              onClick={() => {
+                setModal(true);
+                setField([
+                  {
+                    field_name: "",
+                    field_type: "",
+                    data_type: "",
+                    options: [],
+                  },
+                ]);
+              }}
+              type=""
+            >
+              <Plus size={15} className="me-2" weight="bold" />
+              Create Document
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="container-fluid mb-4">
@@ -457,54 +463,57 @@ function DocumentManagement() {
                       }}
                     >
                       <div>
-                        <div className="d-flex justify-content-end mb-2 ">
-                          <Dropdown>
-                            <Dropdown.Toggle as={CustomToggle} />
+                        {userLogged?.role == "admin" ? (
+                          <div className="d-flex justify-content-end mb-2 ">
+                            <Dropdown>
+                              <Dropdown.Toggle as={CustomToggle} />
 
-                            <Dropdown.Menu size="sm">
-                              <Dropdown.Item
-                                className="text-sm"
-                                onClick={async () => {
-                                  let field = [];
+                              <Dropdown.Menu size="sm">
+                                <Dropdown.Item
+                                  className="text-sm"
+                                  onClick={async () => {
+                                    let field = [];
 
-                                  const getDetailDocument = await GetDetailDoc(
-                                    val.id
-                                  );
-                                  setDocument(getDetailDocument.result);
-                                  getDetailDocument.result?.detail_documents?.map(
-                                    (data) =>
-                                      field.push({
-                                        id: data.id,
-                                        field_name: data.field_name,
-                                        field_type: data.field_type,
-                                        data_type: data.data_type,
-                                        options: data?.field_documents ?? [],
-                                      })
-                                  );
-                                  setField(field);
-                                  setDefaultShow(
-                                    getDetailDocument.result?.delegated_to
-                                  );
-                                  setModaledit(true);
-                                }}
-                              >
-                                Edit
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                onClick={() => {
-                                  setDelete(true);
-                                  setId(val.id);
-                                }}
-                                className="text-sm"
-                              >
-                                Delete
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                          {/* <a href="" className="ms-auto">
+                                    const getDetailDocument =
+                                      await GetDetailDoc(val.id);
+                                    setDocument(getDetailDocument.result);
+                                    getDetailDocument.result?.detail_documents?.map(
+                                      (data) =>
+                                        field.push({
+                                          id: data.id,
+                                          field_name: data.field_name,
+                                          field_type: data.field_type,
+                                          data_type: data.data_type,
+                                          options: data?.field_documents ?? [],
+                                        })
+                                    );
+                                    setField(field);
+                                    setDefaultShow(
+                                      getDetailDocument.result?.delegated_to
+                                    );
+                                    setModaledit(true);
+                                  }}
+                                >
+                                  Edit
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  onClick={() => {
+                                    setDelete(true);
+                                    setId(val.id);
+                                  }}
+                                  className="text-sm"
+                                >
+                                  Delete
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            {/* <a href="" className="ms-auto">
                                                     <DotsThreeOutlineVertical size={20} weight="fill" color="white" />
                                                 </a> */}
-                        </div>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                         <h3
                           className="mb-2"
                           style={{

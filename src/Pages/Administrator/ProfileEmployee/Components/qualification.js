@@ -38,14 +38,14 @@ import {
   updateLincense,
   updateSkill,
   updateWorkExperience,
-} from "../../../../Repository/ProfileRepository";
+} from "../../../../Repository/ProfileEmployeeRepository";
 import { useEffect } from "react";
 import { GetJobTittle } from "../../../../Repository/AdminRepository";
 import { GetSkills } from "../../../../Repository/SkillsRepository";
 import { GetLanguages } from "../../../../Repository/LanguagesRepository";
 import { ModalDelete } from "../../../../Components/Modals";
 
-function Qualification() {
+function Qualification({ idEmployee }) {
   const [modalAddWExperience, setModalAddWExperience] = useState(false);
   const [modalEditExperience, setModalEditExperience] = useState(false);
   const [modalAddSkill, setModalAddSkill] = useState(false);
@@ -158,19 +158,19 @@ function Qualification() {
   const [dataLanguage, setDataLanguage] = useState([]);
 
   const inAwait = async () => {
-    var dataWorkExperience = await getWorkExperience();
+    var dataWorkExperience = await getWorkExperience(idEmployee);
     setWorkExperience(dataWorkExperience.result);
     // console.log(dataWorkExperience.result);
-    var dataSkill = await getSkill();
+    var dataSkill = await getSkill(idEmployee);
     setSkill(dataSkill.result);
     // console.log(dataSkill.result);
-    var dataEducation = await getEducation();
+    var dataEducation = await getEducation(idEmployee);
     setEducation(dataEducation.result);
     // console.log(dataEducation.result);
-    var dataLanguage = await getLanguage();
+    var dataLanguage = await getLanguage(idEmployee);
     setLanguage(dataLanguage.result);
     // console.log(dataLanguage.result);
-    var dataLicense = await getLincense();
+    var dataLicense = await getLincense(idEmployee);
     setLicense(dataLicense.result);
     // console.log(dataLicense.result);
     var dataJob = await GetJobTittle();
@@ -195,9 +195,9 @@ function Qualification() {
       comment: comment,
     };
     console.log(requestBody);
-    inAwait();
     setModalAddWExperience(false);
-    var res = await addWorkExperience(requestBody);
+    var res = await addWorkExperience(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
 
@@ -211,9 +211,9 @@ function Qualification() {
       comment: editComment,
     };
     console.log(requestBody);
-    inAwait();
     setModalEditExperience(false);
     var res = await updateWorkExperience(requestBody);
+    inAwait();
     console.log(res);
   };
 
@@ -224,9 +224,9 @@ function Qualification() {
       comment: commentSkill,
     };
     console.log(requestBody);
-    inAwait();
     setModalAddSkill(false);
-    var res = await addSkill(requestBody);
+    var res = await addSkill(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
 
@@ -238,9 +238,9 @@ function Qualification() {
       comment: editCommentSkill,
     };
     console.log(requestBody);
-    inAwait();
     setModalEditSkill(false);
     var res = await updateSkill(requestBody);
+    inAwait();
     console.log(res);
   };
 
@@ -255,9 +255,9 @@ function Qualification() {
       endDate: endDateEdu,
     };
     console.log(requestBody);
-    inAwait();
     setModalAddEducation(false);
-    var res = await addEducation(requestBody);
+    var res = await addEducation(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
 
@@ -273,9 +273,9 @@ function Qualification() {
       endDate: editEndDateEdu,
     };
     console.log(requestBody);
-    inAwait();
     setModalEditEducation(false);
     var res = await updateEducation(requestBody);
+    inAwait();
     console.log(res);
   };
 
@@ -287,9 +287,9 @@ function Qualification() {
       comment: commentLanguage,
     };
     console.log(requestBody);
-    inAwait();
     setModalAddLanguage(false);
-    var res = await addLanguage(requestBody);
+    var res = await addLanguage(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
 
@@ -302,9 +302,9 @@ function Qualification() {
       comment: editCommentLanguage,
     };
     console.log(requestBody);
-    inAwait();
     setModalEditLanguage(false);
     var res = await editLanguage(requestBody);
+    inAwait();
     console.log(res);
   };
 
@@ -316,9 +316,9 @@ function Qualification() {
       licenseNumber: licenseNumber,
     };
     console.log(requestBody);
-    inAwait();
     setModalAddLisence(false);
-    var res = await addLincense(requestBody);
+    var res = await addLincense(requestBody, idEmployee);
+    inAwait();
     console.log(res);
   };
 
@@ -331,9 +331,9 @@ function Qualification() {
       licenseNumber: editLicenseNumber,
     };
     console.log(requestBody);
-    inAwait();
     setModalEditLisence(false);
     var res = await updateLincense(requestBody);
+    inAwait();
     console.log(res);
   };
 

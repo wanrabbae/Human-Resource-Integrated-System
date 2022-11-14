@@ -5,28 +5,36 @@ import Select from "react-select";
 import { getJob, updateJob } from "../../../../Repository/ProfileRepository";
 
 function Job() {
+  const [users, setUsers] = useState([]);
   const [modal, setModal] = useState(false);
   const [ContractDetail, setContractDetail] = useState(false);
-  const [job, setJob] = useState([])
+  const [job, setJob] = useState([]);
 
-  const [contractStart, setContractStart] = useState([])
-  const [contractEnd, setContractEnd] = useState([])
-  const [contractFile, setContractFile] = useState([])
+  const [contractStart, setContractStart] = useState([]);
+  const [contractEnd, setContractEnd] = useState([]);
+  const [contractFile, setContractFile] = useState([]);
 
-  console.log(contractStart)
-  console.log(contractEnd)
-  console.log(contractFile)
+  console.log(contractStart);
+  console.log(contractEnd);
+  console.log(contractFile);
 
   const inAwait = async () => {
     var data = await getJob();
     setJob(data.result);
-    setContractStart(data.result.contractStart)
-    setContractEnd(data.result.contractEnd)
-    setContractFile(data.result.contractFile)
+    setContractStart(data.result.contractStart);
+    setContractEnd(data.result.contractEnd);
+    setContractFile(data.result.contractFile);
   };
 
   useEffect(() => {
     inAwait();
+    if (window.localStorage.getItem("users") == null) {
+      window.location.href = "/";
+    } else {
+      var data = JSON.parse(window.localStorage.getItem("users"));
+      setUsers(data);
+      // inAwait();
+    }
   }, []);
 
   const postData = async () => {
@@ -65,15 +73,15 @@ function Job() {
               />
             </div>
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Job Level
               </label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.jobLevel?.name != null
+                <option hidden>
+                  {job.jobLevel?.name != null
                     ? job.jobLevel.name
-                    : "-- Select Job Level --"}</option>
+                    : "-- Select Job Level --"}
+                </option>
                 <option>GA</option>
                 <option>ADV RISET</option>
                 <option>SENIOR TREASURY</option>
@@ -89,16 +97,16 @@ function Job() {
           </div>
           <div className="row mb-4">
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Job Title
               </label>
               <div className="w-full">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.jobTitle?.name != null
-                    ? job.jobTitle.name
-                    : "-- Select Job Title --"}</option>
+                  <option hidden>
+                    {job.jobTitle?.name != null
+                      ? job.jobTitle.name
+                      : "-- Select Job Title --"}
+                  </option>
                   <option>Fulltime-Permanent</option>
                   <option>Fulltime-Contract</option>
                   <option>Fulltime-Probation</option>
@@ -108,16 +116,16 @@ function Job() {
               </div>
             </div>
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Job Position
               </label>
               <div className="w-full">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.jobPosition?.name != null
-                    ? job.jobPosition.name
-                    : "-- Select Job Position --"}</option>
+                  <option hidden>
+                    {job.jobPosition?.name != null
+                      ? job.jobPosition.name
+                      : "-- Select Job Position --"}
+                  </option>
                   <option>Officials and Managers</option>
                   <option>Sales Workers</option>
                   <option>Technicians</option>
@@ -128,16 +136,16 @@ function Job() {
           </div>
           <div className="row mb-4">
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Location
               </label>
               <div className="w-full">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.location != null
-                    ? job.location
-                    : "-- Select Location --"}</option>
+                  <option hidden>
+                    {job.location != null
+                      ? job.location
+                      : "-- Select Location --"}
+                  </option>
                   <option>Fulltime-Permanent</option>
                   <option>Fulltime-Contract</option>
                   <option>Fulltime-Probation</option>
@@ -170,19 +178,21 @@ function Job() {
                 </span>
               </label>
             </div>
-            <Button
-              style={{
-                border: "1px solid #CACACA",
-                fontSize: "14px",
-                backgroundColor: "#FFFFFF",
-                color: "#003049",
-                fontWeight: "500",
-              }}
-              className=""
-              onClick={() => setModal(true)}
-            >
-              Terminate Employement
-            </Button>
+            {users.role != "user" ? (
+              <Button
+                style={{
+                  border: "1px solid #CACACA",
+                  fontSize: "14px",
+                  backgroundColor: "#FFFFFF",
+                  color: "#003049",
+                  fontWeight: "500",
+                }}
+                className=""
+                onClick={() => setModal(true)}
+              >
+                Terminate Employement
+              </Button>
+            ) : null}
           </div>
           {ContractDetail ? (
             <div onHide={() => setContractDetail(false)}>
@@ -199,7 +209,7 @@ function Job() {
                     id="username"
                     type="date"
                     value={contractStart}
-                    onChange={(e)=>setContractStart(e.target.value)}
+                    onChange={(e) => setContractStart(e.target.value)}
                   />
                 </div>
                 <div className="col-4">
@@ -214,7 +224,7 @@ function Job() {
                     id="username"
                     type="date"
                     value={contractEnd}
-                    onChange={(e)=>setContractEnd(e.target.value)}
+                    onChange={(e) => setContractEnd(e.target.value)}
                   />
                 </div>
               </div>
@@ -230,7 +240,7 @@ function Job() {
                     className="block text-sm w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     id="file_input"
                     type="file"
-                    onChange={(e)=>setContractFile(e.target.files[0])}
+                    onChange={(e) => setContractFile(e.target.files[0])}
                   />
                 </div>
               </div>
@@ -244,20 +254,22 @@ function Job() {
                         react show hide component
                     </button>
                     </div> */}
-          <div className="d-flex justify-content-end mt-4">
-            <Button
-              style={{
-                border: "none",
-                fontSize: "14px",
-                backgroundColor: "#0E5073",
-                color: "#FFFFFF",
-              }}
-              className="px-4"
-              onClick={postData}
-            >
-              Save
-            </Button>
-          </div>
+          {users.role != "user" ? (
+            <div className="d-flex justify-content-end mt-4">
+              <Button
+                style={{
+                  border: "none",
+                  fontSize: "14px",
+                  backgroundColor: "#0E5073",
+                  color: "#FFFFFF",
+                }}
+                className="px-4"
+                onClick={postData}
+              >
+                Save
+              </Button>
+            </div>
+          ) : null}
         </form>
       </div>
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>

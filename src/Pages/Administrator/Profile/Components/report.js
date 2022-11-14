@@ -29,6 +29,7 @@ import {
 import { ModalDelete } from "../../../../Components/Modals";
 
 function ReportTo() {
+  const [users, setUsers] = useState([]);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalEditSub, setModalEditSub] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
@@ -70,6 +71,13 @@ function ReportTo() {
     var method = await GetReportMeth();
     // console.log(method.result);
     setReportingMethod(method.result);
+    if (window.localStorage.getItem("users") == null) {
+      window.location.href = "/";
+    } else {
+      var data = JSON.parse(window.localStorage.getItem("users"));
+      setUsers(data);
+      // inAwait();
+    }
   };
 
   useEffect(() => {
@@ -151,22 +159,24 @@ function ReportTo() {
                   List of Supervisor
                 </span>
               </div>
-              <button
-                style={{
-                  borderRadius: "10px",
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                }}
-                className="bg-[#0E5073] btn d-flex align-items-center align-middle"
-                onClick={() => {
-                  setModalAdd(true);
-                  setStatus("supervisor");
-                }}
-              >
-                <Plus className="me-2" size={20} weight="bold" />
-                Add
-              </button>
+              {users.role != "user" ? (
+                <button
+                  style={{
+                    borderRadius: "10px",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                  className="bg-[#0E5073] btn d-flex align-items-center align-middle"
+                  onClick={() => {
+                    setModalAdd(true);
+                    setStatus("supervisor");
+                  }}
+                >
+                  <Plus className="me-2" size={20} weight="bold" />
+                  Add
+                </button>
+              ) : null}
             </div>
             <hr style={{ backgroundColor: "#CACACA" }} className=""></hr>
             <div className="w-100">
@@ -191,9 +201,11 @@ function ReportTo() {
                     <th className="align-middle " onClick={() => {}}>
                       Reporting Method <ImportExport fontSize="2px" />
                     </th>
-                    <th className="align-middle pe-5" onClick={() => {}}>
-                      Action
-                    </th>
+                    {users.role != "user" ? (
+                      <th className="align-middle pe-5" onClick={() => {}}>
+                        Action
+                      </th>
+                    ) : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -207,43 +219,45 @@ function ReportTo() {
                         <td className="align-middle">
                           {val.reportingmethod.name}
                         </td>
-                        <td className="align-middle">
-                          <div className="flex flex-row gap-2">
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => {
-                                setEditReportId(val.reportingmethod.id);
-                                setEditReportName(val.reportingmethod.name);
-                                setEditStructureId(val.structureId);
-                                setEditStatus(val.status);
-                                setEditName(val.name);
-                                setEditId(val.id);
-                                setModalEdit(true);
-                              }}
-                            >
-                              <PencilSimple
-                                color="#003049"
-                                className="h-5 w-5"
-                                weight="bold"
-                                aria-hidden="true"
-                              />
-                            </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => {
-                                setDelete(true);
-                                setId(val.id);
-                              }}
-                            >
-                              <Trash
-                                color="#003049"
-                                weight="bold"
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </div>
-                        </td>
+                        {users.role != "user" ? (
+                          <td className="align-middle">
+                            <div className="flex flex-row gap-2">
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                                onClick={() => {
+                                  setEditReportId(val.reportingmethod.id);
+                                  setEditReportName(val.reportingmethod.name);
+                                  setEditStructureId(val.structureId);
+                                  setEditStatus(val.status);
+                                  setEditName(val.name);
+                                  setEditId(val.id);
+                                  setModalEdit(true);
+                                }}
+                              >
+                                <PencilSimple
+                                  color="#003049"
+                                  className="h-5 w-5"
+                                  weight="bold"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                                onClick={() => {
+                                  setDelete(true);
+                                  setId(val.id);
+                                }}
+                              >
+                                <Trash
+                                  color="#003049"
+                                  weight="bold"
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        ) : null}
                       </tr>
                     ) : null;
                   })}
@@ -270,24 +284,26 @@ function ReportTo() {
                   List of Subordinate
                 </span>
               </div>
-              <button
-                style={{
-                  borderRadius: "10px",
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                }}
-                className="bg-[#0E5073] btn d-flex align-items-center align-middle"
-                onClick={() => {
-                  setModalAddSub(true);
+              {users.role != "user" ? (
+                <button
+                  style={{
+                    borderRadius: "10px",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                  className="bg-[#0E5073] btn d-flex align-items-center align-middle"
+                  onClick={() => {
+                    setModalAddSub(true);
 
-                  setStatus("subordinate");
-                }}
-                type=""
-              >
-                <Plus className="me-2" size={20} weight="bold" />
-                Add
-              </button>
+                    setStatus("subordinate");
+                  }}
+                  type=""
+                >
+                  <Plus className="me-2" size={20} weight="bold" />
+                  Add
+                </button>
+              ) : null}
             </div>
             <hr style={{ backgroundColor: "#CACACA" }} className=""></hr>
             <div className="w-100">
@@ -312,9 +328,11 @@ function ReportTo() {
                     <th className="align-middle " onClick={() => {}}>
                       Reporting Method <ImportExport fontSize="2px" />
                     </th>
-                    <th className="align-middle pe-5" onClick={() => {}}>
-                      Action
-                    </th>
+                    {users.role != "user" ? (
+                      <th className="align-middle pe-5" onClick={() => {}}>
+                        Action
+                      </th>
+                    ) : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -328,43 +346,45 @@ function ReportTo() {
                         <td className="align-middle">
                           {val.reportingmethod.name}
                         </td>
-                        <td className="align-middle">
-                          <div className="flex flex-row gap-2">
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => {
-                                setEditReportId(val.reportingmethod.id);
-                                setEditReportName(val.reportingmethod.name);
-                                setEditStructureId(val.structureId);
-                                setEditStatus(val.status);
-                                setEditName(val.name);
-                                setEditId(val.id);
-                                setModalEdit(true);
-                              }}
-                            >
-                              <PencilSimple
-                                color="#003049"
-                                className="h-5 w-5"
-                                weight="bold"
-                                aria-hidden="true"
-                              />
-                            </button>
-                            <button
-                              className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                              onClick={() => {
-                                setDelete(true);
-                                setId(val.id);
-                              }}
-                            >
-                              <Trash
-                                color="#003049"
-                                weight="bold"
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </div>
-                        </td>
+                        {users.role != "user" ? (
+                          <td className="align-middle">
+                            <div className="flex flex-row gap-2">
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                                onClick={() => {
+                                  setEditReportId(val.reportingmethod.id);
+                                  setEditReportName(val.reportingmethod.name);
+                                  setEditStructureId(val.structureId);
+                                  setEditStatus(val.status);
+                                  setEditName(val.name);
+                                  setEditId(val.id);
+                                  setModalEdit(true);
+                                }}
+                              >
+                                <PencilSimple
+                                  color="#003049"
+                                  className="h-5 w-5"
+                                  weight="bold"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
+                                onClick={() => {
+                                  setDelete(true);
+                                  setId(val.id);
+                                }}
+                              >
+                                <Trash
+                                  color="#003049"
+                                  weight="bold"
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        ) : null}
                       </tr>
                     ) : null;
                   })}

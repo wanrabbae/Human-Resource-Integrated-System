@@ -41,19 +41,21 @@ const localizer = dateFnsLocalizer({
 const events = [
   {
     title: "Big Meeting",
-    allDay: true,
-    start: new Date(2022, 10, 12),
-    end: new Date(2022, 10, 12),
+    allDay: false,
+    start: "10-10-2022 13:00:00",
+    end: "10-10-2022 13:00:00",
   },
   {
     title: "Vacation",
-    start: new Date(2022, 10, 2),
-    end: new Date(2022, 10, 15),
+    allDay: false,
+    start: "11-10-2022 13:00:00",
+    end: "12-10-2022 14:00:00",
   },
   {
     title: "Conference",
-    start: new Date(2022, 10, 20),
-    end: new Date(2022, 10, 23),
+    allDay: false,
+    start: "12-12-2022 13:00:00",
+    end: "12-12-2022 13:00:00",
   },
 ];
 
@@ -188,6 +190,7 @@ function Cal() {
     // console.log(dataB.result);
     setDataTodo(dataB.result);
   };
+  console.log(new Date(2022, 10, 2, 13, 0, 0))
 
   useEffect(() => {
     inAwait();
@@ -427,7 +430,7 @@ function Cal() {
                         width="20"
                         height="20"
                         fill="currentColor"
-                        class="bi bi-info-circle"
+                        className="bi bi-info-circle"
                         viewBox="0 0 16 16"
                       >
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />

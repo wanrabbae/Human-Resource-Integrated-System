@@ -201,10 +201,10 @@ function Qualification() {
       comment: comment,
     };
     console.log(requestBody);
-    inAwait();
-    setModalAddWExperience(false);
     var res = await addWorkExperience(requestBody);
     console.log(res);
+    inAwait();
+    setModalAddWExperience(false);
   };
 
   const postDataEditWorkExp = async () => {
@@ -230,10 +230,10 @@ function Qualification() {
       comment: commentSkill,
     };
     console.log(requestBody);
-    inAwait();
-    setModalAddSkill(false);
     var res = await addSkill(requestBody);
     console.log(res);
+    inAwait();
+    setModalAddSkill(false);
   };
 
   const postDataEditSkill = async () => {
@@ -244,10 +244,10 @@ function Qualification() {
       comment: editCommentSkill,
     };
     console.log(requestBody);
-    inAwait();
-    setModalEditSkill(false);
     var res = await updateSkill(requestBody);
     console.log(res);
+    inAwait();
+    setModalEditSkill(false);
   };
 
   const postDataEducation = async () => {
@@ -261,10 +261,10 @@ function Qualification() {
       endDate: endDateEdu,
     };
     console.log(requestBody);
-    inAwait();
-    setModalAddEducation(false);
     var res = await addEducation(requestBody);
     console.log(res);
+    inAwait();
+    setModalAddEducation(false);
   };
 
   const postDataEditEducation = async () => {
@@ -279,10 +279,10 @@ function Qualification() {
       endDate: editEndDateEdu,
     };
     console.log(requestBody);
-    inAwait();
-    setModalEditEducation(false);
     var res = await updateEducation(requestBody);
     console.log(res);
+    inAwait();
+    setModalEditEducation(false);
   };
 
   const postDataLanguage = async () => {
@@ -293,10 +293,10 @@ function Qualification() {
       comment: commentLanguage,
     };
     console.log(requestBody);
-    inAwait();
-    setModalAddLanguage(false);
     var res = await addLanguage(requestBody);
     console.log(res);
+    inAwait();
+    setModalAddLanguage(false);
   };
 
   const postDataEditLanguage = async () => {
@@ -308,10 +308,10 @@ function Qualification() {
       comment: editCommentLanguage,
     };
     console.log(requestBody);
-    inAwait();
-    setModalEditLanguage(false);
     var res = await editLanguage(requestBody);
     console.log(res);
+    inAwait();
+    setModalEditLanguage(false);
   };
 
   const postDataLicense = async () => {
@@ -322,10 +322,10 @@ function Qualification() {
       licenseNumber: licenseNumber,
     };
     console.log(requestBody);
-    inAwait();
-    setModalAddLisence(false);
     var res = await addLincense(requestBody);
     console.log(res);
+    inAwait();
+    setModalAddLisence(false);
   };
 
   const postDataEditLicense = async () => {
@@ -337,10 +337,10 @@ function Qualification() {
       licenseNumber: editLicenseNumber,
     };
     console.log(requestBody);
-    inAwait();
-    setModalEditLisence(false);
     var res = await updateLincense(requestBody);
     console.log(res);
+    inAwait();
+    setModalEditLisence(false);
   };
 
   return (

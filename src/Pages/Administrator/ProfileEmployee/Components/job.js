@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import Select from "react-select";
+import { getCompanyLocation, GetJobLevel, GetJobPosition, GetJobTittle } from "../../../../Repository/AdminRepository";
 import {
   getJob,
   updateJob,
@@ -15,6 +16,10 @@ function Job({ idEmployee }) {
   const [contractStart, setContractStart] = useState([]);
   const [contractEnd, setContractEnd] = useState([]);
   const [contractFile, setContractFile] = useState([]);
+  const [jobLevel, setJobLevel] = useState([]);
+  const [jobTitle, setJobTitle] = useState([]);
+  const [jobPost, setJobPost] = useState([]);
+  const [location, setLocation] = useState([]);
 
   console.log(contractStart);
   console.log(contractEnd);
@@ -26,6 +31,14 @@ function Job({ idEmployee }) {
     setContractStart(data.result.contractStart);
     setContractEnd(data.result.contractEnd);
     setContractFile(data.result.contractFile);
+    var jle = await GetJobLevel()
+    setJobLevel(jle);
+    var jttl = await GetJobTittle()
+    setJobTitle(jttl);
+    var jpos = await GetJobPosition()
+    setJobPost(jpos["result"]);
+    var loc = await getCompanyLocation()
+    setLocation(loc);
   };
 
   useEffect(() => {
@@ -77,16 +90,13 @@ function Job({ idEmployee }) {
                     ? job.jobLevel.name
                     : "-- Select Job Level --"}
                 </option>
-                <option>GA</option>
-                <option>ADV RISET</option>
-                <option>SENIOR TREASURY</option>
-                <option>ADV AKUISISI TIKTOK</option>
-                <option>DS-S</option>
-                <option>ADV MP</option>
-                <option>MKT-S</option>
-                <option>PACKER Koord</option>
-                <option>ADV AKUISISI</option>
-                <option>DATA ANALYST</option>
+                {
+                  jobLevel.map((val) => {
+                    return (
+                      <option value={val.id}>{val.name}</option>
+                    )
+                  })
+                }
               </select>
             </div>
           </div>
@@ -102,11 +112,13 @@ function Job({ idEmployee }) {
                       ? job.jobTitle.name
                       : "-- Select Job Title --"}
                   </option>
-                  <option>Fulltime-Permanent</option>
-                  <option>Fulltime-Contract</option>
-                  <option>Fulltime-Probation</option>
-                  <option>Part-Time Contract</option>
-                  <option>Part-Time Internship</option>
+                  {
+                    jobTitle.map((val) => {
+                      return (
+                        <option value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
@@ -121,10 +133,13 @@ function Job({ idEmployee }) {
                       ? job.jobPosition.name
                       : "-- Select Job Position --"}
                   </option>
-                  <option>Officials and Managers</option>
-                  <option>Sales Workers</option>
-                  <option>Technicians</option>
-                  <option>Service Workers</option>
+                  {
+                    jobPost.map((val) => {
+                      return (
+                        <option value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
@@ -141,11 +156,13 @@ function Job({ idEmployee }) {
                       ? job.location
                       : "-- Select Location --"}
                   </option>
-                  <option>Fulltime-Permanent</option>
-                  <option>Fulltime-Contract</option>
-                  <option>Fulltime-Probation</option>
-                  <option>Part-Time Contract</option>
-                  <option>Part-Time Internship</option>
+                  {
+                    location.map((val) => {
+                      return (
+                        <option value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>

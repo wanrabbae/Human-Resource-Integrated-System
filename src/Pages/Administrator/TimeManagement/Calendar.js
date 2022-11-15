@@ -93,7 +93,8 @@ function Cal() {
   const [isdeleteTodo, setDeleteTodo] = useState(false);
 
   const [title, setTitle] = useState([]);
-  const [date, setDate] = useState([]);
+  const [startDate, setStartDate] = useState([]);
+  const [endDate, setEndDate] = useState([]);
   const [start, setStart] = useState([]);
   const [end, setEnd] = useState([]);
   const [location, setLocation] = useState([]);
@@ -107,8 +108,10 @@ function Cal() {
   const [editEmail, setEditEmail] = useState([]);
 
   const [titleTodo, setTitleTodo] = useState([]);
-  const [dateTodo, setDateTodo] = useState([]);
-  const [time, setTime] = useState([]);
+  const [startDateTodo, setStartDateTodo] = useState([]);
+  const [endDateTodo, setEndDateTodo] = useState([]);
+  const [startTodo, setStartTodo] = useState([]);
+  const [endTodo, setEndTodo] = useState([]);
   const [emailTodo, setEmailTodo] = useState([]);
   const [detail, setDetail] = useState([]);
 
@@ -120,14 +123,21 @@ function Cal() {
 
   const [id, setId] = useState([]);
 
+  const formatDate = (data) => {
+    var data = data.split("-");
+    return `${data[0]}-${data[1]}-${data[2]}`;
+  };
+
   const postData = async () => {
     var requestBody = {
       title: title,
-      date: date,
+      startDate: formatDate(startDate),
+      endDate: formatDate(endDate),
       start: start,
       end: end,
       location: location,
       calendar: email,
+      category: "event",
     };
     console.log(requestBody);
     var res = await AddEvent(requestBody);
@@ -155,13 +165,16 @@ function Cal() {
   const postDataTodo = async () => {
     var requestBody = {
       title: titleTodo,
-      date: dateTodo,
-      time: time,
+      startDate: formatDate(startDateTodo),
+      endDate: formatDate(endDateTodo),
+      start: startTodo,
+      end: endTodo,
       calendar: emailTodo,
       details: detail,
+      category: "mytodo",
     };
     console.log(requestBody);
-    var res = await AddTodo(requestBody);
+    var res = await AddEvent(requestBody);
     console.log(res);
     handleClose();
     inAwait();
@@ -465,7 +478,7 @@ function Cal() {
                         <button
                           className="bg-blue-900 rounded-full p-2"
                           onClick={() => {
-                            handleShowEvent();
+                            handleShowTodo();
                             setId(val.id);
                             setEditTitle(val.title);
                             setEditDate(val.date);
@@ -595,17 +608,23 @@ function Cal() {
                       className="form-control rounded-lg"
                     />
                   </div>
-                  <div className="">
+                  <div className="grid grid-cols-2 gap-3">
                     <div className="form-group mt-3">
-                      <label>Date</label>
+                      <label>Start Date</label>
                       <input
                         type="date"
                         placeholderText="Start Date"
                         className="form-control rounded-lg"
-                        //   style={{ marginRight: "10px" }}
-                        // selected={newEvent.start}
-                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={(e) => setStartDate(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group mt-3">
+                      <label>End Date</label>
+                      <input
+                        type="date"
+                        placeholderText="Start Date"
+                        className="form-control rounded-lg"
+                        onChange={(e) => setEndDate(e.target.value)}
                       />
                     </div>
                   </div>
@@ -616,9 +635,6 @@ function Cal() {
                         type="time"
                         placeholderText="Start Time"
                         className="form-control rounded-lg"
-                        //   style={{ marginRight: "10px" }}
-                        // selected={newEvent.end}
-                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
                         onChange={(e) => setStart(e.target.value)}
                       />
                     </div>
@@ -628,11 +644,6 @@ function Cal() {
                         type="time"
                         placeholderText="End Time"
                         className="form-control rounded-lg"
-                        //   style={{ marginRight: "10px" }}
-                        // selected={newEvent.start}
-                        // onChange={(start) =>
-                        //   setNewEvent({ ...newEvent, start })
-                        // }
                         onChange={(e) => setEnd(e.target.value)}
                       />
                     </div>
@@ -643,10 +654,6 @@ function Cal() {
                     <input
                       type="text"
                       placeholder="Add Location"
-                      // value={newEvent.location}
-                      // onChange={(e) =>
-                      //   setNewEvent({ ...newEvent, location: e.target.value })
-                      // }
                       className="form-control rounded-lg"
                       onChange={(e) => setLocation(e.target.value)}
                     />
@@ -656,10 +663,6 @@ function Cal() {
                     <input
                       type="email"
                       placeholder="Type your email"
-                      // value={newEvent.email}
-                      // onChange={(e) =>
-                      //   setNewEvent({ ...newEvent, email: e.target.value })
-                      // }
                       onChange={(e) => setEmail(e.target.value)}
                       className="form-control rounded-lg"
                     />
@@ -695,7 +698,7 @@ function Cal() {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="form-group mt-3">
-                      <label>Date</label>
+                      <label>Start Date</label>
                       <input
                         type="date"
                         placeholderText="Start Date"
@@ -703,7 +706,19 @@ function Cal() {
                         //   style={{ marginRight: "10px" }}
                         // selected={newEvent.start}
                         // onChange={(end) => setNewEvent({ ...newEvent, end })}
-                        onChange={(e) => setDateTodo(e.target.value)}
+                        onChange={(e) => setStartDateTodo(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group mt-3">
+                      <label>End Date</label>
+                      <input
+                        type="date"
+                        placeholderText="Start Date"
+                        className="form-control rounded-lg"
+                        //   style={{ marginRight: "10px" }}
+                        // selected={newEvent.start}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setEndDateTodo(e.target.value)}
                       />
                     </div>
                     <div className="form-group mt-3">
@@ -715,7 +730,19 @@ function Cal() {
                         //   style={{ marginRight: "10px" }}
                         // selected={newEvent.end}
                         // onChange={(end) => setNewEvent({ ...newEvent, end })}
-                        onChange={(e) => setTime(e.target.value)}
+                        onChange={(e) => setStartTodo(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group mt-3">
+                      <label>Time</label>
+                      <input
+                        type="time"
+                        placeholderText="Start Time"
+                        className="form-control rounded-lg"
+                        //   style={{ marginRight: "10px" }}
+                        // selected={newEvent.end}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setEndTodo(e.target.value)}
                       />
                     </div>
                   </div>

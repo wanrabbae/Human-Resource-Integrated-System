@@ -19,6 +19,7 @@ import {
 } from "../../../../Repository/AdminRepository";
 import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 
 function EmployeeList() {
   const [modalAdd, setModalAdd] = useState(false);
@@ -69,7 +70,7 @@ function EmployeeList() {
 
   return (
     <>
-      <div className="bg-white p-3 rounded-lg space-y-5">
+      <div className="bg-white p-3 rounded-t-lg space-y-5">
         <div>
           <h1>List of Employee</h1>
           <p className="text-xs text-gray-400">
@@ -597,6 +598,31 @@ function EmployeeList() {
             </tbody>
              */}
           </table>
+        </div>
+      </div>
+      <div className="bg-[#FBFBFB] mt-0 px-4 py-3 rounded-b-xl d-flex align-items-center justify-content-between ">
+        <div>
+          <h6 className="text-[#A098AE]">
+            Showing <span className="text-[#0E5073]">1-5</span> from{" "}
+            <span className="text-[#0E5073]">100</span> data
+          </h6>
+        </div>
+        <div>
+          <button className="btn btn-sm">
+            <ArrowLeft />
+          </button>
+          <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
+            1
+          </button>
+          <button className="btn bg-[#780000] rounded-md text-[#FFFFFF]">
+            2
+          </button>
+          <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
+            3
+          </button>
+          <button className="btn btn-sm">
+            <ArrowRight />
+          </button>
         </div>
       </div>
       {/* Modal Add */}

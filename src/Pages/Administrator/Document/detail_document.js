@@ -30,7 +30,9 @@ import {
   GetDoc,
 } from "../../../Repository/DocumentRepository";
 import { useNavigate, useParams } from "react-router-dom";
-import { SwalSuccess } from "../../../Components/Modals";
+import { SwalError, SwalSuccess } from "../../../Components/Modals";
+import { pushNotif } from "../../../Repository/NotifRepository";
+import { getProfile } from "../../../Repository/ProfileRepository";
 
 function DetailDocument() {
   const { id } = useParams();
@@ -120,14 +122,18 @@ function DetailDocument() {
 
   const [editUserData, setEditUserData] = useState();
   const [users, setUsers] = useState({});
+  const [employeeLog, setEmployeeLog] = useState({});
   const [Doc, setDoc] = useState([]);
   const [valueAns, setValueAns] = useState([]);
   const [answers, setAnswers] = useState([]);
   const navigate = useNavigate();
   const inAwait = async () => {
+    var empLog = await getProfile();
     var data = JSON.parse(window.localStorage.getItem("users"));
     var rec = await GetDetailDoc(id);
+    console.log(empLog);
     setUsers(data);
+    setEmployeeLog(empLog.result);
     setDoc(rec["result"]);
   };
   useEffect(() => {
@@ -142,21 +148,43 @@ function DetailDocument() {
           allAnswer.push({
             id_detail_document: detail.id,
             value: document.getElementById(detail.id).files[0],
+            field_type: detail.field_type,
           });
         } else {
           allAnswer.push({
             id_detail_document: detail.id,
             value: document.getElementById(detail.id).value,
+            field_type: detail.field_type,
           });
         }
       });
       // loop semua answer terus tembak api add answer
+      const formData = new FormData();
+      allAnswer.forEach(async (data) => {
+        if (data.field_type == "file") {
+          formData.append("id_detail_document", data.id_detail_document);
+          formData.append("value", data.value);
+          await AnswerDoc(formData);
+        } else {
+          await AnswerDoc({
+            id_detail_document: data.id_detail_document,
+            value: data.value,
+          });
+        }
+      });
 
       // push notif api
+      const notif = await pushNotif({
+        title: `${employeeLog?.employee?.firstName} telah mengisi document ${Doc?.title}`,
+        link: `/document-management/detail/${Doc?.id}/employee/${users?.employeeId}`,
+        employeeId: 84,
+      });
+      console.log(notif);
       SwalSuccess({ message: "Success submit the document!" });
-      // navigate("/document-management");
+      navigate("/document-management");
     } catch (error) {
       console.log(error);
+      SwalError({ message: "Ups" });
     }
   };
 

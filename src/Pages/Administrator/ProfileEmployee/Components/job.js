@@ -2,27 +2,43 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import Select from "react-select";
-import { getJob, updateJob } from "../../../../Repository/ProfileRepository";
+import { getCompanyLocation, GetJobLevel, GetJobPosition, GetJobTittle } from "../../../../Repository/AdminRepository";
+import {
+  getJob,
+  updateJob,
+} from "../../../../Repository/ProfileEmployeeRepository";
 
-function Job() {
+function Job({ idEmployee }) {
   const [modal, setModal] = useState(false);
   const [ContractDetail, setContractDetail] = useState(false);
-  const [job, setJob] = useState([])
+  const [job, setJob] = useState([]);
 
-  const [contractStart, setContractStart] = useState([])
-  const [contractEnd, setContractEnd] = useState([])
-  const [contractFile, setContractFile] = useState([])
+  const [contractStart, setContractStart] = useState([]);
+  const [contractEnd, setContractEnd] = useState([]);
+  const [contractFile, setContractFile] = useState([]);
+  const [jobLevel, setJobLevel] = useState([]);
+  const [jobTitle, setJobTitle] = useState([]);
+  const [jobPost, setJobPost] = useState([]);
+  const [location, setLocation] = useState([]);
 
-  console.log(contractStart)
-  console.log(contractEnd)
-  console.log(contractFile)
+  console.log(contractStart);
+  console.log(contractEnd);
+  console.log(contractFile);
 
   const inAwait = async () => {
-    var data = await getJob();
+    var data = await getJob(idEmployee);
     setJob(data.result);
-    setContractStart(data.result.contractStart)
-    setContractEnd(data.result.contractEnd)
-    setContractFile(data.result.contractFile)
+    setContractStart(data.result.contractStart);
+    setContractEnd(data.result.contractEnd);
+    setContractFile(data.result.contractFile);
+    var jle = await GetJobLevel()
+    setJobLevel(jle);
+    var jttl = await GetJobTittle()
+    setJobTitle(jttl);
+    var jpos = await GetJobPosition()
+    setJobPost(jpos["result"]);
+    var loc = await getCompanyLocation()
+    setLocation(loc);
   };
 
   useEffect(() => {
@@ -38,7 +54,7 @@ function Job() {
     console.log(requestBody);
     inAwait();
     setModal(false);
-    var res = await updateJob(requestBody);
+    var res = await updateJob(requestBody, idEmployee);
     console.log(res);
   };
   return (
@@ -65,84 +81,88 @@ function Job() {
               />
             </div>
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Job Level
               </label>
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.jobLevel?.name != null
+                <option hidden>
+                  {job.jobLevel?.name != null
                     ? job.jobLevel.name
-                    : "-- Select Job Level --"}</option>
-                <option>GA</option>
-                <option>ADV RISET</option>
-                <option>SENIOR TREASURY</option>
-                <option>ADV AKUISISI TIKTOK</option>
-                <option>DS-S</option>
-                <option>ADV MP</option>
-                <option>MKT-S</option>
-                <option>PACKER Koord</option>
-                <option>ADV AKUISISI</option>
-                <option>DATA ANALYST</option>
+                    : "-- Select Job Level --"}
+                </option>
+                {
+                  jobLevel.map((val) => {
+                    return (
+                      <option value={val.id}>{val.name}</option>
+                    )
+                  })
+                }
               </select>
             </div>
           </div>
           <div className="row mb-4">
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Job Title
               </label>
               <div className="w-full">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.jobTitle?.name != null
-                    ? job.jobTitle.name
-                    : "-- Select Job Title --"}</option>
-                  <option>Fulltime-Permanent</option>
-                  <option>Fulltime-Contract</option>
-                  <option>Fulltime-Probation</option>
-                  <option>Part-Time Contract</option>
-                  <option>Part-Time Internship</option>
+                  <option hidden>
+                    {job.jobTitle?.name != null
+                      ? job.jobTitle.name
+                      : "-- Select Job Title --"}
+                  </option>
+                  {
+                    jobTitle.map((val) => {
+                      return (
+                        <option value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Job Position
               </label>
               <div className="w-full">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.jobPosition?.name != null
-                    ? job.jobPosition.name
-                    : "-- Select Job Position --"}</option>
-                  <option>Officials and Managers</option>
-                  <option>Sales Workers</option>
-                  <option>Technicians</option>
-                  <option>Service Workers</option>
+                  <option hidden>
+                    {job.jobPosition?.name != null
+                      ? job.jobPosition.name
+                      : "-- Select Job Position --"}
+                  </option>
+                  {
+                    jobPost.map((val) => {
+                      return (
+                        <option value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
           </div>
           <div className="row mb-4">
             <div className="col-5">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-              >
+              <label className="block text-gray-700 text-sm mb-2">
                 Location
               </label>
               <div className="w-full">
                 <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>{job.location != null
-                    ? job.location
-                    : "-- Select Location --"}</option>
-                  <option>Fulltime-Permanent</option>
-                  <option>Fulltime-Contract</option>
-                  <option>Fulltime-Probation</option>
-                  <option>Part-Time Contract</option>
-                  <option>Part-Time Internship</option>
+                  <option hidden>
+                    {job.location != null
+                      ? job.location
+                      : "-- Select Location --"}
+                  </option>
+                  {
+                    location.map((val) => {
+                      return (
+                        <option value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
@@ -199,7 +219,7 @@ function Job() {
                     id="username"
                     type="date"
                     value={contractStart}
-                    onChange={(e)=>setContractStart(e.target.value)}
+                    onChange={(e) => setContractStart(e.target.value)}
                   />
                 </div>
                 <div className="col-4">
@@ -214,7 +234,7 @@ function Job() {
                     id="username"
                     type="date"
                     value={contractEnd}
-                    onChange={(e)=>setContractEnd(e.target.value)}
+                    onChange={(e) => setContractEnd(e.target.value)}
                   />
                 </div>
               </div>
@@ -230,7 +250,7 @@ function Job() {
                     className="block text-sm w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     id="file_input"
                     type="file"
-                    onChange={(e)=>setContractFile(e.target.files[0])}
+                    onChange={(e) => setContractFile(e.target.files[0])}
                   />
                 </div>
               </div>

@@ -30,7 +30,9 @@ import {
   GetDoc,
 } from "../../../Repository/DocumentRepository";
 import { useNavigate, useParams } from "react-router-dom";
-import { SwalSuccess } from "../../../Components/Modals";
+import { SwalError, SwalSuccess } from "../../../Components/Modals";
+import { pushNotif } from "../../../Repository/NotifRepository";
+import { getProfile } from "../../../Repository/ProfileRepository";
 
 function DetailDocument() {
   const { id } = useParams();
@@ -120,14 +122,18 @@ function DetailDocument() {
 
   const [editUserData, setEditUserData] = useState();
   const [users, setUsers] = useState({});
+  const [employeeLog, setEmployeeLog] = useState({});
   const [Doc, setDoc] = useState([]);
   const [valueAns, setValueAns] = useState([]);
   const [answers, setAnswers] = useState([]);
   const navigate = useNavigate();
   const inAwait = async () => {
+    var empLog = await getProfile();
     var data = JSON.parse(window.localStorage.getItem("users"));
     var rec = await GetDetailDoc(id);
+    console.log(empLog);
     setUsers(data);
+    setEmployeeLog(empLog.result);
     setDoc(rec["result"]);
   };
   useEffect(() => {
@@ -136,11 +142,49 @@ function DetailDocument() {
 
   const answerDoc = async () => {
     try {
-      console.log(answers);
+      let allAnswer = [];
+      await Doc.detail_documents.map((detail) => {
+        if (detail.field_type == "file") {
+          allAnswer.push({
+            id_detail_document: detail.id,
+            value: document.getElementById(detail.id).files[0],
+            field_type: detail.field_type,
+          });
+        } else {
+          allAnswer.push({
+            id_detail_document: detail.id,
+            value: document.getElementById(detail.id).value,
+            field_type: detail.field_type,
+          });
+        }
+      });
+      // loop semua answer terus tembak api add answer
+      const formData = new FormData();
+      allAnswer.forEach(async (data) => {
+        if (data.field_type == "file") {
+          formData.append("id_detail_document", data.id_detail_document);
+          formData.append("value", data.value);
+          await AnswerDoc(formData);
+        } else {
+          await AnswerDoc({
+            id_detail_document: data.id_detail_document,
+            value: data.value,
+          });
+        }
+      });
+
+      // push notif api
+      const notif = await pushNotif({
+        title: `${employeeLog?.employee?.firstName} telah mengisi document ${Doc?.title}`,
+        link: `/document-management/detail/${Doc?.id}/employee/${users?.employeeId}`,
+        employeeId: 84,
+      });
+      console.log(notif);
       SwalSuccess({ message: "Success submit the document!" });
       navigate("/document-management");
     } catch (error) {
       console.log(error);
+      SwalError({ message: "Ups" });
     }
   };
 
@@ -221,15 +265,7 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Short Answer"
@@ -248,15 +284,7 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Paragraph"
@@ -271,15 +299,7 @@ function DetailDocument() {
                             <input
                               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                               value={fd.name}
-                              onChange={(val) => {
-                                setAnswers([
-                                  ...answers,
-                                  {
-                                    id_detail_document: detail.id,
-                                    value: val.target.value,
-                                  },
-                                ]);
-                              }}
+                              id={detail.id}
                               type="checkbox"
                             />
                             <span>{fd.name}</span>
@@ -296,6 +316,7 @@ function DetailDocument() {
                               name={`radio-${index}`}
                               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                               value={fd.name}
+                              id={detail.id}
                               onChange={(val) => {
                                 setAnswers([
                                   ...answers,
@@ -318,15 +339,7 @@ function DetailDocument() {
                         <div>
                           <select
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                            onChange={(val) => {
-                              setAnswers([
-                                ...answers,
-                                {
-                                  id_detail_document: detail.id,
-                                  value: val.target.value,
-                                },
-                              ]);
-                            }}
+                            id={detail.id}
                           >
                             <option className="py-3" hidden>
                               Select
@@ -344,15 +357,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.files[0],
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="file"
                         />
@@ -362,15 +367,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",
@@ -387,15 +384,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",

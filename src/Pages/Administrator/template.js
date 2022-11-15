@@ -847,9 +847,13 @@ function Template() {
                   <div
                     className="grid grid-cols-6 align align-items-center p-3 bg-white rounded-lg shadow-xl cursor-pointer"
                     onClick={() => {
-                      navigate(
-                        `/recruitment/entry-application/detail-applicant/${notif.applicant_id}`
-                      );
+                      if (notif.link != null) {
+                        navigate(notif.link);
+                      } else {
+                        navigate(
+                          `/recruitment/entry-application/detail-applicant/${notif.applicant_id}`
+                        );
+                      }
                       setNotif(false);
                     }}
                     key={index}
@@ -880,7 +884,7 @@ function Template() {
                   </div>
                 );
               })
-            : "Loading..."}
+            : "No Notification"}
           {/* <div className="grid grid-cols-6 align align-items-center p-3 bg-white rounded-lg shadow-xl">
             <svg
               width="20"

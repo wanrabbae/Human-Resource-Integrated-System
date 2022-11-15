@@ -302,8 +302,10 @@ const deleteLicense = async (data) => {
   }
 };
 
-const getJob = async () => {
-  var res = await api.get(`${endpoint}/mobile/profile/job`);
+const getJob = async (idEmployee) => {
+  var res = await api.get(
+    `${endpoint}/mobile/profile/job?id_employee=${idEmployee}`
+  );
   if (res.status == 200) {
     return res.data;
   } else {
@@ -311,12 +313,16 @@ const getJob = async () => {
   }
 };
 
-const updateJob = async (data) => {
-  var res = await api.put(`${endpoint}/mobile/profile/job`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+const updateJob = async (data, idEmployee) => {
+  var res = await api.put(
+    `${endpoint}/mobile/profile/job?id_employee=${idEmployee}`,
+    data,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
   if (res.status == 200) {
     return res.data;
   } else {

@@ -70,13 +70,13 @@ function Dashboard() {
     array[index] = employeeJobTitleData[index].count;
   }
 
-  var arrayColor = ["#003049", "#FDF0D5", "#780000", "#C1121F", "#669BBC"];
+  var arrayColor = ["#064DAA", "#064DAA", "#1368AA", "#03758D", "#669BBC", "#4091C9", "#0DB39E", "#9DCEE2","#16DB93", "#83E377", "#B9E769","#EFEA5A","#F1C453","#F29E4C","#FEDFD4","#F29479","#F26A4F","#EF3C2D","#CB1B16","#65010C","#421C20"];
   var color = [];
   console.log(arrayColor[0]);
   var x = -1;
   for (let index = 0; index < employeeJobTitleData.length; index++) {
     x++;
-    if (x > 4) {
+    if (x > 20) {
       x = 0;
     }
     color[index] = arrayColor[x];
@@ -133,7 +133,7 @@ function Dashboard() {
                 <h1 className="text-gray-200 font-semibold uppercase">
                   Resigned employees
                 </h1>
-                <h1 className="text-white">7,482,120</h1>
+                <h1 className="text-white">0</h1>
               </div>
               <img className="rounded-lg" src={d3} />
             </div>

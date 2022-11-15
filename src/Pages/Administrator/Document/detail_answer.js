@@ -33,7 +33,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
 
 function DetailDocumentAnswer() {
-  const { id } = useParams();
+  const { id_document, id_employee } = useParams();
 
   ChartJS.register(
     CategoryScale,
@@ -126,7 +126,7 @@ function DetailDocumentAnswer() {
   const navigate = useNavigate();
   const inAwait = async () => {
     var data = JSON.parse(window.localStorage.getItem("users"));
-    var rec = await GetDetailDoc(id);
+    var rec = await GetDetailDoc(id_document);
     setUsers(data);
     setDoc(rec["result"]);
   };
@@ -428,32 +428,32 @@ function DetailDocumentAnswer() {
           )}
 
           <div className="d-flex justify-end">
-              <button
-                style={{
-                  borderRadius: "10px",
-                  backgroundColor: "#FFE0E0",
-                  color: "#C1121F",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                }}
-                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-                type=""
-              >
-                Decline
-              </button>
-                <button
-                  style={{
-                    borderRadius: "10px",
-                    backgroundColor: "#CAFFDF",
-                    color: "#028F3B",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                  className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-                  type=""
-                >
-                  Accept
-                </button>
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#FFE0E0",
+                color: "#C1121F",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+              type=""
+            >
+              Decline
+            </button>
+            <button
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#CAFFDF",
+                color: "#028F3B",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+              type=""
+            >
+              Accept
+            </button>
           </div>
           {/* <div
             className="p-4 mb-4"

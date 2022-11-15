@@ -152,7 +152,7 @@ function App() {
           element={<DetailDocument />}
         />
         <Route
-          path="/document-management/detail/:id/employee/:id"
+          path="/document-management/detail/:id_document/employee/:id_employee"
           element={<DetailDocumentAnswer />}
         />
       </Route>

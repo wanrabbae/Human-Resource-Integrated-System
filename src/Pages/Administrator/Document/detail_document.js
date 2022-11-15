@@ -136,9 +136,25 @@ function DetailDocument() {
 
   const answerDoc = async () => {
     try {
-      console.log(answers);
+      let allAnswer = [];
+      await Doc.detail_documents.map((detail) => {
+        if (detail.field_type == "file") {
+          allAnswer.push({
+            id_detail_document: detail.id,
+            value: document.getElementById(detail.id).files[0],
+          });
+        } else {
+          allAnswer.push({
+            id_detail_document: detail.id,
+            value: document.getElementById(detail.id).value,
+          });
+        }
+      });
+      // loop semua answer terus tembak api add answer
+
+      // push notif api
       SwalSuccess({ message: "Success submit the document!" });
-      navigate("/document-management");
+      // navigate("/document-management");
     } catch (error) {
       console.log(error);
     }
@@ -221,15 +237,7 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Short Answer"
@@ -248,15 +256,7 @@ function DetailDocument() {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="text"
                           placeholder="Paragraph"
@@ -271,15 +271,7 @@ function DetailDocument() {
                             <input
                               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                               value={fd.name}
-                              onChange={(val) => {
-                                setAnswers([
-                                  ...answers,
-                                  {
-                                    id_detail_document: detail.id,
-                                    value: val.target.value,
-                                  },
-                                ]);
-                              }}
+                              id={detail.id}
                               type="checkbox"
                             />
                             <span>{fd.name}</span>
@@ -296,6 +288,7 @@ function DetailDocument() {
                               name={`radio-${index}`}
                               className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                               value={fd.name}
+                              id={detail.id}
                               onChange={(val) => {
                                 setAnswers([
                                   ...answers,
@@ -318,15 +311,7 @@ function DetailDocument() {
                         <div>
                           <select
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                            onChange={(val) => {
-                              setAnswers([
-                                ...answers,
-                                {
-                                  id_detail_document: detail.id,
-                                  value: val.target.value,
-                                },
-                              ]);
-                            }}
+                            id={detail.id}
                           >
                             <option className="py-3" hidden>
                               Select
@@ -344,15 +329,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.files[0],
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="file"
                         />
@@ -362,15 +339,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",
@@ -387,15 +356,7 @@ function DetailDocument() {
                       <>
                         <div>{detail.field_name}</div>
                         <input
-                          onChange={(val) => {
-                            setAnswers([
-                              ...answers,
-                              {
-                                id_detail_document: detail.id,
-                                value: val.target.value,
-                              },
-                            ]);
-                          }}
+                          id={detail.id}
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           style={{
                             borderRadius: "10px",

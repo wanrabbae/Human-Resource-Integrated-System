@@ -54,6 +54,7 @@ import Calendar from "./Pages/Administrator/TimeManagement/Calendar";
 import Cal from "./Pages/Administrator/TimeManagement/Calendar";
 import Maintenance from "./Pages/Administrator/Maintenance/maintenance";
 import DetailDocument from "./Pages/Administrator/Document/detail_document";
+import DetailDocumentAnswer from "./Pages/Administrator/Document/detail_answer";
 
 function App() {
   return (
@@ -149,6 +150,10 @@ function App() {
         <Route
           path="/document-management/detail/:id"
           element={<DetailDocument />}
+        />
+        <Route
+          path="/document-management/detail/:id/employee/:id"
+          element={<DetailDocumentAnswer />}
         />
       </Route>
       <Route path="/timeManagement" element={<Template />}>

@@ -32,6 +32,7 @@ import {
     OutlinedInput,
     TextField,
   } from "@mui/material";
+import { is } from "date-fns/locale";
   import { Camera } from "phosphor-react";
   import { useEffect } from "react";
   import { useState } from "react";
@@ -98,13 +99,15 @@ import { postMaintenance } from "../../../Repository/MaintenanceRepository";
                         }}
                         className="px-4"
                         onClick={async () => {
+                          setMaintain(!isMaintain)
                           var requestBody = {
                             username: document.getElementById("username").value,
                             password: document.getElementById("password").value,
+                            isMaintain: isMaintain
                           };
                           var res = await postMaintenance(requestBody);
                           console.log(res);
-                          SwalSuccess({ message: "Success Turn On Maintenance" });
+                          SwalSuccess({ message: "Success" });
                         }}
                     >
                         Confirm

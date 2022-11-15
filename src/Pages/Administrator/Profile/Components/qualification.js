@@ -43,7 +43,7 @@ import { useEffect } from "react";
 import { GetJobTittle } from "../../../../Repository/AdminRepository";
 import { GetSkills } from "../../../../Repository/SkillsRepository";
 import { GetLanguages } from "../../../../Repository/LanguagesRepository";
-import { ModalDelete } from "../../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import { GetEducation } from "../../../../Repository/EducationRepository";
 
 function Qualification() {
@@ -205,6 +205,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalAddWExperience(false);
+    SwalSuccess({ message: "Success Add Work Experience" });
   };
 
   const postDataEditWorkExp = async () => {
@@ -221,6 +222,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalEditExperience(false);
+    SwalSuccess({ message: "Success Update Work Experience" });
   };
 
   const postDataSkill = async () => {
@@ -234,6 +236,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalAddSkill(false);
+    SwalSuccess({ message: "Success Add Skill" });
   };
 
   const postDataEditSkill = async () => {
@@ -248,6 +251,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalEditSkill(false);
+    SwalSuccess({ message: "Success Update Skill" });
   };
 
   const postDataEducation = async () => {
@@ -265,6 +269,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalAddEducation(false);
+    SwalSuccess({ message: "Success Add Education" });
   };
 
   const postDataEditEducation = async () => {
@@ -283,6 +288,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalEditEducation(false);
+    SwalSuccess({ message: "Success Update Education" });
   };
 
   const postDataLanguage = async () => {
@@ -297,6 +303,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalAddLanguage(false);
+    SwalSuccess({ message: "Success Add Language" });
   };
 
   const postDataEditLanguage = async () => {
@@ -312,6 +319,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalEditLanguage(false);
+    SwalSuccess({ message: "Success Update Language" });
   };
 
   const postDataLicense = async () => {
@@ -326,6 +334,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalAddLisence(false);
+    SwalSuccess({ message: "Success Add License" });
   };
 
   const postDataEditLicense = async () => {
@@ -341,6 +350,7 @@ function Qualification() {
     console.log(res);
     inAwait();
     setModalEditLisence(false);
+    SwalSuccess({ message: "Success Update License" });
   };
 
   return (

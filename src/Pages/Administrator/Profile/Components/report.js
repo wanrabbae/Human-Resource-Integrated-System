@@ -26,7 +26,7 @@ import {
   GetEmployee,
   GetReportMeth,
 } from "../../../../Repository/EmployeeRepository";
-import { ModalDelete } from "../../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 
 function ReportTo() {
   const [users, setUsers] = useState([]);
@@ -97,6 +97,7 @@ function ReportTo() {
     inAwait();
     setModalAdd(false);
     setModalAddSub(false);
+    SwalSuccess({ message: "Success Add" });
   };
 
   const postDataEdit = async () => {
@@ -113,6 +114,7 @@ function ReportTo() {
     inAwait();
     setModalEdit(false);
     setModalEditSub(false);
+    SwalSuccess({ message: "Success Update" });
   };
 
   const code = (id) => {

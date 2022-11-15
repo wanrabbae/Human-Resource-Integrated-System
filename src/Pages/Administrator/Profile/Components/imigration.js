@@ -4,6 +4,7 @@ import { PencilSimple, Plus, Trash } from "phosphor-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
+import { SwalSuccess } from "../../../../Components/Modals";
 import {
   addImigration,
   deleteImigration,
@@ -56,10 +57,11 @@ function Imigration() {
       comment: comment,
     };
     console.log(requestBody);
-    inAwait();
-    setModal(false);
     var res = await addImigration(requestBody);
     console.log(res);
+    inAwait();
+    setModal(false);
+    SwalSuccess({ message: "Success Add Imigration" });
   };
   const postDataEdit = async () => {
     var requestBody = {
@@ -74,10 +76,11 @@ function Imigration() {
       comment: editComment,
     };
     console.log(requestBody);
-    inAwait();
-    setModalEdit(false);
     var res = await updateImigration(requestBody);
     console.log(res);
+    inAwait();
+    setModalEdit(false);
+    SwalSuccess({ message: "Success Update Imigration" });
   };
   const deletedImigration = async (data) => {
     var res = await deleteImigration(data);

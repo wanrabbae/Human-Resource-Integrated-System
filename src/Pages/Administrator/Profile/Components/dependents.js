@@ -22,7 +22,7 @@ import {
   deleteDependent,
 } from "../../../../Repository/ProfileRepository";
 import { useEffect } from "react";
-import { ModalDelete } from "../../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 
 function Dependents() {
   const [modal, setModal] = useState(false);
@@ -55,10 +55,11 @@ function Dependents() {
       birthDate: birthDate,
     };
     console.log(requestBody);
-    inAwait();
-    setModalAdd(false);
     var res = await addDependent(requestBody);
     console.log(res);
+    inAwait();
+    setModalAdd(false);
+    SwalSuccess({ message: "Success Add Dependents" });
   };
   const postDataEdit = async () => {
     var requestBody = {
@@ -68,10 +69,11 @@ function Dependents() {
       birthDate: editBirthDate,
     };
     console.log(requestBody);
-    inAwait();
-    setModal(false);
     var res = await updateDependent(requestBody);
     console.log(res);
+    inAwait();
+    setModal(false);
+    SwalSuccess({ message: "Success Update Dependents" });
   };
 
   console.log(id);

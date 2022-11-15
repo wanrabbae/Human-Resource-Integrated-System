@@ -22,7 +22,7 @@ import {
   updateEmergencyContact,
 } from "../../../../Repository/ProfileRepository";
 
-import { ModalDelete } from "../../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 
 function EmergencyContact() {
   const [modal, setModal] = useState(false);
@@ -58,10 +58,11 @@ function EmergencyContact() {
       mobilePhone: mobilePhone,
     };
     console.log(requestBody);
-    inAwait();
-    setModalAdd(false);
     var res = await addEmergencyContact(requestBody);
     console.log(res);
+    inAwait();
+    setModalAdd(false);
+    SwalSuccess({ message: "Success Add Emergency Contact" });
   };
   const postDataEdit = async () => {
     var requestBody = {
@@ -72,10 +73,11 @@ function EmergencyContact() {
       mobilePhone: editMobilePhone,
     };
     console.log(requestBody);
-    inAwait();
-    setModal(false);
     var res = await updateEmergencyContact(requestBody);
     console.log(res);
+    inAwait();
+    setModal(false);
+    SwalSuccess({ message: "Success Update Emergency Contact" });
   };
 
   // console.log(id);
@@ -210,7 +212,6 @@ function EmergencyContact() {
               <input
                 value={editName}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
                 placeholder="Username"
                 onChange={(e) => setEditName(e.target.value)}
@@ -226,7 +227,6 @@ function EmergencyContact() {
               <input
                 value={editRelationship}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
                 onChange={(e) => setEditRelationship(e.target.value)}
               />
@@ -242,7 +242,6 @@ function EmergencyContact() {
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
                 placeholder=""
                 value={editPhone}
@@ -260,7 +259,6 @@ function EmergencyContact() {
                 value={editMobilePhone}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 placeholder="ex : 0812xxxxxxxx"
-                id="username"
                 type="text"
                 onChange={(e) => setEditMobilePhone(e.target.value)}
               />
@@ -315,9 +313,7 @@ function EmergencyContact() {
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
-                placeholder="Username"
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
@@ -330,7 +326,6 @@ function EmergencyContact() {
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
                 onChange={(e) => setRelationship(e.target.value)}
               />
@@ -346,7 +341,6 @@ function EmergencyContact() {
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
                 placeholder=""
                 onChange={(e) => setPhone(e.target.value)}
@@ -361,8 +355,6 @@ function EmergencyContact() {
               </label>
               <input
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                placeholder="ex : 0812xxxxxxxx"
-                id="username"
                 type="text"
                 onChange={(e) => setMobilePhone(e.target.value)}
               />

@@ -178,21 +178,20 @@ function Job() {
                 </span>
               </label>
             </div>
-            {users.role != "user" ? (
-              <Button
-                style={{
-                  border: "1px solid #CACACA",
-                  fontSize: "14px",
-                  backgroundColor: "#FFFFFF",
-                  color: "#003049",
-                  fontWeight: "500",
-                }}
-                className=""
-                onClick={() => setModal(true)}
-              >
-                Terminate Employement
-              </Button>
-            ) : null}
+            <Button
+              style={{
+                border: "1px solid #CACACA",
+                fontSize: "14px",
+                backgroundColor: "#FFFFFF",
+                color: "#003049",
+                fontWeight: "500",
+              }}
+              className=""
+              onClick={() => setModal(true)}
+              hidden
+            >
+              Terminate Employement
+            </Button>
           </div>
           {ContractDetail ? (
             <div onHide={() => setContractDetail(false)}>
@@ -254,22 +253,21 @@ function Job() {
                         react show hide component
                     </button>
                     </div> */}
-          {users.role != "user" ? (
-            <div className="d-flex justify-content-end mt-4">
-              <Button
-                style={{
-                  border: "none",
-                  fontSize: "14px",
-                  backgroundColor: "#0E5073",
-                  color: "#FFFFFF",
-                }}
-                className="px-4"
-                onClick={postData}
-              >
-                Save
-              </Button>
-            </div>
-          ) : null}
+          <div className="d-flex justify-content-end mt-4">
+            <Button
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#0E5073",
+                color: "#FFFFFF",
+              }}
+              className="px-4"
+              onClick={postData}
+              hidden
+            >
+              Save
+            </Button>
+          </div>
         </form>
       </div>
       <Modal show={modal} size="lg" onHide={() => setModal(false)}>

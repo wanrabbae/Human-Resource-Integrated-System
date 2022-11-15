@@ -12,6 +12,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import { SwalSuccess } from "../../../../Components/Modals";
 
 function PersonalDetail() {
   const [nationalities, setNationalities] = useState([]);
@@ -45,15 +46,15 @@ function PersonalDetail() {
     inAwait();
   }, []);
 
-  console.log(firstName);
-  console.log(lastName);
-  console.log(otherId);
-  console.log(driverLicence);
-  console.log(gender);
-  console.log(maritalStatus);
-  console.log(selectedNationalities);
-  console.log(licenceExpire);
-  console.log(birthDate);
+  // console.log(firstName);
+  // console.log(lastName);
+  // console.log(otherId);
+  // console.log(driverLicence);
+  // console.log(gender);
+  // console.log(maritalStatus);
+  // console.log(selectedNationalities);
+  // console.log(licenceExpire);
+  // console.log(birthDate);
 
   const postData = async () => {
     var requestBody = {
@@ -68,9 +69,10 @@ function PersonalDetail() {
       gender: gender,
     };
     console.log(requestBody);
-    inAwait();
     var res = await updateProfile(requestBody);
     console.log(res);
+    inAwait();
+    SwalSuccess({ message: "Success Update Personal Detail" });
   };
   return (
     <>
@@ -78,7 +80,7 @@ function PersonalDetail() {
         <div className="mb-4">
           <span style={{ fontWeight: "600" }}>Personal Detail</span>
         </div>
-        <form onSubmit={postData}>
+        {/* <form onSubmit={postData}> */}
           <div className="mb-4">
             <label className="block text-gray-700 text-sm mb-2" for="fName">
               Employee Full Name <span style={{ color: "#780000" }}>*</span>
@@ -280,9 +282,8 @@ function PersonalDetail() {
             </div>
           </div>
           <div className="d-flex justify-content-end mt-4">
-            <input
-              type="submit"
-              value="submit"
+            <button
+            onClick={postData}
               className="btn"
               style={{
                 border: "none",
@@ -290,9 +291,9 @@ function PersonalDetail() {
                 backgroundColor: "#0E5073",
                 color: "#FFFFFF",
               }}
-            />
+            >Submit</button>
           </div>
-        </form>
+        {/* </form> */}
       </div>
     </>
   );

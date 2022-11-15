@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Select from "react-select";
-import { updateProfile } from "../../../../Repository/ProfileRepository";
+import { SwalSuccess } from "../../../../Components/Modals";
+import { getProfile, updateProfile } from "../../../../Repository/ProfileRepository";
 
-function ContactDetail({ data }) {
+function ContactDetail() {
   const provinces = ["Jawa Tengah", "Jawa Barat", "Jawa Timur", "DKI Jakarta"];
   const countries = ["Indonesia", "Malaysia", "Arab", "Jepang", "Korea"];
 
@@ -19,15 +20,17 @@ function ContactDetail({ data }) {
   const [otherEmail, setOtherEmail] = useState([]);
 
   const inAwait = async () => {
-    setStreet(data?.employee?.street);
-    setCity(data?.employee?.city);
-    setProvince(data?.employee?.province);
-    setPostalCode(data?.employee?.postalCode);
-    setCountry(data?.employee?.country);
-    setPhone(data?.employee?.phone);
-    setMPhone(data?.employee?.mobilePhone);
-    setEmail(data?.employee?.email);
-    setOtherEmail(data?.employee?.otherEmail);
+    var data = await getProfile();
+    // console.log(data)
+    setStreet(data.result?.employee?.street);
+    setCity(data.result?.employee?.city);
+    setProvince(data.result?.employee?.province);
+    setPostalCode(data.result?.employee?.postalCode);
+    setCountry(data.result?.employee?.country);
+    setPhone(data.result?.employee?.phone);
+    setMPhone(data.result?.employee?.mobilePhone);
+    setEmail(data.result?.employee?.email);
+    setOtherEmail(data.result?.employee?.otherEmail);
   };
 
   useEffect(() => {
@@ -46,26 +49,27 @@ function ContactDetail({ data }) {
       otherEmail: otherEmail,
     };
     console.log(requestBody);
-    inAwait();
     var res = await updateProfile(requestBody);
     console.log(res);
+    inAwait();
+    SwalSuccess({ message: "Success Update Contact Detail" });
   };
-  console.log(street);
-  console.log(city);
-  console.log(province);
-  console.log(postalCode);
-  console.log(country);
-  console.log(phone);
-  console.log(mPhone);
-  console.log(email);
-  console.log(otherEmail);
+  // console.log(street);
+  // console.log(city);
+  // console.log(province);
+  // console.log(postalCode);
+  // console.log(country);
+  // console.log(phone);
+  // console.log(mPhone);
+  // console.log(email);
+  // console.log(otherEmail);
   return (
     <>
       <div>
         <div className="mb-4">
           <span style={{ fontWeight: "600" }}>Contact Detail</span>
         </div>
-        <form onSubmit={postData}>
+        {/* <form onSubmit={postData}> */}
           <div className="row mb-4">
             <div className="col">
               <label
@@ -78,9 +82,8 @@ function ContactDetail({ data }) {
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
-                placeholder="Username"
+                placeholder="Street"
               />
             </div>
             <div className="col">
@@ -95,8 +98,8 @@ function ContactDetail({ data }) {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
                 type="text"
+                placeholder="city"
               />
             </div>
           </div>
@@ -156,7 +159,7 @@ function ContactDetail({ data }) {
                 onChange={(e) => setCountry(e.target.value)}
               >
                 <option className="py-3" value={country} hidden>
-                  {countries != null ? countries : "Select Country"}
+                  {country != null ? country : "Select Country"}
                 </option>
                 {countries.map((val) => (
                   <option className="py-3" value={val}>
@@ -236,19 +239,18 @@ function ContactDetail({ data }) {
             </div>
           </div>
           <div className="d-flex justify-content-end mt-4">
-          <input
-              type="submit"
-              value="submit"
+          <button
+              onClick={postData}
               className="btn"
               style={{
                 border: "none",
                 fontSize: "14px",
                 backgroundColor: "#0E5073",
                 color: "#FFFFFF",
-              }}
-            />
+              }}>Submit
+            </button>
           </div>
-        </form>
+        {/* </form> */}
       </div>
     </>
   );

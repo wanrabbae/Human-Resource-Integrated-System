@@ -448,7 +448,7 @@ function ReportTo({ idEmployee }) {
                   employee.map((val) => {
                     return {
                       value: val.id,
-                      label: val.firstName + " " + val.lastName,
+                      label: val.firstName,
                     };
                   })
                 }
@@ -565,7 +565,7 @@ function ReportTo({ idEmployee }) {
                   employee.map((val) => {
                     return {
                       value: val.id,
-                      label: val.firstName + " " + val.lastName,
+                      label: val.firstName ,
                     };
                   })
                 }
@@ -673,7 +673,7 @@ function ReportTo({ idEmployee }) {
                   employee.map((val) => {
                     return {
                       value: val.id,
-                      label: val.firstName + " " + val.lastName,
+                      label: val.firstName,
                     };
                   })
                 }

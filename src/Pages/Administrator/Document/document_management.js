@@ -36,7 +36,10 @@ import {
   UpdateDetailDocument,
   UpdateFieldDocument,
 } from "../../../Repository/DocumentRepository";
-import { GetEmployee } from "../../../Repository/EmployeeRepository";
+import {
+  GetEmployee,
+  GetEmployeeName,
+} from "../../../Repository/EmployeeRepository";
 import { Delete, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import {
@@ -197,7 +200,7 @@ function DocumentManagement() {
   const inAwait = async () => {
     var data = JSON.parse(window.localStorage.getItem("users"));
     var rec = await GetDoc(data);
-    var emp = await GetEmployee();
+    var emp = await GetEmployeeName();
     emp.map((em) => showTo.push({ value: em.id, label: em.firstName }));
     setUserLogged(data);
     setDoc(rec["result"]);

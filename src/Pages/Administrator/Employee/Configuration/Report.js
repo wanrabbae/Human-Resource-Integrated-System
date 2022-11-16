@@ -21,6 +21,7 @@ import {
   UpdateReport,
   DeleteReport,
   GetEmployee,
+  GetEmployeeName,
 } from "../../../../Repository/EmployeeRepository.js";
 import { ReportSharp } from "@mui/icons-material";
 import {
@@ -147,7 +148,7 @@ function Report() {
 
   const handleChangeCriteria = async (criteria) => {
     if (criteria == "Employee Name") {
-      const employees = await GetEmployee();
+      const employees = await GetEmployeeName();
       setDataCriteria(employees);
     } else if (criteria == "Pay Grade") {
       const jobGrade = await GetJobGrade();

@@ -52,6 +52,7 @@ function ReportTo({ idEmployee }) {
   const [editReportName, setEditReportName] = useState([]);
   const [editStatus, setEditStatus] = useState([]);
   const [editName, setEditName] = useState([]);
+  const [reportToEmployee, setReportToEmployee] = useState(0);
 
   console.log(editName);
   console.log(editStructureId);
@@ -80,6 +81,7 @@ function ReportTo({ idEmployee }) {
     var requestBody = {
       name: name,
       status: status,
+      reportToEmployee: reportToEmployee,
       reporting_method_id: reportId,
       structureId: structureId,
     };
@@ -438,6 +440,7 @@ function ReportTo({ idEmployee }) {
                 isLoading={true}
                 onChange={(e) => {
                   code(e.value);
+                  setReportToEmployee(e.value);
                   setName(e.label);
                 }}
                 isFocused="appearance-none border-0 outline-0"

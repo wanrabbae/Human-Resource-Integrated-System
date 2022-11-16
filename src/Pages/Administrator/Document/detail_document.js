@@ -33,6 +33,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SwalError, SwalSuccess } from "../../../Components/Modals";
 import { pushNotif } from "../../../Repository/NotifRepository";
 import { getProfile } from "../../../Repository/ProfileRepository";
+import { getReport } from "../../../Repository/ProfileEmployeeRepository";
 
 function DetailDocument() {
   const { id } = useParams();
@@ -123,6 +124,7 @@ function DetailDocument() {
   const [editUserData, setEditUserData] = useState();
   const [users, setUsers] = useState({});
   const [employeeLog, setEmployeeLog] = useState({});
+  const [reportTo, setReportTo] = useState([]);
   const [Doc, setDoc] = useState([]);
   const [valueAns, setValueAns] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -131,8 +133,9 @@ function DetailDocument() {
     var empLog = await getProfile();
     var data = JSON.parse(window.localStorage.getItem("users"));
     var rec = await GetDetailDoc(id);
-    console.log(empLog);
+    var report = await getReport(data?.employeeId);
     setUsers(data);
+    setReportTo(report.result);
     setEmployeeLog(empLog.result);
     setDoc(rec["result"]);
   };
@@ -174,11 +177,23 @@ function DetailDocument() {
       });
 
       // push notif api
-      const notif = await pushNotif({
-        title: `${employeeLog?.employee?.firstName} telah mengisi document ${Doc?.title}`,
-        link: `/document-management/detail/${Doc?.id}/employee/${users?.employeeId}`,
-        employeeId: 84,
-      });
+      if (reportTo?.length > 0) {
+        reportTo.map(async (to) => {
+          if (to.status == "supervisor") {
+            await pushNotif({
+              title: `${employeeLog?.employee?.firstName} telah mengisi document ${Doc?.title}`,
+              link: `/document-management/detail/${Doc?.id}/employee/${users?.employeeId}`,
+              employeeId: to?.reportToEmployee,
+            });
+          }
+        });
+      } else {
+        await pushNotif({
+          title: `${employeeLog?.employee?.firstName} telah mengisi document ${Doc?.title}`,
+          link: `/document-management/detail/${Doc?.id}/employee/${users?.employeeId}`,
+          employeeId: 84,
+        });
+      }
       SwalSuccess({ message: "Success submit the document!" });
       navigate("/document-management");
     } catch (error) {

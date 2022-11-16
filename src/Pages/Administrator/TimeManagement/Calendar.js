@@ -1088,8 +1088,8 @@ function Cal() {
           }}
           submit={() => {
             DeleteEvent(id);
-            setDeleteEvent(false);
             inAwait();
+            setDeleteEvent(false);
           }}
           active={isdeleteEvent}
         />
@@ -1099,8 +1099,8 @@ function Cal() {
           }}
           submit={() => {
             DeleteTodo(id);
-            setDeleteTodo(false);
             inAwait();
+            setDeleteTodo(false);
           }}
           active={isdeleteTodo}
         />

@@ -24,7 +24,7 @@ import {
   UpdateTodo,
 } from "../../../Repository/TimeManagementRepository";
 import dateFormat from "dateformat";
-import { ModalDelete } from "../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../Components/Modals";
 import { Details } from "@mui/icons-material";
 
 const locales = {
@@ -92,6 +92,8 @@ function Cal() {
   const [isdeleteEvent, setDeleteEvent] = useState(false);
   const [isdeleteTodo, setDeleteTodo] = useState(false);
 
+  const [id, setId] = useState([]);
+
   const [title, setTitle] = useState([]);
   const [startDate, setStartDate] = useState([]);
   const [endDate, setEndDate] = useState([]);
@@ -101,7 +103,8 @@ function Cal() {
   const [email, setEmail] = useState([]);
 
   const [editTitle, setEditTitle] = useState([]);
-  const [editDate, setEditDate] = useState([]);
+  const [editStartDate, setEditStartDate] = useState([]);
+  const [editEndDate, setEditEndDate] = useState([]);
   const [editStart, setEditStart] = useState([]);
   const [editEnd, setEditEnd] = useState([]);
   const [editLocation, setEditLocation] = useState([]);
@@ -121,7 +124,14 @@ function Cal() {
   const [editEmailTodo, setEditEmailTodo] = useState([]);
   const [editDetail, setEditDetail] = useState([]);
 
-  const [id, setId] = useState([]);
+  console.log(id);
+  console.log(editTitle);
+  console.log(editStartDate);
+  console.log(editEndDate);
+  console.log(editStart);
+  console.log(editEnd);
+  console.log(editDetail);
+  console.log(editEmail);
 
   const formatDate = (data) => {
     var data = data.split("-");
@@ -144,23 +154,27 @@ function Cal() {
     console.log(res);
     handleClose();
     inAwait();
+    SwalSuccess({ message: "Success Add Event" });
   };
 
   const editData = async () => {
     var requestBody = {
       id: id,
       title: editTitle,
-      date: editDate,
+      startDate: editStartDate,
+      endDate: editEndDate,
       start: editStart,
       end: editEnd,
       location: editLocation,
       calendar: editEmail,
+      category: "event",
     };
     console.log(requestBody);
     var res = await UpdateEvent(requestBody);
     console.log(res);
     handleCloseEvent();
     inAwait();
+    SwalSuccess({ message: "Success Update Event" });
   };
   const postDataTodo = async () => {
     var requestBody = {
@@ -178,21 +192,26 @@ function Cal() {
     console.log(res);
     handleClose();
     inAwait();
+    SwalSuccess({ message: "Success Add My Todo" });
   };
   const editDataTodo = async () => {
     var requestBody = {
       id: id,
-      title: editTitleTodo,
-      date: editDateTodo,
-      time: editTime,
-      calendar: editEmailTodo,
+      title: editTitle,
+      startDate: editStartDate,
+      endDate: editEndDate,
+      start: editStart,
+      end: editEnd,
       details: editDetail,
+      calendar: editEmail,
+      category: "mytodo",
     };
     console.log(requestBody);
-    var res = await UpdateTodo(requestBody);
+    var res = await UpdateEvent(requestBody);
     console.log(res);
     handleCloseTodo();
     inAwait();
+    SwalSuccess({ message: "Success Update My Todo" });
   };
 
   const inAwait = async () => {
@@ -215,6 +234,11 @@ function Cal() {
   const dateEvent = (data) => {
     var data = data.split(" ");
     return data[0];
+  };
+
+  const convertDate = (data) => {
+    var data = data.split("-");
+    return `${data[2]}-${data[0]}-${data[1]}`;
   };
 
   const { views, ...otherProps } = useMemo(
@@ -353,9 +377,10 @@ function Cal() {
                             handleShowEvent();
                             setId(val.id);
                             setEditTitle(val.title);
-                            setEditDate(val.date);
-                            setEditStart(val.start);
-                            setEditEnd(val.end);
+                            setEditStartDate(convertDate(dateEvent(val.start)));
+                            setEditEndDate(convertDate(dateEvent(val.end)));
+                            setEditStart(timeEvent(val.start));
+                            setEditEnd(timeEvent(val.end));
                             setEditLocation(val.location);
                             setEditEmail(val.calendar);
                           }}
@@ -481,10 +506,11 @@ function Cal() {
                             handleShowTodo();
                             setId(val.id);
                             setEditTitle(val.title);
-                            setEditDate(val.date);
-                            setEditStart(val.start);
-                            setEditEnd(val.end);
-                            setEditLocation(val.location);
+                            setEditStartDate(convertDate(dateEvent(val.start)));
+                            setEditEndDate(convertDate(dateEvent(val.end)));
+                            setEditStart(timeEvent(val.start));
+                            setEditEnd(timeEvent(val.end));
+                            setEditDetail(val.details);
                             setEditEmail(val.calendar);
                           }}
                         >
@@ -840,25 +866,29 @@ function Cal() {
                   type="text"
                   placeholder="Input Event Title"
                   value={editTitle}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, title: e.target.value })
-                  // }
                   onChange={(e) => setEditTitle(e.target.value)}
                   className="form-control rounded-lg"
                 />
               </div>
-              <div className="">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="form-group mt-3">
-                  <label>Date</label>
+                  <label>Start Date</label>
                   <input
                     type="date"
                     placeholderText="Start Date"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.start}
-                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
-                    value={editDate}
-                    onChange={(e) => setEditDate(e.target.value)}
+                    value={editStartDate}
+                    onChange={(e) => setEditStartDate(e.target.value)}
+                  />
+                </div>
+                <div className="form-group mt-3">
+                  <label>End Date</label>
+                  <input
+                    type="date"
+                    placeholderText="Start Date"
+                    className="form-control rounded-lg"
+                    value={editEndDate}
+                    onChange={(e) => setEditEndDate(e.target.value)}
                   />
                 </div>
               </div>
@@ -869,9 +899,6 @@ function Cal() {
                     type="time"
                     placeholderText="Start Time"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.end}
-                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
                     value={editStart}
                     onChange={(e) => setEditStart(e.target.value)}
                   />
@@ -882,11 +909,6 @@ function Cal() {
                     type="time"
                     placeholderText="End Time"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.start}
-                    // onChange={(start) =>
-                    //   setNewEvent({ ...newEvent, start })
-                    // }
                     value={editEnd}
                     onChange={(e) => setEditEnd(e.target.value)}
                   />
@@ -898,10 +920,6 @@ function Cal() {
                 <input
                   type="text"
                   placeholder="Add Location"
-                  // value={newEvent.location}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, location: e.target.value })
-                  // }
                   className="form-control rounded-lg"
                   value={editLocation}
                   onChange={(e) => setEditLocation(e.target.value)}
@@ -912,10 +930,6 @@ function Cal() {
                 <input
                   type="email"
                   placeholder="Type your email"
-                  // value={newEvent.email}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, email: e.target.value })
-                  // }
                   value={editEmail}
                   onChange={(e) => setEditEmail(e.target.value)}
                   className="form-control rounded-lg"
@@ -950,12 +964,12 @@ function Cal() {
               <a
                 href="#"
                 style={{
-                  color: index == 1 ? "#780000" : "#00000080",
-                  borderColor: index == 1 ? "#780000" : "#00000080",
-                  paddingBottom: index == 1 ? "5px" : "",
-                  borderBottomStyle: index == 1 ? "solid" : "",
-                  borderBottomWidth: index == 1 ? "4px" : "",
-                  width: index == 1 ? "fit-content" : "",
+                  color: index == 0 ? "#780000" : "#00000080",
+                  borderColor: index == 0 ? "#780000" : "#00000080",
+                  paddingBottom: index == 0 ? "5px" : "",
+                  borderBottomStyle: index == 0 ? "solid" : "",
+                  borderBottomWidth: index == 0 ? "4px" : "",
+                  width: index == 0 ? "fit-content" : "",
                 }}
                 className="mt-2"
                 onClick={() => setIndex(0)}
@@ -965,12 +979,12 @@ function Cal() {
               <a
                 href="#"
                 style={{
-                  color: index == 0 ? "#780000" : "#00000080",
-                  borderColor: index == 0 ? "#780000" : "#00000080",
-                  paddingBottom: index == 0 ? "5px" : "",
-                  borderBottomStyle: index == 0 ? "solid" : "",
-                  borderBottomWidth: index == 0 ? "4px" : "",
-                  width: index == 0 ? "fit-content" : "",
+                  color: index == 1 ? "#780000" : "#00000080",
+                  borderColor: index == 1 ? "#780000" : "#00000080",
+                  paddingBottom: index == 1 ? "5px" : "",
+                  borderBottomStyle: index == 1 ? "solid" : "",
+                  borderBottomWidth: index == 1 ? "4px" : "",
+                  width: index == 1 ? "fit-content" : "",
                 }}
                 className="mt-2"
                 onClick={() => setIndex(1)}
@@ -984,55 +998,62 @@ function Cal() {
                 <input
                   type="text"
                   placeholder="Input Event Title"
-                  // value={newEvent.title}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, title: e.target.value })
-                  // }
-                  value={editTitleTodo}
-                  onChange={(e) => setEditTitleTodo(e.target.value)}
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
                   className="form-control rounded-lg"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="form-group mt-3">
-                  <label>Date</label>
+                  <label>Start Date</label>
                   <input
                     type="date"
                     placeholderText="Start Date"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.start}
-                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
-                    value={editDateTodo}
-                    onChange={(e) => setEditDateTodo(e.target.value)}
+                    value={editStartDate}
+                    onChange={(e) => setEditStartDate(e.target.value)}
                   />
                 </div>
                 <div className="form-group mt-3">
-                  <label>Time</label>
+                  <label>End Date</label>
+                  <input
+                    type="date"
+                    placeholderText="Start Date"
+                    className="form-control rounded-lg"
+                    value={editEndDate}
+                    onChange={(e) => setEditEndDate(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="form-group mt-3">
+                  <label>Start Time</label>
                   <input
                     type="time"
                     placeholderText="Start Time"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.end}
-                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
-                    value={editTime}
-                    onChange={(e) => setEditTime(e.target.value)}
+                    value={editStart}
+                    onChange={(e) => setEditStart(e.target.value)}
+                  />
+                </div>
+                <div className="form-group mt-3">
+                  <label>End Time</label>
+                  <input
+                    type="time"
+                    placeholderText="End Time"
+                    className="form-control rounded-lg"
+                    value={editEnd}
+                    onChange={(e) => setEditEnd(e.target.value)}
                   />
                 </div>
               </div>
-
               <div className="form-group mt-3">
                 <label>Calendar</label>
                 <input
                   type="email"
                   placeholder="Type your email"
-                  // value={newEvent.email}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, email: e.target.value })
-                  // }
-                  value={editEmailTodo}
-                  onChange={(e) => setEditEmailTodo(e.target.value)}
+                  value={editEmail}
+                  onChange={(e) => setEditEmail(e.target.value)}
                   className="form-control rounded-lg"
                 />
               </div>
@@ -1040,10 +1061,6 @@ function Cal() {
                 <label>Details</label>
                 <textarea
                   placeholder="type details activity"
-                  // value={newEvent.location}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, location: e.target.value })
-                  // }
                   value={editDetail}
                   onChange={(e) => setEditDetail(e.target.value)}
                   className="form-control rounded-lg"

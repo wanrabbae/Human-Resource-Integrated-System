@@ -66,8 +66,8 @@ function ReportTo() {
     setData(data.result);
     console.log(data.result);
     var dataEmployee = await GetEmployee();
-    // console.log(dataEmployee);
-    setEmployee(dataEmployee);
+    console.log(dataEmployee.requests);
+    setEmployee(dataEmployee.requests);
     var method = await GetReportMeth();
     // console.log(method.result);
     setReportingMethod(method.result);

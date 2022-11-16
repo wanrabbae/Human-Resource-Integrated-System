@@ -4,7 +4,7 @@ import { PencilSimple, Plus, Trash } from "phosphor-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { SwalSuccess } from "../../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import {
   addImigration,
   deleteImigration,
@@ -13,6 +13,7 @@ import {
 } from "../../../../Repository/ProfileRepository";
 
 function Imigration() {
+  const [isdelete, setDelete] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [id, setId] = useState([]);
@@ -225,6 +226,7 @@ function Imigration() {
                           className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                           onClick={() => {
                             deletedImigration(val.id);
+                            setDelete(true); 
                           }}
                         >
                           <Trash
@@ -623,6 +625,17 @@ function Imigration() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          deletedImigration(id);
+          setDelete(false);
+          inAwait();
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

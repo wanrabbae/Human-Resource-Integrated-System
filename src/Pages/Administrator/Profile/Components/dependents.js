@@ -57,9 +57,9 @@ function Dependents() {
     console.log(requestBody);
     var res = await addDependent(requestBody);
     console.log(res);
-    inAwait();
     setModalAdd(false);
     SwalSuccess({ message: "Success Add Dependents" });
+    inAwait();
   };
   const postDataEdit = async () => {
     var requestBody = {
@@ -71,9 +71,9 @@ function Dependents() {
     console.log(requestBody);
     var res = await updateDependent(requestBody);
     console.log(res);
-    inAwait();
     setModal(false);
     SwalSuccess({ message: "Success Update Dependents" });
+    inAwait();
   };
 
   console.log(id);

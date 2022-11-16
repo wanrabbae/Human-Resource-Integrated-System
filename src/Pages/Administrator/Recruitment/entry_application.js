@@ -524,7 +524,7 @@ function EntryApplication() {
                   </div>
                   <div style={{ fontWeight: "600" }}>Usia </div>
                   <div style={{ fontWeight: "500" }}>
-                    : {detail?.applicant_id ?? ""}{" "}
+                    : {detail?.age ?? ""}{" "}
                   </div>
                   <div style={{ fontWeight: "600" }}>Position </div>
                   <div style={{ fontWeight: "500" }}>

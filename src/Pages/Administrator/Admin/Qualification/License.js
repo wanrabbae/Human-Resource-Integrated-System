@@ -50,7 +50,6 @@ function License() {
   useEffect(() => {
     inAwait();
   }, []);
-  console.log(licenses);
   return (
     <>
       <div
@@ -334,8 +333,8 @@ function License() {
         }}
         submit={() => {
           deleteLicense(id);
-          setDelete(false);
           inAwait();
+          setDelete(false);
           SwalSuccess({ message: "Success delete license" });
         }}
         active={isdelete}

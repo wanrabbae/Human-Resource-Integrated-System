@@ -92,6 +92,8 @@ function Cal() {
   const [isdeleteEvent, setDeleteEvent] = useState(false);
   const [isdeleteTodo, setDeleteTodo] = useState(false);
 
+  const [id, setId] = useState([]);
+
   const [title, setTitle] = useState([]);
   const [startDate, setStartDate] = useState([]);
   const [endDate, setEndDate] = useState([]);
@@ -101,11 +103,21 @@ function Cal() {
   const [email, setEmail] = useState([]);
 
   const [editTitle, setEditTitle] = useState([]);
-  const [editDate, setEditDate] = useState([]);
+  const [editStartDate, setEditStartDate] = useState([]);
+  const [editEndDate, setEditEndDate] = useState([]);
   const [editStart, setEditStart] = useState([]);
   const [editEnd, setEditEnd] = useState([]);
   const [editLocation, setEditLocation] = useState([]);
   const [editEmail, setEditEmail] = useState([]);
+
+  console.log(id)
+  console.log(editTitle)
+  console.log(editStartDate)
+  console.log(editEndDate)
+  console.log(editStart)
+  console.log(editEnd)
+  console.log(editLocation)
+  console.log(editEmail)
 
   const [titleTodo, setTitleTodo] = useState([]);
   const [startDateTodo, setStartDateTodo] = useState([]);
@@ -120,8 +132,6 @@ function Cal() {
   const [editTime, setEditTime] = useState([]);
   const [editEmailTodo, setEditEmailTodo] = useState([]);
   const [editDetail, setEditDetail] = useState([]);
-
-  const [id, setId] = useState([]);
 
   const formatDate = (data) => {
     var data = data.split("-");
@@ -150,11 +160,13 @@ function Cal() {
     var requestBody = {
       id: id,
       title: editTitle,
-      date: editDate,
+      startDate: editStartDate,
+      endDate: editEndDate,
       start: editStart,
       end: editEnd,
       location: editLocation,
       calendar: editEmail,
+      category: 'event',
     };
     console.log(requestBody);
     var res = await UpdateEvent(requestBody);
@@ -216,6 +228,11 @@ function Cal() {
     var data = data.split(" ");
     return data[0];
   };
+
+  const convertDate = (data)=>{
+    var data = data.split('-')
+    return `${data[2]}-${data[0]}-${data[1]}`
+  }
 
   const { views, ...otherProps } = useMemo(
     () => ({
@@ -353,9 +370,10 @@ function Cal() {
                             handleShowEvent();
                             setId(val.id);
                             setEditTitle(val.title);
-                            setEditDate(val.date);
-                            setEditStart(val.start);
-                            setEditEnd(val.end);
+                            setEditStartDate(convertDate(dateEvent(val.start)));
+                            setEditEndDate(convertDate(dateEvent(val.end)));
+                            setEditStart(timeEvent(val.start));
+                            setEditEnd(timeEvent(val.end));
                             setEditLocation(val.location);
                             setEditEmail(val.calendar);
                           }}
@@ -481,7 +499,7 @@ function Cal() {
                             handleShowTodo();
                             setId(val.id);
                             setEditTitle(val.title);
-                            setEditDate(val.date);
+                            // setEditDate(val.date);
                             setEditStart(val.start);
                             setEditEnd(val.end);
                             setEditLocation(val.location);
@@ -840,25 +858,29 @@ function Cal() {
                   type="text"
                   placeholder="Input Event Title"
                   value={editTitle}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, title: e.target.value })
-                  // }
                   onChange={(e) => setEditTitle(e.target.value)}
                   className="form-control rounded-lg"
                 />
               </div>
-              <div className="">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="form-group mt-3">
-                  <label>Date</label>
+                  <label>Start Date</label>
                   <input
                     type="date"
                     placeholderText="Start Date"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.start}
-                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
-                    value={editDate}
-                    onChange={(e) => setEditDate(e.target.value)}
+                    value={editStartDate}
+                    onChange={(e) => setEditStartDate(e.target.value)}
+                  />
+                </div>
+                <div className="form-group mt-3">
+                  <label>End Date</label>
+                  <input
+                    type="date"
+                    placeholderText="Start Date"
+                    className="form-control rounded-lg"
+                    value={editEndDate}
+                    onChange={(e) => setEditEndDate(e.target.value)}
                   />
                 </div>
               </div>
@@ -869,9 +891,6 @@ function Cal() {
                     type="time"
                     placeholderText="Start Time"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.end}
-                    // onChange={(end) => setNewEvent({ ...newEvent, end })}
                     value={editStart}
                     onChange={(e) => setEditStart(e.target.value)}
                   />
@@ -882,11 +901,6 @@ function Cal() {
                     type="time"
                     placeholderText="End Time"
                     className="form-control rounded-lg"
-                    //   style={{ marginRight: "10px" }}
-                    // selected={newEvent.start}
-                    // onChange={(start) =>
-                    //   setNewEvent({ ...newEvent, start })
-                    // }
                     value={editEnd}
                     onChange={(e) => setEditEnd(e.target.value)}
                   />
@@ -898,10 +912,6 @@ function Cal() {
                 <input
                   type="text"
                   placeholder="Add Location"
-                  // value={newEvent.location}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, location: e.target.value })
-                  // }
                   className="form-control rounded-lg"
                   value={editLocation}
                   onChange={(e) => setEditLocation(e.target.value)}
@@ -912,10 +922,6 @@ function Cal() {
                 <input
                   type="email"
                   placeholder="Type your email"
-                  // value={newEvent.email}
-                  // onChange={(e) =>
-                  //   setNewEvent({ ...newEvent, email: e.target.value })
-                  // }
                   value={editEmail}
                   onChange={(e) => setEditEmail(e.target.value)}
                   className="form-control rounded-lg"

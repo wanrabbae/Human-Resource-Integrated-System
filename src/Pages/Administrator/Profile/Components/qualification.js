@@ -203,9 +203,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addWorkExperience(requestBody);
     console.log(res);
-    inAwait();
     setModalAddWExperience(false);
     SwalSuccess({ message: "Success Add Work Experience" });
+    inAwait();
   };
 
   const postDataEditWorkExp = async () => {
@@ -220,9 +220,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await updateWorkExperience(requestBody);
     console.log(res);
-    inAwait();
     setModalEditExperience(false);
     SwalSuccess({ message: "Success Update Work Experience" });
+    inAwait();
   };
 
   const postDataSkill = async () => {
@@ -234,9 +234,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addSkill(requestBody);
     console.log(res);
-    inAwait();
     setModalAddSkill(false);
     SwalSuccess({ message: "Success Add Skill" });
+    inAwait();
   };
 
   const postDataEditSkill = async () => {
@@ -249,9 +249,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await updateSkill(requestBody);
     console.log(res);
-    inAwait();
     setModalEditSkill(false);
     SwalSuccess({ message: "Success Update Skill" });
+    inAwait();
   };
 
   const postDataEducation = async () => {
@@ -267,9 +267,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addEducation(requestBody);
     console.log(res);
-    inAwait();
     setModalAddEducation(false);
     SwalSuccess({ message: "Success Add Education" });
+    inAwait();
   };
 
   const postDataEditEducation = async () => {
@@ -286,9 +286,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await updateEducation(requestBody);
     console.log(res);
-    inAwait();
     setModalEditEducation(false);
     SwalSuccess({ message: "Success Update Education" });
+    inAwait();
   };
 
   const postDataLanguage = async () => {
@@ -301,9 +301,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addLanguage(requestBody);
     console.log(res);
-    inAwait();
     setModalAddLanguage(false);
     SwalSuccess({ message: "Success Add Language" });
+    inAwait();
   };
 
   const postDataEditLanguage = async () => {
@@ -317,9 +317,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await editLanguage(requestBody);
     console.log(res);
-    inAwait();
     setModalEditLanguage(false);
     SwalSuccess({ message: "Success Update Language" });
+    inAwait();
   };
 
   const postDataLicense = async () => {
@@ -332,9 +332,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addLincense(requestBody);
     console.log(res);
-    inAwait();
     setModalAddLisence(false);
     SwalSuccess({ message: "Success Add License" });
+    inAwait();
   };
 
   const postDataEditLicense = async () => {
@@ -348,9 +348,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await updateLincense(requestBody);
     console.log(res);
-    inAwait();
     setModalEditLisence(false);
     SwalSuccess({ message: "Success Update License" });
+    inAwait();
   };
 
   return (

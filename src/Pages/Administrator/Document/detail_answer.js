@@ -26,11 +26,14 @@ import ReactSelect from "react-select";
 import { components } from "react-select";
 import {
   AnswerDoc,
+  GetAnswerByIdDetailDoc,
   GetDetailDoc,
+  GetDetailDocWithAnswer,
   GetDoc,
 } from "../../../Repository/DocumentRepository";
 import { useNavigate, useParams } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
+import { pushNotif } from "../../../Repository/NotifRepository";
 
 function DetailDocumentAnswer() {
   const { id_document, id_employee } = useParams();
@@ -123,10 +126,11 @@ function DetailDocumentAnswer() {
   const [Doc, setDoc] = useState([]);
   const [valueAns, setValueAns] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [answerDoc, setAnswerDoc] = useState([]);
   const navigate = useNavigate();
   const inAwait = async () => {
     var data = JSON.parse(window.localStorage.getItem("users"));
-    var rec = await GetDetailDoc(id_document);
+    var rec = await GetDetailDocWithAnswer(id_document, id_employee);
     setUsers(data);
     setDoc(rec["result"]);
   };
@@ -134,10 +138,33 @@ function DetailDocumentAnswer() {
     inAwait();
   }, []);
 
-  const answerDoc = async () => {
+  // Doc?.detail_documents?.map(async (detail) => {
+  //   const getAnswer = await GetAnswerByIdDetailDoc(detail.id);
+  //   setAnswerDoc(getAnswer?.result)
+  // });
+
+  const acceptDoc = async () => {
     try {
-      console.log(answers);
-      SwalSuccess({ message: "Success submit the document!" });
+      await pushNotif({
+        title: `${Doc?.title} Document Has Accepted!`,
+        link: `/document-management/detail/${Doc?.id}/employee/${id_employee}`,
+        employeeId: id_employee,
+      });
+      SwalSuccess({ message: "Success accepted the document!" });
+      navigate("/document-management");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const declineDoc = async () => {
+    try {
+      await pushNotif({
+        title: `${Doc?.title} Document Has Declined!`,
+        link: `/document-management/detail/${Doc?.id}/employee/${id_employee}`,
+        employeeId: id_employee,
+      });
+      SwalSuccess({ message: "Success declined the document!" });
       navigate("/document-management");
     } catch (error) {
       console.log(error);
@@ -234,7 +261,9 @@ function DetailDocumentAnswer() {
                           type="text"
                           placeholder="Short Answer"
                         />
-                        <div className="mt-2">Answer :</div>
+                        {detail?.document_answers?.map((answer) => (
+                          <div className="mt-2">Answer : {answer?.value}</div>
+                        ))}
                       </div>
                     ) : null}
                     {detail.field_type == "paragraph" ? (
@@ -262,7 +291,9 @@ function DetailDocumentAnswer() {
                           type="text"
                           placeholder="Paragraph"
                         ></textarea>
-                        <div className="mt-2">Answer :</div>
+                        {detail?.document_answers?.map((answer) => (
+                          <div className="mt-2">Answer : {answer?.value}</div>
+                        ))}
                       </div>
                     ) : null}
                     {detail.field_type == "checkbox" ? (
@@ -287,7 +318,9 @@ function DetailDocumentAnswer() {
                             <span>{fd.name}</span>
                           </div>
                         ))}
-                        <div className="mt-2">Answer :</div>
+                        {detail?.document_answers?.map((answer) => (
+                          <div className="mt-2">Answer : {answer?.value}</div>
+                        ))}
                       </>
                     ) : null}
                     {detail.field_type == "option" ? (
@@ -313,7 +346,9 @@ function DetailDocumentAnswer() {
                             <span>{fd.name}</span>
                           </div>
                         ))}
-                        <div className="mt-2">Answer :</div>
+                        {detail?.document_answers?.map((answer) => (
+                          <div className="mt-2">Answer : {answer?.value}</div>
+                        ))}
                       </>
                     ) : null}
                     {detail.field_type == "dropdown" ? (
@@ -341,7 +376,9 @@ function DetailDocumentAnswer() {
                               </option>
                             ))}
                           </select>
-                          <div className="mt-2">Answer :</div>
+                          {detail?.document_answers?.map((answer) => (
+                            <div className="mt-2">Answer : {answer?.value}</div>
+                          ))}
                         </div>
                       </>
                     ) : null}
@@ -361,7 +398,18 @@ function DetailDocumentAnswer() {
                           className="focus:ring-0 focus:ring-offset-0 me-3 form-control"
                           type="file"
                         />
-                        <div className="mt-2">File :</div>
+                        {detail?.document_answers?.map((answer) => (
+                          <div className="mt-2">
+                            File :{" "}
+                            <a
+                              target={"_blank"}
+                              className={"text-blue-600"}
+                              href={`https://hris.afkaaruna.sch.id/assets/documents/${answer?.value}`}
+                            >
+                              {answer?.value}
+                            </a>
+                          </div>
+                        ))}
                       </>
                     ) : null}
                     {detail.field_type == "date" ? (
@@ -387,7 +435,9 @@ function DetailDocumentAnswer() {
                           }}
                           type="date"
                         />
-                        <div className="mt-2">Answer :</div>
+                        {detail?.document_answers?.map((answer) => (
+                          <div className="mt-2">Answer : {answer?.value}</div>
+                        ))}
                       </>
                     ) : null}
                     {detail.field_type == "time" ? (
@@ -414,7 +464,9 @@ function DetailDocumentAnswer() {
                           type="time"
                           placeholder="Short Answer"
                         />
-                        <div className="mt-2">Answer :</div>
+                        {detail?.document_answers?.map((answer) => (
+                          <div className="mt-2">Answer : {answer?.value}</div>
+                        ))}
                       </>
                     ) : null}
                   </div>
@@ -427,34 +479,40 @@ function DetailDocumentAnswer() {
             ""
           )}
 
-          <div className="d-flex justify-end">
-            <button
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "#FFE0E0",
-                color: "#C1121F",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              type=""
-            >
-              Decline
-            </button>
-            <button
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "#CAFFDF",
-                color: "#028F3B",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              type=""
-            >
-              Accept
-            </button>
-          </div>
+          {users?.role == "admin" ? (
+            <div className="d-flex justify-end">
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: "#FFE0E0",
+                  color: "#C1121F",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                type="button"
+                onClick={() => declineDoc()}
+              >
+                Decline
+              </button>
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: "#CAFFDF",
+                  color: "#028F3B",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                type="button"
+                onClick={() => acceptDoc()}
+              >
+                Accept
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
           {/* <div
             className="p-4 mb-4"
             style={{

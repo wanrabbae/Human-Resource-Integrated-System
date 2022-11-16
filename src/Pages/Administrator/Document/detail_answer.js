@@ -34,6 +34,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
 import { pushNotif } from "../../../Repository/NotifRepository";
+import { getProfile } from "../../../Repository/ProfileEmployeeRepository";
 
 function DetailDocumentAnswer() {
   const { id_document, id_employee } = useParams();
@@ -123,6 +124,7 @@ function DetailDocumentAnswer() {
 
   const [editUserData, setEditUserData] = useState();
   const [users, setUsers] = useState({});
+  const [empLog, setEmpLog] = useState({});
   const [Doc, setDoc] = useState([]);
   const [valueAns, setValueAns] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -130,8 +132,10 @@ function DetailDocumentAnswer() {
   const navigate = useNavigate();
   const inAwait = async () => {
     var data = JSON.parse(window.localStorage.getItem("users"));
+    var getProfileData = await getProfile(data?.employeeId);
     var rec = await GetDetailDocWithAnswer(id_document, id_employee);
     setUsers(data);
+    setEmpLog(getProfileData.result);
     setDoc(rec["result"]);
   };
   useEffect(() => {
@@ -146,7 +150,7 @@ function DetailDocumentAnswer() {
   const acceptDoc = async () => {
     try {
       await pushNotif({
-        title: `${Doc?.title} Document Has Accepted!`,
+        title: `${Doc?.title} Document Has Accepted By ${empLog?.firstName}`,
         link: `/document-management/detail/${Doc?.id}/employee/${id_employee}`,
         employeeId: id_employee,
       });
@@ -160,7 +164,7 @@ function DetailDocumentAnswer() {
   const declineDoc = async () => {
     try {
       await pushNotif({
-        title: `${Doc?.title} Document Has Declined!`,
+        title: `${Doc?.title} Document Has Declined By ${empLog?.firstName}`,
         link: `/document-management/detail/${Doc?.id}/employee/${id_employee}`,
         employeeId: id_employee,
       });

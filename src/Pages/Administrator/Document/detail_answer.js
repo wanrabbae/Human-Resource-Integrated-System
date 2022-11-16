@@ -31,6 +31,7 @@ import {
 } from "../../../Repository/DocumentRepository";
 import { useNavigate, useParams } from "react-router-dom";
 import { SwalSuccess } from "../../../Components/Modals";
+import { pushNotif } from "../../../Repository/NotifRepository";
 
 function DetailDocumentAnswer() {
   const { id_document, id_employee } = useParams();
@@ -134,10 +135,28 @@ function DetailDocumentAnswer() {
     inAwait();
   }, []);
 
-  const answerDoc = async () => {
+  const acceptDoc = async () => {
     try {
-      console.log(answers);
-      SwalSuccess({ message: "Success submit the document!" });
+      await pushNotif({
+        title: `${Doc?.title} Document Has Accepted!`,
+        link: `/document-management/detail/${Doc?.id}/employee/${id_employee}`,
+        employeeId: id_employee,
+      });
+      SwalSuccess({ message: "Success accepted the document!" });
+      navigate("/document-management");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const declineDoc = async () => {
+    try {
+      await pushNotif({
+        title: `${Doc?.title} Document Has Declined!`,
+        link: `/document-management/detail/${Doc?.id}/employee/${id_employee}`,
+        employeeId: id_employee,
+      });
+      SwalSuccess({ message: "Success declined the document!" });
       navigate("/document-management");
     } catch (error) {
       console.log(error);
@@ -427,34 +446,40 @@ function DetailDocumentAnswer() {
             ""
           )}
 
-          <div className="d-flex justify-end">
-            <button
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "#FFE0E0",
-                color: "#C1121F",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              type=""
-            >
-              Decline
-            </button>
-            <button
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "#CAFFDF",
-                color: "#028F3B",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
-              className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
-              type=""
-            >
-              Accept
-            </button>
-          </div>
+          {users?.role == "admin" ? (
+            <div className="d-flex justify-end">
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: "#FFE0E0",
+                  color: "#C1121F",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                type="button"
+                onClick={() => declineDoc()}
+              >
+                Decline
+              </button>
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: "#CAFFDF",
+                  color: "#028F3B",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                type="button"
+                onClick={() => acceptDoc()}
+              >
+                Accept
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
           {/* <div
             className="p-4 mb-4"
             style={{

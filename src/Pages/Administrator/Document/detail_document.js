@@ -179,7 +179,6 @@ function DetailDocument() {
         link: `/document-management/detail/${Doc?.id}/employee/${users?.employeeId}`,
         employeeId: 84,
       });
-      console.log(notif);
       SwalSuccess({ message: "Success submit the document!" });
       navigate("/document-management");
     } catch (error) {

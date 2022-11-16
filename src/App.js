@@ -57,6 +57,8 @@ import DetailDocument from "./Pages/Administrator/Document/detail_document";
 import DetailDocumentAnswer from "./Pages/Administrator/Document/detail_answer";
 
 function App() {
+  var data = JSON.parse(window.localStorage.getItem("users"));
+
   return (
     <Routes>
       <Route path="/" element={<LandingPages />}></Route>
@@ -70,75 +72,92 @@ function App() {
         <Route index element={<Inbox />} />
         <Route path="/inbox/detail" element={<DetailInbox />} />
       </Route>
-      <Route path="/admin" element={<Template />}>
-        <Route index element={<Home />} />
-        <Route path="/admin/userManagement/users" element={<Users />} />
-        <Route path="/admin/job/jobManagement" element={<JobManagement />} />
-        {/* <Route path="/admin/job/jobGrade" element={<JobGrade />} /> */}
-        <Route path="/admin/job/employeeStatus" element={<EmployeeStatus />} />
-        <Route path="/admin/job/jobCategories" element={<JobCategories />} />
-        <Route path="/admin/job/workShift" element={<WorkShift />} />
-        <Route
-          path="/admin/job/jobManagement/bulkUploud"
-          element={<BulkUploud />}
-        />
-        <Route
-          path="/admin/document-management"
-          element={<DocumentManagement />}
-        />
-        <Route
-          path="/admin/organization/generalInformation"
-          element={<GeneralInformation />}
-        />
-        <Route path="/admin/organization/locations" element={<Locations />} />
-        <Route path="/admin/organization/costProfit" element={<CostProfit />} />
-        <Route
-          path="/admin/organization/structureOrganization"
-          element={<StructureOrganization />}
-        />
-        <Route
-          path="/admin/organization/ChartStructureOrganization"
-          element={<ChartStructure />}
-        />
-        <Route path="/admin/qualifications/skills" element={<Skills />} />
-        <Route
-          path="/admin/qualifications/educations"
-          element={<Educations />}
-        />
-        <Route path="/admin/qualifications/license" element={<License />} />
-        <Route path="/admin/qualifications/languages" element={<Languages />} />
-        <Route
-          path="/admin/qualifications/membership"
-          element={<Membership />}
-        />
-        <Route path="/admin/nationalities" element={<Nationalities />} />
-      </Route>
-      <Route path="/recruitment" element={<Template />}>
-        <Route path="/recruitment" element={<Recruitment />} />
-        <Route path="/recruitment/edit/:id" element={<RecruitmentEdit />} />
-        <Route path="/recruitment/create" element={<RecruitmentCreate />} />
-        <Route path="/recruitment/setting" element={<RecruitmentSet />} />
-        <Route
-          path="/recruitment/entry-application"
-          element={<EntryApplication />}
-        />
-        <Route
-          path="/recruitment/entry-application/detail-applicant/:applicant_id"
-          element={<DetailApplicant />}
-        />
-        <Route
-          path="/recruitment/entry-application/all-stages-recruitment"
-          element={<AllStages />}
-        />
-        <Route
-          path="/recruitment/entry-application/all-stages-recruitment/archive-applicant"
-          element={<ArchiveApplicant />}
-        />
-        <Route
-          path="/recruitment/entry-application/detail-stage"
-          element={<DetailStage />}
-        />
-      </Route>
+      {data?.role == "admin" ? (
+        <Route path="/admin" element={<Template />}>
+          <Route index element={<Home />} />
+          <Route path="/admin/userManagement/users" element={<Users />} />
+          <Route path="/admin/job/jobManagement" element={<JobManagement />} />
+          {/* <Route path="/admin/job/jobGrade" element={<JobGrade />} /> */}
+          <Route
+            path="/admin/job/employeeStatus"
+            element={<EmployeeStatus />}
+          />
+          <Route path="/admin/job/jobCategories" element={<JobCategories />} />
+          <Route path="/admin/job/workShift" element={<WorkShift />} />
+          <Route
+            path="/admin/job/jobManagement/bulkUploud"
+            element={<BulkUploud />}
+          />
+          <Route
+            path="/admin/document-management"
+            element={<DocumentManagement />}
+          />
+          <Route
+            path="/admin/organization/generalInformation"
+            element={<GeneralInformation />}
+          />
+          <Route path="/admin/organization/locations" element={<Locations />} />
+          <Route
+            path="/admin/organization/costProfit"
+            element={<CostProfit />}
+          />
+          <Route
+            path="/admin/organization/structureOrganization"
+            element={<StructureOrganization />}
+          />
+          <Route
+            path="/admin/organization/ChartStructureOrganization"
+            element={<ChartStructure />}
+          />
+          <Route path="/admin/qualifications/skills" element={<Skills />} />
+          <Route
+            path="/admin/qualifications/educations"
+            element={<Educations />}
+          />
+          <Route path="/admin/qualifications/license" element={<License />} />
+          <Route
+            path="/admin/qualifications/languages"
+            element={<Languages />}
+          />
+          <Route
+            path="/admin/qualifications/membership"
+            element={<Membership />}
+          />
+          <Route path="/admin/nationalities" element={<Nationalities />} />
+        </Route>
+      ) : (
+        ""
+      )}
+      {data?.role == "admin" ? (
+        <Route path="/recruitment" element={<Template />}>
+          <Route path="/recruitment" element={<Recruitment />} />
+          <Route path="/recruitment/edit/:id" element={<RecruitmentEdit />} />
+          <Route path="/recruitment/create" element={<RecruitmentCreate />} />
+          <Route path="/recruitment/setting" element={<RecruitmentSet />} />
+          <Route
+            path="/recruitment/entry-application"
+            element={<EntryApplication />}
+          />
+          <Route
+            path="/recruitment/entry-application/detail-applicant/:applicant_id"
+            element={<DetailApplicant />}
+          />
+          <Route
+            path="/recruitment/entry-application/all-stages-recruitment"
+            element={<AllStages />}
+          />
+          <Route
+            path="/recruitment/entry-application/all-stages-recruitment/archive-applicant"
+            element={<ArchiveApplicant />}
+          />
+          <Route
+            path="/recruitment/entry-application/detail-stage"
+            element={<DetailStage />}
+          />
+        </Route>
+      ) : (
+        ""
+      )}
       <Route path="/profile" element={<Template />}>
         <Route path="/profile" element={<ProfileTemplate />} />
       </Route>

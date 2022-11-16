@@ -52,7 +52,7 @@ function EmployeeList() {
     setJobGrade(_jobGrade);
     setJobTitle(_jobTitle);
     setEmployeeStatus(_employeeStatus);
-    setEmployees(dataEmployees);
+    setEmployees(dataEmployees.requests);
   };
 
   useEffect(() => {

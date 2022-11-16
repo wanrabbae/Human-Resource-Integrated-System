@@ -68,7 +68,23 @@ var AnswerDoc = async (data) => {
   return res.data;
 };
 
+var GetAnswerByIdDetailDoc = async (id) => {
+  var res = await api.get(`/document/answer/${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var GetDetailDocWithAnswer = async (id, id_employee) => {
+  var res = await api.get(`/document/${id}/employee/${id_employee}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
+  GetAnswerByIdDetailDoc,
+  GetDetailDocWithAnswer,
   AnswerDoc,
   GetDoc,
   GetDetailDoc,

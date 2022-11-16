@@ -69,6 +69,7 @@ function WorkShift() {
   const [posisi, setPosisi] = useState([]);
   const [isEmp, setEmp] = useState(false);
   const [isPosi, setPosi] = useState(false);
+  const [duration, setDuration] = useState("");
   //   const [workshiftIds, setWorkShiftIds] = useState([]);
   const [radioValue, setRadioValue] = useState("1");
   const [isdelete, setDelete] = useState(false);
@@ -202,6 +203,7 @@ function WorkShift() {
           setSelected([]);
           setPosisi([]);
           setTitle(!dialogTitle);
+          setDuration("");
         }}
       >
         <Modal.Header
@@ -218,6 +220,7 @@ function WorkShift() {
               name: document.getElementById("name").value,
               start: document.getElementById("start").value,
               end: document.getElementById("end").value,
+              duration: duration,
               employee_ids: selected,
               position_ids: posisi,
             };
@@ -262,6 +265,18 @@ function WorkShift() {
                     required
                     type="time"
                     id="end"
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      console.log(document.getElementById("start").value);
+                      setDuration(
+                        `${
+                          parseInt(e.target.value.split(":")[0]) -
+                          parseInt(
+                            document.getElementById("start").value.split(":")[0]
+                          )
+                        }:00`
+                      );
+                    }}
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
@@ -269,7 +284,14 @@ function WorkShift() {
               <div className="col-md-4 my-3">
                 <div className="form-group">
                   <label className="mb-1">Duration per day</label>
-                  <h6>--:--</h6>
+                  <h6>{duration}</h6>
+                  {/* <input
+                    readOnly
+                    type="time"
+                    id="duration"
+                    value={duration}
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  /> */}
                 </div>
               </div>
               <div className="col-md-12 my-3">
@@ -419,6 +441,7 @@ function WorkShift() {
                 setSelected([]);
                 setPosisi([]);
                 setTitle(!dialogTitle);
+                setDuration("");
               }}
               type="button"
             >
@@ -500,9 +523,17 @@ function WorkShift() {
                 <input
                   type="time"
                   value={workshiftEdit?.end ?? null}
-                  onChange={(e) =>
-                    setWorkShiftEdit({ ...workshiftEdit, end: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setDuration(
+                      `${
+                        parseInt(e.target.value.split(":")[0]) -
+                        parseInt(
+                          document.getElementById("start").value.split(":")[0]
+                        )
+                      }:00`
+                    );
+                    setWorkShiftEdit({ ...workshiftEdit, end: e.target.value });
+                  }}
                   id="endEdit"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
@@ -511,7 +542,7 @@ function WorkShift() {
             <div className="col-md-4 my-3">
               <div className="form-group">
                 <label className="mb-1">Duration per day</label>
-                <h6>--:--</h6>
+                <h6>{duration ? duration : workshiftEdit?.duration}</h6>
               </div>
             </div>
             <div className="col-md-12 my-3">

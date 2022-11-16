@@ -2,7 +2,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import Select from "react-select";
-import { getCompanyLocation, GetJobLevel, GetJobPosition, GetJobTittle } from "../../../../Repository/AdminRepository";
+import {
+  getCompanyLocation,
+  GetJobLevel,
+  GetJobPosition,
+  GetJobTittle,
+} from "../../../../Repository/AdminRepository";
 import {
   getJob,
   updateJob,
@@ -20,10 +25,14 @@ function Job({ idEmployee }) {
   const [jobTitle, setJobTitle] = useState([]);
   const [jobPost, setJobPost] = useState([]);
   const [location, setLocation] = useState([]);
+  const [jobLevelId, setJobLevelId] = useState([]);
+  const [jobTitleId, setJobTitleId] = useState([]);
+  const [jobPostId, setJobPostId] = useState([]);
+  const [locationName, setLocationName] = useState([]);
 
   console.log(contractStart);
   console.log(contractEnd);
-  console.log(contractFile);
+  // console.log(contractFile);
 
   const inAwait = async () => {
     var data = await getJob(idEmployee);
@@ -31,13 +40,13 @@ function Job({ idEmployee }) {
     setContractStart(data.result.contractStart);
     setContractEnd(data.result.contractEnd);
     setContractFile(data.result.contractFile);
-    var jle = await GetJobLevel()
+    var jle = await GetJobLevel();
     setJobLevel(jle);
-    var jttl = await GetJobTittle()
+    var jttl = await GetJobTittle();
     setJobTitle(jttl);
-    var jpos = await GetJobPosition()
+    var jpos = await GetJobPosition();
     setJobPost(jpos["result"]);
-    var loc = await getCompanyLocation()
+    var loc = await getCompanyLocation();
     setLocation(loc);
   };
 
@@ -50,6 +59,10 @@ function Job({ idEmployee }) {
       contractStart: contractStart,
       contractEnd: contractEnd,
       contractFile: contractFile,
+      joblevel_id: jobLevelId,
+      jobtitle_id: jobTitleId,
+      jobposistion_id: jobPostId,
+      location: locationName,
     };
     console.log(requestBody);
     inAwait();
@@ -84,19 +97,18 @@ function Job({ idEmployee }) {
               <label className="block text-gray-700 text-sm mb-2">
                 Job Level
               </label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={(e) => setJobLevelId(e.target.value)}
+              >
+                <option value={job.jobLevel?.id} hidden>
                   {job.jobLevel?.name != null
                     ? job.jobLevel.name
                     : "-- Select Job Level --"}
                 </option>
-                {
-                  jobLevel.map((val) => {
-                    return (
-                      <option value={val.id}>{val.name}</option>
-                    )
-                  })
-                }
+                {jobLevel.map((val) => {
+                  return <option value={val.id}>{val.name}</option>;
+                })}
               </select>
             </div>
           </div>
@@ -106,19 +118,18 @@ function Job({ idEmployee }) {
                 Job Title
               </label>
               <div className="w-full">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>
+                <select
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) => setJobTitleId(e.target.value)}
+                >
+                  <option value={job.jobTitle?.id} hidden>
                     {job.jobTitle?.name != null
                       ? job.jobTitle.name
                       : "-- Select Job Title --"}
                   </option>
-                  {
-                    jobTitle.map((val) => {
-                      return (
-                        <option value={val.id}>{val.name}</option>
-                      )
-                    })
-                  }
+                  {jobTitle.map((val) => {
+                    return <option value={val.id}>{val.name}</option>;
+                  })}
                 </select>
               </div>
             </div>
@@ -127,19 +138,18 @@ function Job({ idEmployee }) {
                 Job Position
               </label>
               <div className="w-full">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>
+                <select
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) => setJobPostId(e.target.value)}
+                >
+                  <option value={job.jobPosition?.id} hidden>
                     {job.jobPosition?.name != null
                       ? job.jobPosition.name
                       : "-- Select Job Position --"}
                   </option>
-                  {
-                    jobPost.map((val) => {
-                      return (
-                        <option value={val.id}>{val.name}</option>
-                      )
-                    })
-                  }
+                  {jobPost.map((val) => {
+                    return <option value={val.id}>{val.name}</option>;
+                  })}
                 </select>
               </div>
             </div>
@@ -150,19 +160,18 @@ function Job({ idEmployee }) {
                 Location
               </label>
               <div className="w-full">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>
+                <select
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={(e) => setLocationName(e.target.value)}
+                >
+                  <option value={job.location} hidden>
                     {job.location != null
                       ? job.location
                       : "-- Select Location --"}
                   </option>
-                  {
-                    location.map((val) => {
-                      return (
-                        <option value={val.id}>{val.name}</option>
-                      )
-                    })
-                  }
+                  {location.map((val) => {
+                    return <option value={val.name}>{val.name}</option>;
+                  })}
                 </select>
               </div>
             </div>

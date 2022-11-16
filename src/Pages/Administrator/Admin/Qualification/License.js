@@ -43,10 +43,12 @@ function License() {
   const [id, setId] = useState();
   var attachmentRef = useRef();
   const [attachment, setAttachment] = useState();
+
   const inAwait = async () => {
     var rec = await getLicense();
     setLicenses(rec);
   };
+
   useEffect(() => {
     inAwait();
   }, []);
@@ -331,11 +333,11 @@ function License() {
         close={() => {
           setDelete(false);
         }}
-        submit={() => {
-          deleteLicense(id);
-          inAwait();
+        submit={async() => {
+          await deleteLicense(id);
           setDelete(false);
           SwalSuccess({ message: "Success delete license" });
+          await inAwait();
         }}
         active={isdelete}
       />

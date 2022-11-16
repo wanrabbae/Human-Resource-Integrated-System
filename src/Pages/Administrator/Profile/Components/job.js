@@ -76,23 +76,13 @@ function Job() {
               <label className="block text-gray-700 text-sm mb-2">
                 Job Level
               </label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option hidden>
-                  {job.jobLevel?.name != null
-                    ? job.jobLevel.name
-                    : "-- Select Job Level --"}
-                </option>
-                <option>GA</option>
-                <option>ADV RISET</option>
-                <option>SENIOR TREASURY</option>
-                <option>ADV AKUISISI TIKTOK</option>
-                <option>DS-S</option>
-                <option>ADV MP</option>
-                <option>MKT-S</option>
-                <option>PACKER Koord</option>
-                <option>ADV AKUISISI</option>
-                <option>DATA ANALYST</option>
-              </select>
+              <input
+                disabled
+                value={job.jobLevel?.name}
+                className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+              />
             </div>
           </div>
           <div className="row mb-4">
@@ -100,38 +90,25 @@ function Job() {
               <label className="block text-gray-700 text-sm mb-2">
                 Job Title
               </label>
-              <div className="w-full">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>
-                    {job.jobTitle?.name != null
-                      ? job.jobTitle.name
-                      : "-- Select Job Title --"}
-                  </option>
-                  <option>Fulltime-Permanent</option>
-                  <option>Fulltime-Contract</option>
-                  <option>Fulltime-Probation</option>
-                  <option>Part-Time Contract</option>
-                  <option>Part-Time Internship</option>
-                </select>
-              </div>
+              <input
+                disabled
+                value={job.jobTitle?.name}
+                className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+              />
             </div>
             <div className="col-5">
               <label className="block text-gray-700 text-sm mb-2">
                 Job Position
               </label>
-              <div className="w-full">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>
-                    {job.jobPosition?.name != null
-                      ? job.jobPosition.name
-                      : "-- Select Job Position --"}
-                  </option>
-                  <option>Officials and Managers</option>
-                  <option>Sales Workers</option>
-                  <option>Technicians</option>
-                  <option>Service Workers</option>
-                </select>
-              </div>
+              <input
+                disabled
+                value={job.jobPosition?.name}
+                className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+              />
             </div>
           </div>
           <div className="row mb-4">
@@ -139,20 +116,13 @@ function Job() {
               <label className="block text-gray-700 text-sm mb-2">
                 Location
               </label>
-              <div className="w-full">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option hidden>
-                    {job.location != null
-                      ? job.location
-                      : "-- Select Location --"}
-                  </option>
-                  <option>Fulltime-Permanent</option>
-                  <option>Fulltime-Contract</option>
-                  <option>Fulltime-Probation</option>
-                  <option>Part-Time Contract</option>
-                  <option>Part-Time Internship</option>
-                </select>
-              </div>
+              <input
+                disabled
+                value={job.location}
+                className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="username"
+                type="text"
+              />
             </div>
           </div>
           <hr style={{ backgroundColor: "#CACACA" }} className="mb-4"></hr>
@@ -235,12 +205,27 @@ function Job() {
                   >
                     Contract Details
                   </label>
-                  <input
+                  {/* <input
                     className="block text-sm w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     id="file_input"
                     type="file"
                     onChange={(e) => setContractFile(e.target.files[0])}
-                  />
+                  /> */}
+                  <a
+                  href={contractFile}
+                    style={{
+                      border: "none",
+                      fontSize: "14px",
+                      backgroundColor: "#0E5073",
+                      color: "#FFFFFF",
+                      padding: "10px",
+                      borderRadius: "10px",
+                    }}
+                    target="_blank"
+                    download
+                  >
+                    Download
+                  </a>
                 </div>
               </div>
             </div>

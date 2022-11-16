@@ -61,7 +61,7 @@ function Job({ idEmployee }) {
       contractFile: contractFile,
       joblevel_id: jobLevelId,
       jobtitle_id: jobTitleId,
-      jobposistion_id: jobPostId,
+      jobposition_id: jobPostId,
       location: locationName,
     };
     console.log(requestBody);

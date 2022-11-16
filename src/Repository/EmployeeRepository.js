@@ -2,9 +2,16 @@ import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
 var GetEmployee = async (paginate) => {
-  var res = await axios.get(
-    `${endpoint}/getEmployee?page=${paginate.page}&size=${paginate.size}`
-  );
+  var res;
+
+  if (paginate) {
+    res = await axios.get(
+      `${endpoint}/getEmployee?page=${paginate.page}&size=${paginate.size}`
+    );
+  } else {
+    res = await axios.get(`${endpoint}/getEmployee`);
+  }
+
   if (res.data.status == 200) {
     return res.data.result;
   }

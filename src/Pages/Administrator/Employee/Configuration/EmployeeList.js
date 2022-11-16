@@ -7,6 +7,7 @@ import {
   AddEmployee,
   DeleteEmployee,
   GetEmployee,
+  SearchEmployee,
   UpdateEmployee,
 } from "../../../../Repository/EmployeeRepository";
 import {
@@ -37,10 +38,14 @@ function EmployeeList() {
   const [errorMsg, setErrorMsg] = useState("");
   const [controller, setController] = useState({});
   const [profilePict, setProfilePict] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
   const navigate = useNavigate();
+  let allPages = [];
 
   const inAwait = async () => {
-    var dataEmployees = await GetEmployee();
+    var dataEmployees = await GetEmployee({ page: 1, size: 10 });
     var _jobTitle = await GetJobTittle();
     var _employeeStatus = await GetEmployeeStatus();
     var _jobGrade = await GetJobGrade();
@@ -52,7 +57,9 @@ function EmployeeList() {
     setJobGrade(_jobGrade);
     setJobTitle(_jobTitle);
     setEmployeeStatus(_employeeStatus);
-    setEmployees(dataEmployees);
+    setEmployees(dataEmployees.requests);
+    setTotalItems(dataEmployees.totalItems);
+    setTotalPage(dataEmployees.totalPages);
   };
 
   useEffect(() => {
@@ -67,6 +74,43 @@ function EmployeeList() {
       state: params,
     });
   };
+
+  const previousPage = async () => {
+    setCurrentPage((current) => current - 1);
+    if (currentPage == 1) {
+      setCurrentPage(1);
+    }
+    const getEmployees = await GetEmployee({ page: currentPage, size: 10 });
+    setEmployees(getEmployees.requests);
+  };
+
+  const nextPage = async () => {
+    setCurrentPage((current) => current + 1);
+    if (currentPage == totalPage) {
+      setCurrentPage(1);
+    }
+    const getEmployees = await GetEmployee({ page: currentPage, size: 10 });
+    setEmployees(getEmployees.requests);
+  };
+
+  const changePage = async (value) => {
+    const getEmployees = await GetEmployee({ page: value, size: 10 });
+    setEmployees(getEmployees.requests);
+  };
+
+  const searchEmp = async (keyword) => {
+    try {
+      const search = await SearchEmployee(keyword);
+      setEmployees(search.requests);
+      setTotalPage(search.totalPages);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  for (let i = 0; i < totalPage; i++) {
+    allPages.push(i + 1);
+  }
 
   return (
     <>
@@ -119,6 +163,7 @@ function EmployeeList() {
                 id="table-search"
                 className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none focus:ring-transparent"
                 placeholder="Search by Employee Name or Employee ID..."
+                onChange={(e) => searchEmp(e)}
               />
             </div>
             <button
@@ -205,25 +250,6 @@ function EmployeeList() {
                       <button
                         onClick={() => {
                           onEdit(employee.id);
-                          //   setController({
-                          //     image: null,
-                          //     firstName: employee.firstName,
-                          //     joinDate: employee.joinDate,
-                          //     jobtitle_id: employee.jobtitle_id,
-                          //     employeestatus_id: employee.employeestatus_id,
-                          //     jobgrade_id: employee.jobgrade_id,
-                          //     joblevel_id: employee.joblevel_id,
-                          //     jobposition_id: employee.jobposition_id,
-                          //     location: employee.location,
-                          //     otherId: employee.otherId,
-                          //     username: "",
-                          //     password: "",
-                          //     confirm: "",
-                          //     status: null,
-                          //     id: employee.id,
-                          //   });
-                          //   setProfilePict(employee.image);
-                          //   setModalUpdate(true);
                         }}
                         className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                       >
@@ -234,393 +260,35 @@ function EmployeeList() {
                 </tr>
               ))}
             </tbody>
-
-            {/* ========= DATA DUMMY ========= */}
-            {/* <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  010114-0001
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  ACHMAD
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  SUBARKAH
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  GA
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  011114-0002
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  ADI BAGUS
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  SULISTYANTO
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  DS RISET NC
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  051214-0003
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  TRI
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  NINGSIH
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  F/A/T
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  010315-0004
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  RYAN
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  SETYO PAMBUDI
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  DS AKUISISI
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  010815-0005
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  DIMAS
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  WICAKSONO PUTRA
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  DS-S
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  020915-0006
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  TUGIYATI
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  DS MP
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  221115-0007
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  ANINDHIYA
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  SETYANINGRUM
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  MKT-S
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  010817-0008
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  ANING
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  MURSANAH
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  FULFILLMENT
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  181017-0009
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  CAHYO
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  SETIONO
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  DS AKUISISI
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  010118-0011
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  NURAENI
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  ERMAWATI
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  SIM
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  Fulltime-Contract
-                </td>
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                <td className="py-4 px-6">
-                  <div className="flex flex-row justify-end gap-3">
-                    <button
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                      onClick={() => {
-                        setDelete(true);
-                      }}
-                    >
-                      <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    <a
-                      href="/profile"
-                      className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
-                    >
-                      <PencilIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-             */}
           </table>
         </div>
       </div>
       <div className="bg-[#FBFBFB] mt-0 px-4 py-3 rounded-b-xl d-flex align-items-center justify-content-between ">
         <div>
           <h6 className="text-[#A098AE]">
-            Showing <span className="text-[#0E5073]">1-5</span> from{" "}
-            <span className="text-[#0E5073]">100</span> data
+            Showing <span className="text-[#0E5073]">{employees?.length}</span>{" "}
+            from <span className="text-[#0E5073]">{totalItems}</span> data
           </h6>
         </div>
         <div>
-          <button className="btn btn-sm">
+          <button className="btn btn-sm" onClick={() => previousPage()}>
             <ArrowLeft />
           </button>
-          <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
+          {/* <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
             1
           </button>
           <button className="btn bg-[#780000] rounded-md text-[#FFFFFF]">
             2
-          </button>
-          <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
-            3
-          </button>
-          <button className="btn btn-sm">
+          </button> */}
+          {allPages.map((page) => (
+            <button
+              onClick={() => changePage(page)}
+              className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]"
+            >
+              {page}
+            </button>
+          ))}
+          <button className="btn btn-sm" onClick={() => nextPage()}>
             <ArrowRight />
           </button>
         </div>

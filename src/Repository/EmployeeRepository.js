@@ -1,8 +1,17 @@
 import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
-var GetEmployee = async () => {
-  var res = await axios.get(`${endpoint}/getEmployee`);
+var GetEmployee = async (paginate) => {
+  var res = await axios.get(
+    `${endpoint}/getEmployee?page=${paginate.page}&size=${paginate.size}`
+  );
+  if (res.data.status == 200) {
+    return res.data.result;
+  }
+};
+
+var SearchEmployee = async (keyword) => {
+  var res = await axios.get(`${endpoint}/getEmployee?keyword=${keyword}`);
   if (res.data.status == 200) {
     return res.data.result;
   }
@@ -128,6 +137,7 @@ var ImportEmployee = async (data) => {
 
 export {
   UpdateEmployee,
+  SearchEmployee,
   DeleteEmployee,
   AddEmployee,
   GetEmployee,

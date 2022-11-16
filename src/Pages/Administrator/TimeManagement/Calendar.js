@@ -24,7 +24,7 @@ import {
   UpdateTodo,
 } from "../../../Repository/TimeManagementRepository";
 import dateFormat from "dateformat";
-import { ModalDelete } from "../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../Components/Modals";
 import { Details } from "@mui/icons-material";
 
 const locales = {
@@ -154,6 +154,7 @@ function Cal() {
     console.log(res);
     handleClose();
     inAwait();
+    SwalSuccess({ message: "Success Add Event" });
   };
 
   const editData = async () => {
@@ -173,6 +174,7 @@ function Cal() {
     console.log(res);
     handleCloseEvent();
     inAwait();
+    SwalSuccess({ message: "Success Update Event" });
   };
   const postDataTodo = async () => {
     var requestBody = {
@@ -190,6 +192,7 @@ function Cal() {
     console.log(res);
     handleClose();
     inAwait();
+    SwalSuccess({ message: "Success Add My Todo" });
   };
   const editDataTodo = async () => {
     var requestBody = {
@@ -208,6 +211,7 @@ function Cal() {
     console.log(res);
     handleCloseTodo();
     inAwait();
+    SwalSuccess({ message: "Success Update My Todo" });
   };
 
   const inAwait = async () => {

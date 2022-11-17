@@ -47,6 +47,8 @@ function JobGrade() {
   const [jobgrade, setJobGrade] = useState([]);
   const [editValues, setEditValues] = useState();
   const [range, setRange] = useState([]);
+  const [minGaji, setMinGaji] = useState("");
+  const [maxGaji, setMaxGaji] = useState("");
   const inAwait = async () => {
     var rec = await GetJobGrade();
     setJobGrade(rec);
@@ -61,6 +63,24 @@ function JobGrade() {
   const [id, setId] = useState();
   const [isMulti, setMulti] = useState(true);
   const [rangeValues, setRangeValues] = useState([]);
+
+  /* Fungsi formatRupiah */
+  // function formatRupiah(angka, prefix) {
+  //   var number_string = angka.replace(/[^,\d]/g, "").toString(),
+  //     split = number_string.split(","),
+  //     sisa = split[0].length % 3,
+  //     rupiah = split[0].substr(0, sisa),
+  //     ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+  //   // tambahkan titik jika yang di input sudah menjadi angka ribuan
+  //   if (ribuan) {
+  //     separator = sisa ? "." : "";
+  //     rupiah += separator + ribuan.join(".");
+  //   }
+
+  //   rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+  //   return prefix == undefined ? rupiah : rupiah ? rupiah : "";
+  // }
 
   const addGrade = async (e) => {
     e.preventDefault();
@@ -81,6 +101,8 @@ function JobGrade() {
     setTitle(!dialogTitle);
     setRange([]);
     setMulti(false);
+    setMinGaji("");
+    setMaxGaji("");
     SwalSuccess({ message: "Success add job grade" });
     inAwait();
     console.log("TEST");
@@ -214,6 +236,8 @@ function JobGrade() {
         size="lg"
         onHide={() => {
           setRange([]);
+          setMinGaji("");
+          setMaxGaji("");
           setTitle(!dialogTitle);
         }}
       >
@@ -338,7 +362,13 @@ function JobGrade() {
                   <label className="mb-1">
                     Minimum salary <span className="text-danger">*</span>
                   </label>
-                  <input required id="minsalary" className="form-control" />
+                  <input
+                    required
+                    id="minsalary"
+                    className="form-control"
+                    value={minGaji}
+                    onChange={(e) => setMinGaji(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="col-md-6 mb-3">
@@ -346,7 +376,13 @@ function JobGrade() {
                   <label className="mb-1">
                     Maximum salary <span className="text-danger">*</span>
                   </label>
-                  <input required id="maxsalary" className="form-control" />
+                  <input
+                    required
+                    id="maxsalary"
+                    className="form-control"
+                    value={maxGaji}
+                    onChange={(e) => setMaxGaji(e.target.value)}
+                  />
                 </div>
               </div>
             </div>
@@ -363,6 +399,8 @@ function JobGrade() {
               type="button"
               onClick={() => {
                 setRange([]);
+                setMinGaji("");
+                setMaxGaji("");
                 setTitle(!dialogTitle);
               }}
             >
@@ -389,6 +427,8 @@ function JobGrade() {
         size="lg"
         onHide={() => {
           setIsRange(false);
+          setMinGaji("");
+          setMaxGaji("");
           setEditTitle(!dialogEditTitle);
         }}
       >
@@ -582,6 +622,8 @@ function JobGrade() {
             }}
             onClick={() => {
               setIsRange(false);
+              setMinGaji("");
+              setMaxGaji("");
               setEditTitle(!dialogEditTitle);
             }}
           >
@@ -616,6 +658,8 @@ function JobGrade() {
               var res = await EditJobGrade(requestBody);
               setEditTitle(!dialogEditTitle);
               setIsRange(false);
+              setMinGaji("");
+              setMaxGaji("");
               SwalSuccess({ message: "Success edit job grade" });
               inAwait();
             }}

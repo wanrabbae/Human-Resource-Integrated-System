@@ -30,23 +30,34 @@ import {
   AddCompanyLocation,
   deleteCompanyLocation,
   EditCompanyLocation,
+  getCityProvince,
   getCompanyLocation,
+  getProfit,
+  getProvince,
 } from "../../../../Repository/AdminRepository";
 
 function Locations() {
   const [locations, setLocations] = useState([]);
+  const [province, setProvince] = useState([]);
+  const [cprovince, setCityProvince] = useState([]);
   const [editValues, setEditValues] = useState();
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(province[0]);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const inAwait = async () => {
     var rec = await getCompanyLocation();
     setLocations(rec);
+    var prov = await getProvince();
+    setProvince(prov["provinsi"]);
+    var Cprov = await getCityProvince(selectedOption);
+    setCityProvince(Cprov["kota_kabupaten"]);
   };
   useEffect(() => {
     inAwait();
   }, []);
+  console.log(selectedOption)
   return (
     <>
       <div
@@ -221,6 +232,31 @@ function Locations() {
               <div className="col-md-6 my-3">
                 <div className="form-group">
                   <label className="mb-1">
+                    Province <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    onChange={async(e)=> {
+                      setSelectedOption(e.target.value)
+                      inAwait();
+                    }}
+                    id="province"
+                    required
+                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="">Select Province</option>
+                    {
+                      province.map((val) => {
+                        return(
+                          <option value={val.id}>{val.nama }</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-6 my-3">
+                <div className="form-group">
+                  <label className="mb-1">
                     City <span className="text-danger">*</span>
                   </label>
                   <select
@@ -229,28 +265,13 @@ function Locations() {
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option value="">Select City</option>
-                    <option>Banyumas</option>
-                    <option>Solo</option>
-                    <option>Yogyakarta</option>
-                    <option>Jakarta</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-6 my-3">
-                <div className="form-group">
-                  <label className="mb-1">
-                    Province <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    id="province"
-                    required
-                    className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                    <option value="">Select Province</option>
-                    <option>Jawa Tengah</option>
-                    <option>Jawa Barat</option>
-                    <option>Jawa Timur</option>
-                    <option>DKI Jakarta</option>
+                    {
+                      cprovince.map((val) => {
+                        return(
+                          <option value={val.id}>{val.nama }</option>
+                        )
+                      })
+                    }
                   </select>
                 </div>
               </div>
@@ -408,37 +429,6 @@ function Locations() {
             <div className="col-md-6 my-3">
               <div className="form-group">
                 <label className="mb-1">
-                  City <span className="text-danger">*</span>
-                </label>
-                <select
-                  id="city"
-                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Select City</option>
-                  <option
-                    selected={editValues?.city == "Banyumas" ? true : false}
-                  >
-                    Banyumas
-                  </option>
-                  <option selected={editValues?.city == "Solo" ? true : false}>
-                    Solo
-                  </option>
-                  <option
-                    selected={editValues?.city == "Yogyakarta" ? true : false}
-                  >
-                    Yogyakartya
-                  </option>
-                  <option
-                    selected={editValues?.city == "Jakarta" ? true : false}
-                  >
-                    Jakarta
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div className="col-md-6 my-3">
-              <div className="form-group">
-                <label className="mb-1">
                   Province <span className="text-danger">*</span>
                 </label>
                 <select
@@ -473,6 +463,37 @@ function Locations() {
                     }
                   >
                     DKI Jakarta
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div className="col-md-6 my-3">
+              <div className="form-group">
+                <label className="mb-1">
+                  City <span className="text-danger">*</span>
+                </label>
+                <select
+                  id="city"
+                  className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option>Select City</option>
+                  <option
+                    selected={editValues?.city == "Banyumas" ? true : false}
+                  >
+                    Banyumas
+                  </option>
+                  <option selected={editValues?.city == "Solo" ? true : false}>
+                    Solo
+                  </option>
+                  <option
+                    selected={editValues?.city == "Yogyakarta" ? true : false}
+                  >
+                    Yogyakartya
+                  </option>
+                  <option
+                    selected={editValues?.city == "Jakarta" ? true : false}
+                  >
+                    Jakarta
                   </option>
                 </select>
               </div>

@@ -332,6 +332,18 @@ var getCompanyLocation = async () => {
     return res.data.result;
   }
 };
+var getProvince = async () => {
+  var res = await axios.get("https://dev.farizdotid.com/api/daerahindonesia/provinsi");
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+var getCityProvince = async (id) => {
+  var res = await axios.get(`https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${id}`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 var AddCompanyLocation = async (requestBody) => {
   var res = await api.post(`/addCompanyLocation`, requestBody);
   if (res.status == 200) {
@@ -471,4 +483,6 @@ export {
   DelJobPosition,
   UpdateJobPosition,
   updateInformation,
+  getProvince,
+  getCityProvince
 };

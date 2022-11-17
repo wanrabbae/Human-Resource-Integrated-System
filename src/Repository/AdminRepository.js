@@ -332,14 +332,27 @@ var getCompanyLocation = async () => {
     return res.data.result;
   }
 };
-var getProvince = async () => {
-  var res = await axios.get("https://dev.farizdotid.com/api/daerahindonesia/provinsi");
+var getProvince = async (id) => {
+  var res;
+
+  if (id) {
+    res = await axios.get(
+      `https://dev.farizdotid.com/api/daerahindonesia/provinsi/${id}`
+    );
+  } else {
+    res = await axios.get(
+      "https://dev.farizdotid.com/api/daerahindonesia/provinsi"
+    );
+  }
+
   if (res.status == 200) {
     return res.data;
   }
 };
 var getCityProvince = async (id) => {
-  var res = await axios.get(`https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${id}`);
+  var res = await axios.get(
+    `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${id}`
+  );
   if (res.status == 200) {
     return res.data;
   }
@@ -484,5 +497,5 @@ export {
   UpdateJobPosition,
   updateInformation,
   getProvince,
-  getCityProvince
+  getCityProvince,
 };

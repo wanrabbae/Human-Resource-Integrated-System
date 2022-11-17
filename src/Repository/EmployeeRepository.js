@@ -1,6 +1,18 @@
 import axios from "axios";
 import { endpoint } from "../Utils/constant";
 
+const api = axios.create({
+  baseURL: endpoint,
+});
+
+api.interceptors.request.use((req) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `${token}`;
+  }
+  return req;
+});
+
 var GetEmployee = async (paginate) => {
   var res;
 
@@ -58,7 +70,6 @@ var DelReportMeth = async (id) => {
 
 var GetTermReason = async () => {
   var res = await axios.get(`${endpoint}/getTerminate`);
-  console.log(res);
   if (res.data.status == 200) {
     return res.data;
   }
@@ -142,6 +153,16 @@ var ImportEmployee = async (data) => {
   return res.data;
 };
 
+var terminateEmployee = async (data) => {
+  var res = await api.post(`${endpoint}/employeeTerminate`, data);
+  return res.data;
+};
+
+var getTerminateEmployee = async (id) => {
+  var res = await api.get(`${endpoint}/getEmployeeTerminate?id_employee=${id}`);
+  return res.data;
+};
+
 export {
   UpdateEmployee,
   SearchEmployee,
@@ -163,4 +184,6 @@ export {
   DeleteReport,
   GetReportSingle,
   ImportEmployee,
+  terminateEmployee,
+  getTerminateEmployee,
 };

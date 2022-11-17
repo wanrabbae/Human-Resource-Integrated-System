@@ -48,7 +48,6 @@ function Dashboard() {
 
   const inAwait = async () => {
     var data = await GetDashboard();
-    console.log(data.result);
     setTotalEmployee(data.result.totalEmployee);
     setTotalNewEmployee(data.result.totalNewEmployee);
     setTotalAppliedEmployee(data.result.totalAppliedEmployee);
@@ -64,15 +63,35 @@ function Dashboard() {
   };
 
   // console.log(Object.keys(employeeJobTitleData).length)
-  console.log(employeeJobTitleData.length);
   var array = [];
   for (let index = 0; index < employeeJobTitleData.length; index++) {
     array[index] = employeeJobTitleData[index].count;
   }
 
-  var arrayColor = ["#064DAA", "#064DAA", "#1368AA", "#03758D", "#669BBC", "#4091C9", "#0DB39E", "#9DCEE2","#16DB93", "#83E377", "#B9E769","#EFEA5A","#F1C453","#F29E4C","#FEDFD4","#F29479","#F26A4F","#EF3C2D","#CB1B16","#65010C","#421C20"];
+  var arrayColor = [
+    "#064DAA",
+    "#064DAA",
+    "#1368AA",
+    "#03758D",
+    "#669BBC",
+    "#4091C9",
+    "#0DB39E",
+    "#9DCEE2",
+    "#16DB93",
+    "#83E377",
+    "#B9E769",
+    "#EFEA5A",
+    "#F1C453",
+    "#F29E4C",
+    "#FEDFD4",
+    "#F29479",
+    "#F26A4F",
+    "#EF3C2D",
+    "#CB1B16",
+    "#65010C",
+    "#421C20",
+  ];
   var color = [];
-  console.log(arrayColor[0]);
   var x = -1;
   for (let index = 0; index < employeeJobTitleData.length; index++) {
     x++;
@@ -81,7 +100,6 @@ function Dashboard() {
     }
     color[index] = arrayColor[x];
   }
-  console.log(array);
 
   // console.log(totalEmployee)
   // console.log(totalNewEmployee)
@@ -210,7 +228,10 @@ function Dashboard() {
               {employeeJobTitleData.map((val, index) => (
                 <div className="flex gap-3 items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className='w-1 h-1' style={{backgroundColor: color[index]}}></div>
+                    <div
+                      className="w-1 h-1"
+                      style={{ backgroundColor: color[index] }}
+                    ></div>
                     <p className="text-gray-400 text-xs">{val.name}</p>
                   </div>
                   <p className="text-gray-700 text-xs">{val.count}</p>

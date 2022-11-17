@@ -9,9 +9,15 @@ import {
   GetJobTittle,
 } from "../../../../Repository/AdminRepository";
 import {
+  getTerminateEmployee,
+  GetTermReason,
+  terminateEmployee,
+} from "../../../../Repository/EmployeeRepository";
+import {
   getJob,
   updateJob,
 } from "../../../../Repository/ProfileEmployeeRepository";
+import { SwalError, SwalSuccess } from "../../../../Components/Modals";
 
 function Job({ idEmployee }) {
   const [modal, setModal] = useState(false);
@@ -29,13 +35,14 @@ function Job({ idEmployee }) {
   const [jobTitleId, setJobTitleId] = useState([]);
   const [jobPostId, setJobPostId] = useState([]);
   const [locationName, setLocationName] = useState([]);
-
-  console.log(contractStart);
-  console.log(contractEnd);
-  // console.log(contractFile);
+  const [terminate, setTerminate] = useState({});
+  const [reason, setReason] = useState([]);
 
   const inAwait = async () => {
     var data = await getJob(idEmployee);
+    var reasonData = await GetTermReason();
+    var getTerminate = await getTerminateEmployee(idEmployee);
+    setTerminate(getTerminate.result);
     setJob(data.result);
     setContractStart(data.result.contractStart);
     setContractEnd(data.result.contractEnd);
@@ -48,6 +55,7 @@ function Job({ idEmployee }) {
     setJobPost(jpos["result"]);
     var loc = await getCompanyLocation();
     setLocation(loc);
+    setReason(reasonData.result);
   };
 
   useEffect(() => {
@@ -299,80 +307,133 @@ function Job({ idEmployee }) {
             Terminate Employement
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="mx-4">
-          <div className="row mb-4">
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Termination Date <span style={{ color: "#780000" }}>*</span>
-              </label>
-              <input
-                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="date"
-              />
-            </div>
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Termination Reason <span style={{ color: "#780000" }}>*</span>
-              </label>
-              <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
-                <option className="py-3" hidden>
-                  Select
-                </option>
-                <option className="py-3">Contract Not Renewed</option>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            try {
+              setTerminate({ ...terminate, employeeId: idEmployee });
+              const termination = await terminateEmployee(terminate);
+              console.log(termination);
+              SwalSuccess({ message: "Success terminate the employee" });
+              setModal(false);
+              inAwait();
+            } catch (error) {
+              SwalError({ message: "Ups something went wrong :(" });
+            }
+          }}
+        >
+          <Modal.Body className="mx-4">
+            <div className="row mb-4">
+              <div className="col">
+                <label className="block text-gray-700 text-sm mb-2" for="date1">
+                  Termination Date <span style={{ color: "#780000" }}>*</span>
+                </label>
+                <input
+                  className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                  id="date1"
+                  required
+                  value={terminate?.date}
+                  onChange={(e) =>
+                    setTerminate({ ...terminate, date: e.target.value })
+                  }
+                  type="date"
+                />
+              </div>
+              <div className="col">
+                <label
+                  className="block text-gray-700 text-sm mb-2"
+                  for="username"
+                >
+                  Termination Reason <span style={{ color: "#780000" }}>*</span>
+                </label>
+                <select
+                  required
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                  onChange={(e) =>
+                    setTerminate({
+                      ...terminate,
+                      termination_reason_id: e.target.value,
+                    })
+                  }
+                >
+                  <option className="py-3" value="" hidden>
+                    Select
+                  </option>
+                  {reason.length > 0 ? (
+                    reason.map((res) => (
+                      <option
+                        className="py-3"
+                        value={res.id}
+                        selected={
+                          terminate?.terminationreason?.name == res.name
+                            ? true
+                            : false
+                        }
+                      >
+                        {res.name}
+                      </option>
+                    ))
+                  ) : (
+                    <option className="py-3">No Data Reason</option>
+                  )}
+                  {/* <option className="py-3">Contract Not Renewed</option>
                 <option className="py-3">Deceased</option>
                 <option className="py-3">Dismised</option>
                 <option className="py-3">Laid-off</option>
-                <option className="py-3">Other</option>
-              </select>
+                <option className="py-3">Other</option> */}
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="row mb-4">
-            <div className="col-6">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Note
-              </label>
-              <textarea
-                rows="4"
-                className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-              ></textarea>
+            <div className="row mb-4">
+              <div className="col-6">
+                <label
+                  className="block text-gray-700 text-sm mb-2"
+                  for="username"
+                >
+                  Note
+                </label>
+                <textarea
+                  rows="4"
+                  value={terminate?.note}
+                  onChange={(e) =>
+                    setTerminate({
+                      ...terminate,
+                      note: e.target.value,
+                    })
+                  }
+                  className=" appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                ></textarea>
+              </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="m-4">
-          <Button
-            style={{
-              border: "none",
-              fontSize: "14px",
-              backgroundColor: "#ECECEC",
-              color: "#003049",
-            }}
-            className="px-3"
-            onClick={() => setModal(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            style={{
-              border: "none",
-              fontSize: "14px",
-              backgroundColor: "#0E5073",
-              color: "#FFFFFF",
-            }}
-            className="px-3"
-          >
-            Save
-          </Button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="m-4">
+            <Button
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#ECECEC",
+                color: "#003049",
+              }}
+              className="px-3"
+              type="button"
+              onClick={() => setModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{
+                border: "none",
+                fontSize: "14px",
+                backgroundColor: "#0E5073",
+                color: "#FFFFFF",
+              }}
+              className="px-3"
+              type="submit"
+            >
+              Save
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal>
     </>
   );

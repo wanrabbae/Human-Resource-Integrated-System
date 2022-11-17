@@ -402,6 +402,13 @@ var updateStructure = async (requestBody) => {
   }
 };
 
+var GetJobPositionWithEmployee = async (relationCode) => {
+  var res = await api.get(`/jobposition/${relationCode}/employee`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
   updateStructure,
   deleteStructure,
@@ -455,6 +462,7 @@ export {
   deleteCompanyLocation,
   GetJobLevel,
   GetJobPosition,
+  GetJobPositionWithEmployee,
   GetInfo,
   AddJobLevel,
   EditJobLevel,

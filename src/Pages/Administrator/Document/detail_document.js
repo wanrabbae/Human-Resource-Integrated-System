@@ -34,6 +34,7 @@ import { SwalError, SwalSuccess } from "../../../Components/Modals";
 import { pushNotif } from "../../../Repository/NotifRepository";
 import { getProfile } from "../../../Repository/ProfileRepository";
 import { getReport } from "../../../Repository/ProfileEmployeeRepository";
+import { GetJobPositionWithEmployee } from "../../../Repository/AdminRepository";
 
 function DetailDocument() {
   const { id } = useParams();
@@ -128,14 +129,19 @@ function DetailDocument() {
   const [Doc, setDoc] = useState([]);
   const [valueAns, setValueAns] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [supervisor, setSupervisor] = useState([]);
   const navigate = useNavigate();
   const inAwait = async () => {
     var empLog = await getProfile();
     var data = JSON.parse(window.localStorage.getItem("users"));
     var rec = await GetDetailDoc(id);
     var report = await getReport(data?.employeeId);
+    const getJobPositionWithEmployee = await GetJobPositionWithEmployee(
+      empLog.result?.employee?.jobposition?.relation_code
+    );
     setUsers(data);
     setReportTo(report.result);
+    setSupervisor(getJobPositionWithEmployee.result?.employees);
     setEmployeeLog(empLog.result);
     setDoc(rec["result"]);
   };
@@ -146,6 +152,7 @@ function DetailDocument() {
   const answerDoc = async () => {
     try {
       let allAnswer = [];
+
       await Doc.detail_documents.map((detail) => {
         if (detail.field_type == "file") {
           allAnswer.push({
@@ -177,6 +184,16 @@ function DetailDocument() {
       });
 
       // push notif api
+      if (supervisor.length > 0) {
+        supervisor.map(async (supervisors) => {
+          await pushNotif({
+            title: `${employeeLog?.employee?.firstName} telah mengisi document ${Doc?.title}`,
+            link: `/document-management/detail/${Doc?.id}/employee/${users?.employeeId}`,
+            employeeId: supervisors?.id,
+          });
+        });
+      }
+
       if (reportTo?.length > 0) {
         reportTo.map(async (to) => {
           if (to.status == "supervisor") {
@@ -198,7 +215,7 @@ function DetailDocument() {
       navigate("/document-management");
     } catch (error) {
       console.log(error);
-      SwalError({ message: "Ups" });
+      SwalError({ message: "Ups something went wrong :(" });
     }
   };
 

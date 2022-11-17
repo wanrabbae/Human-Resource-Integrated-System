@@ -227,6 +227,7 @@ function WorkShift() {
             var res = await AddWorkShift(requestBody);
             setTitle(!dialogTitle);
             setSelected([]);
+            setDuration("");
             setPosisi([]);
             inAwait();
           }}
@@ -266,16 +267,27 @@ function WorkShift() {
                     type="time"
                     id="end"
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      console.log(document.getElementById("start").value);
-                      setDuration(
-                        `${
-                          parseInt(e.target.value.split(":")[0]) -
+                      let checkDuration =
+                        parseInt(e.target.value.split(":")[0]) +
+                        parseInt(
+                          document.getElementById("start").value.split(":")[0]
+                        );
+                      let duration1 = Math.abs(
+                        parseInt(e.target.value.split(":")[0]) -
                           parseInt(
                             document.getElementById("start").value.split(":")[0]
                           )
-                        }:00`
                       );
+                      let duration2 = Math.abs(
+                        parseInt(e.target.value.split(":")[1]) -
+                          parseInt(
+                            document.getElementById("start").value.split(":")[1]
+                          )
+                      );
+                      if (checkDuration >= 60) {
+                        duration1 += 1;
+                      }
+                      setDuration(`${duration1}:${duration2}`);
                     }}
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
@@ -471,6 +483,7 @@ function WorkShift() {
           setPosisi([]);
           setEmp(false);
           setPosi(false);
+          setDuration("");
           setEditTitle(!dialogEditTitle);
         }}
       >
@@ -524,15 +537,32 @@ function WorkShift() {
                   type="time"
                   value={workshiftEdit?.end ?? null}
                   onChange={(e) => {
-                    setDuration(
-                      `${
-                        parseInt(e.target.value.split(":")[0]) -
-                        parseInt(
-                          document.getElementById("start").value.split(":")[0]
-                        )
-                      }:00`
-                    );
                     setWorkShiftEdit({ ...workshiftEdit, end: e.target.value });
+                    let checkDuration =
+                      parseInt(e.target.value.split(":")[0]) +
+                      parseInt(
+                        document.getElementById("startEdit").value.split(":")[0]
+                      );
+                    let duration1 = Math.abs(
+                      parseInt(e.target.value.split(":")[0]) -
+                        parseInt(
+                          document
+                            .getElementById("startEdit")
+                            .value.split(":")[0]
+                        )
+                    );
+                    let duration2 = Math.abs(
+                      parseInt(e.target.value.split(":")[1]) -
+                        parseInt(
+                          document
+                            .getElementById("startEdit")
+                            .value.split(":")[1]
+                        )
+                    );
+                    if (checkDuration >= 60) {
+                      duration1 += 1;
+                    }
+                    setDuration(`${duration1}:${duration2}`);
                   }}
                   id="endEdit"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -542,7 +572,7 @@ function WorkShift() {
             <div className="col-md-4 my-3">
               <div className="form-group">
                 <label className="mb-1">Duration per day</label>
-                <h6>{duration ? duration : workshiftEdit?.duration}</h6>
+                <h6>{duration != "" ? duration : workshiftEdit?.duration}</h6>
               </div>
             </div>
             <div className="col-md-12 my-3">
@@ -665,6 +695,7 @@ function WorkShift() {
               setPosisi([]);
               setEmp(false);
               setPosi(false);
+              setDuration("");
               setEditTitle(!dialogEditTitle);
             }}
           >
@@ -684,12 +715,14 @@ function WorkShift() {
                 name: document.getElementById("nameEdit")?.value,
                 start: document.getElementById("startEdit")?.value,
                 end: document.getElementById("endEdit")?.value,
+                duration: duration,
                 employee_ids: selected ?? [],
               };
               var res = await EditWorkShift(requestBody);
               setEditTitle(!dialogEditTitle);
               setSelected([]);
               setPosisi([]);
+              setDuration("");
               inAwait();
             }}
           >

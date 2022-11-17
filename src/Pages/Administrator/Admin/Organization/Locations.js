@@ -424,38 +424,17 @@ function Locations() {
                   Province <span className="text-danger">*</span>
                 </label>
                 <select
+                onChange={async (e) => {
+                  var Cprov = await getCityProvince(e.target.value);
+                  setCityProvince(Cprov["kota_kabupaten"]);
+                }}
                   id="province"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Select Province</option>
-                  <option
-                    selected={
-                      editValues?.province == "Jawa Tengah" ? true : false
-                    }
-                  >
-                    Jawa Tengah
-                  </option>
-                  <option
-                    selected={
-                      editValues?.province == "Jawa Barat" ? true : false
-                    }
-                  >
-                    Jawa Barat
-                  </option>
-                  <option
-                    selected={
-                      editValues?.province == "Jawa Timur" ? true : false
-                    }
-                  >
-                    Jawa Timur
-                  </option>
-                  <option
-                    selected={
-                      editValues?.province == "DKI Jakarta" ? true : false
-                    }
-                  >
-                    DKI Jakarta
-                  </option>
+                  {province.map((val) => {
+                    return <option selected={editValues.province = val.nama ? true : false} value={val.id}>{val.nama}</option>;
+                  })}
                 </select>
               </div>
             </div>
@@ -469,24 +448,9 @@ function Locations() {
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Select City</option>
-                  <option
-                    selected={editValues?.city == "Banyumas" ? true : false}
-                  >
-                    Banyumas
-                  </option>
-                  <option selected={editValues?.city == "Solo" ? true : false}>
-                    Solo
-                  </option>
-                  <option
-                    selected={editValues?.city == "Yogyakarta" ? true : false}
-                  >
-                    Yogyakartya
-                  </option>
-                  <option
-                    selected={editValues?.city == "Jakarta" ? true : false}
-                  >
-                    Jakarta
-                  </option>
+                  {cprovince.map((val) => {
+                    return <option selected={editValues.city = val.nama ? true : false} value={val.id}>{val.nama}</option>;
+                  })}
                 </select>
               </div>
             </div>

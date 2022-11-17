@@ -161,9 +161,16 @@ function App() {
       <Route path="/profile" element={<Template />}>
         <Route path="/profile" element={<ProfileTemplate />} />
       </Route>
-      <Route path="/profile-employee" element={<Template />}>
-        <Route path="/profile-employee" element={<ProfileEmployeeTemplate />} />
-      </Route>
+      {data?.role == "admin" ? (
+        <Route path="/profile-employee" element={<Template />}>
+          <Route
+            path="/profile-employee"
+            element={<ProfileEmployeeTemplate />}
+          />
+        </Route>
+      ) : (
+        ""
+      )}
       <Route path="/document-management" element={<Template />}>
         <Route path="/document-management" element={<DocumentManagement />} />
         <Route
@@ -187,35 +194,51 @@ function App() {
         <Route path="/timeManagement/schedule" element={<Schedule />} />
         <Route path="/timeManagement/calendar" element={<Cal />} />
       </Route>
-      <Route path="/maintenance" element={<Template />}>
-        <Route path="/maintenance" element={<Maintenance />} />
-      </Route>
-      <Route path="/employee" element={<Template />}>
-        <Route path="/employee/optional-field" index element={<Optionals />} />
-        <Route path="/employee/custom-field" index element={<CustomField />} />
-        <Route path="/employee/data-import" index element={<DataImport />} />
-        <Route
-          path="/employee/reporting-methods"
-          index
-          element={<ReportingMethods />}
-        />
-        <Route
-          path="/employee/termination-reasons"
-          index
-          element={<TerminationReasons />}
-        />
-        <Route
-          path="/employee/employee-list"
-          index
-          element={<EmployeeList />}
-        />
-        <Route path="/employee/report" index element={<Report />} />
-        <Route
-          path="/employee/detail-report"
-          index
-          element={<DetailReport />}
-        />
-      </Route>
+      {data?.role == "admin" ? (
+        <Route path="/maintenance" element={<Template />}>
+          <Route path="/maintenance" element={<Maintenance />} />
+        </Route>
+      ) : (
+        ""
+      )}
+      {data?.role == "admin" ? (
+        <Route path="/employee" element={<Template />}>
+          <Route
+            path="/employee/optional-field"
+            index
+            element={<Optionals />}
+          />
+          <Route
+            path="/employee/custom-field"
+            index
+            element={<CustomField />}
+          />
+          <Route path="/employee/data-import" index element={<DataImport />} />
+          <Route
+            path="/employee/reporting-methods"
+            index
+            element={<ReportingMethods />}
+          />
+          <Route
+            path="/employee/termination-reasons"
+            index
+            element={<TerminationReasons />}
+          />
+          <Route
+            path="/employee/employee-list"
+            index
+            element={<EmployeeList />}
+          />
+          <Route path="/employee/report" index element={<Report />} />
+          <Route
+            path="/employee/detail-report"
+            index
+            element={<DetailReport />}
+          />
+        </Route>
+      ) : (
+        ""
+      )}
     </Routes>
   );
 }

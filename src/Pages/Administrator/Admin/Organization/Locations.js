@@ -42,7 +42,7 @@ function Locations() {
   const [anotherData, setAnotherData] = useState({});
   const [province, setProvince] = useState([]);
   const [cprovince, setCityProvince] = useState([]);
-  const [editValues, setEditValues] = useState();
+  const [editValues, setEditValues] = useState({});
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [selectedOption, setSelectedOption] = useState(province[0]);
@@ -429,16 +429,26 @@ function Locations() {
                   Province <span className="text-danger">*</span>
                 </label>
                 <select
-                onChange={async (e) => {
-                  var Cprov = await getCityProvince(e.target.value);
-                  setCityProvince(Cprov["kota_kabupaten"]);
-                }}
+                  onChange={async (e) => {
+                    var Cprov = await getCityProvince(e.target.value);
+                    setIdProvince(e.target.value);
+                    setCityProvince(Cprov["kota_kabupaten"]);
+                  }}
                   id="province"
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Select Province</option>
                   {province.map((val) => {
-                    return <option selected={editValues.province = val.nama ? true : false} value={val.id}>{val.nama}</option>;
+                    return (
+                      <option
+                        selected={
+                          editValues?.province == val.nama ? true : false
+                        }
+                        value={val.id}
+                      >
+                        {val.nama}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -450,11 +460,21 @@ function Locations() {
                 </label>
                 <select
                   id="city"
+                  onChange={(e) =>
+                    setAnotherData({ ...anotherData, city: e.target.value })
+                  }
                   className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Select City</option>
                   {cprovince.map((val) => {
-                    return <option selected={editValues.city = val.nama ? true : false} value={val.id}>{val.nama}</option>;
+                    return (
+                      <option
+                        selected={editValues.city == val.nama ? true : false}
+                        value={val.nama}
+                      >
+                        {val.nama}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -599,11 +619,12 @@ function Locations() {
               width: "100px",
             }}
             onClick={async () => {
+              const getProvinceId = await getProvince(idProvince);
               var requestBody = {
                 id: editValues.id,
                 name: document.getElementById("nameEdit")?.value,
-                city: document.getElementById("cityEdit")?.value,
-                province: document.getElementById("provinceEdit")?.value,
+                city: anotherData?.city,
+                province: getProvinceId?.nama,
                 country: document.getElementById("countryEdit")?.value,
                 postalCode: document.getElementById("postalCodeEdit")?.value,
                 phone: document.getElementById("phoneEdit")?.value,

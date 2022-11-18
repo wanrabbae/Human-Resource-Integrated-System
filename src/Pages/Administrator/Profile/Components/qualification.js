@@ -171,7 +171,7 @@ function Qualification() {
     // console.log(dataEducation.result);
     var dataLanguage = await getLanguage();
     setLanguage(dataLanguage.result);
-    // console.log(dataLanguage.result);
+    console.log(dataLanguage.result);
     var dataLicense = await getLincense();
     setLicense(dataLicense.result);
     // console.log(dataLicense.result);
@@ -186,7 +186,7 @@ function Qualification() {
     setDataLevel(dataLevel);
   };
   // console.log(workExperience[0].jobtitle.name);
-  console.log(editJobTitleName);
+  // console.log(editJobTitleName);
 
   useEffect(() => {
     inAwait();
@@ -202,10 +202,10 @@ function Qualification() {
     };
     console.log(requestBody);
     var res = await addWorkExperience(requestBody);
+    inAwait();
     console.log(res);
     setModalAddWExperience(false);
     SwalSuccess({ message: "Success Add Work Experience" });
-    inAwait();
   };
 
   const postDataEditWorkExp = async () => {
@@ -219,10 +219,10 @@ function Qualification() {
     };
     console.log(requestBody);
     var res = await updateWorkExperience(requestBody);
+    inAwait();
     console.log(res);
     setModalEditExperience(false);
     SwalSuccess({ message: "Success Update Work Experience" });
-    inAwait();
   };
 
   const postDataSkill = async () => {
@@ -234,9 +234,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addSkill(requestBody);
     console.log(res);
+    inAwait();
     setModalAddSkill(false);
     SwalSuccess({ message: "Success Add Skill" });
-    inAwait();
   };
 
   const postDataEditSkill = async () => {
@@ -249,9 +249,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await updateSkill(requestBody);
     console.log(res);
+    inAwait();
     setModalEditSkill(false);
     SwalSuccess({ message: "Success Update Skill" });
-    inAwait();
   };
 
   const postDataEducation = async () => {
@@ -267,9 +267,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addEducation(requestBody);
     console.log(res);
+    inAwait();
     setModalAddEducation(false);
     SwalSuccess({ message: "Success Add Education" });
-    inAwait();
   };
 
   const postDataEditEducation = async () => {
@@ -286,40 +286,40 @@ function Qualification() {
     console.log(requestBody);
     var res = await updateEducation(requestBody);
     console.log(res);
+    inAwait();
     setModalEditEducation(false);
     SwalSuccess({ message: "Success Update Education" });
-    inAwait();
   };
 
   const postDataLanguage = async () => {
     var requestBody = {
       language_id: languageId,
-      fluency: fluency,
+      fluency: fluency.toString(),
       competency: competency,
       comment: commentLanguage,
     };
     console.log(requestBody);
     var res = await addLanguage(requestBody);
     console.log(res);
+    inAwait();
     setModalAddLanguage(false);
     SwalSuccess({ message: "Success Add Language" });
-    inAwait();
   };
 
   const postDataEditLanguage = async () => {
     var requestBody = {
       id: idLanguage,
       language_id: editLanguageId,
-      fluency: editFluency,
+      fluency: editFluency.toString(),
       competency: editCompetency,
       comment: editCommentLanguage,
     };
     console.log(requestBody);
     var res = await editLanguage(requestBody);
     console.log(res);
+    inAwait();
     setModalEditLanguage(false);
     SwalSuccess({ message: "Success Update Language" });
-    inAwait();
   };
 
   const postDataLicense = async () => {
@@ -332,9 +332,9 @@ function Qualification() {
     console.log(requestBody);
     var res = await addLincense(requestBody);
     console.log(res);
+    inAwait();
     setModalAddLisence(false);
     SwalSuccess({ message: "Success Add License" });
-    inAwait();
   };
 
   const postDataEditLicense = async () => {
@@ -348,10 +348,25 @@ function Qualification() {
     console.log(requestBody);
     var res = await updateLincense(requestBody);
     console.log(res);
+    inAwait();
     setModalEditLisence(false);
     SwalSuccess({ message: "Success Update License" });
-    inAwait();
   };
+  const fluencyOptions = [
+    { value: 'Writting', label: 'Writting', color: '#00B8D9'},
+    { value: 'Speaking', label: 'Speaking', color: '#0052CC'},
+    { value: 'Reading', label: 'Reading', color: '#5243AA' },
+  ];
+
+  const handleChangeFluency = (e) => {
+      setFluency(Array.isArray(e) ? e.map(x => x.value) : []);
+  }
+
+  const handleChangeEditFluency = (e) => {
+      setEditFluency(Array.isArray(e) ? e.map(x => x.value) : []);
+  }
+
+  console.log(editFluency)
 
   return (
     <>
@@ -797,6 +812,9 @@ function Qualification() {
                   <th className="align-middle " onClick={() => {}}>
                     Comment <ImportExport fontSize="2px" />
                   </th>
+                  <th className="align-middle " onClick={() => {}}>
+                    Action <ImportExport fontSize="2px" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -814,8 +832,8 @@ function Qualification() {
                             onClick={() => {
                               setIdLanguage(val.id);
                               setEditLanguageId(val.language.id);
-                              setEditLanguageName(val.language.name);
-                              setEditFluency(val.fluency);
+                              setEditLanguageName(val.language?.name);
+                              setEditFluency(val.fluency.split(','));
                               setEditCompetency(val.competency);
                               setEditCommentLanguage(val.comment);
                               setModalEditLanguage(true);
@@ -1803,7 +1821,15 @@ function Qualification() {
               >
                 Fluency <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select
+              <Select
+                isMulti
+                name="Fluency"
+                options={fluencyOptions}
+                className="basic-multi-select"
+                classNamePrefix="select Fluency"
+                onChange={handleChangeFluency}
+              />
+              {/* <select
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setFluency(e.target.value)}
               >
@@ -1819,7 +1845,7 @@ function Qualification() {
                 <option value="Reading" className="py-3">
                   Reading
                 </option>
-              </select>
+              </select> */}
             </div>
             <div className="mb-4">
               <label
@@ -1939,7 +1965,16 @@ function Qualification() {
               >
                 Fluency <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select
+              <Select
+                isMulti
+                name="Fluency"
+                value={fluencyOptions.filter(obj=>editFluency.includes(obj.value))}
+                options={fluencyOptions}
+                className="basic-multi-select"
+                classNamePrefix="select Fluency"
+                onChange={handleChangeEditFluency}
+              />
+              {/* <select
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setEditFluency(e.target.value)}
               >
@@ -1955,7 +1990,7 @@ function Qualification() {
                 <option value="Reading" className="py-3">
                   Reading
                 </option>
-              </select>
+              </select> */}
             </div>
             <div className="mb-4">
               <label

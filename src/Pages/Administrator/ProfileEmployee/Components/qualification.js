@@ -282,7 +282,7 @@ function Qualification({ idEmployee }) {
   const postDataLanguage = async () => {
     var requestBody = {
       language_id: languageId,
-      fluency: fluency,
+      fluency: fluency.toString(),
       competency: competency,
       comment: commentLanguage,
     };
@@ -297,7 +297,7 @@ function Qualification({ idEmployee }) {
     var requestBody = {
       id: idLanguage,
       language_id: editLanguageId,
-      fluency: editFluency,
+      fluency: editFluency.toString(),
       competency: editCompetency,
       comment: editCommentLanguage,
     };
@@ -336,6 +336,22 @@ function Qualification({ idEmployee }) {
     inAwait();
     console.log(res);
   };
+
+  
+  const fluencyOptions = [
+    { value: 'Writting', label: 'Writting', color: '#00B8D9'},
+    { value: 'Speaking', label: 'Speaking', color: '#0052CC'},
+    { value: 'Reading', label: 'Reading', color: '#5243AA' },
+  ];
+
+  const handleChangeFluency = (e) => {
+      setFluency(Array.isArray(e) ? e.map(x => x.value) : []);
+  }
+
+  const handleChangeEditFluency = (e) => {
+      setEditFluency(Array.isArray(e) ? e.map(x => x.value) : []);
+  }
+
 
   return (
     <>
@@ -781,6 +797,9 @@ function Qualification({ idEmployee }) {
                   <th className="align-middle " onClick={() => {}}>
                     Comment <ImportExport fontSize="2px" />
                   </th>
+                  <th className="align-middle " onClick={() => {}}>
+                    Action <ImportExport fontSize="2px" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -799,7 +818,7 @@ function Qualification({ idEmployee }) {
                               setIdLanguage(val.id);
                               setEditLanguageId(val.language.id);
                               setEditLanguageName(val.language.name);
-                              setEditFluency(val.fluency);
+                              setEditFluency(val.fluency.split(','));
                               setEditCompetency(val.competency);
                               setEditCommentLanguage(val.comment);
                               setModalEditLanguage(true);
@@ -1787,7 +1806,15 @@ function Qualification({ idEmployee }) {
               >
                 Fluency <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select
+              <Select
+                isMulti
+                name="Fluency"
+                options={fluencyOptions}
+                className="basic-multi-select"
+                classNamePrefix="select Fluency"
+                onChange={handleChangeFluency}
+              />
+              {/* <select
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setFluency(e.target.value)}
               >
@@ -1803,7 +1830,7 @@ function Qualification({ idEmployee }) {
                 <option value="Reading" className="py-3">
                   Reading
                 </option>
-              </select>
+              </select> */}
             </div>
             <div className="mb-4">
               <label
@@ -1923,7 +1950,16 @@ function Qualification({ idEmployee }) {
               >
                 Fluency <span style={{ color: "#780000" }}>*</span>
               </label>
-              <select
+              <Select
+                isMulti
+                name="Fluency"
+                value={fluencyOptions.filter(obj=>editFluency.includes(obj.value))}
+                options={fluencyOptions}
+                className="basic-multi-select"
+                classNamePrefix="select Fluency"
+                onChange={handleChangeEditFluency}
+              />
+              {/* <select
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                 onChange={(e) => setEditFluency(e.target.value)}
               >
@@ -1939,7 +1975,7 @@ function Qualification({ idEmployee }) {
                 <option value="Reading" className="py-3">
                   Reading
                 </option>
-              </select>
+              </select> */}
             </div>
             <div className="mb-4">
               <label

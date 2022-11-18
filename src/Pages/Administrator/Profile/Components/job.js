@@ -176,9 +176,10 @@ function Job() {
                   <input
                     className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                     id="username"
-                    type="date"
+                    type="text"
                     value={contractStart}
                     onChange={(e) => setContractStart(e.target.value)}
+                    disabled
                   />
                 </div>
                 <div className="col-4">
@@ -191,9 +192,10 @@ function Job() {
                   <input
                     className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                     id="username"
-                    type="date"
+                    type="text"
                     value={contractEnd}
                     onChange={(e) => setContractEnd(e.target.value)}
+                    disabled
                   />
                 </div>
               </div>

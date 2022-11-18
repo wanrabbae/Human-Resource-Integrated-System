@@ -381,6 +381,14 @@ function Users() {
                   password: document.getElementById("password").value,
                   location: document.getElementById("asignto").value,
                 };
+                if (
+                  employeeName.employeeName == undefined ||
+                  employeeName.employeeName == null ||
+                  employeeName.employeeName == ""
+                ) {
+                  setError("Please choose the employee");
+                  return false;
+                }
                 await AddUser(requestBody);
                 setUser(false);
                 inAwait();

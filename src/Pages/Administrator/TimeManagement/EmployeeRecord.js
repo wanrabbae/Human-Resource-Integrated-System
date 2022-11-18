@@ -162,7 +162,7 @@ function EmployeeRecord() {
               <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Duration <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Action</th>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -179,7 +179,7 @@ function EmployeeRecord() {
                   <td className="align-middle">{value.checkOut}</td>
                   <td className="align-middle">{value.noteCheckOut}</td>
                   <td className="align-middle">{value.duration}</td>
-                  <td className="align-middle">
+                  <td className="align-middle d-flex justify-content-evenly">
                     <button
                       onClick={() => {
                         setDetail(value.employee);
@@ -194,6 +194,20 @@ function EmployeeRecord() {
                     >
                       <VisibilityOutlined fontSize="10px" />
                     </button>
+                    <Button
+                      onClick={() => {
+                        setUser(!dialogUser);
+                      }}
+                      style={{
+                        color: "#454545",
+                        fontWeight:'600',
+                        fontSize:'11px',
+                        borderRadius: "8px",
+                        backgroundColor: "#CEDFEA",
+                      }}
+                    >
+                      Check Out
+                    </Button>
                   </td>
                 </tr>
               ))

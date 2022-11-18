@@ -166,7 +166,7 @@ function MyAttendance() {
                   <td className="align-middle">{value.checkOut}</td>
                   <td className="align-middle">{value.noteCheckOut}</td>
                   <td className="align-middle">{value.duration}</td>
-                  <td className="align-middle">
+                  <td className="align-middle d-flex justify-content-evenly">
                     <button
                       onClick={() => {
                         setDetail(value);
@@ -180,6 +180,20 @@ function MyAttendance() {
                     >
                       <VisibilityOutlined fontSize="10px" />
                     </button>
+                    <Button
+                      onClick={() => {
+                        setUser(!dialogUser);
+                      }}
+                      style={{
+                        color: "#454545",
+                        fontWeight:'600',
+                        fontSize:'11px',
+                        borderRadius: "8px",
+                        backgroundColor: "#CEDFEA",
+                      }}
+                    >
+                      Check Out
+                    </Button>
                   </td>
                 </tr>
               ))

@@ -60,6 +60,7 @@ function EmployeeRecord() {
     },
   ]);
   const [detail, setDetail] = useState([]);
+  const [det, setDet] = useState([]);
   const [detailEmployee, setDetailEmployee] = useState([]);
   const [time, setTime] = useState([]);
   const [note, setNote] = useState([]);
@@ -182,8 +183,9 @@ function EmployeeRecord() {
                   <td className="align-middle d-flex justify-content-evenly">
                     <button
                       onClick={() => {
+                        setDet(value);
                         setDetail(value.employee);
-                        setDetailEmployee(value.employee.jobtitle);
+                        setDetailEmployee(value?.employee.jobtitle);
                         setDetailUser(!dialogDetailUser);
                       }}
                       className="btn btn-sm mx-1"
@@ -358,9 +360,9 @@ function EmployeeRecord() {
               <div className="col-md-6 mb-2">
                 Employee Name : {detail.firstName} {detail.lastName}
               </div>
-              <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
+              <div className="col-md-6 mb-2">Duration : {det.duration}</div>
               <div className="col-md-6 mb-2">
-                Job Title : {detailEmployee.name}
+                Job Title : {detail?.jobtitle?.name}
               </div>
               <div className="col-md-6 mb-2">Work Shift : General Shift</div>
               <div className="col-md-6 mb-2">
@@ -372,7 +374,7 @@ function EmployeeRecord() {
             <div className="col-md-6 border-r-2">
               <div className="row">
                 <div className="col-6 font-bold">Clock In</div>
-                <div className="col-6 font-bold">07.40</div>
+                <div className="col-6 font-bold">{det.checkIn}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">
@@ -414,7 +416,7 @@ function EmployeeRecord() {
             <div className="col-md-6 border-l-2">
               <div className="row">
                 <div className="col-6 font-bold">Clock Out</div>
-                <div className="col-6 font-bold">07.40</div>
+                <div className="col-6 font-bold">{det.checkOut}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">

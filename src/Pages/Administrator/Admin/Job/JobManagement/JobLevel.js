@@ -382,11 +382,11 @@ function JobLevel() {
         close={() => {
           setDelete(false);
         }}
-        submit={() => {
-          DeleteJobLevel(id);
+        submit={async() => {
+          await DeleteJobLevel(id);
           setDelete(false);
-          inAwait();
           SwalSuccess({ message: "Success delete job level" });
+          await inAwait();
         }}
         active={isdelete}
       />

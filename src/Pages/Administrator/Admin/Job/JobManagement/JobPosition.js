@@ -499,11 +499,11 @@ function JobPosition() {
         close={() => {
           setDelete(false);
         }}
-        submit={() => {
-          DelJobPosition(id);
+        submit={async() => {
+          await DelJobPosition(id);
           setDelete(false);
-          inAwait();
           SwalSuccess({ message: "Success delete job position" });
+          await inAwait();
         }}
         active={isdelete}
       />

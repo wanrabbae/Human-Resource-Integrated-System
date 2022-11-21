@@ -377,10 +377,11 @@ function JobTitle() {
         close={() => {
           setDelete(false);
         }}
-        submit={() => {
-          delJobTittle(id);
-          setDelete(false);
+        submit={async() => {
+          var del = await delJobTittle(id);
           inAwait();
+          console.log(del)
+          setDelete(false);
           SwalSuccess({ message: "Success delete job title" });
         }}
         active={isdelete}

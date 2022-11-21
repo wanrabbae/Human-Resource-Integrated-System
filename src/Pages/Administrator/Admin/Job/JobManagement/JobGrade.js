@@ -674,11 +674,11 @@ function JobGrade() {
         close={() => {
           setDelete(false);
         }}
-        submit={() => {
-          DeleteJobGrade(id);
+        submit={async () => {
+          await DeleteJobGrade(id);
           setDelete(false);
-          inAwait();
           SwalSuccess({ message: "Success delete job grade" });
+          await inAwait();
         }}
         active={isdelete}
       />

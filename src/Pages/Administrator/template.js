@@ -43,6 +43,7 @@ import {
 import { Route, Routes, Outlet } from "react-router-dom";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import { getNotif } from "../../Repository/RecruitmentRepository";
+import { ModalSignOut } from "../../Components/Modals";
 
 function Template() {
   const [isOpen, setOpen] = useState([false, false, false]);
@@ -51,6 +52,7 @@ function Template() {
   const [isRead, setRead] = useState(false);
   const [users, setUsers] = useState({});
   const [show, setShow] = useState(false);
+  const [issignout, setSignOut] = useState(false);
   const [notification, setNotification] = useState([]);
   const navigate = useNavigate();
 
@@ -703,9 +705,7 @@ function Template() {
             <Link
               to="#"
               onClick={() => {
-                window.localStorage.clear();
-                window.location.href = "/";
-                setUsers({});
+                setSignOut(true)
               }}
               className="text-[#780000] hover:text-[#450000]"
             >
@@ -1115,6 +1115,18 @@ function Template() {
           </div>
         </>
       ) : null}
+      <ModalSignOut
+        close={() => {
+          setSignOut(false);
+        }}
+        submit={() => {
+          window.localStorage.clear();
+          window.location.href = "/";
+          setUsers({});
+          setSignOut(false);
+        }}
+        active={issignout}
+      />
     </div>
   );
 }

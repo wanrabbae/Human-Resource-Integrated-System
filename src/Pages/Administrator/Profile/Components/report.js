@@ -774,8 +774,8 @@ function ReportTo() {
           setDelete(false);
         }}
         submit={async () => {
-          deleteReportTo(id);
-          inAwait();
+          await deleteReportTo(id);
+          await inAwait();
           setDelete(false);
         }}
         active={isdelete}

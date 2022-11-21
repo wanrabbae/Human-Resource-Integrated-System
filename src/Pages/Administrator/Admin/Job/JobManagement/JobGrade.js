@@ -84,6 +84,7 @@ function JobGrade() {
 
   const addGrade = async (e) => {
     e.preventDefault();
+    console.log("TEST");
     let rangeValue = [];
     await range.map((r) => rangeValue.push(document.getElementById(r).value));
     let rangeValue2 = `[${rangeValue.map((r) => `"${r}"`)}]`;
@@ -522,7 +523,7 @@ function JobGrade() {
                             </label>
                             <input
                               className="form-control "
-                              id="name"
+                              id="name2"
                               style={{
                                 borderRadius: "0.25rem",
                                 border: "1px solid #ced4da",

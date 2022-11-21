@@ -102,8 +102,17 @@ var AddAttendance = async (data) => {
   }
 };
 
-var GetEmployeeRecord = async () => {
-  var res = await api.get(`/getEmployeeRecord`);
+var GetEmployeeRecord = async (paginate) => {
+  var res;
+
+  if (paginate) {
+    res = await api.get(
+      `/getEmployeeRecord?page=${paginate.page}&size=${paginate.size}`
+    );
+  } else {
+    res = await api.get(`/getEmployeeRecord`);
+  }
+
   if (res.status == 200) {
     return res.data;
   }

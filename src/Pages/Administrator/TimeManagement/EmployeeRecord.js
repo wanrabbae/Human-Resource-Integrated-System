@@ -40,6 +40,7 @@ import {
   ModalHeader,
   ModalFooter,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { TextFieldSearch } from "../../../Components/TextField";
 import { GetEmployeeName } from "../../../Repository/EmployeeRepository";
@@ -65,15 +66,56 @@ function EmployeeRecord() {
   const [time, setTime] = useState([]);
   const [note, setNote] = useState([]);
   const [employeeRecord, setEmployeeRecord] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const navigate = useNavigate();
+  let allPages = [];
   const inAwait = async () => {
     var dataEmployeeName = await GetEmployeeName();
-    var dataEmployeeRecord = await GetEmployeeRecord();
+    var dataEmployeeRecord = await GetEmployeeRecord({ page: 1, size: 10 });
     setEmployeeNames(dataEmployeeName);
-    setEmployeeRecord(dataEmployeeRecord);
+    setEmployeeRecord(dataEmployeeRecord.requests);
+    setTotalItems(dataEmployeeRecord.totalItems);
+    setTotalPage(dataEmployeeRecord.totalPages);
   };
   useEffect(() => {
     inAwait();
   }, []);
+
+  const previousPage = async () => {
+    setCurrentPage((current) => current - 1);
+    if (currentPage == 1) {
+      setCurrentPage(1);
+    }
+    const getEmployeesRecord = await GetEmployeeRecord({
+      page: currentPage,
+      size: 10,
+    });
+    setEmployeeRecord(getEmployeesRecord.requests);
+  };
+
+  const nextPage = async () => {
+    setCurrentPage((current) => current + 1);
+    if (currentPage == totalPage) {
+      setCurrentPage(1);
+    }
+    const getEmployeesRecord = await GetEmployeeRecord({
+      page: currentPage,
+      size: 10,
+    });
+    setEmployeeRecord(getEmployeesRecord.requests);
+  };
+
+  const changePage = async (value) => {
+    const getEmployeesRecord = await GetEmployeeRecord({
+      page: value,
+      size: 10,
+    });
+    console.log(getEmployeesRecord);
+    setEmployeeRecord(getEmployeesRecord.requests);
+  };
+
   const postData = async (e) => {
     e.preventDefault();
 
@@ -91,6 +133,9 @@ function EmployeeRecord() {
     setErrorMsg("");
     inAwait();
   };
+  for (let i = 0; i < totalPage; i++) {
+    allPages.push(i + 1);
+  }
   // console.log(detail);
   return (
     <>
@@ -163,7 +208,9 @@ function EmployeeRecord() {
               <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Duration <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}} style={{ minWidth: "10em" }}>Action</th>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -202,8 +249,8 @@ function EmployeeRecord() {
                       }}
                       style={{
                         color: "#454545",
-                        fontWeight:'600',
-                        fontSize:'11px',
+                        fontWeight: "600",
+                        fontSize: "11px",
                         borderRadius: "8px",
                         backgroundColor: "#CEDFEA",
                       }}
@@ -233,19 +280,18 @@ function EmployeeRecord() {
           </h6>
         </div>
         <div>
-          <button className="btn btn-sm">
+          <button className="btn btn-sm" onClick={() => previousPage()}>
             <ArrowLeft />
           </button>
-          <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
-            1
-          </button>
-          <button className="btn bg-[#780000] rounded-md text-[#FFFFFF]">
-            2
-          </button>
-          <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
-            3
-          </button>
-          <button className="btn btn-sm">
+          {allPages.map((page) => (
+            <button
+              onClick={() => changePage(page)}
+              className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]"
+            >
+              {page}
+            </button>
+          ))}
+          <button className="btn btn-sm" onClick={() => nextPage()}>
             <ArrowRight />
           </button>
         </div>

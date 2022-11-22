@@ -37,6 +37,7 @@ function ReportingMethods() {
           <button
             className="bg-[#0E5073] hover:bg[#003049] text-white flex items-center p-2 rounded-md"
             onClick={() => setModalAdd(true)}
+            disabled
           >
             <PlusIcon className="text-white 5 w-5" aria-hidden="true" /> Add
             Methods

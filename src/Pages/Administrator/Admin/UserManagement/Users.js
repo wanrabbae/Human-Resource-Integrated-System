@@ -250,6 +250,34 @@ function Users() {
         >
           <Modal.Title>Add User</Modal.Title>
         </Modal.Header>
+        <form 
+          onSubmit={async(e)=> {
+            e.preventDefault();
+            try {
+              var requestBody = {
+                role: document.getElementById("role").value,
+                employee_id: employeeName.employeeName,
+                status: document.getElementById("status").value,
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value,
+                location: document.getElementById("asignto").value,
+              };
+              if (
+                employeeName.employeeName == undefined ||
+                employeeName.employeeName == null ||
+                employeeName.employeeName == ""
+                ) {
+                  setError("Please choose the employee");
+                  return false;
+              }
+              await AddUser(requestBody);
+              setUser(false);
+              inAwait();
+            } catch (error) {
+              setError(error.response.data.message);
+            }
+          }}
+        >
         <Modal.Body className="mx-4">
           <div className="row">
             <div className="col-md-6 mb-3">
@@ -257,8 +285,8 @@ function Users() {
                 <label className="mb-1">
                   User Role <span className="text-danger">*</span>
                 </label>
-                <select className="form-control" id="role">
-                  <option>Select User Role</option>
+                <select required className="form-control" id="role">
+                  <option value="">Select User Role</option>
                   <option value="user">User</option>
                   <option value="admin">Admin</option>
                 </select>
@@ -284,7 +312,7 @@ function Users() {
                       label: val.firstName,
                     };
                   })}
-                />
+                  />
               </div>
             </div>
             <div className="col-md-6 mb-3">
@@ -305,10 +333,11 @@ function Users() {
                   Username <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   className="form-control"
                   id="username"
                   placeholder="Your Username..."
-                />
+                  />
               </div>
             </div>
             <div className="col-md-6 mb-3">
@@ -317,11 +346,12 @@ function Users() {
                   Password <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   className="form-control"
                   id="password"
                   type={"password"}
                   placeholder="Your Password..."
-                />
+                  />
               </div>
             </div>
             <div className="col-md-6 mb-3">
@@ -330,21 +360,23 @@ function Users() {
                   Confirm Password <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   className="form-control"
                   id="confirmPassword"
                   type={"password"}
                   placeholder="Confirm Password..."
-                />
+                  />
               </div>
             </div>
             <div className="col-12 mb-3">
               <div className="form-group">
                 <label className="mb-1">Assigned to Location</label>
                 <input
+                  required
                   className="form-control"
                   id="asignto"
                   placeholder="Search location"
-                />
+                  />
               </div>
             </div>
           </div>
@@ -353,6 +385,7 @@ function Users() {
         <Modal.Footer className="m-4">
           <button
             className="btn"
+            type="button"
             style={{
               backgroundColor: "#737373",
               border: "1px solid transparent",
@@ -360,47 +393,49 @@ function Users() {
               width: "100px",
             }}
             onClick={() => setUser(!dialogUser)}
-          >
+            >
             Cancel
           </button>
           <button
             className="btn"
+            type="submit"
             style={{
               backgroundColor: "#0E5073",
               border: "1px solid transparent",
               color: "#FFFFFF",
               width: "100px",
             }}
-            onClick={async () => {
-              try {
-                var requestBody = {
-                  role: document.getElementById("role").value,
-                  employee_id: employeeName.employeeName,
-                  status: document.getElementById("status").value,
-                  username: document.getElementById("username").value,
-                  password: document.getElementById("password").value,
-                  location: document.getElementById("asignto").value,
-                };
-                if (
-                  employeeName.employeeName == undefined ||
-                  employeeName.employeeName == null ||
-                  employeeName.employeeName == ""
-                ) {
-                  setError("Please choose the employee");
-                  return false;
-                }
-                await AddUser(requestBody);
-                setUser(false);
-                inAwait();
-              } catch (error) {
-                setError(error.response.data.message);
-              }
-              // var res = await axios.post;
-            }}
+            // onClick={async () => {
+            //   try {
+            //     var requestBody = {
+            //       role: document.getElementById("role").value,
+            //       employee_id: employeeName.employeeName,
+            //       status: document.getElementById("status").value,
+            //       username: document.getElementById("username").value,
+            //       password: document.getElementById("password").value,
+            //       location: document.getElementById("asignto").value,
+            //     };
+            //     if (
+            //       employeeName.employeeName == undefined ||
+            //       employeeName.employeeName == null ||
+            //       employeeName.employeeName == ""
+            //       ) {
+            //         setError("Please choose the employee");
+            //         return false;
+            //     }
+            //     await AddUser(requestBody);
+            //     setUser(false);
+            //     inAwait();
+            //   } catch (error) {
+            //     setError(error.response.data.message);
+            //   }
+            //   // var res = await axios.post;
+            // }}
           >
             Add
           </button>
         </Modal.Footer>
+        </form>
       </Modal>
 
       <Modal

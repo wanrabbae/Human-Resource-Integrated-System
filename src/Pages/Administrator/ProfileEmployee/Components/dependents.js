@@ -22,7 +22,7 @@ import {
   deleteDependent,
 } from "../../../../Repository/ProfileEmployeeRepository";
 import { useEffect } from "react";
-import { ModalDelete } from "../../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 
 function Dependents({ idEmployee }) {
   const [modal, setModal] = useState(false);
@@ -385,10 +385,11 @@ function Dependents({ idEmployee }) {
         close={() => {
           setDelete(false);
         }}
-        submit={() => {
-          deleteDependent(id);
+        submit={async() => {
+          await deleteDependent(id);
           inAwait();
           setDelete(false);
+          SwalSuccess({ message: "Success Delete Dependents" });
         }}
         active={isdelete}
       />

@@ -434,6 +434,13 @@ var GetJobPositionWithEmployee = async (relationCode) => {
   }
 };
 
+var BulkUploudJob = async (data) => {
+  var res = await api.post(`/bulkUploadJob`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
   updateStructure,
   deleteStructure,
@@ -498,4 +505,5 @@ export {
   updateInformation,
   getProvince,
   getCityProvince,
+  BulkUploudJob,
 };

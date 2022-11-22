@@ -92,7 +92,9 @@ function BulkUploud() {
           </label>
           <div className="d-flex">
             <a
-              href="#"
+              href={`${endpoint}/assets/JobManagement.xlsx`}
+              download
+              target={"_blank"}
               className="inline-flex items-center text-[#59B6CD] hover:text-[#59B6CD]"
             >
               <span>CSV template</span>

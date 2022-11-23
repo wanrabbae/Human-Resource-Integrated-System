@@ -649,8 +649,8 @@ function JobGrade() {
                 id: editValues.id,
                 name:
                   isMulti == true
-                    ? document.getElementById("nameEdit").value
-                    : rangeValue[0] + "-" + rangeValue[rangeValue.length - 1],
+                    ? rangeValue[0] + "-" + rangeValue[rangeValue.length - 1]
+                    : document.getElementById("nameEdit").value,
                 range: `[${rangeValue2}]`,
                 type: editValues.type,
                 minsalary: editValues.minsalary,

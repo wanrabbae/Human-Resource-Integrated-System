@@ -441,7 +441,39 @@ var BulkUploudJob = async (data) => {
   }
 };
 
+var BulkUploudJobGrade = async (data) => {
+  var res = await api.post(`/bulkUploadJobGrade`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var BulkUploudJobLevel = async (data) => {
+  var res = await api.post(`/bulkUploadJobLevel`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var BulkUploudJobTitle = async (data) => {
+  var res = await api.post(`/bulkUploadJobTitle`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
+var BulkUploudJobPosition = async (data) => {
+  var res = await api.post(`/bulkUploadJobPosition`, data);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
+
 export {
+  BulkUploudJobGrade,
+  BulkUploudJobLevel,
+  BulkUploudJobTitle,
+  BulkUploudJobPosition,
   updateStructure,
   deleteStructure,
   addStructure,

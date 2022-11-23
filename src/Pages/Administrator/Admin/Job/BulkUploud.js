@@ -2,17 +2,27 @@ import { React, useState } from "react";
 import * as XLSX from "xlsx";
 import { SwalSuccess, SwalError } from "../../../../Components/Modals";
 import { endpoint } from "../../../../Utils/constant";
-import { BulkUploudJob } from "../../../../Repository/AdminRepository";
+import {
+  BulkUploudJob,
+  BulkUploudJobGrade,
+  BulkUploudJobLevel,
+  BulkUploudJobPosition,
+  BulkUploudJobTitle,
+} from "../../../../Repository/AdminRepository";
 
 function BulkUploud() {
   const [file, setFile] = useState();
-  const employees = [];
+  const [errorMsg, setError] = useState("");
   const handleChange = (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleImport = async () => {
     const job = ["Job_Grade", "Job_Level", "Job_Title", "Job_Position"];
+    if (!file) {
+      setError("Please upload the valid file");
+      return false;
+    }
     try {
       const reader = new FileReader();
       reader.onload = async function (e) {
@@ -23,8 +33,7 @@ function BulkUploud() {
             cellText: false,
             cellDates: true,
           });
-          let requestBody = {};
-          job.map((data) => {
+          job.map(async (data) => {
             const ws = readedData.Sheets[data];
 
             /* Convert array to json*/
@@ -33,35 +42,31 @@ function BulkUploud() {
               raw: false,
               dateNF: "yyyy-mm-dd",
             });
+            console.log(data);
 
-            switch (data) {
-              case "Job_Grade":
-                requestBody.jobgrade = dataParse ?? [];
-                break;
-              case "Job_Level":
-                requestBody.joblevel = dataParse ?? [];
-                break;
-              case "Job_Title":
-                requestBody.jobtitle = dataParse ?? [];
-                break;
-              case "Job_Position":
-                requestBody.jobposition = dataParse ?? [];
-                break;
-              default:
-                break;
+            if (data == "Job_Grade") {
+              await BulkUploudJobGrade(dataParse);
+            } else if (data == "Job_Level") {
+              await BulkUploudJobLevel(dataParse);
+            } else if (data == "Job_Title") {
+              await BulkUploudJobTitle(dataParse);
+            } else if (data == "Job_Position") {
+              await BulkUploudJobPosition(dataParse);
+            } else {
+              console.log("GK ADA!!!");
             }
           });
-          console.log(requestBody);
-          const bulk = await BulkUploudJob(requestBody);
-          console.log(bulk);
         } catch (error) {
+          setError("");
           console.log(error);
           SwalError({ message: "Error while importing the employees data!" });
         }
       };
       await reader.readAsBinaryString(file);
+      setError("");
       SwalSuccess({ message: "Bulk Data Import Successfully!" });
     } catch (error) {
+      setError("");
       console.log(error);
       SwalError({ message: "Error while importing the employees data!" });
     }
@@ -128,6 +133,7 @@ function BulkUploud() {
               onChange={(e) => handleChange(e)}
             />
             <p className="text-xs">max 64 MB</p>
+            <p className="text-red-600">{errorMsg ? errorMsg : ""}</p>
           </div>
           <div className="d-flex justify-end">
             <button

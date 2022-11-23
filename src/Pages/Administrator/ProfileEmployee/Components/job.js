@@ -76,6 +76,7 @@ function Job({ idEmployee }) {
     inAwait();
     setModal(false);
     var res = await updateJob(requestBody, idEmployee);
+    SwalSuccess({ message: "Success Update Job" });
     console.log(res);
   };
   return (

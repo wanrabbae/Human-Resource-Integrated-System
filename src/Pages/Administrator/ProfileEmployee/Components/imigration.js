@@ -4,9 +4,11 @@ import { PencilSimple, Plus, Trash } from "phosphor-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import {
   addImigration,
   deleteImigration,
+  getCountry,
   getImigration,
   updateImigration,
 } from "../../../../Repository/ProfileEmployeeRepository";
@@ -14,7 +16,9 @@ import {
 function Imigration({ idEmployee }) {
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState([]);
+  const [delid, setdelId] = useState([]);
   const [imigration, setImigration] = useState([]);
   const [documentType, setDocumentType] = useState([]);
   const [docNumber, setDocNumber] = useState([]);
@@ -25,6 +29,8 @@ function Imigration({ idEmployee }) {
   const [eligibleReviewDate, setEligibleReviewDate] = useState([]);
   const [comment, setComment] = useState([]);
 
+  const [country, setCountry] = useState([])
+ 
   const [editDocumentType, setEditDocumentType] = useState([]);
   const [editDocNumber, setEditDocNumber] = useState([]);
   const [editIssueDate, setEditIssueDate] = useState([]);
@@ -38,12 +44,15 @@ function Imigration({ idEmployee }) {
     var data = await getImigration(idEmployee);
     console.log(data.result);
     setImigration(data.result);
+    var cntr = await getCountry();
+    setCountry(cntr["countries"]);
   };
 
   useEffect(() => {
     inAwait();
   }, []);
 
+  console.log(country)
   const postData = async () => {
     var requestBody = {
       documentType: documentType,
@@ -222,7 +231,8 @@ function Imigration({ idEmployee }) {
                         <button
                           className="bg-[#CEDFEA] hover:bg-[#669BBC] p-2 rounded-lg"
                           onClick={() => {
-                            deletedImigration(val.id);
+                            setDelete(true);
+                            setdelId(val.id);
                           }}
                         >
                           <Trash
@@ -357,21 +367,15 @@ function Imigration({ idEmployee }) {
                 <option className="py-3" hidden>
                   Select
                 </option>
-                <option value="Afganistan" className="py-3">
-                  Afganistan
-                </option>
-                <option value="Albani" className="py-3">
-                  Albani
-                </option>
-                <option value="Algeria" className="py-3">
-                  Algeria
-                </option>
-                <option value="Amerka Samoa" className="py-3">
-                  Amerika Samoa
-                </option>
-                <option value="Anddora" className="py-3">
-                  Anddora
-                </option>
+                {
+                  country.map((val) => {
+                    return(
+                      <option value={val.name}>
+                        {val.name}
+                      </option>
+                    )
+                  })
+                }
               </select>
             </div>
             <div className="col">
@@ -545,21 +549,15 @@ function Imigration({ idEmployee }) {
                 <option className="py-3" hidden>
                   {editIssuedBy != null ? editIssuedBy : "Select Issued By..."}
                 </option>
-                <option value="Afganistan" className="py-3">
-                  Afganistan
-                </option>
-                <option value="Albani" className="py-3">
-                  Albani
-                </option>
-                <option value="Algeria" className="py-3">
-                  Algeria
-                </option>
-                <option value="Amerka Samoa" className="py-3">
-                  Amerika Samoa
-                </option>
-                <option value="Anddora" className="py-3">
-                  Anddora
-                </option>
+                {
+                  country.map((val) => {
+                    return(
+                      <option selected={editIssuedBy == val.name ? true : false} value={val.name}>
+                        {val.name}
+                      </option>
+                    )
+                  })
+                }
               </select>
             </div>
             <div className="col">
@@ -621,6 +619,18 @@ function Imigration({ idEmployee }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={async() => {
+          await deleteImigration(delid);
+          inAwait();
+          setDelete(false);
+          SwalSuccess({ message: "Success Delete Imigration" });
+        }}
+        active={isdelete}
+      />
     </>
   );
 }

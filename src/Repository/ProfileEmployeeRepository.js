@@ -86,6 +86,12 @@ const updateDependent = async (data) => {
     return res.data;
   }
 };
+const getCountry = async () => {
+  var res = await axios.get(`https://covid19.mathdro.id/api/countries`);
+  if (res.status == 200) {
+    return res.data;
+  }
+};
 const deleteDependent = async (id) => {
   var res = await api.delete(`${endpoint}/mobile/profile/dependent?id=${id}`);
   if (res.status == 200) {
@@ -468,4 +474,5 @@ export {
   addReportTo,
   editReportTo,
   deleteReportTo,
+  getCountry
 };

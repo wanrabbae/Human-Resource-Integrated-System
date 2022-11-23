@@ -8,6 +8,7 @@ import d4 from "../../../Resourse/img/d4.png";
 import { GetDashboard } from "../../../Repository/DashboardRepository";
 import { useEffect } from "react";
 import { useState } from "react";
+import dateFormat from "dateformat";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,9 +40,11 @@ export const data = {
 };
 
 function Dashboard() {
+  const [users, setUsers] = useState([])
   const [totalEmployee, setTotalEmployee] = useState([]);
   const [totalNewEmployee, setTotalNewEmployee] = useState([]);
   const [totalAppliedEmployee, setTotalAppliedEmployee] = useState([]);
+  const [totalResignEmployee, setTotalResignEmployee] = useState([]);
   const [female, setFemale] = useState([]);
   const [male, setMale] = useState([]);
   const [employeeJobTitleData, setEmployeeJobTitleData] = useState([]);
@@ -51,7 +54,8 @@ function Dashboard() {
     setTotalEmployee(data.result.totalEmployee);
     setTotalNewEmployee(data.result.totalNewEmployee);
     setTotalAppliedEmployee(data.result.totalAppliedEmployee);
-    setTotalAppliedEmployee(data.result.totalAppliedEmployee);
+    setTotalResignEmployee(data.result.totalResignedEmployee);
+
     setFemale(data.result.employeeGender.female);
     setMale(data.result.employeeGender.male);
     setEmployeeJobTitleData(data.result.employeeJobTitleData);
@@ -108,13 +112,23 @@ function Dashboard() {
 
   useEffect(() => {
     inAwait();
+    if (window.localStorage.getItem("users") == null) {
+      window.location.href = "/";
+    } else {
+      var data = JSON.parse(window.localStorage.getItem("users"));
+      setUsers(data);
+      // inAwait();
+    }
   }, []);
+
+  var date = new Date()
+  console.log(date)
 
   return (
     <>
       <div className="m-0">
-        <h1 className="text-2xl">Hello, Agatha!</h1>
-        <p className="text-sm">it’s Monday, 21 Februari 2022</p>
+        <h1 className="text-2xl">Hello, {users.username}!</h1>
+        <p className="text-sm">it’s {dateFormat(date, "fullDate")}</p>
       </div>
       <div className="flex flex-row gap-2">
         <div className="w-1/2">
@@ -151,7 +165,7 @@ function Dashboard() {
                 <h1 className="text-gray-200 font-semibold uppercase">
                   Resigned employees
                 </h1>
-                <h1 className="text-white">0</h1>
+                <h1 className="text-white">{totalResignEmployee}</h1>
               </div>
               <img className="rounded-lg" src={d3} />
             </div>

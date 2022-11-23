@@ -73,6 +73,7 @@ function Cal() {
     setAllEvents([...allEvents, newEvent], setShow(false));
   }
 
+  const [role, setRole] = useState([]);
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(false);
   const [showEditEvent, setShowEditEvent] = useState(false);
@@ -225,6 +226,13 @@ function Cal() {
 
   useEffect(() => {
     inAwait();
+    if (window.localStorage.getItem("users") == null) {
+      window.location.href = "/";
+    } else {
+      var data = JSON.parse(window.localStorage.getItem("users"));
+      setRole(data.role);
+      // inAwait();
+    }
   }, []);
 
   const timeEvent = (data) => {
@@ -587,39 +595,164 @@ function Cal() {
           </Modal.Header>
           <Modal.Body className="mx-4">
             <div className="bg-red-100 w-full p-3 rounded-lg flex gap-5">
-              <a
-                href="#"
-                style={{
-                  color: index == 0 ? "#780000" : "#00000080",
-                  borderColor: index == 0 ? "#780000" : "#00000080",
-                  paddingBottom: index == 0 ? "5px" : "",
-                  borderBottomStyle: index == 0 ? "solid" : "",
-                  borderBottomWidth: index == 0 ? "4px" : "",
-                  width: index == 0 ? "fit-content" : "",
-                }}
-                className="mt-2"
-                onClick={() => setIndex(0)}
-              >
-                Event
-              </a>
-              <a
-                href="#"
-                style={{
-                  color: index == 1 ? "#780000" : "#00000080",
-                  borderColor: index == 1 ? "#780000" : "#00000080",
-                  paddingBottom: index == 1 ? "5px" : "",
-                  borderBottomStyle: index == 1 ? "solid" : "",
-                  borderBottomWidth: index == 1 ? "4px" : "",
-                  width: index == 1 ? "fit-content" : "",
-                }}
-                className="mt-2"
-                onClick={() => setIndex(1)}
-              >
-                My To Do
-              </a>
+              {role == "user" ? (
+                <a
+                  href="#"
+                  style={{
+                    color: "#780000",
+                    borderColor: "#780000",
+                    paddingBottom: "5px",
+                    borderBottomStyle: "solid",
+                    borderBottomWidth: "4px",
+                    width: "fit-content",
+                  }}
+                  className="mt-2"
+                  // onClick={() => setIndex(1)}
+                >
+                  My To Do
+                </a>
+              ) : (
+                <>
+                  <a
+                    href="#"
+                    style={{
+                      color: index == 0 ? "#780000" : "#00000080",
+                      borderColor: index == 0 ? "#780000" : "#00000080",
+                      paddingBottom: index == 0 ? "5px" : "",
+                      borderBottomStyle: index == 0 ? "solid" : "",
+                      borderBottomWidth: index == 0 ? "4px" : "",
+                      width: index == 0 ? "fit-content" : "",
+                    }}
+                    className="mt-2"
+                    onClick={() => setIndex(0)}
+                  >
+                    Event
+                  </a>
+                  <a
+                    href="#"
+                    style={{
+                      color: index == 1 ? "#780000" : "#00000080",
+                      borderColor: index == 1 ? "#780000" : "#00000080",
+                      paddingBottom: index == 1 ? "5px" : "",
+                      borderBottomStyle: index == 1 ? "solid" : "",
+                      borderBottomWidth: index == 1 ? "4px" : "",
+                      width: index == 1 ? "fit-content" : "",
+                    }}
+                    className="mt-2"
+                    onClick={() => setIndex(1)}
+                  >
+                    My To Do
+                  </a>
+                </>
+              )}
             </div>
             <div className="p-3">
-              {index == 0 ? (
+              {role == "user" ? (
+                <>
+                  <div className="form-group mt-3">
+                    <label>Title</label>
+                    <input
+                      type="text"
+                      placeholder="Input Event Title"
+                      // value={newEvent.title}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, title: e.target.value })
+                      // }
+                      onChange={(e) => setTitleTodo(e.target.value)}
+                      className="form-control rounded-lg"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="form-group mt-3">
+                      <label>Start Date</label>
+                      <input
+                        type="date"
+                        placeholderText="Start Date"
+                        className="form-control rounded-lg"
+                        //   style={{ marginRight: "10px" }}
+                        // selected={newEvent.start}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setStartDateTodo(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group mt-3">
+                      <label>End Date</label>
+                      <input
+                        type="date"
+                        placeholderText="Start Date"
+                        className="form-control rounded-lg"
+                        //   style={{ marginRight: "10px" }}
+                        // selected={newEvent.start}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setEndDateTodo(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group mt-3">
+                      <label>Start Time</label>
+                      <input
+                        type="time"
+                        placeholderText="Start Time"
+                        className="form-control rounded-lg"
+                        //   style={{ marginRight: "10px" }}
+                        // selected={newEvent.end}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setStartTodo(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group mt-3">
+                      <label>End Time</label>
+                      <input
+                        type="time"
+                        placeholderText="Start Time"
+                        className="form-control rounded-lg"
+                        //   style={{ marginRight: "10px" }}
+                        // selected={newEvent.end}
+                        // onChange={(end) => setNewEvent({ ...newEvent, end })}
+                        onChange={(e) => setEndTodo(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group mt-3">
+                    <label>Calendar</label>
+                    <input
+                      type="email"
+                      placeholder="Type your email"
+                      // value={newEvent.email}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, email: e.target.value })
+                      // }
+                      onChange={(e) => setEmailTodo(e.target.value)}
+                      className="form-control rounded-lg"
+                    />
+                  </div>
+                  <div className="form-group mt-3">
+                    <label>Details</label>
+                    <textarea
+                      placeholder="type details activity"
+                      // value={newEvent.location}
+                      // onChange={(e) =>
+                      //   setNewEvent({ ...newEvent, location: e.target.value })
+                      // }
+                      onChange={(e) => setDetail(e.target.value)}
+                      className="form-control rounded-lg"
+                    />
+                  </div>
+
+                  <div className="w-full flex gap-5 justify-end mt-5">
+                    <Button
+                      style={{
+                        backgroundColor: "#C1121F",
+                        color: "#FFFFFF",
+                        width: "100px",
+                      }}
+                      onClick={postDataTodo}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                </>
+              ) : index == 0 ? (
                 <>
                   <div className="form-group mt-3">
                     <label>Title</label>
@@ -747,8 +880,8 @@ function Cal() {
                         onChange={(e) => setEndDateTodo(e.target.value)}
                       />
                     </div>
-                    <div className="form-group mt-3">
-                      <label>Time</label>
+                    <div className="form-group">
+                      <label>Start Time</label>
                       <input
                         type="time"
                         placeholderText="Start Time"
@@ -759,8 +892,8 @@ function Cal() {
                         onChange={(e) => setStartTodo(e.target.value)}
                       />
                     </div>
-                    <div className="form-group mt-3">
-                      <label>Time</label>
+                    <div className="form-group">
+                      <label>End Time</label>
                       <input
                         type="time"
                         placeholderText="Start Time"

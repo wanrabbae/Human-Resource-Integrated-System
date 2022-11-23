@@ -69,6 +69,10 @@ function EmployeeRecord() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+  
+  const [latitude, setLatitude] = useState([]);
+  const [longitude, setLongitude] = useState([]);
+
   const navigate = useNavigate();
   let allPages = [];
   const inAwait = async () => {
@@ -122,7 +126,7 @@ function EmployeeRecord() {
     var requestBody = {
       employeeId: employeeId.employeeId,
       checkIn: time,
-      noteCheckIn: note,
+      noteCheckIn: `https://www.google.com/maps/?q=${latitude},${longitude}`,
     };
     if (employeeId.employeeId == undefined || employeeId.employeeId == null) {
       setErrorMsg("Please choose the employee");
@@ -137,6 +141,11 @@ function EmployeeRecord() {
     allPages.push(i + 1);
   }
   // console.log(detail);
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  });
   return (
     <>
       <div className="w-100 bg-light p-4 rounded-t-xl">
@@ -197,13 +206,13 @@ function EmployeeRecord() {
                 Check In <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}} style={{ minWidth: "20em" }}>
-                Check In Note <ImportExport fontSize="2px" />
+                Check In Location <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Check Out <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}} style={{ minWidth: "20em" }}>
-                Check Out Note <ImportExport fontSize="2px" />
+                Check Out Location <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Duration <ImportExport fontSize="2px" />
@@ -346,14 +355,15 @@ function EmployeeRecord() {
               <div className="col-md-12 mb-3">
                 <div className="form-group">
                   <label className="mb-1">
-                    Note <span className="text-danger">*</span>
+                    Location
                   </label>
-                  <textarea
+                  {/* <textarea
                     rows={4}
                     placeholder="Note check in / out here"
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     onChange={(e) => setNote(e.target.value)}
-                  ></textarea>
+                  ></textarea> */}
+                  <p className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-3">{`https://www.google.com/maps/?q=${latitude},${longitude}`}</p>
                 </div>
               </div>
             </div>

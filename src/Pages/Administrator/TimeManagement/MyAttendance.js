@@ -58,6 +58,8 @@ function MyAttendance() {
   const [note, setNote] = useState([]);
   const [detail, setDetail] = useState([]);
   const [dataProfile, setDataProfile] = useState([]);
+  const [latitude, setLatitude] = useState([]);
+  const [longitude, setLongitude] = useState([]);
   const inAwait = async () => {
     var dataA = await GetAttendance();
     setDataAttendance(dataA);
@@ -76,12 +78,17 @@ function MyAttendance() {
 
     var requestBody = {
       checkIn: time,
-      noteCheckIn: note,
+      noteCheckIn: `https://www.google.com/maps/?q=${latitude},${longitude}`,
     };
     setUser(false);
     var res = await AddAttendance(requestBody);
     inAwait();
   };
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  });
   return (
     <>
       <div className="w-100 bg-[#FFFFFF] p-4 rounded-t-xl">
@@ -139,13 +146,13 @@ function MyAttendance() {
                 Check In <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
-                Check In Note <ImportExport fontSize="2px" />
+                Check In Location <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
                 Check Out <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
-                Check Out Note <ImportExport fontSize="2px" />
+                Check Out Location <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
                 Duration <ImportExport fontSize="2px" />
@@ -260,14 +267,17 @@ function MyAttendance() {
               <div className="col-md-12 mb-3">
                 <div className="form-group">
                   <label className="mb-1">
-                    Note <span className="text-danger">*</span>
+                    Location
                   </label>
-                  <textarea
+                  {/* <textarea
                     rows={4}
                     placeholder="Note check in / out here"
                     className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    onChange={(e) => setNote(e.target.value)}
-                  ></textarea>
+                    // onChange={(e) => setNote(e.target.value)}
+                    value={`https://www.google.com/maps/?q=${latitude},${longitude}`}
+                    readOnly
+                  ></textarea> */}
+                  <p className="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-3">{`https://www.google.com/maps/?q=${latitude},${longitude}`}</p>
                 </div>
               </div>
             </div>
@@ -317,7 +327,7 @@ function MyAttendance() {
             <h3 className="font-bold mb-3">Attendance Information</h3>
             <div className="row">
               <div className="col-md-6 mb-2">
-                Employee Name : {dataProfile.firstName} {dataProfile.lastName}
+                Employee Name : {dataProfile?.firstName} {dataProfile?.lastName}
               </div>
               <div className="col-md-6 mb-2">Duration : 10 h 55 m</div>
               <div className="col-md-6 mb-2">
@@ -327,7 +337,7 @@ function MyAttendance() {
                 Work Shift : {dataProfile?.workshift?.name}
               </div>
               <div className="col-md-6 mb-2">
-                Company Location : {dataProfile.location}
+                Company Location : {dataProfile?.location}
               </div>
             </div>
           </div>

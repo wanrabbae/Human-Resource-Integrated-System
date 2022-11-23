@@ -4,18 +4,22 @@ import { useLocation } from "react-router-dom";
 import {
   updateContactDetail,
   getProfile,
+  getCountry,
 } from "../../../../Repository/ProfileEmployeeRepository";
 import { SwalSuccess } from "../../../../Components/Modals";
+import { getProvince } from "../../../../Repository/AdminRepository";
 
 function ContactDetail({ data }) {
   const provinces = ["Jawa Tengah", "Jawa Barat", "Jawa Timur", "DKI Jakarta"];
-  const countries = ["Indonesia", "Malaysia", "Arab", "Jepang", "Korea"];
+  // const countries = ["Indonesia", "Malaysia", "Arab", "Jepang", "Korea"];
 
   const [street, setStreet] = useState([]);
   const [city, setCity] = useState([]);
   const [province, setProvince] = useState([]);
   const [postalCode, setPostalCode] = useState([]);
   const [country, setCountry] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [prov, setProv] = useState([]);
   const [phone, setPhone] = useState([]);
   const [mPhone, setMPhone] = useState([]);
   const [email, setEmail] = useState([]);
@@ -35,6 +39,10 @@ function ContactDetail({ data }) {
     setMPhone(dataProfile.result?.mobilePhone);
     setEmail(dataProfile.result?.email);
     setOtherEmail(dataProfile.result?.otherEmail);
+    var con = await getCountry();
+    setCountries(con["countries"]);
+    var provin = await getProvince();
+    setProv(provin["provinsi"]);
   };
 
   useEffect(() => {
@@ -119,15 +127,15 @@ function ContactDetail({ data }) {
                 <option className="py-3" value={province} hidden>
                   {province != null ? province : "Select Provinces"}
                 </option>
-                {provinces.map((val) => (
-                  <option
-                    className="py-3"
-                    value={val}
-                    selected={val == province ? true : false}
-                  >
-                    {val}
-                  </option>
-                ))}
+                {
+                  prov.map((val) => {
+                    return(
+                      <option selected={province == val.nama ? true : false} value={val.nama}>
+                        {val.nama}
+                      </option>
+                    )
+                  })
+                }
                 {/* <option className="py-3" selected>
                   Jawa Tengah
                 </option>
@@ -165,7 +173,16 @@ function ContactDetail({ data }) {
                 <option className="py-3" hidden>
                   {"Select Country"}
                 </option>
-                {countries.map((val) => (
+                {
+                  countries.map((val) => {
+                    return(
+                      <option selected={country == val.name ? true : false} value={val.name}>
+                        {val.name}
+                      </option>
+                    )
+                  })
+                }
+                {/* {countries.map((val) => (
                   <option
                     className="py-3"
                     value={val}
@@ -173,7 +190,7 @@ function ContactDetail({ data }) {
                   >
                     {val}
                   </option>
-                ))}
+                ))} */}
               </select>
             </div>
           </div>

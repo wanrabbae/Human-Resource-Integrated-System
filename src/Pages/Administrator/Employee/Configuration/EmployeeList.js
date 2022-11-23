@@ -392,7 +392,7 @@ function EmployeeList() {
                 }}
               />
             </div>
-            <div className="grid grid-cols-2 gap-3 mt-3">
+            <div>
               <div className="w-full">
                 <label className="text-xs">Employee Full Name</label>
                 <input
@@ -409,16 +409,8 @@ function EmployeeList() {
                   placeholder="First Name"
                 />
               </div>
-              <div className="w-full">
-                <label className="text-xs"></label>
-                <input
-                  onChange={(val) => {}}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  type="text"
-                  required
-                  placeholder="Last Name"
-                />
-              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3 mt-3">
               <div className="w-full">
                 <label className="text-xs">Employee ID</label>
                 <input

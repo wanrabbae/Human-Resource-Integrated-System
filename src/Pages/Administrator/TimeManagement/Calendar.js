@@ -325,7 +325,7 @@ function Cal() {
                 title="New Event"
               />
               <span style={{ position: "relative", marginLeft: "30px" }}>
-                New Event
+              {role == "user" ? "New To Do":"New Event"}
               </span>
             </Button>
           </div>
@@ -629,7 +629,7 @@ function Cal() {
             className="m-4"
             style={{ borderBottomColor: "transparent" }}
           >
-            <Modal.Title>Add Event</Modal.Title>
+            <Modal.Title>{role == "user" ? "Add To Do":"New Event"}</Modal.Title>
           </Modal.Header>
           <Modal.Body className="mx-4">
             <div className="bg-red-100 w-full p-3 rounded-lg flex gap-5">

@@ -40,10 +40,11 @@ import {
   updateWorkExperience,
 } from "../../../../Repository/ProfileEmployeeRepository";
 import { useEffect } from "react";
-import { GetJobTittle } from "../../../../Repository/AdminRepository";
+import { GetJobTittle, getLicense } from "../../../../Repository/AdminRepository";
 import { GetSkills } from "../../../../Repository/SkillsRepository";
 import { GetLanguages } from "../../../../Repository/LanguagesRepository";
 import { ModalDelete } from "../../../../Components/Modals";
+import { GetEducation } from "../../../../Repository/EducationRepository";
 
 function Qualification({ idEmployee }) {
   const [modalAddWExperience, setModalAddWExperience] = useState(false);
@@ -156,6 +157,8 @@ function Qualification({ idEmployee }) {
   const [datajobTitle, setDataJobTitle] = useState([]);
   const [dataSkill, setDataSkill] = useState([]);
   const [dataLanguage, setDataLanguage] = useState([]);
+  const [dataLevel, setDataLevel] = useState([]);
+  const [dataLisensi, setLisensi] = useState([]);
 
   const inAwait = async () => {
     var dataWorkExperience = await getWorkExperience(idEmployee);
@@ -179,6 +182,12 @@ function Qualification({ idEmployee }) {
     setDataSkill(dataSkill);
     var language = await GetLanguages();
     setDataLanguage(language);
+    var dataLevel = await GetEducation();
+    // console.log(dataLevel);
+    setDataLevel(dataLevel);
+    var lisen = await getLicense();
+    // console.log(dataLevel);
+    setLisensi(lisen)
   };
   // console.log(skill);
 
@@ -1468,12 +1477,12 @@ function Qualification({ idEmployee }) {
                 <option hidden className="py-3">
                   Select
                 </option>
-                <option value="High School" className="py-3">
-                  High School
-                </option>
-                <option value="Bachelor's Degree" className="py-3">
-                  Bachelor's Degree
-                </option>
+                {dataLevel &&
+                  dataLevel.map((val, index) => (
+                    <option key={index} value={val.name} className="py-3">
+                      {val.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mb-4">
@@ -1627,12 +1636,12 @@ function Qualification({ idEmployee }) {
                 <option hidden value={editLevel} className="py-3">
                   {editLevel != null ? editLevel : "Select Level"}
                 </option>
-                <option value="High School" className="py-3">
-                  High School
-                </option>
-                <option value="Bachelor's Degree" className="py-3">
-                  Bachelor's Degree
-                </option>
+                {dataLevel &&
+                  dataLevel.map((val, index) => (
+                    <option key={index} value={val.name} className="py-3">
+                      {val.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mb-4">
@@ -2082,12 +2091,12 @@ function Qualification({ idEmployee }) {
                 <option hidden className="py-3">
                   Select
                 </option>
-                <option value="Junior Web Programming" className="py-3">
-                  Junior Web Programming{" "}
-                </option>
-                <option value="Senior Data Analyst" className="py-3">
-                  Senior Data Analyst
-                </option>
+                {dataLisensi &&
+                  dataLisensi.map((val, index) => (
+                    <option key={index} value={val.name} className="py-3">
+                      {val.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mb-4">
@@ -2196,12 +2205,12 @@ function Qualification({ idEmployee }) {
                     ? editLicenseType
                     : "Select Relationship"}
                 </option>
-                <option value="Junior Web Programming" className="py-3">
-                  Junior Web Programming{" "}
-                </option>
-                <option value="Senior Data Analyst" className="py-3">
-                  Senior Data Analyst
-                </option>
+                {dataLisensi &&
+                  dataLisensi.map((val, index) => (
+                    <option key={index} value={val.name} className="py-3">
+                      {val.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mb-4">

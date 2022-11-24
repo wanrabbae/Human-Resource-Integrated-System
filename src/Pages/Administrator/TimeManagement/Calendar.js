@@ -216,6 +216,30 @@ function Cal() {
     SwalSuccess({ message: "Success Update My Todo" });
   };
 
+  var dataNew = [];
+
+  dataEvent.map((val) => {
+    console.log(val.id);
+    if (val.employeeId == employeeId || val.employeeId == null) {
+      dataNew.push({
+        id: val.id,
+        title: val.title,
+        startDate: val.startDate,
+        endDate: val.endDate,
+        start: val.start,
+        end: val.end,
+        location: val.location,
+        calendar: val.calendar,
+        time: val.time,
+        details: val.details,
+        employeeId: val.employeeId,
+        category: val.category,
+      });
+    }
+  });
+
+  console.log(dataNew)
+
   const inAwait = async () => {
     var dataA = await GetEvent();
     console.log(dataA);
@@ -281,7 +305,7 @@ function Cal() {
             className="mt-5"
             views={views}
             localizer={localizer}
-            events={dataEvent}
+            events={dataNew}
             startAccessor="start"
             endAccessor="end"
             style={{ height: 500 }}

@@ -364,7 +364,20 @@ function EmployeeList() {
                 setProfilePict(null);
               }
             } catch (error) {
-              setErrorMsg(error.response.data.message);
+              if (
+                (error.response.data.message =
+                  "ErrorTypeError: Cannot read property 'employees' of null")
+              ) {
+                inAwait();
+                setModalAdd(false);
+                setErrorMsg("");
+                setController({});
+                SwalSuccess({ message: "Success add employee" });
+                setProfilePict(null);
+                return true;
+              } else {
+                setErrorMsg(error.response.data.message);
+              }
             }
           }}
         >

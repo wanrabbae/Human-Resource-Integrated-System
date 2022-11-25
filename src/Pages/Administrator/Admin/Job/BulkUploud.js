@@ -52,6 +52,7 @@ function BulkUploud() {
               await BulkUploudJobTitle(dataParse);
             } else if (data == "Job_Position") {
               await BulkUploudJobPosition(dataParse);
+              console.log("TEST JOB POSITION");
             } else {
               console.log("GK ADA!!!");
             }

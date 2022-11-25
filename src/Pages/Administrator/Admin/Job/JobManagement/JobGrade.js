@@ -240,6 +240,7 @@ function JobGrade() {
           setMinGaji("");
           setMaxGaji("");
           setTitle(!dialogTitle);
+          setMulti(!isMulti);
         }}
       >
         <Modal.Header
@@ -404,6 +405,7 @@ function JobGrade() {
                 setMinGaji("");
                 setMaxGaji("");
                 setTitle(!dialogTitle);
+                setMulti(!isMulti);
               }}
             >
               Cancel

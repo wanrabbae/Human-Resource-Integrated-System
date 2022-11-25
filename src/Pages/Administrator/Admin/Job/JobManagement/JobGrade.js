@@ -106,7 +106,7 @@ function JobGrade() {
     setMaxGaji("");
     SwalSuccess({ message: "Success add job grade" });
     inAwait();
-    console.log("TEST");
+    console.log(res);
   };
 
   return (
@@ -262,7 +262,7 @@ function JobGrade() {
                     className="form-control"
                     id="name"
                     placeholder="Job grade..."
-                    required
+                    required={!isMulti}
                   />
                 </div>
               </div>
@@ -272,6 +272,7 @@ function JobGrade() {
                   onClick={() => setMulti(!isMulti)}
                   type="checkbox"
                   value=""
+                  required={false}
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"
                 />
                 <label
@@ -291,7 +292,7 @@ function JobGrade() {
                     <input
                       className="form-control"
                       type="number"
-                      required
+                      required={!isMulti}
                       id="name2"
                       onChange={() => {
                         var value = parseInt(
@@ -334,7 +335,7 @@ function JobGrade() {
                               borderRadius: "0.25rem",
                               border: "1px solid #ced4da",
                             }}
-                            required
+                            required={isMulti}
                             // onChange={(e) =>
                             //   setRangeValues([...rangeValues, e.target.value])
                             // }

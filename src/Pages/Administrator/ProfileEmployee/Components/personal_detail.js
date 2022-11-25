@@ -121,21 +121,9 @@ function PersonalDetail() {
                   className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
                   id="fName"
                   type="text"
-                  placeholder="First Name"
+                  placeholder="Full Name"
                   onChange={(e) => {
                     setFirstName(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="col">
-                <input
-                  value={lastName}
-                  className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                  id="lName"
-                  type="text"
-                  placeholder="Last Name"
-                  onChange={(e) => {
-                    setLastName(e.target.value);
                   }}
                 />
               </div>

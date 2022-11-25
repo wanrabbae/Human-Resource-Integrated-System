@@ -81,218 +81,187 @@ function PersonalDetail() {
           <span style={{ fontWeight: "600" }}>Personal Detail</span>
         </div>
         {/* <form onSubmit={postData}> */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm mb-2" for="fName">
-              Employee Full Name <span style={{ color: "#780000" }}>*</span>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm mb-2" for="fName">
+            Employee Full Name <span style={{ color: "#780000" }}>*</span>
+          </label>
+          <div className="row">
+            <div className="col">
+              <input
+                value={firstName}
+                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+                id="fName"
+                type="text"
+                placeholder="Full Name"
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        <hr style={{ backgroundColor: "#CACACA" }} className="mb-4"></hr>
+        <div className="row mb-4">
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              Employee ID
             </label>
-            <div className="row">
-              <div className="col">
-                <input
-                  value={firstName}
-                  className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                  id="fName"
-                  type="text"
-                  placeholder="First Name"
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="col">
-                <input
-                  value={lastName}
-                  className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                  id="lName"
-                  type="text"
-                  placeholder="Last Name"
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
+            <input
+              disabled
+              value={profile.employee?.id}
+              // value="010114-0001"
+              className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              id="username"
+              type="text"
+              placeholder="Username"
+            />
           </div>
-          <hr style={{ backgroundColor: "#CACACA" }} className="mb-4"></hr>
-          <div className="row mb-4">
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Employee ID
-              </label>
-              <input
-                disabled
-                value={profile.employee?.id}
-                // value="010114-0001"
-                className=" appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Username"
-              />
-            </div>
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Other ID
-              </label>
-              <input
-                // value="3301062408860006"
-                value={otherId}
-                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="text"
-                onChange={(e) => {
-                  setOtherId(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-          <div className="row mb-4">
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Driver's License Number
-              </label>
-              <input
-                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="text"
-                value={driverLicence}
-                onChange={(e) => {
-                  setDriverLicence(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                License Expiry Date
-              </label>
-              <input
-                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="date"
-                value={licenceExpire}
-                onChange={(e) => setLicenceExpire(e.target.value)}
-              />
-            </div>
-          </div>
-          <hr style={{ backgroundColor: "#CACACA" }} className="mb-4"></hr>
-          <div className="row mb-4">
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="national"
-              >
-                Nationality
-              </label>
-              <select
-                id="national"
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                onChange={(e) => setSelectedNationalities(e.target.value)}
-              >
-                <option hidden value={selectedNationalities}>
-                  {selectedNationalities != null
-                    ? profile?.employee?.nationality?.name
-                    : "Select Marital Status"}
-                </option>
-                {nationalities.length > 0 ? (
-                  nationalities.map((national) => (
-                    <option className="py-3" value={national.id}>
-                      {national.name}
-                    </option>
-                  ))
-                ) : (
-                  <option className="py-3">Indondesia</option>
-                )}
-              </select>
-            </div>
-            <div className="col">
-              <label className="block text-gray-700 text-sm mb-2" for="martial">
-                Marital Status
-              </label>
-              {/* <Select  options={marital} /> */}
-              <select
-                id="martial"
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                onChange={(e) => setMaritalStatus(e.target.value)}
-              >
-                <option hidden value={maritalStatus}>
-                  {maritalStatus != null
-                    ? maritalStatus
-                    : "Select Marital Status"}
-                </option>
-                <option value="single">Single</option>
-                <option value="married">Married</option>
-                <option value="divorced">Divorced</option>
-              </select>
-            </div>
-          </div>
-          <div className="row mb-4">
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Birth of Date
-              </label>
-              <input
-                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
-                id="username"
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-              />
-            </div>
-            <div className="col">
-              <label
-                className="block text-gray-700 text-sm mb-2"
-                for="username"
-              >
-                Gender
-              </label>
-              <div className="py-2">
-                <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                  >
-                    <FormControlLabel
-                      value="Perempuan"
-                      control={<Radio />}
-                      label="Perempuan"
-                    />
-                    <FormControlLabel
-                      value="Laki - Laki"
-                      control={<Radio />}
-                      label="Laki - Laki"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </div>
-            </div>
-          </div>
-          <div className="d-flex justify-content-end mt-4">
-            <button
-            onClick={postData}
-              className="btn"
-              style={{
-                border: "none",
-                fontSize: "14px",
-                backgroundColor: "#0E5073",
-                color: "#FFFFFF",
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              Other ID
+            </label>
+            <input
+              // value="3301062408860006"
+              value={otherId}
+              className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              id="username"
+              type="text"
+              onChange={(e) => {
+                setOtherId(e.target.value);
               }}
-            >Submit</button>
+            />
           </div>
+        </div>
+        <div className="row mb-4">
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              Driver's License Number
+            </label>
+            <input
+              className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              id="username"
+              type="text"
+              value={driverLicence}
+              onChange={(e) => {
+                setDriverLicence(e.target.value);
+              }}
+            />
+          </div>
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              License Expiry Date
+            </label>
+            <input
+              className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              id="username"
+              type="date"
+              value={licenceExpire}
+              onChange={(e) => setLicenceExpire(e.target.value)}
+            />
+          </div>
+        </div>
+        <hr style={{ backgroundColor: "#CACACA" }} className="mb-4"></hr>
+        <div className="row mb-4">
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="national">
+              Nationality
+            </label>
+            <select
+              id="national"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              onChange={(e) => setSelectedNationalities(e.target.value)}
+            >
+              <option hidden value={selectedNationalities}>
+                {selectedNationalities != null
+                  ? profile?.employee?.nationality?.name
+                  : "Select Marital Status"}
+              </option>
+              {nationalities.length > 0 ? (
+                nationalities.map((national) => (
+                  <option className="py-3" value={national.id}>
+                    {national.name}
+                  </option>
+                ))
+              ) : (
+                <option className="py-3">Indondesia</option>
+              )}
+            </select>
+          </div>
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="martial">
+              Marital Status
+            </label>
+            {/* <Select  options={marital} /> */}
+            <select
+              id="martial"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              onChange={(e) => setMaritalStatus(e.target.value)}
+            >
+              <option hidden value={maritalStatus}>
+                {maritalStatus != null
+                  ? maritalStatus
+                  : "Select Marital Status"}
+              </option>
+              <option value="single">Single</option>
+              <option value="married">Married</option>
+              <option value="divorced">Divorced</option>
+            </select>
+          </div>
+        </div>
+        <div className="row mb-4">
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              Birth of Date
+            </label>
+            <input
+              className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline"
+              id="username"
+              type="date"
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+            />
+          </div>
+          <div className="col">
+            <label className="block text-gray-700 text-sm mb-2" for="username">
+              Gender
+            </label>
+            <div className="py-2">
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                >
+                  <FormControlLabel
+                    value="Perempuan"
+                    control={<Radio />}
+                    label="Perempuan"
+                  />
+                  <FormControlLabel
+                    value="Laki - Laki"
+                    control={<Radio />}
+                    label="Laki - Laki"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </div>
+          </div>
+        </div>
+        <div className="d-flex justify-content-end mt-4">
+          <button
+            onClick={postData}
+            className="btn"
+            style={{
+              border: "none",
+              fontSize: "14px",
+              backgroundColor: "#0E5073",
+              color: "#FFFFFF",
+            }}
+          >
+            Submit
+          </button>
+        </div>
         {/* </form> */}
       </div>
     </>

@@ -55,13 +55,15 @@ import Cal from "./Pages/Administrator/TimeManagement/Calendar";
 import Maintenance from "./Pages/Administrator/Maintenance/maintenance";
 import DetailDocument from "./Pages/Administrator/Document/detail_document";
 import DetailDocumentAnswer from "./Pages/Administrator/Document/detail_answer";
+import Login from "./Pages/Login";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPages />}></Route>
+      <Route path="/" element={<Login />}></Route>
+      {/* <Route path="/" element={<LandingPages />}></Route> */}
       <Route path="/feature" element={<Feature />}></Route>
       <Route path="/pricing" element={<Pricing />}></Route>
       <Route path="/register" element={<Register />}></Route>

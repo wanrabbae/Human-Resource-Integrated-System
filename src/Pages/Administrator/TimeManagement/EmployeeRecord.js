@@ -5,6 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { EyeIcon } from "@heroicons/react/solid";
+import moment from "moment";
 import {
   Add,
   AlignVerticalCenter,
@@ -146,6 +147,12 @@ function EmployeeRecord() {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
   });
+
+  const duration = (then, now)=>{
+    var ms = moment(now, "HH:mm:ss").diff(moment(then, "HH:mm:ss"));
+    var d = moment.duration(ms);
+    return `${d._data.hours}:${d._data.minutes}:${d._data.seconds}`;
+  }
   return (
     <>
       <div className="w-100 bg-light p-4 rounded-t-xl">
@@ -235,7 +242,7 @@ function EmployeeRecord() {
                   <td className="align-middle">{value.noteCheckIn}</td>
                   <td className="align-middle">{value.checkOut}</td>
                   <td className="align-middle">{value.noteCheckOut}</td>
-                  <td className="align-middle">{value.duration}</td>
+                  <td className="align-middle">{duration(value.checkIn, value.checkOut)}</td>
                   <td className="align-middle d-flex justify-content-evenly">
                     <button
                       onClick={() => {
@@ -416,7 +423,7 @@ function EmployeeRecord() {
               <div className="col-md-6 mb-2">
                 Employee Name : {detail.firstName} {detail.lastName}
               </div>
-              <div className="col-md-6 mb-2">Duration : {det.duration}</div>
+              <div className="col-md-6 mb-2">Duration : {duration(det.checkIn, det.checkOut)}</div>
               <div className="col-md-6 mb-2">
                 Job Title : {detail?.jobtitle?.name}
               </div>

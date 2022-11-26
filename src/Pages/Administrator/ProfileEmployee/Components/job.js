@@ -312,8 +312,12 @@ function Job({ idEmployee }) {
           onSubmit={async (e) => {
             e.preventDefault();
             try {
-              setTerminate({ ...terminate, employeeId: idEmployee });
-              const termination = await terminateEmployee(terminate);
+              const termination = await terminateEmployee({
+                date: terminate.date,
+                termination_reason_id: terminate.termination_reason_id,
+                note: terminate.note,
+                employeeId: idEmployee,
+              });
               console.log(termination);
               SwalSuccess({ message: "Success terminate the employee" });
               setModal(false);

@@ -62,25 +62,6 @@ function JobGrade() {
   const [isRange, setIsRange] = useState(false);
   const [id, setId] = useState();
   const [isMulti, setMulti] = useState(true);
-  const [rangeValues, setRangeValues] = useState([]);
-
-  /* Fungsi formatRupiah */
-  // function formatRupiah(angka, prefix) {
-  //   var number_string = angka.replace(/[^,\d]/g, "").toString(),
-  //     split = number_string.split(","),
-  //     sisa = split[0].length % 3,
-  //     rupiah = split[0].substr(0, sisa),
-  //     ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-  //   // tambahkan titik jika yang di input sudah menjadi angka ribuan
-  //   if (ribuan) {
-  //     separator = sisa ? "." : "";
-  //     rupiah += separator + ribuan.join(".");
-  //   }
-
-  //   rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-  //   return prefix == undefined ? rupiah : rupiah ? rupiah : "";
-  // }
 
   const addGrade = async (e) => {
     e.preventDefault();
@@ -144,6 +125,7 @@ function JobGrade() {
           <div>
             <Button
               onClick={() => {
+                setMulti(true);
                 setTitle(!dialogTitle);
               }}
               style={{
@@ -194,6 +176,8 @@ function JobGrade() {
                           setId(val["id"]);
                           if (val?.rangegrade?.length > 0) setIsRange(true);
                           setEditValues(val);
+                          console.log(val);
+                          setRange(val?.rangegrade ?? []);
                           setEditTitle(!dialogEditTitle);
                         }}
                         className="btn btn-sm mx-1"
@@ -433,6 +417,7 @@ function JobGrade() {
           setIsRange(false);
           setMinGaji("");
           setMaxGaji("");
+          setRange([]);
           setEditTitle(!dialogEditTitle);
         }}
       >
@@ -465,7 +450,10 @@ function JobGrade() {
             <div className="flex items-center mb-3">
               <input
                 id="checked-checkbox"
-                onClick={() => setMulti(!isMulti)}
+                onClick={() => {
+                  setMulti(!isMulti);
+                  setIsRange(!isRange);
+                }}
                 type="checkbox"
                 value=""
                 checked={isRange}
@@ -516,17 +504,18 @@ function JobGrade() {
               </div>
               <div className="w-100"></div>
               <div className="grid gap-3 grid-rows-1 grid-cols-8">
-                {range.length > 0
-                  ? range.map((val) => {
+                {range.length > 0 || range != null
+                  ? range.map((val, i) => {
                       return (
                         <div className="mb-3">
                           <div className="form-group" style={{ width: "70px" }}>
                             <label className="mb-1 text-sm">
-                              {val + 1} Range
+                              {i + 1} Range
                             </label>
                             <input
                               className="form-control "
-                              id="name2"
+                              id={i}
+                              defaultValue={val}
                               style={{
                                 borderRadius: "0.25rem",
                                 border: "1px solid #ced4da",
@@ -536,25 +525,7 @@ function JobGrade() {
                         </div>
                       );
                     })
-                  : editValues?.rangegrade?.map((reng, i) => (
-                      <div className="mb-3">
-                        <div className="form-group" style={{ width: "70px" }}>
-                          <label className="mb-1 text-sm">Range</label>
-                          <input
-                            className="form-control "
-                            id={i}
-                            defaultValue={reng}
-                            // onChange={(e) =>
-                            //   setRangeValues((current) => [e.target.value])
-                            // }
-                            style={{
-                              borderRadius: "0.25rem",
-                              border: "1px solid #ced4da",
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
+                  : ""}
               </div>
             </div>
             <div className="col-12 mb-3">
@@ -628,6 +599,7 @@ function JobGrade() {
               setIsRange(false);
               setMinGaji("");
               setMaxGaji("");
+              setRange([]);
               setEditTitle(!dialogEditTitle);
             }}
           >
@@ -644,7 +616,7 @@ function JobGrade() {
             onClick={async () => {
               let rangeValue = [];
               let rangeValue2 = [];
-              await editValues?.rangegrade?.map((r, i) =>
+              range.map((val, i) =>
                 rangeValue.push(document.getElementById(i).value)
               );
               rangeValue.map((r) => rangeValue2.push(`"${r}"`));
@@ -654,7 +626,7 @@ function JobGrade() {
                   isMulti == true
                     ? rangeValue[0] + "-" + rangeValue[rangeValue.length - 1]
                     : document.getElementById("nameEdit").value,
-                range: `[${rangeValue2}]`,
+                range: isMulti == true ? `[${rangeValue2}]` : null,
                 type: editValues.type,
                 minsalary: editValues.minsalary,
                 maxsalary: editValues.maxsalary,
@@ -664,11 +636,12 @@ function JobGrade() {
               setIsRange(false);
               setMinGaji("");
               setMaxGaji("");
+              setRange([]);
               SwalSuccess({ message: "Success edit job grade" });
               inAwait();
             }}
           >
-            Submit
+            Save
           </button>
         </Modal.Footer>
       </Modal>

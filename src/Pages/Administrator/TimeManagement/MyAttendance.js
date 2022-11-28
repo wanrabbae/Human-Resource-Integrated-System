@@ -86,16 +86,25 @@ function MyAttendance() {
     inAwait();
   };
 
-  navigator.geolocation.getCurrentPosition(function(position) {
+  navigator.geolocation.getCurrentPosition(function (position) {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
   });
 
-  const duration = (then, now)=>{
+  const duration = (then, now) => {
     var ms = moment(now, "HH:mm:ss").diff(moment(then, "HH:mm:ss"));
     var d = moment.duration(ms);
-    return `${d._data.hours}:${d._data.minutes}:${d._data.seconds}`;
-  }
+    var h = d._data.hours;
+    var m = d._data.minutes;
+    var s = d._data.seconds;
+
+    if (h != 0) {
+      return `${h} hours ${m} Minutes`;
+    } else {
+      return `${m} Minutes`;
+    }
+    // return `${d._data.hours}:${d._data.minutes}:${d._data.seconds}`;
+  };
   return (
     <>
       <div className="w-100 bg-[#FFFFFF] p-4 rounded-t-xl">
@@ -179,7 +188,9 @@ function MyAttendance() {
                   <td className="align-middle">{value.noteCheckIn}</td>
                   <td className="align-middle">{value.checkOut}</td>
                   <td className="align-middle">{value.noteCheckOut}</td>
-                  <td className="align-middle">{duration(value.checkIn, value.checkOut)}</td>
+                  <td className="align-middle">
+                    {duration(value.checkIn, value.checkOut)}
+                  </td>
                   <td className="align-middle d-flex justify-content-evenly">
                     <button
                       onClick={() => {
@@ -200,8 +211,8 @@ function MyAttendance() {
                       }}
                       style={{
                         color: "#454545",
-                        fontWeight:'600',
-                        fontSize:'11px',
+                        fontWeight: "600",
+                        fontSize: "11px",
                         borderRadius: "8px",
                         backgroundColor: "#CEDFEA",
                       }}
@@ -273,9 +284,7 @@ function MyAttendance() {
               </div>
               <div className="col-md-12 mb-3">
                 <div className="form-group">
-                  <label className="mb-1">
-                    Location
-                  </label>
+                  <label className="mb-1">Location</label>
                   {/* <textarea
                     rows={4}
                     placeholder="Note check in / out here"
@@ -336,7 +345,9 @@ function MyAttendance() {
               <div className="col-md-6 mb-2">
                 Employee Name : {dataProfile?.firstName} {dataProfile?.lastName}
               </div>
-              <div className="col-md-6 mb-2">Duration : {duration(detail.checkIn, detail.checkOut)}</div>
+              <div className="col-md-6 mb-2">
+                Duration : {duration(detail.checkIn, detail.checkOut)}
+              </div>
               <div className="col-md-6 mb-2">
                 Job Title : {dataProfile?.jobtitle?.name}
               </div>
@@ -370,7 +381,7 @@ function MyAttendance() {
                     width="170em"
                     height="150em"
                   ></iframe>
-                  <div className="d-flex align-items-start justify-content-start mt-2">
+                  {/* <div className="d-flex align-items-start justify-content-start mt-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-12"
@@ -387,7 +398,7 @@ function MyAttendance() {
                       Gg. Satria II, Sokayasa, RT04/RW01, Kec. Purwokerto Tim.,
                       Kabupaten Banyumas, Jawa Tengah ,
                     </small>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -412,7 +423,7 @@ function MyAttendance() {
                     width="170em"
                     height="150em"
                   ></iframe>
-                  <div className="d-flex align-items-start justify-content-start mt-2">
+                  {/* <div className="d-flex align-items-start justify-content-start mt-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-12"
@@ -429,7 +440,7 @@ function MyAttendance() {
                       Gg. Satria II, Sokayasa, RT04/RW01, Kec. Purwokerto Tim.,
                       Kabupaten Banyumas, Jawa Tengah ,
                     </small>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

@@ -25,6 +25,7 @@ function Schedule() {
   const [employeeName, setEmployeeName] = useState({
     employeeName: "",
   });
+  const [role, setRole] = useState([]);
   const [scheduleName, setScheduleName] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const inAwait = async () => {
@@ -34,6 +35,8 @@ function Schedule() {
     // console.log(dataSchedules[0].employee.jobtitle.name);
     setSchedules(dataSchedules);
     // console.log(dataSchedules);
+    var data = JSON.parse(window.localStorage.getItem("users"));
+    setRole(data.role);
   };
   // console.log(schedules)
   useEffect(() => {
@@ -66,20 +69,22 @@ function Schedule() {
           <div className="d-flex">
             <TextFieldSearch />
             <div className="mx-2"></div>
-            <Button
-              onClick={() => {
-                setUser(!dialogUser);
-              }}
-              style={{
-                color: "#FFFFFF",
-                borderRadius: "7px",
-                backgroundColor: "#0E5073",
-              }}
-              variant="contained"
-              startIcon={<Add />}
-            >
-              Schedule
-            </Button>
+            {role != "user" ? (
+              <Button
+                onClick={() => {
+                  setUser(!dialogUser);
+                }}
+                style={{
+                  color: "#FFFFFF",
+                  borderRadius: "7px",
+                  backgroundColor: "#0E5073",
+                }}
+                variant="contained"
+                startIcon={<Add />}
+              >
+                Schedule
+              </Button>
+            ) : null}
           </div>
         </div>
         <br></br>

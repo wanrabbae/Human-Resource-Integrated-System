@@ -16,7 +16,7 @@ function DetailInbox() {
   const [modalEdit, setModalEdit] = useState(false);
   return (
     <>
-      <div className="bg-white p-3 rounded-lg space-y-5 h-96">
+      <div className="bg-white p-3 rounded-lg space-y-5">
         <div className="border-b border-gray-900 p-3 space-y-3">
           <h1 className="font-bold text-lg">Reimbursement has been approved</h1>
           <div className="flex flex-row justify-between items-center">
@@ -31,18 +31,105 @@ function DetailInbox() {
                 }}
               />
               <div className="flex flex-col">
-                <h5 className="text-sm text-black font-semibold">HRIS</h5>
+                <h5 className="text-sm text-black font-semibold">
+                  Fakhri Azmi Ulala
+                </h5>
                 <p className="text-xs">to me</p>
               </div>
             </div>
             <p className="text-sm">30 August 2022 09:22</p>
           </div>
         </div>
-        <div>
+        <div className="space-y-5">
           <p className="text-sm font-light">
-            Reimbursement of funds has been approved on August 30, 2022
-            amounting to Rp. 350,000 and has been sent to your bank account.
+            Fakhri azmi Ulala submitted a time off request. Following are the
+            details of the Request :
           </p>
+          <h4 className="font-bold">Detail Request</h4>
+          <div className="bg-[#F8F8F8] p-3">
+            <div className="grid grid-cols-2 border-b border-gray-300 py-2">
+              <div className="grid grid-cols-2 gap-2 py-2">
+                <p>Job Position</p>
+                <p>: Staff IT</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2 py-2">
+                <p>Job Position</p>
+                <p>: Staff IT</p>
+              </div>
+            </div>
+            <div className="">
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Start Date</p>
+                <p className="col-span-3">: 26/11/2022</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>End Date</p>
+                <p className="col-span-3">: 30/11/2022</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Remaining Days Off</p>
+                <p className="col-span-3">: 7 Days</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Time Off Duration</p>
+                <p className="col-span-3">: 4 Days</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Time off Type</p>
+                <p className="col-span-3">: Married</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Notes</p>
+                <p className="col-span-3">
+                  : Lorem ipsum dolor sit amet consectetur. Scelerisque erat
+                  aenean pellentesque amet faucibus non. Condimentum dolor
+                  scelerisque et diam et morbi hendrerit.
+                </p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Delegated Employee</p>
+                <p className="col-span-3">: M. Iqbal Ainurafie</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Delegated Task</p>
+                <p className="col-span-3">
+                  : Lorem ipsum dolor sit amet consectetur. Scelerisque erat
+                  aenean pellentesque amet faucibus non. Condimentum dolor
+                  scelerisque et diam et morbi hendrerit.
+                </p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Emergency Contact</p>
+                <p className="col-span-3">: Elzio Afroditya</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Emergency Phone Number</p>
+                <p className="col-span-3">: 081234567890</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 py-2">
+                <p>Emergency Address</p>
+                <p className="col-span-3">
+                  : Lorem ipsum dolor sit amet consectetur. Scelerisque erat
+                  aenean pellentesque amet faucibus non. Condimentum dolor
+                  scelerisque et diam et morbi hendrerit.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="text-end my-5">
+            <button
+              type="button"
+              className="text-white bg-[#C1121F] hover:bg-[#900E18] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            >
+              Reject
+            </button>
+            <button
+              type="button"
+              className="text-white bg-[#04BB00] hover:bg-[#048501] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 focus:outline-none"
+            >
+              Approve
+            </button>
+          </div>
         </div>
       </div>
       {/* Modal Add */}

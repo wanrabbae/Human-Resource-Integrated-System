@@ -48,6 +48,7 @@ import ReportTo from "./Components/report";
 import Qualification from "./Components/qualification";
 import profile from "../../../Resourse/img/default-profile.png";
 import { getProfile } from "../../../Repository/ProfileRepository";
+import Files from "./Components/Files";
 
 function ProfileTemplate() {
   const [index, setIndex] = useState(0);
@@ -257,6 +258,24 @@ function ProfileTemplate() {
                   }
                 />
               </ListItemButton>
+              <ListItemButton
+                style={{
+                  borderRadius: "7px",
+                  backgroundColor: index == 8 ? "#EFF9FF" : "white",
+                  borderRight: index == 8 ? "7px solid #219EBC" : "none",
+                  color: index == 8 ? "#454545" : "#00000080",
+                }}
+                className="mt-2"
+                onClick={() => setIndex(8)}
+              >
+                <ListItemText
+                  primary={
+                    <Typography style={{ fontSize: "14px", fontWeight: "600" }}>
+                      Files
+                    </Typography>
+                  }
+                />
+              </ListItemButton>
             </div>
           </aside>
           <div className="ml-auto w-9/12 p-5 space-y-5">
@@ -276,6 +295,8 @@ function ProfileTemplate() {
               <ReportTo />
             ) : index == 7 ? (
               <Qualification />
+            ) : index == 8 ? (
+              <Files />
             ) : (
               ""
             )}

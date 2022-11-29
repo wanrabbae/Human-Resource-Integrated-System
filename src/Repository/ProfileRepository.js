@@ -351,6 +351,15 @@ const deleteReportTo = async (data) => {
     return res;
   }
 };
+
+const getFile = async () => {
+  var res = await api.get(`/mobile/employee/file`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
 export {
   getProfile,
   updateProfile,
@@ -392,4 +401,5 @@ export {
   addReportTo,
   editReportTo,
   deleteReportTo,
+  getFile,
 };

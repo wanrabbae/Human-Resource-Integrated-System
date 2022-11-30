@@ -360,6 +360,28 @@ const getFile = async () => {
     return res;
   }
 };
+
+const addFile = async (data) => {
+  var res = await api.post(`/mobile/employee/file`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
+const deleteFile = async (data) => {
+  console.log(data);
+  var res = await api.delete(`/mobile/employee/file?id=${data}`);
+  if (res.status == 200) {
+    return res.data;
+  } else {
+    return res;
+  }
+};
 export {
   getProfile,
   updateProfile,
@@ -401,5 +423,5 @@ export {
   addReportTo,
   editReportTo,
   deleteReportTo,
-  getFile,
+  getFile,addFile,deleteFile
 };

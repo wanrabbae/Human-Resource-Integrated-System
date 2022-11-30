@@ -62,6 +62,7 @@ function JobGrade() {
   const [isRange, setIsRange] = useState(false);
   const [id, setId] = useState();
   const [isMulti, setMulti] = useState(true);
+  const [isMulti2, setMulti2] = useState(false);
 
   const addGrade = async (e) => {
     e.preventDefault();
@@ -125,7 +126,7 @@ function JobGrade() {
           <div>
             <Button
               onClick={() => {
-                setMulti(true);
+                setMulti(false);
                 setTitle(!dialogTitle);
               }}
               style={{
@@ -174,9 +175,11 @@ function JobGrade() {
                       <button
                         onClick={() => {
                           setId(val["id"]);
-                          if (val?.rangegrade?.length > 0) setIsRange(true);
+                          if (val?.rangegrade?.length > 0) {
+                            setIsRange(true);
+                            setMulti2(true);
+                          }
                           setEditValues(val);
-                          console.log(val);
                           setRange(val?.rangegrade ?? []);
                           setEditTitle(!dialogEditTitle);
                         }}
@@ -416,6 +419,7 @@ function JobGrade() {
         onHide={() => {
           setIsRange(false);
           setMinGaji("");
+          setMulti2(false);
           setMaxGaji("");
           setRange([]);
           setEditTitle(!dialogEditTitle);
@@ -439,7 +443,7 @@ function JobGrade() {
                   className="form-control"
                   placeholder="Jobl grade..."
                   id="nameEdit"
-                  disabled={isRange}
+                  disabled={isMulti2}
                   value={editValues?.name ?? null}
                   onChange={(e) =>
                     setEditValues({ ...editValues, name: e.target.value })
@@ -451,12 +455,12 @@ function JobGrade() {
               <input
                 id="checked-checkbox"
                 onClick={() => {
-                  setMulti(!isMulti);
+                  setMulti2(!isMulti2);
                   setIsRange(!isRange);
                 }}
                 type="checkbox"
                 value=""
-                checked={isRange}
+                checked={isMulti2}
                 className="w-4 h-4 text-blue-600 bg-gray-100 rounded-md border-gray-300 focus:ring-0"
               />
               <label
@@ -468,7 +472,7 @@ function JobGrade() {
             </div>
             <div
               className="mb-3"
-              style={{ display: !isMulti || isRange ? "block" : "none" }}
+              style={{ display: isMulti2 ? "block" : "none" }}
             >
               <div className="col-md-4 mb-3">
                 <div className="form-group">
@@ -599,6 +603,7 @@ function JobGrade() {
               setIsRange(false);
               setMinGaji("");
               setMaxGaji("");
+              setMulti2(false);
               setRange([]);
               setEditTitle(!dialogEditTitle);
             }}
@@ -623,10 +628,10 @@ function JobGrade() {
               var requestBody = {
                 id: editValues.id,
                 name:
-                  isMulti == true
+                  isMulti2 == true
                     ? rangeValue[0] + "-" + rangeValue[rangeValue.length - 1]
                     : document.getElementById("nameEdit").value,
-                range: isMulti == true ? `[${rangeValue2}]` : null,
+                range: isMulti2 == true ? `[${rangeValue2}]` : null,
                 type: editValues.type,
                 minsalary: editValues.minsalary,
                 maxsalary: editValues.maxsalary,
@@ -634,6 +639,7 @@ function JobGrade() {
               var res = await EditJobGrade(requestBody);
               setEditTitle(!dialogEditTitle);
               setIsRange(false);
+              setMulti2(false);
               setMinGaji("");
               setMaxGaji("");
               setRange([]);

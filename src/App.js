@@ -56,6 +56,7 @@ import Maintenance from "./Pages/Administrator/Maintenance/maintenance";
 import DetailDocument from "./Pages/Administrator/Document/detail_document";
 import DetailDocumentAnswer from "./Pages/Administrator/Document/detail_answer";
 import Login from "./Pages/Login";
+import Finance from "./Pages/Administrator/Finance/Finance";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -126,6 +127,13 @@ function App() {
             element={<Membership />}
           />
           <Route path="/admin/nationalities" element={<Nationalities />} />
+        </Route>
+      ) : (
+        ""
+      )}
+      {data?.role == "admin" ? (
+        <Route path="/finance" element={<Template />}>
+          <Route path="/finance" element={<Finance />} />
         </Route>
       ) : (
         ""

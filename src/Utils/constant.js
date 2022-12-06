@@ -1,4 +1,4 @@
-var endpoint = "https://hris.afkaaruna.sch.id";
+var endpoint = "https://api.humanusia.id";
 
 var users = {};
 

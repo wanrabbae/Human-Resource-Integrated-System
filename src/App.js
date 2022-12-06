@@ -57,6 +57,10 @@ import DetailDocument from "./Pages/Administrator/Document/detail_document";
 import DetailDocumentAnswer from "./Pages/Administrator/Document/detail_answer";
 import Login from "./Pages/Login";
 import Finance from "./Pages/Administrator/Finance/Finance";
+import Reimbursment from "./Pages/Administrator/Finance/Reimbursment";
+import CashAdvance from "./Pages/Administrator/Finance/CashAdvance";
+import Loan from "./Pages/Administrator/Finance/Loan";
+import FinanceSetting from "./Pages/Administrator/Finance/FinanceSetting";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -134,6 +138,10 @@ function App() {
       {data?.role == "admin" ? (
         <Route path="/finance" element={<Template />}>
           <Route path="/finance" element={<Finance />} />
+          <Route path="/finance/reimburstment" element={<Reimbursment />} />
+          <Route path="/finance/cash-advance" element={<CashAdvance />} />
+          <Route path="/finance/loan" element={<Loan />} />
+          <Route path="/finance/finance-setting" element={<FinanceSetting />} />
         </Route>
       ) : (
         ""

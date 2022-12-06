@@ -13,19 +13,19 @@ function Finance() {
         <p className="text-xs font-light">Finance Menu</p>
       </div>
       <div className="grid grid-cols-4 gap-3">
-        <Link to="/recruitment" className="relative hover:brightness-50">
+        <Link to="/finance/reimburstment" className="relative hover:brightness-50">
           <img src={bg1} className="brightness-75" />
           <p className="absolute inset-0 top-24 text-center text-white text-xl font-semibold">Reimbrusment</p>
         </Link>
-        <Link to="/recruitment" className="relative hover:brightness-50">
+        <Link to="/finance/cash-advance" className="relative hover:brightness-50">
           <img src={bg2} className="brightness-75" />
           <p className="absolute inset-0 top-24 text-center text-white text-xl font-semibold">Cash Advance</p>
         </Link>
-        <Link to="/recruitment" className="relative hover:brightness-50">
+        <Link to="/finance/loan" className="relative hover:brightness-50">
           <img src={bg3} className="brightness-75" />
           <p className="absolute inset-0 top-24 text-center text-white text-xl font-semibold">Loan</p>
         </Link>
-        <Link to="/recruitment" className="relative hover:brightness-50">
+        <Link to="/finance/finance-setting" className="relative hover:brightness-50">
           <img src={bg4} className="brightness-75" />
           <p className="absolute inset-0 top-24 text-center text-white text-xl font-semibold">Finance Setting</p>
         </Link>

@@ -482,6 +482,36 @@ function DetailDocumentAnswer() {
           ) : (
             ""
           )}
+            <div className="d-flex justify-end">
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: "#FFE0E0",
+                  color: "#C1121F",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                type="button"
+                onClick={() => declineDoc()}
+              >
+                Decline
+              </button>
+              <button
+                style={{
+                  borderRadius: "10px",
+                  backgroundColor: "#CAFFDF",
+                  color: "#028F3B",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                className="ms-3 py-2.5 px-4 btn d-flex align-items-center"
+                type="button"
+                onClick={() => acceptDoc()}
+              >
+                Accept
+              </button>
+            </div>
           {/* <div
             className="p-4 mb-4"
             style={{

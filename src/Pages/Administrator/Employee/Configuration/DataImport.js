@@ -33,8 +33,7 @@ function DataImport() {
           });
           dataParse.forEach(async (dt) => {
             await ImportEmployee({
-              firstName: dt["First Name"],
-              lastName: dt["Last Name"],
+              firstName: dt["Full Name"],
               joinDate: dt["Joined Date"],
               status: dt["Status"],
               jobgrade: dt["Job Grade"],

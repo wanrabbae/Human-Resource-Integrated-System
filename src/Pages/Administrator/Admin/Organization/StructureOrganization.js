@@ -484,6 +484,9 @@ function StructureOrganization() {
                 <option className="py-3" value="" hidden>
                   Select
                 </option>
+                <option className="py-3" value="Select">
+                  As Parent
+                </option>
                 {jobPosition.map((e, i) => {
                   return (
                     <option

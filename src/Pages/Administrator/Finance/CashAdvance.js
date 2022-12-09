@@ -17,6 +17,7 @@ import { TextFieldSearch } from "../../../Components/TextField";
 
 function CashAdvance() {
   const [modalAdd, setModalAdd] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
   return (
     <>
       <div className="w-100 bg-[#FFFFFF] p-4 rounded-t-xl">
@@ -95,23 +96,30 @@ function CashAdvance() {
               {/* <th width="10px">
                 <input type="checkbox" style={{ borderRadius: "2px" }} />
               </th> */}
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Employee <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "15em" }}>
                 Cash Advance Policy <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Request Date <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Date of Use <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Amount <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Note</th>
-              <th onClick={() => {}}>Status</th>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
+                Note
+              </th>
+              <th onClick={() => {}} style={{ minWidth: "5em" }}>
+                Status
+              </th>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -130,6 +138,32 @@ function CashAdvance() {
               <td className="align-middle">
                 <CheckCircle sx={{ color: teal[700] }} />
               </td>
+              <td className="align-middle d-flex">
+                <button
+                  onClick={() => {
+                    setModalEdit(!modalEdit);
+                  }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <EditOutlined fontSize="10px" />
+                </button>
+                <button
+                  // onClick={() => {
+                  //   setModalEdit(!modalEdit);
+                  // }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <DeleteOutline fontSize="10px" />
+                </button>
+              </td>
             </tr>
             <tr>
               {/* <td className="align-middle">
@@ -144,6 +178,32 @@ function CashAdvance() {
               <td className="align-middle">
                 <CancelIcon sx={{ color: red[700] }} />
               </td>
+              <td className="align-middle d-flex">
+                <button
+                  onClick={() => {
+                    setModalEdit(!modalEdit);
+                  }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <EditOutlined fontSize="10px" />
+                </button>
+                <button
+                  onClick={() => {
+                    setModalEdit(!modalEdit);
+                  }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <DeleteOutline fontSize="10px" />
+                </button>
+              </td>
             </tr>
             <tr>
               {/* <td className="align-middle">
@@ -157,6 +217,32 @@ function CashAdvance() {
               <td className="align-middle">Konsumsi Acara Gathering</td>
               <td className="align-middle">
                 <AccessTimeFilled sx={{ color: yellow[700] }} />
+              </td>
+              <td className="align-middle d-flex">
+                <button
+                  onClick={() => {
+                    setModalEdit(!modalEdit);
+                  }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <EditOutlined fontSize="10px" />
+                </button>
+                <button
+                  // onClick={() => {
+                  //   setModalEdit(!modalEdit);
+                  // }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <DeleteOutline fontSize="10px" />
+                </button>
               </td>
             </tr>
             {/* ))
@@ -226,7 +312,7 @@ function CashAdvance() {
             <label className="text-xs">Cash Advance Policy</label>
             <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
               <option className="py-3" hidden>
-              Select cash advance policy
+                Select cash advance policy
               </option>
             </select>
           </div>
@@ -270,6 +356,90 @@ function CashAdvance() {
             type="button"
             className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
             onClick={() => setModalAdd(false)}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+          >
+            Save
+          </button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={modalEdit}
+        size="lg"
+        onHide={() => {
+          setModalEdit(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Cash Advance
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4 space-y-5">
+          <div className="w-full">
+            <label className="text-xs">Employee Name</label>
+            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+              <option className="py-3" hidden>
+                Select Employee Name
+              </option>
+            </select>
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Cash Advance Policy</label>
+            <select className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:shadow-outline">
+              <option className="py-3" hidden>
+                Select cash advance policy
+              </option>
+            </select>
+          </div>
+          <div className="d-flex gap-3">
+            <div className="w-full">
+              <label className="text-xs">Request Date</label>
+              <input
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="date"
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Date of Use</label>
+              <input
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="date"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Amount</label>
+            <input
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="text"
+            />
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Note</label>
+            <textarea
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Note"
+            ></textarea>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <button
+            type="button"
+            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            onClick={() => setModalEdit(false)}
           >
             Cancel
           </button>

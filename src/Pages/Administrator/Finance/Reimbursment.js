@@ -4,6 +4,7 @@ import {
   CheckCircle,
   DeleteOutline,
   EditOutlined,
+  FileDownloadOutlined,
   ImportExport,
   VisibilityOutlined,
 } from "@mui/icons-material";
@@ -17,6 +18,7 @@ import { TextFieldSearch } from "../../../Components/TextField";
 
 function Reimbursment() {
   const [modalAdd, setModalAdd] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
 
   return (
     <>
@@ -96,25 +98,25 @@ function Reimbursment() {
               {/* <th width="10px">
                 <input type="checkbox" style={{ borderRadius: "2px" }} />
               </th> */}
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "11em" }}>
                 Employee Name <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "20em" }}>
                 Reimbursment Policy <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Amount <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>
                 Use Date <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "15em" }}>
                 Note <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th onClick={() => {}} style={{ minWidth: "5em" }}>
                 Status <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Action</th>
+              <th onClick={() => {}} style={{ minWidth: "10em" }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -146,13 +148,12 @@ function Reimbursment() {
                     borderRadius: "8px",
                   }}
                 >
-                  <VisibilityOutlined fontSize="10px" />
+                  <FileDownloadOutlined fontSize="10px" />
                 </button>
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
@@ -162,10 +163,9 @@ function Reimbursment() {
                   <EditOutlined fontSize="10px" />
                 </button>
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
@@ -192,23 +192,21 @@ function Reimbursment() {
               </td>
               <td className="align-middle d-flex justify-content-evenly">
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
                     borderRadius: "8px",
                   }}
                 >
-                  <VisibilityOutlined fontSize="10px" />
+                  <FileDownloadOutlined fontSize="10px" />
                 </button>
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
@@ -218,10 +216,9 @@ function Reimbursment() {
                   <EditOutlined fontSize="10px" />
                 </button>
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
@@ -248,23 +245,21 @@ function Reimbursment() {
               </td>
               <td className="align-middle d-flex justify-content-evenly">
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
                     borderRadius: "8px",
                   }}
                 >
-                  <VisibilityOutlined fontSize="10px" />
+                  <FileDownloadOutlined fontSize="10px" />
                 </button>
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
@@ -274,10 +269,9 @@ function Reimbursment() {
                   <EditOutlined fontSize="10px" />
                 </button>
                 <button
-                  //   onClick={() => {
-                  //     setDetail(value);
-                  //     setDetailUser(!dialogDetailUser);
-                  //   }}
+                    onClick={() => {
+                      setModalEdit(!modalEdit);
+                    }}
                   className="btn btn-sm mx-1"
                   style={{
                     backgroundColor: "#CEDFEA",
@@ -402,6 +396,93 @@ function Reimbursment() {
             type="button"
             className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
             onClick={() => setModalAdd(false)}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+          >
+            Save
+          </button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={modalEdit}
+        size="lg"
+        onHide={() => {
+          setModalEdit(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Reimbursement
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4 space-y-5">
+          <div className="w-full">
+            <label className="text-xs">Employee</label>
+            <input
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="text"
+              placeholder="Input employee name"
+            />
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Reimbursement name</label>
+            <input
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="text"
+              placeholder="Input reimbersement name"
+            />
+          </div>
+          <div className="d-flex gap-3">
+            <div className="w-full">
+              <label className="text-xs">Amount</label>
+              <input
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="Rp"
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Use Date</label>
+              <input
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="date"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Note</label>
+            <textarea
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Note ..."></textarea>
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Upload File</label>
+            <input
+              required
+              className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="file"
+            />
+            <p className="text-xs text-danger">Max. 10 Mb</p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <button
+            type="button"
+            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            onClick={() => setModalEdit(false)}
           >
             Cancel
           </button>

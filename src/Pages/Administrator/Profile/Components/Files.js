@@ -455,7 +455,7 @@ function Files() {
 
                           <Dropdown.Menu size="sm">
                             <Dropdown.Item className="text-sm">
-                              Download
+                              <a href="http://hris.afkaaruna.sch.id/assets/employee/pdf-test.pdf">Download</a>
                             </Dropdown.Item>
                             <Dropdown.Item
                               className="text-sm"

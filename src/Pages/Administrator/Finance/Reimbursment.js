@@ -1,11 +1,23 @@
-import { Add, ImportExport, VisibilityOutlined } from "@mui/icons-material";
+import {
+  AccessTimeFilled,
+  Add,
+  CheckCircle,
+  DeleteOutline,
+  EditOutlined,
+  ImportExport,
+  VisibilityOutlined,
+} from "@mui/icons-material";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "@mui/material";
+import { red, teal, yellow } from "@mui/material/colors";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
-import React from "react";
-import {Table } from "react-bootstrap";
+import React, { useState } from "react";
+import { Modal, Table } from "react-bootstrap";
 import { TextFieldSearch } from "../../../Components/TextField";
 
 function Reimbursment() {
+  const [modalAdd, setModalAdd] = useState(false);
+
   return (
     <>
       <div className="w-100 bg-[#FFFFFF] p-4 rounded-t-xl">
@@ -62,9 +74,9 @@ function Reimbursment() {
             <TextFieldSearch />
             <div className="mx-2"></div>
             <Button
-            //   onClick={() => {
-            //     setUser(!dialogUser);
-            //   }}
+              onClick={() => {
+                setModalAdd(!modalAdd);
+              }}
               style={{
                 color: "#FFFFFF",
                 borderRadius: "7px",
@@ -112,14 +124,15 @@ function Reimbursment() {
               {/* <td className="align-middle">
                 <input type="checkbox" style={{ borderRadius: "2px" }} />
               </td> */}
-              <td className="align-middle">td</td>
-              <td className="align-middle">td</td>
-              <td className="align-middle">td</td>
-              <td className="align-middle">td</td>
-              <td className="align-middle">td</td>
+              <td className="align-middle">Dona Adiloviana</td>
+              <td className="align-middle">Vehicle Fuel</td>
+              <td className="align-middle">Rp. 800.000</td>
+              <td className="align-middle">30/11/2022</td>
               <td className="align-middle">
-                {/* {duration(value.checkIn, value.checkOut)} */}
-                td
+                Tiket Pesawat perjalanan bisnis bali
+              </td>
+              <td className="align-middle">
+                <CheckCircle sx={{ color: teal[700] }} />
               </td>
               <td className="align-middle d-flex justify-content-evenly">
                 <button
@@ -146,6 +159,49 @@ function Reimbursment() {
                     borderRadius: "8px",
                   }}
                 >
+                  <EditOutlined fontSize="10px" />
+                </button>
+                <button
+                  //   onClick={() => {
+                  //     setDetail(value);
+                  //     setDetailUser(!dialogDetailUser);
+                  //   }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <DeleteOutline fontSize="10px" />
+                </button>
+              </td>
+            </tr>
+            <tr>
+              {/* <td className="align-middle">
+                <input type="checkbox" style={{ borderRadius: "2px" }} />
+              </td> */}
+              <td className="align-middle">Dona Adiloviana</td>
+              <td className="align-middle">Vehicle Fuel</td>
+              <td className="align-middle">Rp. 800.000</td>
+              <td className="align-middle">30/11/2022</td>
+              <td className="align-middle">
+                Tiket Pesawat perjalanan bisnis bali
+              </td>
+              <td className="align-middle">
+                <CancelIcon sx={{ color: red[700] }} />
+              </td>
+              <td className="align-middle d-flex justify-content-evenly">
+                <button
+                  //   onClick={() => {
+                  //     setDetail(value);
+                  //     setDetailUser(!dialogDetailUser);
+                  //   }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
                   <VisibilityOutlined fontSize="10px" />
                 </button>
                 <button
@@ -159,7 +215,76 @@ function Reimbursment() {
                     borderRadius: "8px",
                   }}
                 >
+                  <EditOutlined fontSize="10px" />
+                </button>
+                <button
+                  //   onClick={() => {
+                  //     setDetail(value);
+                  //     setDetailUser(!dialogDetailUser);
+                  //   }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <DeleteOutline fontSize="10px" />
+                </button>
+              </td>
+            </tr>
+            <tr>
+              {/* <td className="align-middle">
+                <input type="checkbox" style={{ borderRadius: "2px" }} />
+              </td> */}
+              <td className="align-middle">Dona Adiloviana</td>
+              <td className="align-middle">Vehicle Fuel</td>
+              <td className="align-middle">Rp. 800.000</td>
+              <td className="align-middle">30/11/2022</td>
+              <td className="align-middle">
+                Tiket Pesawat perjalanan bisnis bali
+              </td>
+              <td className="align-middle">
+                <AccessTimeFilled sx={{ color: yellow[700] }} />
+              </td>
+              <td className="align-middle d-flex justify-content-evenly">
+                <button
+                  //   onClick={() => {
+                  //     setDetail(value);
+                  //     setDetailUser(!dialogDetailUser);
+                  //   }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
                   <VisibilityOutlined fontSize="10px" />
+                </button>
+                <button
+                  //   onClick={() => {
+                  //     setDetail(value);
+                  //     setDetailUser(!dialogDetailUser);
+                  //   }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <EditOutlined fontSize="10px" />
+                </button>
+                <button
+                  //   onClick={() => {
+                  //     setDetail(value);
+                  //     setDetailUser(!dialogDetailUser);
+                  //   }}
+                  className="btn btn-sm mx-1"
+                  style={{
+                    backgroundColor: "#CEDFEA",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <DeleteOutline fontSize="10px" />
                 </button>
               </td>
             </tr>
@@ -201,6 +326,93 @@ function Reimbursment() {
           </button>
         </div>
       </div>
+      <Modal
+        show={modalAdd}
+        size="lg"
+        onHide={() => {
+          setModalAdd(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4"
+          style={{ borderBottomColor: "transparent" }}
+        >
+          <Modal.Title id="contained-modal-title-vcenter">
+            Add Reimbursement
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="mx-4 space-y-5">
+          <div className="w-full">
+            <label className="text-xs">Employee</label>
+            <input
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="text"
+              placeholder="Input employee name"
+            />
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Reimbursement name</label>
+            <input
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="text"
+              placeholder="Input reimbersement name"
+            />
+          </div>
+          <div className="d-flex gap-3">
+            <div className="w-full">
+              <label className="text-xs">Amount</label>
+              <input
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                placeholder="Rp"
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Use Date</label>
+              <input
+                required
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="date"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Note</label>
+            <textarea
+              required
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Note ..."></textarea>
+          </div>
+          <div className="w-full">
+            <label className="text-xs">Upload File</label>
+            <input
+              required
+              className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="file"
+            />
+            <p className="text-xs text-danger">Max. 10 Mb</p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="m-4">
+          <button
+            type="button"
+            className="text-[#003049] bg-gray-200 hover:bg-gray-300 font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-gray-200 dark:hover:bg-gray-300 focus:outline-none"
+            onClick={() => setModalAdd(false)}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+          >
+            Save
+          </button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

@@ -61,6 +61,7 @@ import Reimbursment from "./Pages/Administrator/Finance/Reimbursment";
 import CashAdvance from "./Pages/Administrator/Finance/CashAdvance";
 import Loan from "./Pages/Administrator/Finance/Loan";
 import FinanceSetting from "./Pages/Administrator/Finance/FinanceSetting";
+import DetailLoan from "./Pages/Administrator/Finance/DetailLoan";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -141,6 +142,7 @@ function App() {
           <Route path="/finance/reimburstment" element={<Reimbursment />} />
           <Route path="/finance/cash-advance" element={<CashAdvance />} />
           <Route path="/finance/loan" element={<Loan />} />
+          <Route path="/finance/detail-loan" element={<DetailLoan />} />
           <Route path="/finance/finance-setting" element={<FinanceSetting />} />
         </Route>
       ) : (

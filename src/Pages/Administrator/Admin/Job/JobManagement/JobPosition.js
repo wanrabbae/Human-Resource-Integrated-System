@@ -285,6 +285,9 @@ function JobPosition() {
               <option className="py-3" value="">
                 Select Relation Code
               </option>
+              <option className="py-3" value="Select">
+                  As Parent
+              </option>
               {jobposition.map((e, i) => {
                 return (
                   <option

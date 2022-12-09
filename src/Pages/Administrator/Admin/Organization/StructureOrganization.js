@@ -75,7 +75,7 @@ function StructureOrganization() {
           </div>
           <div className="flex space-x-3" style={{ display: `${isSelected == false ? "none" : ""}` }}>
             <button
-              className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
+              className="bg-[#FFFFFF] flex items-center rounded-lg"
               onClick={async () => {
                 setId(node.data.id);
                 setDelete(true);
@@ -87,7 +87,7 @@ function StructureOrganization() {
               />
             </button>
             <button
-              className="bg-[#FFFFFF] flex items-center p-2 rounded-lg"
+              className="bg-[#FFFFFF] flex items-center rounded-lg"
               onClick={() => {
                 setController({
                   id: node.data.id,

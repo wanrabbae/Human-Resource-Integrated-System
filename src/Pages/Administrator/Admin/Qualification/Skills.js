@@ -40,12 +40,13 @@ function Skills() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [skillAdd, setSkillAdd] = useState({});
+  const [isCheckedAll, setCheckedAll] = useState(false);
 
   const inAwait = async () => {
     var data = await GetSkills();
     setSkills(data);
   };
-  useEffect(() => {
+  useEffect(() => {                                              
     inAwait();
   }, []);
   return (
@@ -99,7 +100,10 @@ function Skills() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input 
+                  type="checkbox" style={{ borderRadius: "2px" }} 
+                  onChange={() => setCheckedAll(!isCheckedAll)}
+                />
               </th>
               <th onClick={() => { }}>
                 Skills <ImportExport fontSize="2px" />
@@ -111,9 +115,14 @@ function Skills() {
           <tbody>
             {skills.length > 0 ? (
               skills.map((skill) => (
-                <tr>
+                <tr  key={skill["id"]}>
                   <td className="align-middle">
-                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                    <input 
+                      type="checkbox" 
+                      style={{ borderRadius: "2px" }} 
+                      checked={isCheckedAll ? true : false}
+                      onChange={(e) => console.log(skill["id"])}
+                      />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>
                     {skill.name}

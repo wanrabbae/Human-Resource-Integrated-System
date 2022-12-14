@@ -38,9 +38,12 @@ function Skills() {
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
+  const [isdeleteAll, setDeleteAll] = useState(false);
   const [id, setId] = useState();
   const [skillAdd, setSkillAdd] = useState({});
   const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
 
   const inAwait = async () => {
     var data = await GetSkills();
@@ -49,6 +52,24 @@ function Skills() {
   useEffect(() => {                                              
     inAwait();
   }, []);
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(skills.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
+  console.log(isCheck);
+
   return (
     <>
       <div
@@ -65,7 +86,6 @@ function Skills() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -74,6 +94,15 @@ function Skills() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map((all) => (
+                  // setDelAll(all)
+                  DeleteSkills(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All skill" });
+                inAwait();
+              }}
             >
               Delete
             </Button>
@@ -102,7 +131,8 @@ function Skills() {
               <th width="10px">
                 <input 
                   type="checkbox" style={{ borderRadius: "2px" }} 
-                  onChange={() => setCheckedAll(!isCheckedAll)}
+                  onChange={handleSelectAll}
+                  checked={isCheckedAll}
                 />
               </th>
               <th onClick={() => { }}>
@@ -118,10 +148,13 @@ function Skills() {
                 <tr  key={skill["id"]}>
                   <td className="align-middle">
                     <input 
+                      key={skill.id}
                       type="checkbox" 
                       style={{ borderRadius: "2px" }} 
-                      checked={isCheckedAll ? true : false}
-                      onChange={(e) => console.log(skill["id"])}
+                      // checked={isCheckedAll ? true : false}
+                      checked={isCheck.includes(skill.id)}
+                      // onChange={(e) => console.log(skill["id"])}
+                      onChange={handleClick}
                       />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>

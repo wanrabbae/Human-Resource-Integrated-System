@@ -20,10 +20,10 @@ function Reimbursment() {
       <div className="d-flex justify-content-between">
         <div>
           <h5>
-            <b>Reimbursment</b>
+            <b>Reimbursment Policy</b>
           </h5>
           <p>
-            <small>list of reimbursment</small>
+            <small>list of reimbursment Policy</small>
           </p>
         </div>
         <div className="d-flex">
@@ -141,7 +141,7 @@ function Reimbursment() {
               required
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="text"
-              placeholder="Input Policy of Cash Advance"
+              placeholder="Input Policy name for Reimbursment"
             />
           </div>
           <div className="w-full">
@@ -297,7 +297,7 @@ function Reimbursment() {
               required
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="text"
-              placeholder="Input Policy of Cash Advance"
+              placeholder="Input Policy name for Reimbursment"
             />
           </div>
           <div className="w-full">

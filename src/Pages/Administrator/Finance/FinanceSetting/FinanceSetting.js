@@ -1,6 +1,7 @@
 import { ListItemButton, ListItemText, Typography } from "@mui/material";
 import React, { useState } from "react";
 import CashAdvance from "./Components/CashAdvance";
+import Loan from "./Components/Loan";
 import Reimbursment from "./Components/Reimbursment";
 
 function FinanceSetting() {
@@ -95,7 +96,7 @@ function FinanceSetting() {
           ) : index == 1 ? (
             <CashAdvance />
           ) : index == 2 ? (
-            "3"
+            <Loan/>
           ) : (
             ""
           )}

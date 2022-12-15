@@ -60,7 +60,7 @@ import Finance from "./Pages/Administrator/Finance/Finance";
 import Reimbursment from "./Pages/Administrator/Finance/Reimbursment";
 import CashAdvance from "./Pages/Administrator/Finance/CashAdvance";
 import Loan from "./Pages/Administrator/Finance/Loan";
-import FinanceSetting from "./Pages/Administrator/Finance/FinanceSetting";
+import FinanceSetting from "./Pages/Administrator/Finance/FinanceSetting/FinanceSetting";
 import DetailLoan from "./Pages/Administrator/Finance/DetailLoan";
 
 function App() {

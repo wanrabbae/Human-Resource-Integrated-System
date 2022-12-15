@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import "../../Resourse/style.css";
+import logo from "../../Resourse/img/logo-humanusia.png";
 import {
   AccountCircleRounded,
   ChevronRight,
@@ -258,26 +259,7 @@ function Template() {
           }}
         >
           <Link to="/dashboard">
-            <div className="d-flex px-5 align-items-center">
-              <div className="">
-                <div
-                  style={{
-                    borderRadius: "5px",
-                    backgroundColor: "#780000",
-                    height: "50px",
-                    width: "50px",
-                  }}
-                ></div>
-              </div>
-              <div className="ms-2">
-                <h5>
-                  <b>HRIS</b>
-                </h5>
-                <p>
-                  <small>HR Integrated System</small>
-                </p>
-              </div>
-            </div>
+            <img src={logo} className="mx-10"/>
           </Link>
 
           <div className="py-4 px-4">

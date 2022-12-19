@@ -43,6 +43,9 @@ function License() {
   const [id, setId] = useState();
   var attachmentRef = useRef();
   const [attachment, setAttachment] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
 
   const inAwait = async () => {
     var rec = await getLicense();
@@ -52,6 +55,23 @@ function License() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(licenses.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
   return (
     <>
       <div
@@ -68,7 +88,6 @@ function License() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -77,6 +96,16 @@ function License() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map((all) => (
+                  // setDelAll(all)
+                  deleteLicense(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Lisence" });
+                inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -103,7 +132,7 @@ function License() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} onChange={handleSelectAll} checked={isCheckedAll}/>
               </th>
               <th onClick={() => {}}>
                 License <ImportExport fontSize="2px" />
@@ -116,7 +145,15 @@ function License() {
               licenses.map((license) => (
                 <tr key={license.id}>
                   <td className="align-middle">
-                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                    <input 
+                      key={license.id}
+                      type="checkbox" 
+                      style={{ borderRadius: "2px" }} 
+                      // checked={isCheckedAll ? true : false}
+                      checked={isCheck.includes(license.id)}
+                      // onChange={(e) => console.log(skill["id"])}
+                      onChange={handleClick} 
+                    />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>
                     {license.name}

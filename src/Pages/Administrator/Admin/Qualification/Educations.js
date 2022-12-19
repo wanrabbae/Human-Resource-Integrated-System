@@ -97,7 +97,7 @@ function Educations() {
                   DeleteEducation(all)
                 ))
                 // console.log(isDelAll)
-                SwalSuccess({ message: "Success Delete All skill" });
+                SwalSuccess({ message: "Success Delete All Education" });
                 inAwait();
                 setCheckedAll(!isCheckedAll)
               }}

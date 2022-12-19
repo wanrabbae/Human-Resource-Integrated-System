@@ -56,6 +56,26 @@ function EmployeeStatus() {
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(estatus.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
   return (
     <>
       <div
@@ -80,6 +100,16 @@ function EmployeeStatus() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map(async(all) => (
+                  // setDelAll(all)
+                  await DeleteEmployeeStatus(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Employee Status" });
+                inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -106,7 +136,7 @@ function EmployeeStatus() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} onChange={handleSelectAll} checked={isCheckedAll}/>
               </th>
               <th onClick={() => {}}>
                 Employee Status <ImportExport fontSize="2px" />
@@ -120,7 +150,18 @@ function EmployeeStatus() {
                 return (
                   <tr>
                     <td className="align-middle">
-                      <input type="checkbox" style={{ borderRadius: "2px" }} />
+                      <input
+                        key={val.id}
+                        type="checkbox" 
+                        style={{ borderRadius: "2px" }} 
+                        // checked={isCheckedAll ? true : false}
+                        checked={isCheck.includes(val.id)}
+                        // onChange={(e) => console.log(handleClick)}
+                        onChange={async() => {
+                          var hdl = handleClick()
+                          console.log(hdl)
+                        }} 
+                      />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}

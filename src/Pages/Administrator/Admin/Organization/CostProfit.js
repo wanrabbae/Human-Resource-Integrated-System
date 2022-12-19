@@ -90,6 +90,46 @@ function CostProfit() {
     setEditCost(!dialogEditCost);
   };
 
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
+
+  const handleSelectAllProfit = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(profit.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClickProfit = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  }
+
+  const [isCheckedAllC, setCheckedAllC] = useState(false);
+  const [isDelAllC, setDelAllC] = useState([]);
+  const [isCheckC, setIsCheckC] = useState([]);
+
+  const handleSelectAllCost = async (e) => {
+    setCheckedAllC(!isCheckedAllC);
+    setIsCheckC(cost.map(li => li.id));
+    if (isCheckedAllC) {
+      setIsCheckC([]);
+    }
+  };
+
+  const handleClickCost = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheckC([...isCheckC, id]);
+    if (!checked) {
+      setIsCheckC(isCheckC.filter(item => item !== id));
+    }
+  }
+
   return (
     <>
       <div
@@ -106,7 +146,6 @@ function CostProfit() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -115,6 +154,15 @@ function CostProfit() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map((all) => (
+                  deleteProfit(all)
+                ))
+                SwalSuccess({ message: "Success Delete All Profit Employee" });
+                inAwait();
+                // var del = await deleteCompanyLocation(isDelAll)
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -141,7 +189,7 @@ function CostProfit() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} onChange={handleSelectAllProfit} checked={isCheckedAll}/>
               </th>
               <th onClick={() => {}}>
                 Profit Employee <ImportExport fontSize="2px" />
@@ -155,7 +203,15 @@ function CostProfit() {
                 return (
                   <tr>
                     <td className="align-middle">
-                      <input type="checkbox" style={{ borderRadius: "2px" }} />
+                      <input
+                        key={val.id}
+                        type="checkbox" 
+                        style={{ borderRadius: "2px" }} 
+                        // checked={isCheckedAll ? true : false}
+                        checked={isCheck.includes(val.id)}
+                        // onChange={(e) => console.log(skill["id"])}
+                        onChange={handleClickProfit}
+                      />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}
@@ -357,7 +413,6 @@ function CostProfit() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -366,6 +421,15 @@ function CostProfit() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheckC.map((all) => (
+                  deleteCost(all)
+                ))
+                SwalSuccess({ message: "Success Delete All Cost Employee" });
+                // var del = await deleteCompanyLocation(isDelAll)
+                await inAwait();
+                setCheckedAllC(!isCheckedAllC)
+              }}
             >
               Delete
             </Button>
@@ -392,7 +456,7 @@ function CostProfit() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} onChange={handleSelectAllCost} checked={isCheckedAllC}/>
               </th>
               <th onClick={() => {}}>
                 Cost Employee
@@ -407,7 +471,15 @@ function CostProfit() {
                 return (
                   <tr>
                     <td className="align-middle">
-                      <input type="checkbox" style={{ borderRadius: "2px" }} />
+                      <input 
+                        key={val.id}
+                        type="checkbox" 
+                        style={{ borderRadius: "2px" }} 
+                        // checked={isCheckedAll ? true : false}
+                        checked={isCheckC.includes(val.id)}
+                        // onChange={(e) => console.log(skill["id"])}
+                        onChange={handleClickCost}
+                      />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val.name}

@@ -48,6 +48,10 @@ function Locations() {
   const [selectedOption, setSelectedOption] = useState(province[0]);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState();
+  const [isCheck, setIsCheck] = useState([]);
+
   const inAwait = async () => {
     var rec = await getCompanyLocation();
     setLocations(rec);
@@ -57,7 +61,23 @@ function Locations() {
   useEffect(() => {
     inAwait();
   }, []);
-  console.log(selectedOption);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(locations.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
   return (
     <>
       <div
@@ -82,6 +102,15 @@ function Locations() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map(async(all) => (
+                  await deleteCompanyLocation(all)
+                ))
+                SwalSuccess({ message: "Success Delete All Lisence" });
+                // var del = await deleteCompanyLocation(isDelAll)
+                await inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -108,7 +137,7 @@ function Locations() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} onChange={handleSelectAll} checked={isCheckedAll}/>
               </th>
               <th onClick={() => {}}>
                 Name <ImportExport fontSize="2px" />
@@ -130,7 +159,15 @@ function Locations() {
               locations.map((location) => (
                 <tr>
                   <td className="align-middle">
-                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                    <input
+                      key={location.id}
+                      type="checkbox" 
+                      style={{ borderRadius: "2px" }} 
+                      // checked={isCheckedAll ? true : false}
+                      checked={isCheck.includes(location.id)}
+                      // onChange={(e) => console.log(skill["id"])}
+                      onChange={handleClick} 
+                    />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>
                     {location.name}

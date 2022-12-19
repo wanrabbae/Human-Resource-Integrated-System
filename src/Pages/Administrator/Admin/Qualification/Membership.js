@@ -39,6 +39,9 @@ function Membership() {
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
 
   const inAwait = async () => {
     var data = await GetMembership();
@@ -47,6 +50,23 @@ function Membership() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(memberships.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
   return (
     <>
       <div
@@ -63,7 +83,6 @@ function Membership() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -72,6 +91,16 @@ function Membership() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map((all) => (
+                  // setDelAll(all)
+                  DeleteMembership(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Membership" });
+                inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -98,7 +127,10 @@ function Membership() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} 
+                  onChange={handleSelectAll}
+                  checked={isCheckedAll}
+                />
               </th>
               <th onClick={() => {}}>
                 Membership <ImportExport fontSize="2px" />
@@ -111,7 +143,15 @@ function Membership() {
               memberships.map((member) => (
                 <tr>
                   <td className="align-middle">
-                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                    <input 
+                      key={member.id}
+                      type="checkbox" 
+                      style={{ borderRadius: "2px" }} 
+                      // checked={isCheckedAll ? true : false}
+                      checked={isCheck.includes(member.id)}
+                      // onChange={(e) => console.log(skill["id"])}
+                      onChange={handleClick}
+                    />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>
                     {member.name}

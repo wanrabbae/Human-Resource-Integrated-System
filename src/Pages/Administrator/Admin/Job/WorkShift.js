@@ -32,7 +32,7 @@ import {
   getWorkShift,
 } from "../../../../Repository/AdminRepository";
 import { GetEmployeeName } from "../../../../Repository/EmployeeRepository";
-import { ModalDelete } from "../../../../Components/Modals";
+import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
@@ -74,6 +74,26 @@ function WorkShift() {
   const [radioValue, setRadioValue] = useState("1");
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(workshift.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
   return (
     <>
       <div
@@ -98,6 +118,16 @@ function WorkShift() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map(async(all) => (
+                  // setDelAll(all)
+                  await deleteWorkShift(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Workshift" });
+                inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -124,7 +154,7 @@ function WorkShift() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} onChange={handleSelectAll} checked={isCheckedAll}/>
               </th>
               <th onClick={() => {}}>
                 Work Shift <ImportExport fontSize="2px" />
@@ -138,7 +168,15 @@ function WorkShift() {
                 return (
                   <tr>
                     <td className="align-middle">
-                      <input type="checkbox" style={{ borderRadius: "2px" }} />
+                      <input
+                        key={val.id}
+                        type="checkbox" 
+                        style={{ borderRadius: "2px" }} 
+                        // checked={isCheckedAll ? true : false}
+                        checked={isCheck.includes(val.id)}
+                        // onChange={(e) => console.log(skill["id"])}
+                        onChange={handleClick} 
+                      />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>
                       {val["name"]}

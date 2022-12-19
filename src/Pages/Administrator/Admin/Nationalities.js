@@ -41,6 +41,8 @@ function Nationalities() {
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
 
   const inAwait = async () => {
     var data = await GetNational();
@@ -50,6 +52,23 @@ function Nationalities() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(nationalities.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
   return (
     <>
       <div
@@ -66,7 +85,6 @@ function Nationalities() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -75,6 +93,16 @@ function Nationalities() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map((all) => (
+                  // setDelAll(all)
+                  DeleteNational(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Nationalities" });
+                inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -104,7 +132,8 @@ function Nationalities() {
                 <input
                   type="checkbox"
                   style={{ borderRadius: "2px" }}
-                  onChange={() => setCheckedAll(!isCheckedAll)}
+                  onChange={handleSelectAll} 
+                  checked={isCheckedAll}
                 />
               </th>
               <th onClick={() => {}}>
@@ -119,10 +148,13 @@ function Nationalities() {
                 <tr key={national.id}>
                   <td className="align-middle">
                     <input
-                      type="checkbox"
-                      checked={isCheckedAll ? true : false}
-                      style={{ borderRadius: "2px" }}
-                      onChange={(e) => console.log(national.id)}
+                      key={national.id}
+                      type="checkbox" 
+                      style={{ borderRadius: "2px" }} 
+                      // checked={isCheckedAll ? true : false}
+                      checked={isCheck.includes(national.id)}
+                      // onChange={(e) => console.log(skill["id"])}
+                      onChange={handleClick} 
                     />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>

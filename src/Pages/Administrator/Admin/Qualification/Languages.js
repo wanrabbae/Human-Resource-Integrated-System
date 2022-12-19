@@ -40,6 +40,9 @@ function Languages() {
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
 
   const inAwait = async () => {
     var data = await GetLanguages();
@@ -49,6 +52,22 @@ function Languages() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(languages.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
 
   return (
     <>
@@ -66,7 +85,6 @@ function Languages() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -75,6 +93,16 @@ function Languages() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map((all) => (
+                  // setDelAll(all)
+                  DeleteLanguages(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Languages" });
+                inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -101,7 +129,10 @@ function Languages() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }}
+                  onChange={handleSelectAll}
+                  checked={isCheckedAll}
+                />
               </th>
               <th onClick={() => {}}>
                 Languages <ImportExport fontSize="2px" />
@@ -114,7 +145,15 @@ function Languages() {
               languages.map((lang) => (
                 <tr key={lang.id}>
                   <td className="align-middle">
-                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                    <input
+                      key={lang.id}
+                      type="checkbox" 
+                      style={{ borderRadius: "2px" }} 
+                      // checked={isCheckedAll ? true : false}
+                      checked={isCheck.includes(lang.id)}
+                      // onChange={(e) => console.log(skill["id"])}
+                      onChange={handleClick}
+                    />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>
                     {lang.name}

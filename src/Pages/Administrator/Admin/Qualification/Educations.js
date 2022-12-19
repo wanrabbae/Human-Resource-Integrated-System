@@ -39,6 +39,9 @@ function Educations() {
   const [dialogEditTitle, setEditTitle] = useState(false);
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
 
   const inAwait = async () => {
     var data = await GetEducation();
@@ -47,6 +50,22 @@ function Educations() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(educations.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
 
   return (
     <>
@@ -64,7 +83,6 @@ function Educations() {
         <div className="d-flex justify-content-between">
           <div>
             <Button
-              disabled
               style={{
                 color: "#003049",
                 border: "1px solid #00000040",
@@ -73,6 +91,16 @@ function Educations() {
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map((all) => (
+                  // setDelAll(all)
+                  DeleteEducation(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All skill" });
+                inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -99,7 +127,10 @@ function Educations() {
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
-                <input type="checkbox" style={{ borderRadius: "2px" }} />
+                <input type="checkbox" style={{ borderRadius: "2px" }} 
+                  onChange={handleSelectAll}
+                  checked={isCheckedAll}
+                />
               </th>
               <th onClick={() => {}}>
                 Educations <ImportExport fontSize="2px" />
@@ -112,7 +143,15 @@ function Educations() {
               educations.map((edu) => (
                 <tr>
                   <td className="align-middle">
-                    <input type="checkbox" style={{ borderRadius: "2px" }} />
+                    <input 
+                      key={edu.id}
+                      type="checkbox" 
+                      style={{ borderRadius: "2px" }} 
+                      // checked={isCheckedAll ? true : false}
+                      checked={isCheck.includes(edu.id)}
+                      // onChange={(e) => console.log(skill["id"])}
+                      onChange={handleClick}
+                    />
                   </td>
                   <td className="align-middle" style={{ minWidth: "200px" }}>
                     {edu.name}

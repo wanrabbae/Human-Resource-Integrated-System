@@ -546,7 +546,9 @@ function DocumentManagement() {
                             color: "#003049",
                           }}
                         >
-                          Show to {val.delegated_to.length} Role
+                          {`Show to ${new Array(val.delegated_to).length} Role`}
+                          {/* Show to {val.delegated_to.size} Role */}
+                          {/* Show to {Object.keys(val.delegated_to).length} Role */}
                         </h3>
                         {/* <h3 className="mb-2" style={{fontSize:"14px",fontWeight:'600',color:'#003049'}}>Show to {JSON.parse(val.delegated_to).length} Role</h3> */}
                         <div className="d-flex justify-content-end mt-3 ">

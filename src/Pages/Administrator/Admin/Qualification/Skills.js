@@ -102,6 +102,7 @@ function Skills() {
                 // console.log(isDelAll)
                 SwalSuccess({ message: "Success Delete All skill" });
                 inAwait();
+                setCheckedAll(!isCheckedAll)
               }}
             >
               Delete

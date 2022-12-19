@@ -7,6 +7,10 @@ import logo from "../../Resourse/img/logo.png";
 import pw from "../../Resourse/img/pw.png";
 import { LoadingDialog } from "../Modals";
 import lg from "../../Resourse/img/logo.png";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+
 function Navbar() {
   const [modalLogin, setModalLogin] = useState(false);
   const navigate = useNavigate();
@@ -21,6 +25,107 @@ function Navbar() {
       navigate("/dashboard");
     }
   }, []);
+  const [state, setState] = useState(false);
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          {pathname === "/" ? (
+            <a
+              href="/"
+              className="block py-2 pr-4 pl-3 text-[#003049] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              aria-current="page"
+            >
+              Home
+            </a>
+          ) : (
+            <a
+              href="/"
+              className="block py-2 pr-4 pl-3 text-[#A8A8A8] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              aria-current="page"
+            >
+              Home
+            </a>
+          )}
+        </li>
+        <li>
+          {pathname === "/features" ? (
+            <a
+              href="/feature"
+              className="block py-2 pr-4 pl-3 text-[#003049] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              aria-current="page"
+            >
+              Features
+            </a>
+          ) : (
+            <a
+              href="/feature"
+              className="block py-2 pr-4 pl-3 text-[#A8A8A8] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              aria-current="page"
+            >
+              Features
+            </a>
+          )}
+        </li>
+        <li>
+          {pathname === "/pricing" ? (
+            <a
+              href="/pricing"
+              className="block py-2 pr-4 pl-3 text-[#003049] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              aria-current="page"
+            >
+              Pricing
+            </a>
+          ) : (
+            <a
+              href="/pricing"
+              className="block py-2 pr-4 pl-3 text-[#A8A8A8] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              aria-current="page"
+            >
+              Pricing
+            </a>
+          )}
+        </li>
+        <div className="h-0.5 w-1/2 bg-gray-200"></div>
+        <li>
+          <a
+            href="#"
+            className="block py-2 pr-4 pl-3 text-[#003049] rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+            aria-current="page"
+            onClick={() => setModalLogin(true)}
+          >
+            Login
+          </a>
+        </li>
+        <li>
+          <Link
+            to="/create-account"
+            type="button"
+            className="bg-[#0E5073] py-2 px-3 text-white rounded-full hover:bg-[#003049] md:border-0 md:hover:text-white md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent w-fit"
+          >
+            Get Started
+          </Link>
+        </li>
+      </ul>
+    </Box>
+  );
   return (
     <>
       <nav className="bg-white shadow-md px-2 sm:px-4 py-1 rounded dark:bg-gray-900">
@@ -34,6 +139,7 @@ function Navbar() {
             className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-default"
             aria-expanded="false"
+            onClick={toggleDrawer("right", true)}
           >
             <span className="sr-only">Open main menu</span>
             <svg
@@ -50,6 +156,13 @@ function Navbar() {
               ></path>
             </svg>
           </button>
+          <Drawer
+            anchor={"right"}
+            open={state["right"]}
+            onClose={toggleDrawer("right", false)}
+          >
+            {list("right")}
+          </Drawer>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <div className="flex gap-20">
               <ul className="flex flex-col p-2 mt-2 bg-gray-50 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">

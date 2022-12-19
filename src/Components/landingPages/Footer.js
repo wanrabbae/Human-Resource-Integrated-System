@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <footer className="bg-white">
-      <div className="container py-10 flex flex-col md:flex-row justify-between gap-5">
+      <div className="py-5 px-20 flex flex-col md:flex-row justify-between gap-5">
         <div className="basis-3/12 space-y-3">
           <div className="me-5">
             <span className="text-xl font-semibold whitespace-nowrap dark:text-white">

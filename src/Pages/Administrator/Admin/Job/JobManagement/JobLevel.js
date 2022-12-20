@@ -60,13 +60,31 @@ function JobLevel() {
   useEffect(() => {
     inAwait();
   }, []);
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(joblevel.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
   var spesificationRef = useRef();
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [spesification, setSpesification] = useState();
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
-  const [isCheckedAll, setCheckedAll] = useState(false);
   const [isdelete2, setDelete2] = useState(false);
   return (
     <>
@@ -90,11 +108,21 @@ function JobLevel() {
                 borderRadius: "7px",
                 backgroundColor: "transparent",
               }}
-              onClick={() => {
-                setDelete2(true);
-              }}
+              // onClick={() => {
+              //   setDelete2(true);
+              // }}
               variant="contained"
               startIcon={<DeleteOutline />}
+              onClick={async () => {
+                isCheck.map(async(all) => (
+                  // setDelAll(all)
+                  await DeleteJobLevel(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Job Level" });
+                await inAwait();
+                setCheckedAll(!isCheckedAll)
+              }}
             >
               Delete
             </Button>
@@ -124,7 +152,7 @@ function JobLevel() {
                 <input
                   type="checkbox"
                   style={{ borderRadius: "2px" }}
-                  onChange={() => setCheckedAll(!isCheckedAll)}
+                  onChange={handleSelectAll} checked={isCheckedAll}
                 />
               </th>
               <th onClick={() => {}}>
@@ -141,10 +169,13 @@ function JobLevel() {
                   <tr>
                     <td className="align-middle">
                       <input
-                        type="checkbox"
-                        checked={isCheckedAll ? true : false}
-                        style={{ borderRadius: "2px" }}
-                        onChange={(e) => console.log(val["id"])}
+                        key={val.id}
+                        type="checkbox" 
+                        style={{ borderRadius: "2px" }} 
+                        // checked={isCheckedAll ? true : false}
+                        checked={isCheck.includes(val.id)}
+                        // onChange={(e) => console.log(skill["id"])}
+                        onChange={handleClick} 
                       />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>

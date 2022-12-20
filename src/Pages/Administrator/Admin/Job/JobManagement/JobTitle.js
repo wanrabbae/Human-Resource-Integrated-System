@@ -56,14 +56,33 @@ function JobTitle() {
   useEffect(() => {
     inAwait();
   }, []);
+
+  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isDelAll, setDelAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
+
+  const handleSelectAll = async (e) => {
+    setCheckedAll(!isCheckedAll);
+    setIsCheck(jobtitle.map(li => li.id));
+    if (isCheckedAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = async (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
   var spesificationRef = useRef();
   const [isdelete, setDelete] = useState(false);
   const [id, setId] = useState();
   const [spesification, setSpesification] = useState();
   const [dialogTitle, setTitle] = useState(false);
   const [dialogEditTitle, setEditTitle] = useState(false);
-  const [isCheckedAll, setCheckedAll] = useState(false);
-  const [isdelete2, setDelete2] = useState(false);
   return (
     <>
       <div
@@ -86,8 +105,15 @@ function JobTitle() {
                 borderRadius: "7px",
                 backgroundColor: "transparent",
               }}
-              onClick={() => {
-                setDelete2(true);
+              onClick={async () => {
+                isCheck.map(async(all) => (
+                  // setDelAll(all)
+                  await delJobTittle(all)
+                ))
+                // console.log(isDelAll)
+                SwalSuccess({ message: "Success Delete All Job Title" });
+                await inAwait();
+                setCheckedAll(!isCheckedAll)
               }}
               variant="contained"
               startIcon={<DeleteOutline />}
@@ -120,7 +146,7 @@ function JobTitle() {
                 <input
                   type="checkbox"
                   style={{ borderRadius: "2px" }}
-                  onChange={() => setCheckedAll(!isCheckedAll)}
+                  onChange={handleSelectAll} checked={isCheckedAll}
                 />
               </th>
               <th onClick={() => {}}>
@@ -137,10 +163,13 @@ function JobTitle() {
                   <tr>
                     <td className="align-middle">
                       <input
-                        type="checkbox"
-                        checked={isCheckedAll ? true : false}
-                        style={{ borderRadius: "2px" }}
-                        onChange={(e) => console.log(val["id"])}
+                        key={val.id}
+                        type="checkbox" 
+                        style={{ borderRadius: "2px" }} 
+                        // checked={isCheckedAll ? true : false}
+                        checked={isCheck.includes(val.id)}
+                        // onChange={(e) => console.log(skill["id"])}
+                        onChange={handleClick} 
                       />
                     </td>
                     <td className="align-middle" style={{ minWidth: "200px" }}>
@@ -373,7 +402,7 @@ function JobTitle() {
           </button>
         </Modal.Footer>
       </Modal>
-      <ModalDelete
+      {/* <ModalDelete
         close={() => {
           setDelete(false);
         }}
@@ -385,17 +414,7 @@ function JobTitle() {
           SwalSuccess({ message: "Success delete job title" });
         }}
         active={isdelete}
-      />
-      <ModalDelete
-        close={() => {
-          setDelete2(false);
-        }}
-        submit={() => {
-          setDelete2(false);
-          SwalSuccess({ message: "Success delete job title" });
-        }}
-        active={isdelete2}
-      />
+      /> */}
     </>
   );
 }

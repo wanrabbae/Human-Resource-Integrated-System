@@ -83,10 +83,14 @@ function EmployeeRecord() {
     setEmployeeRecord(dataEmployeeRecord.requests);
     setTotalItems(dataEmployeeRecord.totalItems);
     setTotalPage(dataEmployeeRecord.totalPages);
+
+    console.log(dataEmployeeName)
   };
   useEffect(() => {
     inAwait();
   }, []);
+  
+  // console.log(employeeNames)
 
   const previousPage = async () => {
     setCurrentPage((current) => current - 1);
@@ -299,8 +303,8 @@ function EmployeeRecord() {
           <button className="btn btn-sm" onClick={() => previousPage()}>
             <ArrowLeft />
           </button>
-          {allPages.map((page) => (
-            <button
+          {allPages.map((page,index) => (
+            <button key={index}
               onClick={() => changePage(page)}
               className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]"
             >

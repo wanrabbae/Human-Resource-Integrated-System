@@ -67,6 +67,7 @@ import PayrollComponent from "./Pages/Administrator/Payroll/PayrollComponent";
 import TimeOff from "./Pages/Administrator/TimeManagement/TimeOff";
 import Leave from "./Pages/Administrator/TimeManagement/TimeOffComponent/Leave";
 import Permission from "./Pages/Administrator/TimeManagement/TimeOffComponent/Permission";
+import Overtime from "./Pages/Administrator/TimeManagement/TimeOffComponent/Overtime";
 import PayrollComponentBulkUpload from "./Pages/Administrator/Payroll/PayrollComponentBulkUpload";
 
 function App() {
@@ -236,6 +237,7 @@ function App() {
         <Route path="/timeManagement/time-off" element={<TimeOff />} />
         <Route path="/timeManagement/time-off/leave" element={<Leave />} />
         <Route path="/timeManagement/time-off/permission" element={<Permission />} />
+        <Route path="/timeManagement/time-off/overtime" element={<Overtime />} />
         <Route path="/timeManagement/schedule" element={<Schedule />} />
         <Route path="/timeManagement/calendar" element={<Cal />} />
       </Route>

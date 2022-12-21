@@ -248,7 +248,7 @@ function Template() {
   ]);
   console.log(users.role);
   return (
-    <div style={{ backgroundColor: "#ECEEF6" }}>
+    <div style={{ backgroundColor: "#E5F0F2" }}>
       <div className="d-flex flex-nowrap">
         <aside
           className="flex-shrink-0 py-5 w-1/5 top-0 left-0 right-0 z-10"
@@ -770,7 +770,7 @@ function Template() {
             </Link>
           </div>
         </aside>
-        <div className="ml-auto min-h-screen h-full w-4/5 p-5 space-y-5 p-5">
+        <div className="ml-auto bg-[#E5F0F2] min-h-screen h-full w-4/5 p-5 space-y-5 p-5">
           <div className="d-flex justify-content-between align-items-center">
             <div>
               <h6>

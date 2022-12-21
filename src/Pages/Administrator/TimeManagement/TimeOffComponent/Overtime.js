@@ -20,7 +20,7 @@ import { borderColor } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Leave() {
+function Overtime() {
   const [modalDetailApproval, setModalDetailApproval] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
@@ -29,10 +29,10 @@ function Leave() {
   return (
     <div className="bg-white p-5 rounded-lg">
       <h5>
-        <b>Leave</b>
+        <b>Overtime</b>
       </h5>
       <p>
-        <small>List of Leave Employee</small>
+        <small>List of Overtime</small>
       </p>
       <br></br>
       <div className="flex justify-between">
@@ -50,11 +50,6 @@ function Leave() {
               //   }}
             />
           </div>
-          <div>
-            <button className="px-3 py-2 text-gray-700 border border-gray-100 rounded-lg hover:bg-gray-300 ">
-              Leave Setting
-            </button>
-          </div>
         </div>
         <div className="flex gap-2">
           <div className="flex items-center py-2 px-1 justify-between border border-2 border-gray-300 rounded-lg">
@@ -66,18 +61,6 @@ function Leave() {
               placeholder="Search"
             />
           </div>
-          <Button
-            onClick={() => setModalAdd(true)}
-            style={{
-              color: "#FFFFFF",
-              borderRadius: "7px",
-              backgroundColor: "#0E5073",
-            }}
-            variant="outline"
-            startIcon={<Add />}
-          >
-            Add Leave
-          </Button>
           <div className="mx-2"></div>
         </div>
       </div>
@@ -89,10 +72,9 @@ function Leave() {
             <tr className="capitalize">
               <th className="py-3 px-6">Employee Name</th>
               <th className="py-3 px-6">Job Position</th>
-              <th className="py-3 px-6">Start Date</th>
-              <th className="py-3 px-6">End Date</th>
-              <th className="py-3 px-6">Type</th>
-              <th className="py-3 px-6">Approved Leader</th>
+              <th className="py-3 px-6">Date</th>
+              <th className="py-3 px-6">Duration</th>
+              <th className="py-3 px-6 text-center">Approved Leader</th>
               <th className="py-3 px-6">Action</th>
             </tr>
           </thead>
@@ -100,11 +82,10 @@ function Leave() {
             <tr>
               <td className="py-4 px-6">Veza Adi</td>
               <td className="py-4 px-6">Staff IT</td>
-              <td className="py-4 px-6">26/02/2022</td>
-              <td className="py-4 px-6">28/02/2022</td>
-              <td className="py-4 px-6">Cuti Menikah</td>
+              <td className="py-4 px-6">20/12/2022</td>
+              <td className="py-4 px-6">2h 30m</td>
               <td className="py-4 px-6">
-                <div className="flex flex-col gap-1 items-center">
+                <div className="flex flex-col items-center gap-1">
                   <CheckCircle sx={{ color: teal[500] }} fontSize="large" />
                   <p
                     onClick={() => setModalDetailApproval(true)}
@@ -118,37 +99,20 @@ function Leave() {
                 <div className="flex flex-row gap-3">
                   <button
                     className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    onClick={() => setModalDetail(true)}
+                    // onClick={() => setModalDetail(true)}
                   >
                     <Visibility style={{ color: "#003049" }} />
                   </button>
-                  <button
-                    className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    onClick={() => setModalEdit(true)}
-                  >
-                    <EditOutlined style={{ color: "#003049" }} />
-                  </button>
-                  <a
-                    href="#"
-                    className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    // onClick={() => {
-                    //   setSelectedProduct(index);
-                    //   setShowDelete(true);
-                    // }}
-                  >
-                    <DeleteOutline style={{ color: "#003049" }} />
-                  </a>
                 </div>
               </td>
             </tr>
             <tr>
               <td className="py-4 px-6">Veza Adi</td>
               <td className="py-4 px-6">Staff IT</td>
-              <td className="py-4 px-6">26/02/2022</td>
-              <td className="py-4 px-6">28/02/2022</td>
-              <td className="py-4 px-6">Cuti Menikah</td>
+              <td className="py-4 px-6">20/12/2022</td>
+              <td className="py-4 px-6">2h 30m</td>
               <td className="py-4 px-6">
-                <div className="flex flex-col gap-1 items-center">
+                <div className="flex flex-col items-center gap-1">
                   <Cancel sx={{ color: red[800] }} fontSize="large" />
                   <p
                     onClick={() => setModalDetailApproval(true)}
@@ -162,37 +126,20 @@ function Leave() {
                 <div className="flex flex-row gap-3">
                   <button
                     className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    onClick={() => setModalDetail(true)}
+                    // onClick={() => setModalDetail(true)}
                   >
                     <Visibility style={{ color: "#003049" }} />
                   </button>
-                  <button
-                    className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    onClick={() => setModalEdit(true)}
-                  >
-                    <EditOutlined style={{ color: "#003049" }} />
-                  </button>
-                  <a
-                    href="#"
-                    className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    // onClick={() => {
-                    //   setSelectedProduct(index);
-                    //   setShowDelete(true);
-                    // }}
-                  >
-                    <DeleteOutline style={{ color: "#003049" }} />
-                  </a>
                 </div>
               </td>
             </tr>
             <tr>
               <td className="py-4 px-6">Veza Adi</td>
               <td className="py-4 px-6">Staff IT</td>
-              <td className="py-4 px-6">26/02/2022</td>
-              <td className="py-4 px-6">28/02/2022</td>
-              <td className="py-4 px-6">Cuti Menikah</td>
+              <td className="py-4 px-6">20/12/2022</td>
+              <td className="py-4 px-6">2h 30m</td>
               <td className="py-4 px-6">
-                <div className="flex flex-col gap-1 items-center">
+                <div className="flex flex-col items-center gap-1">
                   <WatchLater sx={{ color: yellow[800] }} fontSize="large" />
                   <p
                     onClick={() => setModalDetailApproval(true)}
@@ -206,26 +153,10 @@ function Leave() {
                 <div className="flex flex-row gap-3">
                   <button
                     className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    onClick={() => setModalDetail(true)}
+                    // onClick={() => setModalDetail(true)}
                   >
                     <Visibility style={{ color: "#003049" }} />
                   </button>
-                  <button
-                    className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    onClick={() => setModalEdit(true)}
-                  >
-                    <EditOutlined style={{ color: "#003049" }} />
-                  </button>
-                  <a
-                    href="#"
-                    className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    // onClick={() => {
-                    //   setSelectedProduct(index);
-                    //   setShowDelete(true);
-                    // }}
-                  >
-                    <DeleteOutline style={{ color: "#003049" }} />
-                  </a>
                 </div>
               </td>
             </tr>
@@ -329,7 +260,7 @@ function Leave() {
         >
           <div className="m-5">
             <div className="flex justify-between mb-5">
-              <h3 className="font-semibold text-xl">Add Leave</h3>
+              <h3 className="font-semibold text-xl">Add Overtime</h3>
               <button onClick={() => setModalAdd(false)}>
                 <Close />
               </button>
@@ -365,13 +296,13 @@ function Leave() {
               </div>
               <div>
                 <label for="type" className="block mb-2 text-sm text-gray-600">
-                  Leave Type
+                  Overtime Type
                 </label>
                 <select
                   id="type"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-transparent focus:border-gray-300 block w-full p-2.5 "
                 >
-                  <option hidden>Select Leave Type ...</option>
+                  <option hidden>Select Overtime Type ...</option>
                   <option>Cuti Menikah</option>
                   <option>Cuti Hamil</option>
                 </select>
@@ -428,7 +359,7 @@ function Leave() {
         >
           <div className="m-5">
             <div className="flex justify-between mb-5">
-              <h3 className="font-semibold text-xl">Edit Leave</h3>
+              <h3 className="font-semibold text-xl">Edit Overtime</h3>
               <button onClick={() => setModalEdit(false)}>
                 <Close />
               </button>
@@ -464,13 +395,13 @@ function Leave() {
               </div>
               <div>
                 <label for="type" className="block mb-2 text-sm text-gray-600">
-                  Leave Type
+                  Overtime Type
                 </label>
                 <select
                   id="type"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-transparent focus:border-gray-300 block w-full p-2.5 "
                 >
-                  <option hidden>Select Leave Type ...</option>
+                  <option hidden>Select Overtime Type ...</option>
                   <option>Cuti Menikah</option>
                   <option>Cuti Hamil</option>
                 </select>
@@ -619,4 +550,4 @@ function Leave() {
   );
 }
 
-export default Leave;
+export default Overtime;

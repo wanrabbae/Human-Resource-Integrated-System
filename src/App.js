@@ -64,6 +64,7 @@ import FinanceSetting from "./Pages/Administrator/Finance/FinanceSetting/Finance
 import DetailLoan from "./Pages/Administrator/Finance/DetailLoan";
 import Payroll from "./Pages/Administrator/Payroll/Payroll";
 import PayrollComponent from "./Pages/Administrator/Payroll/PayrollComponent";
+import TimeOff from "./Pages/Administrator/TimeManagement/TimeOff";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -221,6 +222,7 @@ function App() {
           path="/timeManagement/attendance/employeeRecord"
           element={<EmployeeRecord />}
         />
+        <Route path="/timeManagement/time-off" element={<TimeOff />} />
         <Route path="/timeManagement/schedule" element={<Schedule />} />
         <Route path="/timeManagement/calendar" element={<Cal />} />
       </Route>

@@ -98,13 +98,13 @@ function Schedule() {
                 Employee Name <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}}>
-                Start Date <ImportExport fontSize="2px" />
-              </th>
-              <th onClick={() => {}}>
-                End Date <ImportExport fontSize="2px" />
-              </th>
-              <th onClick={() => {}}>
                 Current Schedule <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => {}}>
+                Effective Date <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => {}}>
+                Expired Date <ImportExport fontSize="2px" />
               </th>
             </tr>
           </thead>
@@ -118,9 +118,9 @@ function Schedule() {
                   <td className="align-middle">
                     {schedule?.employee?.firstName}{" "}
                   </td>
-                  <td className="align-middle">{schedule?.startDate}</td>
-                  <td className="align-middle">{schedule?.endDate}</td>
-                  <td className="align-middle">{schedule?.schedule}</td>
+                  <td className="align-middle">{schedule.schedule}</td>
+                  <td className="align-middle">{schedule.startDate}</td>
+                  <td className="align-middle">{schedule.endDate}</td>
                 </tr>
               ))
             ) : (
@@ -248,7 +248,7 @@ function Schedule() {
                 <div className="col-md-6 mb-3">
                   <div className="form-group">
                     <label className="mb-1">
-                      Start Date <span className="text-danger">*</span>
+                      Effective Date <span className="text-danger">*</span>
                     </label>
                     <input
                       id="date1"
@@ -267,7 +267,7 @@ function Schedule() {
                 <div className="col-md-6 mb-3">
                   <div className="form-group">
                     <label className="mb-1">
-                      End Date <span className="text-danger">*</span>
+                      Expired Date <span className="text-danger">*</span>
                     </label>
                     <input
                       id="date2"

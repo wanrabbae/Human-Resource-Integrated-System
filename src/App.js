@@ -67,6 +67,7 @@ import PayrollComponent from "./Pages/Administrator/Payroll/PayrollComponent";
 import TimeOff from "./Pages/Administrator/TimeManagement/TimeOff";
 import Leave from "./Pages/Administrator/TimeManagement/TimeOffComponent/Leave";
 import PayrollComponentBulkUpload from "./Pages/Administrator/Payroll/PayrollComponentBulkUpload";
+import RunPayroll from "./Pages/Administrator/Payroll/RunPayroll";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -144,7 +145,7 @@ function App() {
       {data?.role == "admin" ? (
         <Route path="/payroll" element={<Template />}>
           <Route path="/payroll" element={<Payroll />} />
-          <Route path="/payroll/run-payroll" element={<Payroll />} />
+          <Route path="/payroll/run-payroll" element={<RunPayroll />} />
           <Route
             path="/payroll/payroll-component"
             element={<PayrollComponent />}

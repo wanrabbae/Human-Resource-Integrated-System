@@ -492,7 +492,7 @@ function Template() {
                   />
                 </svg>
               </ListItemIcon>
-              <ListItemText primary="Document Management" primaryTypographyProps={{fontSize: '14px'}}/>
+              <ListItemText primary="Documents" primaryTypographyProps={{fontSize: '14px'}}/>
             </ListItemButton>
             <ListItemButton
               style={{

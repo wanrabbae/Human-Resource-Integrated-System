@@ -16,7 +16,7 @@ const Payroll = () => {
                     <path d="M0.78 0L0 0.41V12.41L0.78 12.83L9.78 6.83V6L0.78 0ZM1 11.48V1.35L8.6 6.42L1 11.48Z" fill="white"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M4 12.6825L12.78 6.82948V5.99948L4 0.146484V1.34948L11.6 6.41948L4 11.4795V12.6825Z" fill="white"/>
                 </svg>
-                <h1 className='text-white text-sm'>Run Payroll</h1>
+                <Link to={'/payroll/run-payroll'} className='text-white text-sm'>Run Payroll</Link>
             </Link>
         </div>
         <div className='mt-10'>

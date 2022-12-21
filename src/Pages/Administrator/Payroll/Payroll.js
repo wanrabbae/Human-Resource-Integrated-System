@@ -20,7 +20,7 @@ const Payroll = () => {
             </Link>
         </div>
         <div className='mt-10'>
-            <div className='flex justify-between items-center gap-5'>
+            <div className='flex justify-center items-center gap-5'>
                 <Link to={'/payroll/payroll-component'} className='relative'>
                     <img className='brightness-75 transition-all duration-500 ease-in-out hover:brightness-50' src={PayrollComponent} />
                     <p className="absolute inset-0 top-32 text-center text-white text-xl font-semibold">Payroll Component</p>

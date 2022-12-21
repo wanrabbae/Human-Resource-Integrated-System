@@ -24,10 +24,10 @@ const PayrollComponent = () => {
       id: 3,
     },
     {
-      id: 5,
+      id: 4,
     },
     {
-      id: 6,
+      id: 5,
     },
   ]
 
@@ -44,10 +44,10 @@ const PayrollComponent = () => {
               <Search className='absolute top-2 left-2 text-[#A8A8A8]'/>
               <input type="text" id="table-search" className="text-sm rounded-md pl-10 border-[#A8A8A8] text-[#A8A8A8]" placeholder="Search..." />
             </div>
-            <button style={{ borderRadius: "6px", border: "1px solid #A9A9A9", color: "#003049", fontSize: "14px", fontWeight: "500", backgroundColor: "#F9F9F9", }} className="me-3 btn d-flex align-items-center">
+            <Link to={'/payroll/payroll-component/bulk-upload'} style={{ borderRadius: "6px", border: "1px solid #A9A9A9", color: "#003049", fontSize: "14px", fontWeight: "500", backgroundColor: "#F9F9F9", }} className="me-3 btn d-flex align-items-center">
               <FileArrowUp className="me-2" color="#003049" size={16} weight="fill" />
               Bulk Upload
-            </button>
+            </Link>
           </div>
         </div>
         <div className='mt-16'>
@@ -163,7 +163,7 @@ const PayrollComponent = () => {
                         </div>
                       </div>
                       <div className='col-span-4'>
-                        <h1 className='text-[#737373] text-sm'>Rincian Income</h1>
+                        <h1 className='text-[#737373] text-sm'>Detail Benefit</h1>
                         <div className='grid grid-cols-12 gap-2 mt-2'>
                           <div className='col-span-6 text-xs text-[#A8A8A8]'>BPJS Kesehatan</div>
                           <div className='col-span-1 text-xs text-[#A8A8A8]'>:</div>

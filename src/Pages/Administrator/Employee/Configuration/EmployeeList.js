@@ -20,7 +20,7 @@ import {
 } from "../../../../Repository/AdminRepository";
 import { ModalDelete, SwalSuccess } from "../../../../Components/Modals";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight } from "@mui/icons-material";
+import { ArrowLeft, ArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
 function EmployeeList() {
   const [modalAdd, setModalAdd] = useState(false);
@@ -195,7 +195,7 @@ function EmployeeList() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <table className="w-full text-xs text-left text-gray-500 dark:text-gray-400 " style={{ color: "#00000070", fontSize: "0.75rem" }}>
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="py-3 px-6">
@@ -265,14 +265,14 @@ function EmployeeList() {
       </div>
       <div className="bg-[#FBFBFB] mt-0 px-4 py-3 rounded-b-xl d-flex align-items-center justify-content-between ">
         <div>
-          <h6 className="text-[#A098AE]">
+          <h6 className="text-[#A098AE] text-[10px]">
             Showing <span className="text-[#0E5073]">{employees?.length}</span>{" "}
             from <span className="text-[#0E5073]">{totalItems}</span> data
           </h6>
         </div>
         <div>
           <button className="btn btn-sm" onClick={() => previousPage()}>
-            <ArrowLeft />
+            <KeyboardArrowLeft />
           </button>
           {/* <button className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]">
             1
@@ -283,13 +283,13 @@ function EmployeeList() {
           {allPages.map((page) => (
             <button
               onClick={() => changePage(page)}
-              className="btn mx-2 bg-[#78000010] rounded-md text-[#780000]"
+              className="btn mx-2 bg-[#78000010] text-[10px] rounded-md text-[#780000]"
             >
               {page}
             </button>
           ))}
           <button className="btn btn-sm" onClick={() => nextPage()}>
-            <ArrowRight />
+          <KeyboardArrowRight/>
           </button>
         </div>
       </div>

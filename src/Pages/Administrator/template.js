@@ -254,7 +254,7 @@ function Template() {
   ]);
   console.log(users.role);
   return (
-    <div style={{ backgroundColor: "#ECEEF6" }}>
+    <div style={{ backgroundColor: "#E5F0F2" }}>
       <div className="d-flex flex-nowrap">
         <aside
           className="flex-shrink-0 py-5 w-1/5 top-0 left-0 right-0 z-10"
@@ -288,7 +288,7 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="22"
+                    width="20"
                     height="20"
                     viewBox="0 0 22 20"
                     fill="none"
@@ -302,7 +302,10 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Admin" />
+                <ListItemText
+                  primary="Admin"
+                  primaryTypographyProps={{ fontSize: "14px" }}
+                />
 
                 <FontAwesomeIcon icon={faCaretRight} />
               </ListItemButton>
@@ -333,7 +336,7 @@ function Template() {
                                 }
                                 key={i}
                                 to={e.link}
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="block py-2 px-4 hover:bg-gray-100 text-xs dark:hover:bg-gray-600 dark:hover:text-white"
                               >
                                 {e.nama}
                               </Link>
@@ -360,7 +363,10 @@ function Template() {
                       }}
                     >
                       <ListItemIcon></ListItemIcon>
-                      <ListItemText primary={val.nama} />
+                      <ListItemText
+                        primary={val.nama}
+                        primaryTypographyProps={{ fontSize: "12px" }}
+                      />
                       <ChevronRight />
                     </ListItemButton>
                   </>
@@ -386,8 +392,8 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="21"
-                    height="21"
+                    width="19"
+                    height="19"
                     viewBox="0 0 21 21"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -400,7 +406,10 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Employee" />
+                <ListItemText
+                  primary="Employee"
+                  primaryTypographyProps={{ fontSize: "14px" }}
+                />
                 <FontAwesomeIcon icon={faCaretRight} />
               </ListItemButton>
             ) : (
@@ -431,7 +440,7 @@ function Template() {
                                 }
                                 key={i}
                                 to={e.link}
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="block py-2 px-4 hover:bg-gray-100 text-xs dark:hover:bg-gray-600 dark:hover:text-white"
                               >
                                 {e.nama}
                               </Link>
@@ -462,7 +471,10 @@ function Template() {
                       }}
                     >
                       <ListItemIcon></ListItemIcon>
-                      <ListItemText primary={val.nama} />
+                      <ListItemText
+                        primary={val.nama}
+                        primaryTypographyProps={{ fontSize: "12px" }}
+                      />
                       <ChevronRight />
                     </ListItemButton>
                   </>
@@ -480,8 +492,8 @@ function Template() {
             >
               <ListItemIcon>
                 <svg
-                  width="18"
-                  height="22"
+                  width="16"
+                  height="20"
                   viewBox="0 0 18 22"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -492,7 +504,10 @@ function Template() {
                   />
                 </svg>
               </ListItemIcon>
-              <ListItemText primary="Document Management" />
+              <ListItemText
+                primary="Document Management"
+                primaryTypographyProps={{ fontSize: "14px" }}
+              />
             </ListItemButton>
             <ListItemButton
               style={{
@@ -510,8 +525,8 @@ function Template() {
             >
               <ListItemIcon>
                 <svg
-                  width="20"
-                  height="20"
+                  width="18"
+                  height="18"
                   viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -524,7 +539,10 @@ function Template() {
                   />
                 </svg>
               </ListItemIcon>
-              <ListItemText primary="Time Management" />
+              <ListItemText
+                primary="Time Management"
+                primaryTypographyProps={{ fontSize: "14px" }}
+              />
               <FontAwesomeIcon icon={faCaretRight} />
             </ListItemButton>
             {isOpen[2] == true ? (
@@ -552,7 +570,7 @@ function Template() {
                                   }
                                   key={i}
                                   to={e.link}
-                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block py-2 px-4 hover:bg-gray-100 text-xs dark:hover:bg-gray-600 dark:hover:text-white"
                                 >
                                   {e.nama}
                                 </Link>
@@ -599,7 +617,10 @@ function Template() {
                       }}
                     >
                       <ListItemIcon></ListItemIcon>
-                      <ListItemText primary={val.nama} />
+                      <ListItemText
+                        primary={val.nama}
+                        primaryTypographyProps={{ fontSize: "12px" }}
+                      />
                       <ChevronRight />
                     </ListItemButton>
                   </>
@@ -610,7 +631,7 @@ function Template() {
             )}
             {users?.role == "admin" ? (
               <ListItemButton
-                style={{ color: "#00000080" }}
+                style={{ color: "#00000080", fontSize: "12px" }}
                 className="mt-2 flex justify-between items-center"
                 onClick={() => {
                   navigate("/payroll");
@@ -619,7 +640,7 @@ function Template() {
                 <ListItemIcon>
                   <svg
                     width="18"
-                    height="20"
+                    height="18"
                     viewBox="0 0 18 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -630,7 +651,43 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Payroll" />
+                <ListItemText
+                  primary="Payroll"
+                  primaryTypographyProps={{ fontSize: "14px" }}
+                />
+                <div className="bg-red-400 rounded px-2 py-1">
+                  <h1 className="text-xs text-white font-bold">SOON</h1>
+                </div>
+              </ListItemButton>
+            ) : (
+              ""
+            )}
+            {users?.role == "admin" ? (
+              <ListItemButton
+                style={{ color: "#00000080" }}
+                className="mt-2 flex justify-between items-center"
+                // onClick={() => {
+                //   navigate("/finance");
+                // }}
+              >
+                <ListItemIcon>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.931 1.05964C9.05484 0.904682 9.20818 0.775825 9.38216 0.680528C9.55613 0.585232 9.74728 0.525389 9.94454 0.504463C10.1418 0.483538 10.3412 0.501945 10.5313 0.558621C10.7214 0.615296 10.8984 0.709113 11.052 0.834641L15.945 4.83064C16.2141 5.05035 16.3986 5.35664 16.467 5.69723C16.5354 6.03782 16.4834 6.39159 16.32 6.69814C15.8922 6.5674 15.4473 6.50117 15 6.50164H14.55L14.997 5.99164L12.42 3.88714L10.2945 6.50314H8.361L11.2575 2.93914L10.1025 1.99564L6.5055 6.50164H4.5855L8.931 1.05964V1.05964ZM12.75 14.0016C12.5511 14.0016 12.3603 14.0807 12.2197 14.2213C12.079 14.362 12 14.5527 12 14.7516C12 14.9506 12.079 15.1413 12.2197 15.282C12.3603 15.4226 12.5511 15.5016 12.75 15.5016H14.25C14.4489 15.5016 14.6397 15.4226 14.7803 15.282C14.921 15.1413 15 14.9506 15 14.7516C15 14.5527 14.921 14.362 14.7803 14.2213C14.6397 14.0807 14.4489 14.0016 14.25 14.0016H12.75ZM1.5 7.25164C1.5 7.05273 1.57902 6.86196 1.71967 6.72131C1.86032 6.58066 2.05109 6.50164 2.25 6.50164H3.087L4.2795 5.00164H2.25C1.65326 5.00164 1.08097 5.23869 0.65901 5.66065C0.237053 6.08261 0 6.6549 0 7.25164V16.2516C0 17.2462 0.395088 18.2 1.09835 18.9033C1.80161 19.6066 2.75544 20.0016 3.75 20.0016H15C15.7956 20.0016 16.5587 19.6856 17.1213 19.123C17.6839 18.5604 18 17.7973 18 17.0016V11.0016C18 10.206 17.6839 9.44293 17.1213 8.88032C16.5587 8.31771 15.7956 8.00164 15 8.00164H2.25C2.05109 8.00164 1.86032 7.92262 1.71967 7.78197C1.57902 7.64132 1.5 7.45055 1.5 7.25164ZM1.5 16.2516V9.37414C1.734 9.45664 1.9875 9.50164 2.25 9.50164H15C15.3978 9.50164 15.7794 9.65968 16.0607 9.94098C16.342 10.2223 16.5 10.6038 16.5 11.0016V17.0016C16.5 17.3995 16.342 17.781 16.0607 18.0623C15.7794 18.3436 15.3978 18.5016 15 18.5016H3.75C3.15326 18.5016 2.58097 18.2646 2.15901 17.8426C1.73705 17.4207 1.5 16.8484 1.5 16.2516Z"
+                      fill="#A8A8A8"
+                    />
+                  </svg>
+                </ListItemIcon>
+                <ListItemText
+                  primary="Payroll"
+                  primaryTypographyProps={{ fontSize: "14px" }}
+                />
                 <div className="bg-red-400 rounded px-2 py-1">
                   <h1 className="text-xs text-white font-bold">SOON</h1>
                 </div>
@@ -686,8 +743,8 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="18"
-                    height="18"
+                    width="16"
+                    height="16"
                     viewBox="0 0 18 18"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -700,7 +757,10 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Recruitment" />
+                <ListItemText
+                  primary="Recruitment"
+                  primaryTypographyProps={{ fontSize: "14px" }}
+                />
               </ListItemButton>
             ) : (
               ""
@@ -714,8 +774,8 @@ function Template() {
             >
               <ListItemIcon>
                 <svg
-                  width="21"
-                  height="21"
+                  width="18"
+                  height="18"
                   viewBox="0 0 21 21"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -726,7 +786,10 @@ function Template() {
                   />
                 </svg>
               </ListItemIcon>
-              <ListItemText primary="My Profile" />
+              <ListItemText
+                primary="My Profile"
+                primaryTypographyProps={{ fontSize: "14px" }}
+              />
             </ListItemButton>
             {users?.role == "admin" ? (
               <ListItemButton
@@ -738,8 +801,8 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="19"
-                    height="20"
+                    width="17"
+                    height="18"
                     viewBox="0 0 19 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -750,7 +813,10 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Maintenance" />
+                <ListItemText
+                  primary="Maintenance"
+                  primaryTypographyProps={{ fontSize: "14px" }}
+                />
               </ListItemButton>
             ) : (
               ""
@@ -765,26 +831,28 @@ function Template() {
               }}
               className="text-[#780000] hover:text-[#450000]"
             >
-              <div className="flex flex-row gap-2 px-5">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M19 4H17C16.7348 4 16.4804 4.10536 16.2929 4.29289C16.1054 4.48043 16 4.73478 16 5C16 5.26522 16.1054 5.51957 16.2929 5.70711C16.4804 5.89464 16.7348 6 17 6H18V18H17C16.7348 18 16.4804 18.1054 16.2929 18.2929C16.1054 18.4804 16 18.7348 16 19C16 19.2652 16.1054 19.5196 16.2929 19.7071C16.4804 19.8946 16.7348 20 17 20H19C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19V5C20 4.73478 19.8946 4.48043 19.7071 4.29289C19.5196 4.10536 19.2652 4 19 4ZM11.8 7.4C11.6409 7.18783 11.404 7.04756 11.1414 7.01005C10.8789 6.97254 10.6122 7.04087 10.4 7.2C10.1878 7.35913 10.0476 7.59603 10.0101 7.85858C9.97254 8.12113 10.0409 8.38783 10.2 8.6L12 11H4C3.73478 11 3.48043 11.1054 3.29289 11.2929C3.10536 11.4804 3 11.7348 3 12C3 12.2652 3.10536 12.5196 3.29289 12.7071C3.48043 12.8946 3.73478 13 4 13H12.09L10.37 15.44C10.2933 15.5475 10.2386 15.6691 10.2091 15.7978C10.1796 15.9266 10.1759 16.0599 10.1982 16.19C10.2206 16.3202 10.2684 16.4446 10.3391 16.5562C10.4098 16.6678 10.5018 16.7642 10.61 16.84C10.78 16.9587 10.9827 17.0216 11.19 17.02C11.3486 17.0193 11.5048 16.9808 11.6457 16.9078C11.7865 16.8347 11.908 16.7292 12 16.6L14.82 12.6C14.9451 12.4287 15.0126 12.2221 15.0126 12.01C15.0126 11.7979 14.9451 11.5913 14.82 11.42L11.8 7.4Z"
-                    fill="#780000"
-                  />
-                </svg>
+              <div className="px-4">
+                <div className="flex flex-row gap-4 p-3">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19 4H17C16.7348 4 16.4804 4.10536 16.2929 4.29289C16.1054 4.48043 16 4.73478 16 5C16 5.26522 16.1054 5.51957 16.2929 5.70711C16.4804 5.89464 16.7348 6 17 6H18V18H17C16.7348 18 16.4804 18.1054 16.2929 18.2929C16.1054 18.4804 16 18.7348 16 19C16 19.2652 16.1054 19.5196 16.2929 19.7071C16.4804 19.8946 16.7348 20 17 20H19C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19V5C20 4.73478 19.8946 4.48043 19.7071 4.29289C19.5196 4.10536 19.2652 4 19 4ZM11.8 7.4C11.6409 7.18783 11.404 7.04756 11.1414 7.01005C10.8789 6.97254 10.6122 7.04087 10.4 7.2C10.1878 7.35913 10.0476 7.59603 10.0101 7.85858C9.97254 8.12113 10.0409 8.38783 10.2 8.6L12 11H4C3.73478 11 3.48043 11.1054 3.29289 11.2929C3.10536 11.4804 3 11.7348 3 12C3 12.2652 3.10536 12.5196 3.29289 12.7071C3.48043 12.8946 3.73478 13 4 13H12.09L10.37 15.44C10.2933 15.5475 10.2386 15.6691 10.2091 15.7978C10.1796 15.9266 10.1759 16.0599 10.1982 16.19C10.2206 16.3202 10.2684 16.4446 10.3391 16.5562C10.4098 16.6678 10.5018 16.7642 10.61 16.84C10.78 16.9587 10.9827 17.0216 11.19 17.02C11.3486 17.0193 11.5048 16.9808 11.6457 16.9078C11.7865 16.8347 11.908 16.7292 12 16.6L14.82 12.6C14.9451 12.4287 15.0126 12.2221 15.0126 12.01C15.0126 11.7979 14.9451 11.5913 14.82 11.42L11.8 7.4Z"
+                      fill="#780000"
+                    />
+                  </svg>
 
-                <p>Sign Out</p>
+                  <p style={{ fontSize: "14px" }}>Sign Out</p>
+                </div>
               </div>
             </Link>
           </div>
         </aside>
-        <div className="ml-auto min-h-screen h-full w-4/5 p-5 space-y-5 p-5">
+        <div className="ml-auto bg-[#E5F0F2] min-h-screen h-full w-4/5 p-5 space-y-5 p-5">
           <div className="d-flex justify-content-between align-items-center">
             <div>
               <h6>
@@ -794,6 +862,10 @@ function Template() {
                     .toUpperCase()}
                 </small>
               </h6>
+              {/* <button className="flex items-center gap-2 text-[#737373] hover:text-[#780000] transition-all duration-200 ease-in-out" onClick={ () => navigate.goBack() }>
+                <ArrowUUpLeft weight='bold'/>
+                <h1>Go Back</h1>
+              </button> */}
             </div>
             <div>
               <IconButton

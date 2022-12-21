@@ -29,7 +29,10 @@ const PayrollComponentBulkUpload = () => {
                 <h1 className='text-xs font-semibold'>Upload File *</h1>
                 <div className='flex items-center gap-2'>
                     <input className='border border-[#CACACA] rounded-md text-sm p-2 focus:border-none active:border-none outline-0 w-fit' placeholder='Choose File'/>
-                    <h1 className='bg-[#D9D9D9] px-2 py-0.5 text-xs text-[#737373] rounded-sm'>Payroll_component.xsxl</h1>
+                    <div className='bg-[#D9D9D9] px-2 py-0.5 rounded-sm flex items-center gap-3'>
+                        <h1 className='text-xs text-[#737373]'>Payroll_component.xsxl</h1>
+                        <button className='text-xs text-[#737373] hover:text-[#C1121F] mb-0.5'>x</button>
+                    </div>
                 </div>
                 <h1 className='text-[#C1121F] text-[8px]'>*Max 10MB</h1>
             </div>

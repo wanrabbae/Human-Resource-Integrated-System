@@ -232,7 +232,7 @@ function Users() {
                 );
               })
             ) : (
-              <td>
+              <td colSpan={6}>
                 <div className="d-flex justify-content-center align-middle text-center">
                   No Data
                 </div>

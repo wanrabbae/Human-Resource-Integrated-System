@@ -128,7 +128,7 @@ function License() {
           </div>
         </div>
         <br></br>
-        <Table borderless responsive style={{ color: "#00000070" }}>
+        <Table borderless responsive style={{ color: "#00000070", fontSize: "0.75rem" }}>
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
@@ -190,7 +190,7 @@ function License() {
                 </tr>
               ))
             ) : (
-              <td rowSpan={2} colSpan={2}>
+              <td colSpan={3}>
                 <div className="d-flex justify-content-center align-middle text-center">
                   No Data
                 </div>

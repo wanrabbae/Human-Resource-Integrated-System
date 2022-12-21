@@ -142,6 +142,7 @@ function App() {
         <Route path="/payroll" element={<Template />}>
           <Route path="/payroll" element={<Payroll />} />
           <Route path="/payroll/payroll-component" element={<PayrollComponent />} />
+          <Route path="/payroll/payroll-component/bulkUpload" element={<PayrollComponent />} />
         </Route>
       ) : (
         ""

@@ -65,6 +65,7 @@ import DetailLoan from "./Pages/Administrator/Finance/DetailLoan";
 import Payroll from "./Pages/Administrator/Payroll/Payroll";
 import PayrollComponent from "./Pages/Administrator/Payroll/PayrollComponent";
 import TimeOff from "./Pages/Administrator/TimeManagement/TimeOff";
+import Leave from "./Pages/Administrator/TimeManagement/TimeOffComponent/Leave";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -142,7 +143,10 @@ function App() {
       {data?.role == "admin" ? (
         <Route path="/payroll" element={<Template />}>
           <Route path="/payroll" element={<Payroll />} />
-          <Route path="/payroll/payroll-component" element={<PayrollComponent />} />
+          <Route
+            path="/payroll/payroll-component"
+            element={<PayrollComponent />}
+          />
         </Route>
       ) : (
         ""
@@ -223,6 +227,7 @@ function App() {
           element={<EmployeeRecord />}
         />
         <Route path="/timeManagement/time-off" element={<TimeOff />} />
+        <Route path="/timeManagement/time-off/leave" element={<Leave />} />
         <Route path="/timeManagement/schedule" element={<Schedule />} />
         <Route path="/timeManagement/calendar" element={<Cal />} />
       </Route>

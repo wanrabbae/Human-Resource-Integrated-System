@@ -15,7 +15,7 @@ const TimeOff = () => {
       </div>
       <div className="mt-10">
         <div className="flex justify-between items-center gap-5">
-          <Link to={"/payroll/payroll-component"} className="relative">
+          <Link to={"/timeManagement/time-off/leave"} className="relative">
             <img
               className="brightness-75 transition-all duration-500 ease-in-out hover:brightness-50"
               src={leave}
@@ -24,7 +24,7 @@ const TimeOff = () => {
               Leave
             </p>
           </Link>
-          <Link to={""} className="relative">
+          <Link to={"/timeManagement/time-off/permission"} className="relative">
             <img
               className="brightness-75 transition-all duration-500 ease-in-out hover:brightness-50"
               src={permission}
@@ -33,7 +33,7 @@ const TimeOff = () => {
               Permission
             </p>
           </Link>
-          <Link to={""} className="relative">
+          <Link to={"/timeManagement/time-off/overtime"} className="relative">
             <img
               className="brightness-75 transition-all duration-500 ease-in-out hover:brightness-50"
               src={overtime}

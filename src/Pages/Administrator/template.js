@@ -780,6 +780,10 @@ function Template() {
                     .toUpperCase()}
                 </small>
               </h6>
+              {/* <button className="flex items-center gap-2 text-[#737373] hover:text-[#780000] transition-all duration-200 ease-in-out" onClick={ () => navigate.goBack() }>
+                <ArrowUUpLeft weight='bold'/>
+                <h1>Go Back</h1>
+              </button> */}
             </div>
             <div>
               <IconButton

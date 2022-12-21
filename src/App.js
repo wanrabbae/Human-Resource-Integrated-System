@@ -142,8 +142,9 @@ function App() {
       {data?.role == "admin" ? (
         <Route path="/payroll" element={<Template />}>
           <Route path="/payroll" element={<Payroll />} />
+          <Route path="/payroll/run-payroll" element={<Payroll />} />
           <Route path="/payroll/payroll-component" element={<PayrollComponent />} />
-          <Route path="/payroll/payroll-component/bulkUpload" element={<PayrollComponentBulkUpload />} />
+          <Route path="/payroll/payroll-component/bulk-upload" element={<PayrollComponentBulkUpload />} />
         </Route>
       ) : (
         ""

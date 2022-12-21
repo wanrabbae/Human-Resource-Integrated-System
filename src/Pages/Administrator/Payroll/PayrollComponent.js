@@ -44,7 +44,7 @@ const PayrollComponent = () => {
               <Search className='absolute top-2 left-2 text-[#A8A8A8]'/>
               <input type="text" id="table-search" className="text-sm rounded-md pl-10 border-[#A8A8A8] text-[#A8A8A8]" placeholder="Search..." />
             </div>
-            <Link to={'/payroll/payroll-component/bulkUpload'} style={{ borderRadius: "6px", border: "1px solid #A9A9A9", color: "#003049", fontSize: "14px", fontWeight: "500", backgroundColor: "#F9F9F9", }} className="me-3 btn d-flex align-items-center">
+            <Link to={'/payroll/payroll-component/bulk-upload'} style={{ borderRadius: "6px", border: "1px solid #A9A9A9", color: "#003049", fontSize: "14px", fontWeight: "500", backgroundColor: "#F9F9F9", }} className="me-3 btn d-flex align-items-center">
               <FileArrowUp className="me-2" color="#003049" size={16} weight="fill" />
               Bulk Upload
             </Link>

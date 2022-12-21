@@ -7,7 +7,7 @@ import bg4 from "../../../Resourse/img/finance-4.png";
 
 function Finance() {
   return (
-    <div className="mt-1 px-4 pt-4 pb-56 bg-[#F3F6FF] rounded-lg space-y-10">
+    <div className="mt-1 px-4 pt-4 pb-56 bg-white rounded-lg space-y-10">
       <div>
         <h1 className="text-xl font-semibold">Finance</h1>
         <p className="text-xs font-light">Finance Menu</p>

@@ -43,7 +43,7 @@ function TerminationReasons() {
         </div>
 
         <div className="overflow-x-auto relative">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ fontSize: "0.75rem" }}>
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="py-3 px-6">
@@ -95,7 +95,7 @@ function TerminationReasons() {
                   );
                 })
               ) : (
-                <td>
+                <td colSpan={2}>
                   <div className="d-flex justify-content-center align-middle text-center">
                     No Data
                   </div>

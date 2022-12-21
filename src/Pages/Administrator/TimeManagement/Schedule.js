@@ -88,7 +88,7 @@ function Schedule() {
           </div>
         </div>
         <br></br>
-        <Table borderless responsive style={{ color: "#00000070" }}>
+        <Table borderless responsive style={{ color: "#00000070", fontSize: "0.75rem" }}>
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
@@ -118,14 +118,14 @@ function Schedule() {
                   <td className="align-middle">
                     {schedule?.employee?.firstName}{" "}
                   </td>
-                  <td className="align-middle">{schedule.startDate}</td>
-                  <td className="align-middle">{schedule.endDate}</td>
-                  <td className="align-middle">{schedule.schedule}</td>
+                  <td className="align-middle">{schedule?.startDate}</td>
+                  <td className="align-middle">{schedule?.endDate}</td>
+                  <td className="align-middle">{schedule?.schedule}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td>
+                <td colSpan={5}>
                   <div className="d-flex justify-content-center align-middle text-center">
                     No Data
                   </div>

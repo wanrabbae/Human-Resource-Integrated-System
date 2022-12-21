@@ -64,6 +64,7 @@ import FinanceSetting from "./Pages/Administrator/Finance/FinanceSetting/Finance
 import DetailLoan from "./Pages/Administrator/Finance/DetailLoan";
 import Payroll from "./Pages/Administrator/Payroll/Payroll";
 import PayrollComponent from "./Pages/Administrator/Payroll/PayrollComponent";
+import PayrollComponentBulkUpload from "./Pages/Administrator/Payroll/PayrollComponentBulkUpload";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -142,7 +143,7 @@ function App() {
         <Route path="/payroll" element={<Template />}>
           <Route path="/payroll" element={<Payroll />} />
           <Route path="/payroll/payroll-component" element={<PayrollComponent />} />
-          <Route path="/payroll/payroll-component/bulkUpload" element={<PayrollComponent />} />
+          <Route path="/payroll/payroll-component/bulkUpload" element={<PayrollComponentBulkUpload />} />
         </Route>
       ) : (
         ""

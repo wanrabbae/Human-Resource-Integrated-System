@@ -233,6 +233,12 @@ function Template() {
             ],
           },
           {
+            nama: "Time Off",
+            click: "/timeManagement/time-off",
+            show: isHidden,
+            body: [],
+          },
+          {
             nama: "Schedule",
             click: "/timeManagement/schedule",
             show: isHidden,

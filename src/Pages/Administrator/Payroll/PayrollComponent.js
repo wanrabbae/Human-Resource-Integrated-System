@@ -6,6 +6,24 @@ import { Link } from 'react-router-dom'
 const PayrollComponent = () => {
 
   const [Active, setActive] = useState(false)
+  const [Current, setCurrent] = useState(0)
+  const handleCollapse = (id) => {
+    if(id){
+      setCurrent(id)
+      setActive(!Active)
+    }
+  }
+  const data = [
+    {
+      id: 1,
+    },
+    {
+      id: 2,
+    },
+    {
+      id: 3,
+    },
+  ]
 
   return (
     <div className='bg-white rounded-xl px-6 py-9 '>
@@ -55,99 +73,105 @@ const PayrollComponent = () => {
             <div className='w-full  flex items-center gap-2'></div>
           </div>
         </div>
-        <div className={`px-4 py-2 mt-2 flex items-center gap-3 border ${!Active ? 'rounded-md' : 'rounded-t-md' } w-full`}>
-          <div className= 'min-w-[200px] max-w-[200px] pr-2'>
-            <h1 className='text-xs truncate'>Muhammad Hidayat Syarifuddin Tirto Satria</h1>
-            <h1 className='text-[10px] text-[#CACACA]'>M001/I-II</h1>
-            <h1 className='text-[10px] text-[#A8A8A8]'>Fulltime - Contract</h1>
-          </div>
-          <div className= 'min-w-[140px] max-w-[140px]'>
-            <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
-          </div>
-          <div className= 'min-w-[140px] max-w-[140px]'>
-            <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
-          </div>
-          <div className= 'min-w-[140px] max-w-[140px]'>
-            <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
-          </div>
-          <div className= 'min-w-[140px] max-w-[140px]'>
-            <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
-          </div>
-          <div className= 'min-w-[50px] max-w-[50px] items-center justify-center flex'>
-            <div className= 'flex items-center justify-center bg-[#CEDFEA] rounded-md w-8 h-8'>
-              <button>
-                <EditOutlined fontSize="10px" />
-              </button>
+        {Object.values(data).map((x, i) => {
+          return (
+            <div>
+              <div className={`px-4 py-2 mt-2 flex items-center gap-3 border ${ x.id === Current && !Active ? 'rounded-t-md' : 'rounded-md' } w-full`}>
+                <div className= 'min-w-[200px] max-w-[200px] pr-2'>
+                  <h1 className='text-xs truncate'>Muhammad Hidayat Syarifuddin Tirto Satria</h1>
+                  <h1 className='text-[10px] text-[#CACACA]'>M001/I-II</h1>
+                  <h1 className='text-[10px] text-[#A8A8A8]'>Fulltime - Contract</h1>
+                </div>
+                <div className= 'min-w-[140px] max-w-[140px]'>
+                  <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
+                </div>
+                <div className= 'min-w-[140px] max-w-[140px]'>
+                  <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
+                </div>
+                <div className= 'min-w-[140px] max-w-[140px]'>
+                  <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
+                </div>
+                <div className= 'min-w-[140px] max-w-[140px]'>
+                  <h1 className='text-xs truncate'>Rp 135.000.000.000</h1>
+                </div>
+                <div className= 'min-w-[50px] max-w-[50px] items-center justify-center flex'>
+                  <div className= 'flex items-center justify-center bg-[#CEDFEA] rounded-md w-8 h-8'>
+                    <button>
+                      <EditOutlined fontSize="10px" />
+                    </button>
+                  </div>
+                </div>
+                <div className='min-w-[50px] max-w-[50px] flex items-center justify-end'>
+                  <button onClick={ () => handleCollapse(x.id)}>
+                    { x.id === Current && !Active ?
+                      <KeyboardArrowDown/>
+                      :
+                      <KeyboardArrowUp/>
+                    }
+                  </button>
+                </div>
+              </div>
+              <div className={`w-full rounded-b-md bg-[#F9F9F9] transition-all ease-in-out duration-500 overflow-hidden ${ x.id === Current && !Active ? 'h-44' : 'h-0' }`}>
+                <div className='grid grid-cols-12 gap-5 p-4'>
+                    <div className='col-span-4'>
+                      <h1 className='text-[#737373] text-sm'>Detail Income</h1>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-7 text-xs'>Tunjangan Tetap </div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-4 text-xs'></div>
+                      </div>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-7 text-xs'>Tunjangan Tidak Tetap </div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-4 text-xs'></div>
+                      </div>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-7 text-xs truncate'>Tunjangan Telekomunikasi </div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-4 text-xs'></div>
+                      </div>
+                    </div>
+                    <div className='col-span-4'>
+                      <h1 className='text-[#737373] text-sm'>Detail Deduction</h1>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-6 text-xs'>Absence</div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-5 text-xs'></div>
+                      </div>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-6 text-xs'>Late</div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-5 text-xs'></div>
+                      </div>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-6 text-xs'>Potongan Lain-lain</div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-5 text-xs'></div>
+                      </div>
+                    </div>
+                    <div className='col-span-4'>
+                      <h1 className='text-[#737373] text-sm'>Rincian Income</h1>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-6 text-xs'>BPJS Kesehatan</div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-5 text-xs'></div>
+                      </div>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-6 text-xs'>BPJS Ketenagakerjaan</div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-5 text-xs'></div>
+                      </div>
+                      <div className='grid grid-cols-12 gap-2 mt-2'>
+                        <div className='col-span-6 text-xs'>Bonus CEO</div>
+                        <div className='col-span-1 text-xs'>:</div>
+                        <div className='col-span-5 text-xs'></div>
+                      </div>
+                    </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className='min-w-[50px] max-w-[50px] flex items-center justify-end'>
-            <button onClick={ () => setActive(!Active)}>
-              { !Active ?
-                <KeyboardArrowDown/>
-                :
-                <KeyboardArrowUp/>
-              }
-            </button>
-          </div>
-        </div>
-        <div className={`w-full rounded-b-md bg-[#F9F9F9] transition-all ease-in-out duration-500 overflow-hidden ${Active ? 'h-44' : 'h-0'}`}>
-          <div className='grid grid-cols-12 gap-5 p-4'>
-              <div className='col-span-4'>
-                <h1 className='text-[#737373] text-sm'>Detail Income</h1>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>Tunjangan Tetap </div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>Tunjangan Tidak Tetap </div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>Tunjangan Telekomunikasi </div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-              </div>
-              <div className='col-span-4'>
-                <h1 className='text-[#737373] text-sm'>Detail Deduction</h1>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>Absence</div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>Late</div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>Potongan Lain-lain</div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-              </div>
-              <div className='col-span-4'>
-                <h1 className='text-[#737373] text-sm'>Rincian Income</h1>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>BPJS Kesehatan</div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>BPJS Ketenagakerjaan</div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-                <div className='grid grid-cols-12 gap-2 mt-2'>
-                  <div className='col-span-6 text-xs'>Bonus CEO</div>
-                  <div className='col-span-1 text-xs'>:</div>
-                  <div className='col-span-5 text-xs'></div>
-                </div>
-              </div>
-          </div>
-        </div>
+          )
+        })}
       </div>
     </div>
   )

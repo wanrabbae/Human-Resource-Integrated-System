@@ -398,7 +398,7 @@ function DocumentManagement() {
                   textTransform: "uppercase",
                 }}
               >
-                7,482
+                0
               </h3>
             </div>
             <div className="py-16 px-4">
@@ -453,7 +453,7 @@ function DocumentManagement() {
               Filter
             </button>
           </div>
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             {Doc.length > 0
               ? Doc.map((val) => {
                   return (
@@ -520,7 +520,7 @@ function DocumentManagement() {
                         <h3
                           className="mb-2"
                           style={{
-                            fontSize: "20px",
+                            fontSize: "14px",
                             fontWeight: "600",
                             color: "white",
                           }}
@@ -541,7 +541,7 @@ function DocumentManagement() {
                         <h3
                           className="mb-2"
                           style={{
-                            fontSize: "14px",
+                            fontSize: "12px",
                             fontWeight: "600",
                             color: "#003049",
                           }}

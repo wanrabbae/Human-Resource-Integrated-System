@@ -1,4 +1,4 @@
-var endpoint = "https://api.humanusia.id";
+var endpoint = "https://staging.api.humanusia.id";
 
 var users = {};
 

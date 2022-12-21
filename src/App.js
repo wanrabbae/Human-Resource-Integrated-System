@@ -62,6 +62,8 @@ import CashAdvance from "./Pages/Administrator/Finance/CashAdvance";
 import Loan from "./Pages/Administrator/Finance/Loan";
 import FinanceSetting from "./Pages/Administrator/Finance/FinanceSetting/FinanceSetting";
 import DetailLoan from "./Pages/Administrator/Finance/DetailLoan";
+import Payroll from "./Pages/Administrator/Payroll/Payroll";
+import PayrollComponent from "./Pages/Administrator/Payroll/PayrollComponent";
 
 function App() {
   var data = JSON.parse(window.localStorage.getItem("users"));
@@ -132,6 +134,14 @@ function App() {
             element={<Membership />}
           />
           <Route path="/admin/nationalities" element={<Nationalities />} />
+        </Route>
+      ) : (
+        ""
+      )}
+      {data?.role == "admin" ? (
+        <Route path="/payroll" element={<Template />}>
+          <Route path="/payroll" element={<Payroll />} />
+          <Route path="/payroll/payroll-component" element={<PayrollComponent />} />
         </Route>
       ) : (
         ""

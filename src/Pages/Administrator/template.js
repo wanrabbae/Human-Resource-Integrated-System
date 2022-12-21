@@ -625,8 +625,8 @@ function Template() {
                     </svg>
                   </ListItemIcon>
                   <ListItemText primary="Payroll" primaryTypographyProps={{fontSize: '14px'}} />
-                  <div className="bg-red-400 rounded px-2 py-1">
-                    <h1 className="text-xs text-white font-bold">SOON</h1>
+                  <div className="bg-red-400 rounded px-2 py-0.5">
+                    <h1 className="text-[10px] text-white font-bold">UPCOMING</h1>
                   </div>
                 </ListItemButton>
             ) : (
@@ -655,9 +655,9 @@ function Template() {
                   </svg>
                 </ListItemIcon>
                 <ListItemText primary="Finance" primaryTypographyProps={{fontSize: '14px'}}/>
-                <div className="bg-red-400 rounded px-2 py-1">
-                    <h1 className="text-xs text-white font-bold">SOON</h1>
-                  </div>
+                <div className="bg-red-400 rounded px-2 py-0.5">
+                  <h1 className="text-[10px] text-white font-bold">UPCOMING</h1>
+                </div>
               </ListItemButton>
             ) : (
               ""

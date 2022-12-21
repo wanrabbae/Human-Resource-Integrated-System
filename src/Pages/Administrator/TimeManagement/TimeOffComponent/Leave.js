@@ -21,8 +21,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Leave() {
+  const [modalDetailApproval, setModalDetailApproval] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalDetail, setModalDetail] = useState(false);
   const [changePassword, setPassword] = useState(false);
   return (
     <div className="bg-white p-5 rounded-lg">
@@ -104,19 +106,19 @@ function Leave() {
               <td className="py-4 px-6">
                 <div className="flex flex-col gap-1 items-center">
                   <CheckCircle sx={{ color: teal[500] }} fontSize="large" />
-                  <Link
-                    to={""}
-                    className="text-xs text-gray-700 underline hover:text-black"
+                  <p
+                    onClick={() => setModalDetailApproval(true)}
+                    className="text-xs text-gray-700 underline hover:text-black cursor-pointer"
                   >
                     Detail
-                  </Link>
+                  </p>
                 </div>
               </td>
               <td className="py-4 px-6">
                 <div className="flex flex-row gap-3">
                   <button
                     className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    // onClick={() => setModalEdit(true)}
+                    onClick={() => setModalDetail(true)}
                   >
                     <Visibility style={{ color: "#003049" }} />
                   </button>
@@ -148,19 +150,19 @@ function Leave() {
               <td className="py-4 px-6">
                 <div className="flex flex-col gap-1 items-center">
                   <Cancel sx={{ color: red[800] }} fontSize="large" />
-                  <Link
-                    to={""}
-                    className="text-xs text-gray-700 underline hover:text-black"
+                  <p
+                    onClick={() => setModalDetailApproval(true)}
+                    className="text-xs text-gray-700 underline hover:text-black cursor-pointer"
                   >
                     Detail
-                  </Link>
+                  </p>
                 </div>
               </td>
               <td className="py-4 px-6">
                 <div className="flex flex-row gap-3">
                   <button
                     className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    // onClick={() => setModalEdit(true)}
+                    onClick={() => setModalDetail(true)}
                   >
                     <Visibility style={{ color: "#003049" }} />
                   </button>
@@ -192,19 +194,19 @@ function Leave() {
               <td className="py-4 px-6">
                 <div className="flex flex-col gap-1 items-center">
                   <WatchLater sx={{ color: yellow[800] }} fontSize="large" />
-                  <Link
-                    to={""}
-                    className="text-xs text-gray-700 underline hover:text-black"
+                  <p
+                    onClick={() => setModalDetailApproval(true)}
+                    className="text-xs text-gray-700 underline hover:text-black cursor-pointer"
                   >
                     Detail
-                  </Link>
+                  </p>
                 </div>
               </td>
               <td className="py-4 px-6">
                 <div className="flex flex-row gap-3">
                   <button
                     className="bg-blue-100 hover:bg-blue-200 p-2 rounded-lg"
-                    // onClick={() => setModalEdit(true)}
+                    onClick={() => setModalDetail(true)}
                   >
                     <Visibility style={{ color: "#003049" }} />
                   </button>
@@ -255,6 +257,68 @@ function Leave() {
           </button>
         </div>
       </div>
+      <Modal
+        open={modalDetailApproval}
+        onClose={() => setModalDetailApproval(false)}
+      >
+        <Dialog
+          open={modalDetailApproval}
+          onClose={() => setModalDetailApproval(false)}
+          scroll="body"
+          fullWidth={true}
+          maxWidth="sm"
+        >
+          <div className="m-5">
+            <div className="flex justify-between mb-5">
+              <h3 className="font-semibold text-xl">Detail Approval</h3>
+              <button onClick={() => setModalDetailApproval(false)}>
+                <Close />
+              </button>
+            </div>
+            <div className="space-y-3">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs bg-[#EBF7FF] text-gray-700 uppercase dark:text-gray-400">
+                  <tr className="capitalize">
+                    <th className="py-3 px-3">Leader Name</th>
+                    <th className="py-3 px-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="py-2 px-3">Abdan Syakuro</td>
+                    <td className="py-2 px-3">
+                      <CheckCircle sx={{ color: teal[500] }} fontSize="large" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 px-3">Abdan Syakuro</td>
+                    <td className="py-2 px-3">
+                      <WatchLater
+                        sx={{ color: yellow[800] }}
+                        fontSize="large"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 px-3">Abdan Syakuro</td>
+                    <td className="py-2 px-3">
+                      <Cancel sx={{ color: red[800] }} fontSize="large" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="flex justify-end gap-2 mt-5">
+                <button
+                  className="bg-[#0E5073] rounded-lg px-4 py-2 text-white"
+                  onClick={() => setModalDetailApproval(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Modal>
       <Modal open={modalAdd} onClose={() => setModalAdd(false)}>
         <Dialog
           open={modalAdd}
@@ -328,10 +392,7 @@ function Leave() {
                   />
                 </div>
                 <div>
-                  <label
-                    for="end"
-                    className="block mb-2 text-sm text-gray-600"
-                  >
+                  <label for="end" className="block mb-2 text-sm text-gray-600">
                     End Date
                   </label>
                   <input
@@ -430,10 +491,7 @@ function Leave() {
                   />
                 </div>
                 <div>
-                  <label
-                    for="end"
-                    className="block mb-2 text-sm text-gray-600"
-                  >
+                  <label for="end" className="block mb-2 text-sm text-gray-600">
                     End Date
                   </label>
                   <input
@@ -453,6 +511,104 @@ function Leave() {
                 </button>
                 <button className="bg-[#0E5073] rounded-lg px-4 py-2 text-white">
                   Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Modal>
+      <Modal open={modalDetail} onClose={() => setModalDetail(false)}>
+        <Dialog
+          open={modalDetail}
+          onClose={() => setModalDetail(false)}
+          scroll="body"
+          fullWidth={true}
+          maxWidth="lg"
+        >
+          <div className="m-5">
+            <div className="flex justify-between mb-5">
+              <h3 className="font-semibold text-xl">Detail Time Off</h3>
+              <button onClick={() => setModalDetail(false)}>
+                <Close />
+              </button>
+            </div>
+            <div className="space-y-3">
+              <div className="bg-[#F8F8F8] p-3">
+                <div className="grid grid-cols-2 border-b border-gray-300 py-2">
+                  <div className="grid grid-cols-2 gap-2 py-2">
+                    <p>Job Position</p>
+                    <p>: Staff IT</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 py-2">
+                    <p>Job Position</p>
+                    <p>: Staff IT</p>
+                  </div>
+                </div>
+                <div className="">
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Start Date</p>
+                    <p className="col-span-3">: 26/11/2022</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>End Date</p>
+                    <p className="col-span-3">: 30/11/2022</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Remaining Days Off</p>
+                    <p className="col-span-3">: 7 Days</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Time Off Duration</p>
+                    <p className="col-span-3">: 4 Days</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Time off Type</p>
+                    <p className="col-span-3">: Married</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2 border-b border-gray-300">
+                    <p>Notes</p>
+                    <p className="col-span-3">
+                      : Lorem ipsum dolor sit amet consectetur. Scelerisque erat
+                      aenean pellentesque amet faucibus non. Condimentum dolor
+                      scelerisque et diam et morbi hendrerit.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Delegated Employee</p>
+                    <p className="col-span-3">: M. Iqbal Ainurafie</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2 border-b border-gray-300">
+                    <p>Delegated Task</p>
+                    <p className="col-span-3">
+                      : Lorem ipsum dolor sit amet consectetur. Scelerisque erat
+                      aenean pellentesque amet faucibus non. Condimentum dolor
+                      scelerisque et diam et morbi hendrerit.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Emergency Contact</p>
+                    <p className="col-span-3">: Elzio Afroditya</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Emergency Phone Number</p>
+                    <p className="col-span-3">: 081234567890</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Emergency Address</p>
+                    <p className="col-span-3">
+                      : Lorem ipsum dolor sit amet consectetur. Scelerisque erat
+                      aenean pellentesque amet faucibus non. Condimentum dolor
+                      scelerisque et diam et morbi hendrerit.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-end gap-2 mt-5">
+                <button
+                  className="bg-[#0E5073] rounded-lg px-4 py-2 text-white"
+                  onClick={() => setModalDetail(false)}
+                >
+                  Close
                 </button>
               </div>
             </div>

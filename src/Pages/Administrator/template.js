@@ -282,7 +282,7 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="22"
+                    width="20"
                     height="20"
                     viewBox="0 0 22 20"
                     fill="none"
@@ -296,7 +296,7 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Admin" />
+                <ListItemText primary="Admin" primaryTypographyProps={{fontSize: '14px'}}/>
 
                 <FontAwesomeIcon icon={faCaretRight} />
               </ListItemButton>
@@ -327,7 +327,7 @@ function Template() {
                                 }
                                 key={i}
                                 to={e.link}
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="block py-2 px-4 hover:bg-gray-100 text-xs dark:hover:bg-gray-600 dark:hover:text-white"
                               >
                                 {e.nama}
                               </Link>
@@ -354,7 +354,7 @@ function Template() {
                       }}
                     >
                       <ListItemIcon></ListItemIcon>
-                      <ListItemText primary={val.nama} />
+                      <ListItemText primary={val.nama} primaryTypographyProps={{fontSize: '12px'}}/>
                       <ChevronRight />
                     </ListItemButton>
                   </>
@@ -380,8 +380,8 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="21"
-                    height="21"
+                    width="19"
+                    height="19"
                     viewBox="0 0 21 21"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -394,7 +394,7 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Employee" />
+                <ListItemText primary="Employee" primaryTypographyProps={{fontSize: '14px'}}/>
                 <FontAwesomeIcon icon={faCaretRight} />
               </ListItemButton>
             ) : (
@@ -425,7 +425,7 @@ function Template() {
                                 }
                                 key={i}
                                 to={e.link}
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="block py-2 px-4 hover:bg-gray-100 text-xs dark:hover:bg-gray-600 dark:hover:text-white"
                               >
                                 {e.nama}
                               </Link>
@@ -456,7 +456,7 @@ function Template() {
                       }}
                     >
                       <ListItemIcon></ListItemIcon>
-                      <ListItemText primary={val.nama} />
+                      <ListItemText primary={val.nama} primaryTypographyProps={{fontSize: '12px'}}/>
                       <ChevronRight />
                     </ListItemButton>
                   </>
@@ -474,8 +474,8 @@ function Template() {
             >
               <ListItemIcon>
                 <svg
-                  width="18"
-                  height="22"
+                  width="16"
+                  height="20"
                   viewBox="0 0 18 22"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -486,7 +486,7 @@ function Template() {
                   />
                 </svg>
               </ListItemIcon>
-              <ListItemText primary="Document Management" />
+              <ListItemText primary="Document Management" primaryTypographyProps={{fontSize: '14px'}}/>
             </ListItemButton>
             <ListItemButton
               style={{
@@ -504,8 +504,8 @@ function Template() {
             >
               <ListItemIcon>
                 <svg
-                  width="20"
-                  height="20"
+                  width="18"
+                  height="18"
                   viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -518,7 +518,7 @@ function Template() {
                   />
                 </svg>
               </ListItemIcon>
-              <ListItemText primary="Time Management" />
+              <ListItemText primary="Time Management" primaryTypographyProps={{fontSize: '14px'}}/>
               <FontAwesomeIcon icon={faCaretRight} />
             </ListItemButton>
             {isOpen[2] == true ? (
@@ -546,7 +546,7 @@ function Template() {
                                   }
                                   key={i}
                                   to={e.link}
-                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block py-2 px-4 hover:bg-gray-100 text-xs dark:hover:bg-gray-600 dark:hover:text-white"
                                 >
                                   {e.nama}
                                 </Link>
@@ -593,7 +593,7 @@ function Template() {
                       }}
                     >
                       <ListItemIcon></ListItemIcon>
-                      <ListItemText primary={val.nama} />
+                      <ListItemText primary={val.nama} primaryTypographyProps={{fontSize: '12px'}} />
                       <ChevronRight />
                     </ListItemButton>
                   </>
@@ -604,7 +604,7 @@ function Template() {
             )}
             {users?.role == "admin" ? (
                 <ListItemButton
-                  style={{ color: "#00000080" }}
+                  style={{ color: "#00000080",fontSize:'12px' }}
                   className="mt-2 flex justify-between items-center"
                   onClick={() => {
                     navigate("/payroll");
@@ -613,7 +613,7 @@ function Template() {
                   <ListItemIcon>
                     <svg
                       width="18"
-                      height="20"
+                      height="18"
                       viewBox="0 0 18 20"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -624,7 +624,7 @@ function Template() {
                       />
                     </svg>
                   </ListItemIcon>
-                  <ListItemText primary="Payroll" />
+                  <ListItemText primary="Payroll" primaryTypographyProps={{fontSize: '14px'}} />
                   <div className="bg-red-400 rounded px-2 py-1">
                     <h1 className="text-xs text-white font-bold">SOON</h1>
                   </div>
@@ -636,14 +636,14 @@ function Template() {
               <ListItemButton
                 style={{ color: "#00000080" }}
                 className="mt-2 flex justify-between items-center"
-                onClick={() => {
-                  navigate("/finance");
-                }}
+                // onClick={() => {
+                //   navigate("/finance");
+                // }}
               >
                 <ListItemIcon>
                   <svg
                     width="18"
-                    height="20"
+                    height="18"
                     viewBox="0 0 18 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -654,7 +654,7 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Finance" />
+                <ListItemText primary="Finance" primaryTypographyProps={{fontSize: '14px'}}/>
                 <div className="bg-red-400 rounded px-2 py-1">
                     <h1 className="text-xs text-white font-bold">SOON</h1>
                   </div>
@@ -672,8 +672,8 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="18"
-                    height="18"
+                    width="16"
+                    height="16"
                     viewBox="0 0 18 18"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -686,7 +686,7 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Recruitment" />
+                <ListItemText primary="Recruitment" primaryTypographyProps={{fontSize: '14px'}}/>
               </ListItemButton>
             ) : (
               ""
@@ -700,8 +700,8 @@ function Template() {
             >
               <ListItemIcon>
                 <svg
-                  width="21"
-                  height="21"
+                  width="18"
+                  height="18"
                   viewBox="0 0 21 21"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -712,7 +712,7 @@ function Template() {
                   />
                 </svg>
               </ListItemIcon>
-              <ListItemText primary="My Profile" />
+              <ListItemText primary="My Profile" primaryTypographyProps={{fontSize: '14px'}}/>
             </ListItemButton>
             {users?.role == "admin" ? (
               <ListItemButton
@@ -724,8 +724,8 @@ function Template() {
               >
                 <ListItemIcon>
                   <svg
-                    width="19"
-                    height="20"
+                    width="17"
+                    height="18"
                     viewBox="0 0 19 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -736,7 +736,7 @@ function Template() {
                     />
                   </svg>
                 </ListItemIcon>
-                <ListItemText primary="Maintenance" />
+                <ListItemText primary="Maintenance" primaryTypographyProps={{fontSize: '14px'}}/>
               </ListItemButton>
             ) : (
               ""
@@ -751,21 +751,23 @@ function Template() {
               }}
               className="text-[#780000] hover:text-[#450000]"
             >
-              <div className="flex flex-row gap-2 px-5">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M19 4H17C16.7348 4 16.4804 4.10536 16.2929 4.29289C16.1054 4.48043 16 4.73478 16 5C16 5.26522 16.1054 5.51957 16.2929 5.70711C16.4804 5.89464 16.7348 6 17 6H18V18H17C16.7348 18 16.4804 18.1054 16.2929 18.2929C16.1054 18.4804 16 18.7348 16 19C16 19.2652 16.1054 19.5196 16.2929 19.7071C16.4804 19.8946 16.7348 20 17 20H19C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19V5C20 4.73478 19.8946 4.48043 19.7071 4.29289C19.5196 4.10536 19.2652 4 19 4ZM11.8 7.4C11.6409 7.18783 11.404 7.04756 11.1414 7.01005C10.8789 6.97254 10.6122 7.04087 10.4 7.2C10.1878 7.35913 10.0476 7.59603 10.0101 7.85858C9.97254 8.12113 10.0409 8.38783 10.2 8.6L12 11H4C3.73478 11 3.48043 11.1054 3.29289 11.2929C3.10536 11.4804 3 11.7348 3 12C3 12.2652 3.10536 12.5196 3.29289 12.7071C3.48043 12.8946 3.73478 13 4 13H12.09L10.37 15.44C10.2933 15.5475 10.2386 15.6691 10.2091 15.7978C10.1796 15.9266 10.1759 16.0599 10.1982 16.19C10.2206 16.3202 10.2684 16.4446 10.3391 16.5562C10.4098 16.6678 10.5018 16.7642 10.61 16.84C10.78 16.9587 10.9827 17.0216 11.19 17.02C11.3486 17.0193 11.5048 16.9808 11.6457 16.9078C11.7865 16.8347 11.908 16.7292 12 16.6L14.82 12.6C14.9451 12.4287 15.0126 12.2221 15.0126 12.01C15.0126 11.7979 14.9451 11.5913 14.82 11.42L11.8 7.4Z"
-                    fill="#780000"
-                  />
-                </svg>
+              <div className="px-4">
+                <div className="flex flex-row gap-4 p-3">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19 4H17C16.7348 4 16.4804 4.10536 16.2929 4.29289C16.1054 4.48043 16 4.73478 16 5C16 5.26522 16.1054 5.51957 16.2929 5.70711C16.4804 5.89464 16.7348 6 17 6H18V18H17C16.7348 18 16.4804 18.1054 16.2929 18.2929C16.1054 18.4804 16 18.7348 16 19C16 19.2652 16.1054 19.5196 16.2929 19.7071C16.4804 19.8946 16.7348 20 17 20H19C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19V5C20 4.73478 19.8946 4.48043 19.7071 4.29289C19.5196 4.10536 19.2652 4 19 4ZM11.8 7.4C11.6409 7.18783 11.404 7.04756 11.1414 7.01005C10.8789 6.97254 10.6122 7.04087 10.4 7.2C10.1878 7.35913 10.0476 7.59603 10.0101 7.85858C9.97254 8.12113 10.0409 8.38783 10.2 8.6L12 11H4C3.73478 11 3.48043 11.1054 3.29289 11.2929C3.10536 11.4804 3 11.7348 3 12C3 12.2652 3.10536 12.5196 3.29289 12.7071C3.48043 12.8946 3.73478 13 4 13H12.09L10.37 15.44C10.2933 15.5475 10.2386 15.6691 10.2091 15.7978C10.1796 15.9266 10.1759 16.0599 10.1982 16.19C10.2206 16.3202 10.2684 16.4446 10.3391 16.5562C10.4098 16.6678 10.5018 16.7642 10.61 16.84C10.78 16.9587 10.9827 17.0216 11.19 17.02C11.3486 17.0193 11.5048 16.9808 11.6457 16.9078C11.7865 16.8347 11.908 16.7292 12 16.6L14.82 12.6C14.9451 12.4287 15.0126 12.2221 15.0126 12.01C15.0126 11.7979 14.9451 11.5913 14.82 11.42L11.8 7.4Z"
+                      fill="#780000"
+                    />
+                  </svg>
 
-                <p>Sign Out</p>
+                  <p style={{fontSize:'14px'}}>Sign Out</p>
+                </div>
               </div>
             </Link>
           </div>

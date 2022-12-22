@@ -371,7 +371,7 @@ function DocumentManagement() {
       <div className="container-fluid mb-4">
         <div
           className="mt-5 py-2  row justify-content-around flex-wrap"
-          style={{ backgroundColor: "#F3F6FF", borderRadius: "10px" }}
+          style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
         >
           <div className="col-3" style={{ borderRight: "1px solid #EDEDED" }}>
             <div
@@ -434,7 +434,7 @@ function DocumentManagement() {
       <div className="container-fluid">
         <div
           className="mt-5 p-4 row justify-content-around flex-wrap"
-          style={{ backgroundColor: "#F3F6FF", borderRadius: "10px" }}
+          style={{ backgroundColor: "#FFFFFF", borderRadius: "10px" }}
         >
           <div className="d-flex justify-content-between my-4">
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>Document</h3>

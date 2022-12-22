@@ -20,10 +20,10 @@ const PayrollComponentBulkUpload = () => {
             </div>
             <div className='flex flex-col gap-2'>
                 <h1 className='text-black font-semibold'>Donwload Template :</h1>
-                <div className='flex items-center gap-2 text-[#219EBCBF] opacity-75 font-semibold'>
+                <button className='flex items-center gap-2 text-[#219EBCBF] opacity-75 hover:opacity-100 transition-opacity ease-in-out duration-200 font-semibold'>
                     <h1>Download Template</h1>
                     <DownloadSimple weight='bold' size={14}/>
-                </div>
+                </button>
             </div>
             <div className='flex flex-col gap-2'>
                 <h1 className='text-xs font-semibold'>Upload File *</h1>

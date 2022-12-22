@@ -70,6 +70,8 @@ function MyAttendance() {
   const token = localStorage.getItem("token");
   // console.log(token)
 
+  // console.log(dataAttendance)
+
   useEffect(() => {
     inAwait();
   }, []);
@@ -109,10 +111,10 @@ function MyAttendance() {
     <>
       <div className="w-100 bg-[#FFFFFF] p-4 rounded-t-xl">
         <h5>
-          <b>Attendance</b>
+          <b>My Attendance</b>
         </h5>
         <p>
-          <small>list of attendance</small>
+          <small>List of Attendance</small>
         </p>
         <br></br>
         <div className="d-flex justify-content-between">
@@ -155,25 +157,25 @@ function MyAttendance() {
               <th width="10px">
                 <input type="checkbox" style={{ borderRadius: "2px" }} />
               </th>
-              <th onClick={() => {}}>
+              <th style={{ minWidth: "10em" }} onClick={() => {}}>
                 Date <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th style={{ minWidth: "10em" }} onClick={() => {}}>
                 Check In <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th style={{ minWidth: "20em" }} onClick={() => {}}>
                 Check In Location <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th style={{ minWidth: "10em" }} onClick={() => {}}>
                 Check Out <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th style={{ minWidth: "20em" }} onClick={() => {}}>
                 Check Out Location <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>
+              <th style={{ minWidth: "10em" }} onClick={() => {}}>
                 Duration <ImportExport fontSize="2px" />
               </th>
-              <th onClick={() => {}}>Action</th>
+              <th style={{ minWidth: "10em" }} onClick={() => {}}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -191,7 +193,7 @@ function MyAttendance() {
                   <td className="align-middle">
                     {duration(value.checkIn, value.checkOut)}
                   </td>
-                  <td className="align-middle d-flex justify-content-evenly">
+                  <td className="align-middle d-flex gap-2">
                     <button
                       onClick={() => {
                         setDetail(value);

@@ -88,7 +88,11 @@ function Schedule() {
           </div>
         </div>
         <br></br>
-        <Table borderless responsive style={{ color: "#00000070", fontSize: "0.75rem" }}>
+        <Table
+          borderless
+          responsive
+          style={{ color: "#00000070", fontSize: "0.75rem" }}
+        >
           <thead>
             <tr style={{ backgroundColor: "#EBF7FF" }}>
               <th width="10px">
@@ -109,8 +113,8 @@ function Schedule() {
             </tr>
           </thead>
           <tbody>
-            {schedules.length > 0 ? (
-              schedules.map((schedule, index) => (
+            {schedules?.length > 0 ? (
+              schedules?.map((schedule, index) => (
                 <tr key={index}>
                   <td className="align-middle">
                     <input type="checkbox" style={{ borderRadius: "2px" }} />

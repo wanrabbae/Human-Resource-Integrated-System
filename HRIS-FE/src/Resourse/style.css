@@ -1,0 +1,8 @@
+/* @import 'react-bootstrap-sidebar-menu/dist/sidebar-menu.scss'; */
+body {
+    background-color: "#ECEEF6";
+}
+* {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+    background-color: "#ECEEF6";
+}

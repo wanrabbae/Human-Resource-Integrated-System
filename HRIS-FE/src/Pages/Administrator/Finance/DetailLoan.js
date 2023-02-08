@@ -11,38 +11,149 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "@mui/material";
 import { red, teal, yellow } from "@mui/material/colors";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { Modal, Table } from "react-bootstrap";
 import { useLocation, useParams } from "react-router-dom";
 import { TextFieldSearch } from "../../../Components/TextField";
+=======
+import React, { useEffect, useState } from "react";
+import { Modal, Table } from "react-bootstrap";
+import { useLocation, useParams } from "react-router-dom";
+import { TextFieldSearch } from "../../../Components/TextField";
+import moment from "moment/moment";
+import { addLoanInstallemnt, deleteLoanInstallment, getLoanInstallment, updateLoanInstallment } from "../../../Repository/Finance";
+import { ModalDelete } from "../../../Components/Modals";
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
 
 function DetailLoan() {
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+<<<<<<< HEAD
   const { id } = useParams()
 
   console.log("id", id)
+=======
+  const [isDelete, setDelete] = useState(false);
+  const location = useLocation();
+  const dataLoan = location.state
+
+  const [dataIstallment, setDataInstallment] = useState([])
+  const [id, setId] = useState()
+
+  const [installmentTo, setInstallmentTo] = useState("")
+  const [date, setDate] = useState("")
+  const [amount, setAmount] = useState("")
+
+  const [editInstallmentTo, setEditInstallmentTo] = useState("")
+  const [editDate, setEditDate] = useState("")
+  const [editAmount, setEditAmount] = useState("")
+
+  const convertDate = (data) => {
+    var data1 = moment(data).format("L");
+    var data2 = data1.split("/");
+    return `${data2[2]}-${data2[0]}-${data2[1]}`;
+  };
+
+  console.log(dataLoan)
+
+  const inAwait = async () => {
+    var data = await getLoanInstallment(dataLoan.id);
+    setDataInstallment(data.data.data);
+    console.log(data.data.data);
+  }
+  useEffect(() => {
+    inAwait()
+  }, [])
+
+  const postData = async (e) => {
+    e.preventDefault();
+
+    var requestBody = {
+      loan_id: dataLoan.id,
+      installment_to: installmentTo,
+      payment_nominal: amount,
+      payment_date: date
+    };
+
+    console.log(requestBody);
+    await addLoanInstallemnt(requestBody)
+      .then((response) => {
+        console.log(response);
+        inAwait();
+        setModalAdd(false);
+      })
+      .catch((e) => {
+        console.log("error", e.response);
+        // if (e.response) {
+        //   setMsg(e.response.data.message);
+        // }
+      });
+  };
+
+  const postDataEdit = async (e) => {
+    e.preventDefault();
+
+    var requestBody = {
+      loan_id: dataLoan.id,
+      installment_to: editInstallmentTo,
+      payment_nominal: editAmount,
+      payment_date: editDate
+    };
+
+    console.log(requestBody);
+    await updateLoanInstallment(id, requestBody)
+      .then((response) => {
+        console.log(response);
+        inAwait();
+        setModalEdit(false);
+      })
+      .catch((e) => {
+        console.log("error", e.response);
+        // if (e.response) {
+        //   setMsg(e.response.data.message);
+        // }
+      });
+  };
+
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
   return (
     <>
       <div className="w-100 bg-[#FFFFFF] p-4 rounded-t-xl">
         <h2 className="text-lg">
+<<<<<<< HEAD
           <b>Dona Adiloviana</b>
+=======
+          <b>{dataLoan.employeeName}</b>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
         </h2>
         <br></br>
         <div className="space-y-3 mb-3">
           <div>
             <h3>Loan Name</h3>
+<<<<<<< HEAD
             <p className="text-gray-400">Keperluan pribadi</p>
+=======
+            <p className="text-gray-400">{dataLoan.loanName}</p>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
           </div>
           <div className="flex justify-between">
             <div className="flex gap-5">
               <div>
                 <h3>Loan Date</h3>
+<<<<<<< HEAD
                 <p className="text-gray-400">15/01/2021</p>
               </div>
               <div>
                 <h3>Expired Date</h3>
                 <p className="text-gray-400">15/01/2022</p>
+=======
+                <p className="text-gray-400">{moment(dataLoan.use_date).format("L")}</p>
+              </div>
+              <div>
+                <h3>Expired Date</h3>
+                <p className="text-gray-400">{moment(dataLoan.use_date).add(dataLoan.max_installment, 'months').format("L")}</p>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               </div>
             </div>
             <Button
@@ -77,15 +188,22 @@ function DetailLoan() {
               <th className="truncate" onClick={() => { }} style={{ minWidth: "10em" }}>
                 Payment <ImportExport fontSize="2px" />
               </th>
+<<<<<<< HEAD
               <th className="truncate" onClick={() => { }} style={{ minWidth: "11em" }}>
                 Remaining Payment <ImportExport fontSize="2px" />
               </th>
+=======
+              {/* <th className="truncate" onClick={() => { }} style={{ minWidth: "11em" }}>
+                Remaining Payment <ImportExport fontSize="2px" />
+              </th> */}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               <th className="text-center" onClick={() => { }} style={{ minWidth: "11em" }}>
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
+<<<<<<< HEAD
             {/* {dataAttendance.length > 0 ? (
           dataAttendance.map((value, index) => ( */}
             <tr>
@@ -206,6 +324,60 @@ function DetailLoan() {
             </td>
           </tr>
         )} */}
+=======
+            {dataIstallment.length > 0 ? (
+              dataIstallment.map((val, index) => (
+                <tr key={index}>
+                  {/* <td className="align-middle">
+                <input type="checkbox" style={{ borderRadius: "2px" }} />
+              </td> */}
+                  <td className="align-middle">{val.installment_to}</td>
+                  <td className="align-middle">{moment(val.payment_date).format("LL")}</td>
+                  <td className="align-middle">Rp. {parseInt(val.payment_nominal)}</td>
+                  {/* <td className="align-middle">Rp. 5.324.000</td> */}
+                  <td className="align-middle flex justify-center">
+                    <button
+                      onClick={() => {
+                        setModalEdit(true);
+                        setId(val.id)
+                        setEditInstallmentTo(val.installment_to);
+                        setEditDate(convertDate(val.payment_date));
+                        setEditAmount(val.payment_nominal);
+                      }}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <EditOutlined fontSize="10px" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setId(val.id);
+                        setDelete(true);
+                      }}
+                      className="btn btn-sm mx-1"
+                      style={{
+                        backgroundColor: "#CEDFEA",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <DeleteOutline fontSize="10px" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5}>
+                  <div className="d-flex justify-content-center align-middle text-center">
+                    No Data
+                  </div>
+                </td>
+              </tr>
+            )}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
           </tbody>
         </Table>
       </div>
@@ -252,6 +424,7 @@ function DetailLoan() {
           <div className="flex gap-3">
             <div className="w-full">
               <label className="text-xs">Installment to</label>
+<<<<<<< HEAD
                 <input
                   type="number"
                   className="rounded-none rounded-l-lg border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -265,6 +438,22 @@ function DetailLoan() {
                   className="rounded-none rounded-l-lg border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 // onChange={(e) => setMaxInstallment(e.target.value)}
                 />
+=======
+              <input
+                type="number"
+                className="rounded-none rounded-l-lg border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="0"
+                onChange={(e) => setInstallmentTo(e.target.value)}
+              />
+            </div>
+            <div className="w-full">
+              <label className="text-xs">Date of Payment</label>
+              <input
+                type="date"
+                className="rounded-none rounded-l-lg border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={(e) => setDate(e.target.value)}
+              />
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
             </div>
           </div>
           <div className="w-full">
@@ -275,6 +464,10 @@ function DetailLoan() {
               type="number"
               placeholder="Rp"
               min={0}
+<<<<<<< HEAD
+=======
+              onChange={(e) => setAmount(e.target.value)}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
             />
           </div>
         </Modal.Body>
@@ -289,7 +482,11 @@ function DetailLoan() {
           <button
             type="submit"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+<<<<<<< HEAD
           // onClick={postData}
+=======
+            onClick={postData}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
           >
             Save
           </button>
@@ -317,6 +514,11 @@ function DetailLoan() {
                 type="number"
                 className="rounded-none rounded-l-lg border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="0"
+<<<<<<< HEAD
+=======
+                value={editInstallmentTo}
+                onChange={(e) => setEditInstallmentTo(e.target.value)}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               />
             </div>
             <div className="w-full">
@@ -324,7 +526,12 @@ function DetailLoan() {
               <input
                 type="date"
                 className="rounded-none rounded-l-lg border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+<<<<<<< HEAD
               // onChange={(e) => setMaxInstallment(e.target.value)}
+=======
+                value={editDate}
+                onChange={(e) => setEditDate(e.target.value)}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               />
             </div>
           </div>
@@ -336,6 +543,11 @@ function DetailLoan() {
               type="number"
               placeholder="Rp"
               min={0}
+<<<<<<< HEAD
+=======
+              value={editAmount}
+              onChange={(e) => setEditAmount(e.target.value)}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
             />
           </div>
         </Modal.Body>
@@ -350,12 +562,30 @@ function DetailLoan() {
           <button
             type="submit"
             className="text-white bg-[#0E5073] hover:bg-[#003049] font-sm rounded-lg text-sm px-4 py-2.5 mr-2 mb-2 dark:bg-[#0E5073] dark:hover:bg-[#003049] focus:outline-none"
+<<<<<<< HEAD
           // onClick={postData}
+=======
+          onClick={postDataEdit}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
           >
             Save
           </button>
         </Modal.Footer>
       </Modal>
+<<<<<<< HEAD
+=======
+      <ModalDelete
+        close={() => {
+          setDelete(false);
+        }}
+        submit={() => {
+          deleteLoanInstallment(id);
+          inAwait();
+          setDelete(false);
+        }}
+        active={isDelete}
+      />
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
     </>
   );
 }

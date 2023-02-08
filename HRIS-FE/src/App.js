@@ -194,7 +194,11 @@ function App() {
           <Route path="/finance/reimburstment" element={<Reimbursment />} />
           <Route path="/finance/cash-advance" element={<CashAdvance />} />
           <Route path="/finance/loan" element={<Loan />} />
+<<<<<<< HEAD
           <Route path="/finance/detail-loan/:id" element={<DetailLoan />} />
+=======
+          <Route path="/finance/detail-loan" element={<DetailLoan />} />
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
           <Route path="/finance/finance-setting" element={<FinanceSetting />} />
         </Route>
       {/* ) : (

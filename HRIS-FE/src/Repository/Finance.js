@@ -307,6 +307,43 @@ var deleteLoan = async (id) => {
   }
 };
 
+<<<<<<< HEAD
+=======
+var getLoanInstallment = async (id) => {
+  var res = await api.get(`/loan/installment/${id}/all`);
+  if (res.status == 200) {
+    return res;
+  } else {
+    return res;
+  }
+};
+
+var addLoanInstallemnt = async (data) => {
+  var res = await api.post(`loan/installment`, data);
+  if (res.status == 200) {
+    return res;
+  } else {
+    return res;
+  }
+};
+var updateLoanInstallment = async (id, data) => {
+  var res = await api.put(`/loan/installment/${id}`, data);
+  if (res.status == 200) {
+    return res;
+  } else {
+    return res;
+  }
+};
+
+var deleteLoanInstallment = async (id) => {
+  var res = await api.delete(`/loan/installment/${id}`);
+  if (res.status == 200) {
+    return res;
+  } else {
+    return res;
+  }
+};
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
 export {
   getReimbursementSetting,
   addReimbursementSetting,
@@ -337,5 +374,13 @@ export {
   searchReimbursement,
   searchCashAdvance,
   searchLoan,
+<<<<<<< HEAD
   getLoanSettingDetail
+=======
+  getLoanSettingDetail,
+  getLoanInstallment,
+  addLoanInstallemnt,
+  updateLoanInstallment,
+  deleteLoanInstallment
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
 };

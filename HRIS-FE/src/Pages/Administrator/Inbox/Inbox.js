@@ -194,8 +194,13 @@ function Inbox() {
           {data.length > 0 ? data.map((val, index) => (
             users.employeeId == null ?
               (<div key={index}>
+<<<<<<< HEAD
                 <div className={val.isRead == 1 ?"h-14 flex flex-row justify-between items-center bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-700 my-1":"h-14 flex flex-row justify-between items-center bg-[#EBF7FF] border rounded-lg dark:bg-gray-800 dark:border-gray-700 my-1"}>
                   <a href="#" onClick={() => readInbox(val.id, val.link)} className="flex flex-row gap-3 py-1 px-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+=======
+                <div className={val.isRead == 1 ?"h-14 flex flex-row justify-between items-center bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-700 my-1 w-full":"h-14 flex flex-row justify-between items-center bg-[#EBF7FF] border rounded-lg dark:bg-gray-800 dark:border-gray-700 my-1 w-full"}>
+                  <a href="#" onClick={() => readInbox(val.id, val.link)} className="flex flex-row gap-3 py-1 px-3 font-medium text-gray-900 truncate dark:text-white">
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                     {/* <div className="flex items-center h-5">
                       <input
                         id="remember"
@@ -282,14 +287,22 @@ function Inbox() {
             </div>
           </a> */}
         </div>
+<<<<<<< HEAD
         <div className="bg-[#FBFBFB] mt-0 px-4 py-3 rounded-b-xl d-flex align-items-center justify-content-between ">
+=======
+        <div className="bg-[#FBFBFB] mt-0 px-4 py-3 rounded-b-xl grid md:grid-cols-2 grid-cols-1 items-center justify-between">
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
           <div>
             <h6 className="text-[#A098AE] text-[10px]">
               Showing <span className="text-[#0E5073]">{data?.length}</span>{" "}
               from <span className="text-[#0E5073]">{totalItems}</span> data
             </h6>
           </div>
+<<<<<<< HEAD
           <div class="d-flex justify-content-center">
+=======
+          <div class="flex justify-end border">
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
             <Pagination
               count={totalPage}
               onChange={changePage}

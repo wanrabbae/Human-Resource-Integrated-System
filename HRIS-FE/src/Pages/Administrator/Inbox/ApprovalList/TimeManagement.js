@@ -479,7 +479,11 @@ function TimeManagement() {
                 <div className="bg-[#F8F8F8] p-3">
                   <div className="grid grid-cols-4 gap-2 py-2">
                     <p>Employee Name</p>
+<<<<<<< HEAD
                     <p className="col-span-3">: {detail?.employee ? detail?.employee.firstName : "-"}</p>
+=======
+                    <p className="col-span-3">: {detail?.employee ? detail?.employee?.firstName : "-"}</p>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                   </div>
                   <div className="grid grid-cols-4 gap-2 py-2">
                     <p>Job Position</p>
@@ -488,6 +492,7 @@ function TimeManagement() {
                   <div className="">
                     <div className="grid grid-cols-4 gap-2 py-2">
                       <p>Permission Reason</p>
+<<<<<<< HEAD
                       <p className="col-span-3">: {detail.permissionsReason ? detail.permissionsReason : "-"}</p>
                     </div>
                     <div className="grid grid-cols-4 gap-2 py-2">
@@ -509,15 +514,46 @@ function TimeManagement() {
                     <div className="grid grid-cols-4 gap-2 py-2">
                       <p>End Time</p>
                       <p className="col-span-3">: {detail.endTime ? detail.endTime : "-"}</p>
+=======
+                      <p className="col-span-3">: {detail?.permissionsReason ? detail.permissionsReason : "-"}</p>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 py-2">
+                      <p>Date of Filling</p>
+                      <p className="col-span-3">: {detail?.dateOfFiling ? detail.dateOfFiling : "-"}</p>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 py-2">
+                      <p>Submission Time</p>
+                      <p className="col-span-3">: {detail?.submissionTime ? detail?.submissionTime : "-"}</p>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 py-2">
+                      <p>Number of Days</p>
+                      <p className="col-span-3">: {detail?.numberOfDays} Days</p>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 py-2">
+                      <p>Start Time</p>
+                      <p className="col-span-3">: {detail?.startTime ? detail?.startTime : "-"}</p>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 py-2">
+                      <p>End Time</p>
+                      <p className="col-span-3">: {detail?.endTime ? detail?.endTime : "-"}</p>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                     </div>
                     <h3 className="font-semibold text-lg">Back to Work</h3>
                     <div className="grid grid-cols-4 gap-2 py-2">
                       <p>Date</p>
+<<<<<<< HEAD
                       <p className="col-span-3">: {detail.backToWorkDate ? detail.backToWorkDate : "-"}</p>
                     </div>
                     <div className="grid grid-cols-4 gap-2 py-2">
                       <p>Time</p>
                       <p className="col-span-3">: {detail.backToWorkTime ? detail.backToWorkTime : "-"}</p>
+=======
+                      <p className="col-span-3">: {detail?.backToWorkDate ? detail?.backToWorkDate : "-"}</p>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 py-2">
+                      <p>Time</p>
+                      <p className="col-span-3">: {detail?.backToWorkTime ? detail?.backToWorkTime : "-"}</p>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                     </div>
                   </div>
                 </div>

@@ -89,6 +89,10 @@ function Leave() {
   const [totalPage, setTotalPage] = useState(0);
   const [allPages, setAllPages] = useState([]);
 
+<<<<<<< HEAD
+=======
+  console.log("employee", employeeNames)
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
   useEffect(() => {
     GetLeave({ page: 0, size: 25 }).then((response) => {
       setData(response?.requests);
@@ -375,6 +379,12 @@ function Leave() {
                             end_date: val.end_date,
                             leave_type: val.leave_type.name,
                             note: val.note,
+<<<<<<< HEAD
+=======
+                            remaining_days: val.remaining_days,
+                            delegated_employee: val.delegated_employee.firstName,
+                            delegated_task: val.delegated_task
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                           });
                         }}
                       >
@@ -394,9 +404,15 @@ function Leave() {
                           setEditStart(val.start_date);
                           setEditEnd(val.end_date);
                           setEditNote(val.note);
+<<<<<<< HEAD
                           setEditDelegetedEmployee(val.delegated_employee.id)
                           setEditDelegetedTask(val.delegated_task)
                           setEditEmergencyContact(val?.emergency_contact.id)
+=======
+                          setEditDelegetedEmployee(val.delegated_employee?.id)
+                          setEditDelegetedTask(val.delegated_task)
+                          setEditEmergencyContact(val?.emergency_contact?.id)
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                           setEditLeaveDuration(val?.leave_duration)
                           setEditRemainingDays(val?.remaining_days)
                           setModalEdit(true);
@@ -718,7 +734,11 @@ function Leave() {
                 ></textarea>
               </div>
               <hr className=""></hr>
+<<<<<<< HEAD
               <div>
+=======
+              {/* <div>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                 <label
                   htmlFor="type"
                   className="block mb-2 text-sm text-gray-600"
@@ -765,7 +785,11 @@ function Leave() {
                   // value={emergencyContact ? emergencyContact?.addres : ""}
                   readOnly
                 />
+<<<<<<< HEAD
               </div>
+=======
+              </div> */}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               <div className="flex justify-end gap-2 mt-5">
                 <button
                   className="bg-gray-200 text-[#0E5073] rounded-lg px-4 py-2"
@@ -887,7 +911,11 @@ function Leave() {
                   />
                 </div>
               </div>
+<<<<<<< HEAD
               
+=======
+
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <label
@@ -974,7 +1002,11 @@ function Leave() {
                 ></textarea>
               </div>
               <hr className=""></hr>
+<<<<<<< HEAD
               <div>
+=======
+              {/* <div>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                 <label
                   htmlFor="type"
                   className="block mb-2 text-sm text-gray-600"
@@ -1022,7 +1054,11 @@ function Leave() {
                   // value={emergencyContact ? emergencyContact?.addres : ""}
                   readOnly
                 />
+<<<<<<< HEAD
               </div>
+=======
+              </div> */}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               <div className="flex justify-end gap-2 mt-5">
                 <button
                   className="bg-gray-200 text-[#0E5073] rounded-lg px-4 py-2"
@@ -1089,12 +1125,21 @@ function Leave() {
                   </div>
                   <div className="grid grid-cols-4 gap-2 py-2">
                     <p>Remaining Days Off</p>
+<<<<<<< HEAD
                     <p className="col-span-3">: -</p>
                   </div>
                   <div className="grid grid-cols-4 gap-2 py-2">
                     <p>Time Off Duration</p>
                     <p className="col-span-3">: -</p>
                   </div>
+=======
+                    <p className="col-span-3">: {detail.remaining_days ? detail.remaining_days : "-"}</p>
+                  </div>
+                  {/* <div className="grid grid-cols-4 gap-2 py-2">
+                    <p>Time Off Duration</p>
+                    <p className="col-span-3">: -</p>
+                  </div> */}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                   <div className="grid grid-cols-4 gap-2 py-2">
                     <p>Time off Type</p>
                     <p className="col-span-3">
@@ -1109,6 +1154,7 @@ function Leave() {
                   </div>
                   <div className="grid grid-cols-4 gap-2 py-2">
                     <p>Delegated Employee</p>
+<<<<<<< HEAD
                     <p className="col-span-3">: -</p>
                   </div>
                   <div className="grid grid-cols-4 gap-2 py-2 border-b border-gray-300">
@@ -1116,6 +1162,15 @@ function Leave() {
                     <p className="col-span-3">: -</p>
                   </div>
                   <div className="grid grid-cols-4 gap-2 py-2">
+=======
+                    <p className="col-span-3">: {detail.delegated_employee ? detail.delegated_employee : "-"}</p>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 py-2 border-b border-gray-300">
+                    <p>Delegated Task</p>
+                    <p className="col-span-3">: {detail.delegated_task ? detail.delegated_task : "-"}</p>
+                  </div>
+                  {/* <div className="grid grid-cols-4 gap-2 py-2">
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                     <p>Emergency Contact</p>
                     <p className="col-span-3">: -</p>
                   </div>
@@ -1126,7 +1181,11 @@ function Leave() {
                   <div className="grid grid-cols-4 gap-2 py-2">
                     <p>Emergency Address</p>
                     <p className="col-span-3">: -</p>
+<<<<<<< HEAD
                   </div>
+=======
+                  </div> */}
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                 </div>
               </div>
               <div className="flex justify-end gap-2 mt-5">

@@ -33,7 +33,11 @@ function News() {
             <div className="grid grid-cols-3 gap-2 items-center justify-center gap-5">
                 {dataNews.length > 0 ?
                     dataNews.slice(0, 3).map((val, index) => (
+<<<<<<< HEAD
                         <Link key={index} to={"/finance/reimburstment"} className="relative">
+=======
+                        <Link key={index} to={`/news/detail/${val.id}`} className="relative">
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                             {val.image ?
                                 // <div className="brightness-75 transition-all duration-500 ease-in-out hover:brightness-50 h-[150px] w-full rounded-xl bg-no-repeat bg-center bg-cover" style={{backgroundImage: `url(${val.image})`}}></div>
                                 <img className="brightness-75 transition-all duration-500 ease-in-out hover:brightness-50 h-[150px] w-full rounded-xl bg-no-repeat bg-center bg-cover" crossOrigin="anonymous" src={val.image} />
@@ -52,10 +56,17 @@ function News() {
                 <div className='flex justify-between'>
                     <div>
                         <h5>
+<<<<<<< HEAD
                             <b>Reimbursment</b>
                         </h5>
                         <p>
                             <small>list of reimbursment</small>
+=======
+                            <b>News</b>
+                        </h5>
+                        <p>
+                            <small>list of News</small>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                         </p>
                     </div>
                     <div className="flex">

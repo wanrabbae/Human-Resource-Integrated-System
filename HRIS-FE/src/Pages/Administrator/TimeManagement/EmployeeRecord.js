@@ -75,6 +75,11 @@ function EmployeeRecord() {
   const [latitude, setLatitude] = useState([]);
   const [longitude, setLongitude] = useState([]);
 
+<<<<<<< HEAD
+=======
+  const [dataExport, setDataExport] = useState([])
+
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
   const navigate = useNavigate();
   let allPages = [];
   const inAwait = async () => {
@@ -85,6 +90,12 @@ function EmployeeRecord() {
     setTotalItems(dataEmployeeRecord.totalItems);
     setTotalPage(dataEmployeeRecord.totalPages);
 
+<<<<<<< HEAD
+=======
+    var data = await GetEmployeeRecord({ page: 1, size: dataEmployeeRecord.totalItems });
+    setDataExport(data.requests)
+
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
     console.log(dataEmployeeName);
   };
   useEffect(() => {
@@ -159,12 +170,22 @@ function EmployeeRecord() {
     return `${d._data.hours}:${d._data.minutes}:${d._data.seconds}`;
   };
 
+<<<<<<< HEAD
   const exportExcel = async () => {
     if (employeeRecord.length > 0) {
       var wb = XLSX.utils.book_new();
       var data = [];
 
       await employeeRecord.map((app) => {
+=======
+  console.log(dataExport)
+  const exportExcel = async () => {
+    if (dataExport.length > 0) {
+      var wb = XLSX.utils.book_new();
+      var data = [];
+
+      await dataExport.map((app) => {
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
         data.push({
           "Employee Name": app?.employee?.firstName,
           "Date": app?.date,
@@ -244,7 +265,11 @@ function EmployeeRecord() {
               startIcon={<Add />}
             >
               <span>
+<<<<<<< HEAD
               Manual Check In / Out
+=======
+                Manual Check In / Out
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
               </span>
             </Button>
           </div>
@@ -260,6 +285,7 @@ function EmployeeRecord() {
               <th width="10px">
                 <input type="checkbox" style={{ borderRadius: "2px" }} />
               </th>
+<<<<<<< HEAD
               <th onClick={() => {}} style={{ minWidth: "20em" }}>
                 Employee Name <ImportExport fontSize="2px" />
               </th>
@@ -282,6 +308,30 @@ function EmployeeRecord() {
                 Duration <ImportExport fontSize="2px" />
               </th>
               <th onClick={() => {}} style={{ minWidth: "10em" }}>
+=======
+              <th onClick={() => { }} style={{ minWidth: "20em" }}>
+                Employee Name <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => { }} style={{ minWidth: "10em" }}>
+                Date <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => { }} style={{ minWidth: "10em" }}>
+                Check In <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => { }} style={{ minWidth: "20em" }}>
+                Check In Location <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => { }} style={{ minWidth: "10em" }}>
+                Check Out <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => { }} style={{ minWidth: "20em" }}>
+                Check Out Location <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => { }} style={{ minWidth: "10em" }}>
+                Duration <ImportExport fontSize="2px" />
+              </th>
+              <th onClick={() => { }} style={{ minWidth: "10em" }}>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                 Action
               </th>
             </tr>
@@ -502,11 +552,33 @@ function EmployeeRecord() {
                 <div className="col-6 font-bold">{det.checkIn}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
+<<<<<<< HEAD
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">
                     <center>
                       <Camera size={50} className="text-[#00000050]" />
                     </center>
                     <h6 className="text-[#00000050]">No Photo</h6>
+=======
+                  <div className="mt-2 w-fit text-center rounded-xl bg-[#EDEDED] flex justify-center items-center">
+                    <div className="overflow-hidden relative w-20 h-20 bg-gray-100 rounded-lg dark:bg-gray-600">
+                      {det.imageIn ? (
+                        <img src={det.imageIn} />
+                      ) : (
+                        <svg
+                          className="absolute w-20 h-20 text-gray-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      )}
+                    </div>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                   </div>
                 </div>
                 <div className="col-md-7">
@@ -544,11 +616,33 @@ function EmployeeRecord() {
                 <div className="col-6 font-bold">{det.checkOut}</div>
                 <div className="col-md-5">
                   <h6>Photo</h6>
+<<<<<<< HEAD
                   <div className="mt-2 px-2 py-4 text-center rounded-xl bg-[#EDEDED]">
                     <center>
                       <Camera size={50} className="text-[#00000050]" />
                     </center>
                     <h6 className="text-[#00000050]">No Photo</h6>
+=======
+                  <div className="mt-2 w-fit text-center rounded-xl bg-[#EDEDED] flex justify-center items-center">
+                    <div className="overflow-hidden relative w-20 h-20 bg-gray-100 rounded-lg dark:bg-gray-600">
+                      {det.imageOut ? (
+                        <img src={"det.imageOut"} />
+                      ) : (
+                        <svg
+                          className="absolute w-20 h-20 text-gray-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      )}
+                    </div>
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                   </div>
                 </div>
                 <div className="col-md-7">

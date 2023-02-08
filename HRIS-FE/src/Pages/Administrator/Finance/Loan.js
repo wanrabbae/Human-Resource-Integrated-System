@@ -186,7 +186,11 @@ function Loan() {
     var a = data.split(",");
     return a;
   };
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
   const convertEditData = (data) => {
     console.log(data)
     var a = data.split(",");
@@ -373,7 +377,19 @@ function Loan() {
                     <td className="align-middle d-flex justify-content-evenly">
                       <button
                         onClick={() => {
+<<<<<<< HEAD
                           navigate(`/finance/detail-loan/${val.id}`);
+=======
+                          navigate(`/finance/detail-loan`, {
+                            state: {
+                              id: val.id,
+                              loanName: val?.loan_setting?.name,
+                              use_date: val?.use_date,
+                              max_installment: val?.max_installment,
+                              employeeName: val?.employee?.firstName
+                            }
+                          });
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
                         }}
                         className="btn btn-sm mx-1"
                         style={{
@@ -547,7 +563,11 @@ function Loan() {
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
+<<<<<<< HEAD
           
+=======
+
+>>>>>>> 5505341d8d16fb6211ef3c4ab90b72e27d1785f1
           <div className="d-flex gap-3">
             <div className="w-full">
               <label className="text-xs">Nominal Interest</label>
